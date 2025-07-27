@@ -205,52 +205,56 @@ views:
         column_span: 2
       - type: grid
         cards:
-          - type: custom:mod-card
-            card:
-              type: custom:mushroom-title-card
-              title: ''
-              subtitle: '{{ state_attr(''sensor.arrosage_noms_des_zones'', ''zone_1'') }}'
-            card_mod:
-              style:
-                mushroom-title-card$: |
-                  .subtitle {
-                    border-bottom: 1px solid var(--ha-card-border-color,var(--divider-color,#e0e0e0));
-                    padding-bottom: 0px;
-                  }
-                  .header {
-                    margin-bottom: -7px;
-                  }
-          - type: custom:mushroom-chips-card
-            chips:
-              - type: entity
-                entity: input_boolean.arrosage_programmation_zone_1
-                content_info: none
-                icon_color: light-green
+          - type: vertical-stack
+            cards:
+              - type: custom:mod-card
+                card:
+                  type: custom:mushroom-title-card
+                  title: ''
+                  subtitle: >-
+                    {{ state_attr('sensor.arrosage_noms_des_zones', 'zone_1') }}
+                    - Zone 1
+                card_mod:
+                  style:
+                    mushroom-title-card$: |
+                      .subtitle {
+                        border-bottom: 1px solid var(--ha-card-border-color,var(--divider-color,#e0e0e0));
+                        padding-bottom: 0px;
+                      }
+                      .header {
+                        margin-bottom: -7px;
+                      }
+              - type: custom:mushroom-chips-card
+                chips:
+                  - type: entity
+                    entity: input_boolean.arrosage_programmation_zone_1
+                    content_info: none
+                    icon_color: light-green
+                    card_mod:
+                      style: |
+                        ha-card {
+                          --chip-border-radius: 12px;
+                        }
+                  - type: entity
+                    entity: input_boolean.arrosage_auto_zone_1
+                    tap_action:
+                      action: perform-action
+                      perform_action: input_boolean.turn_on
+                      target:
+                        entity_id: input_boolean.arrosage_auto_zone_1
+                    content_info: none
+                    icon_color: light-green
+                    card_mod:
+                      style: |
+                        ha-card {
+                          --chip-border-radius: 12px;
+                        }
+                alignment: end
                 card_mod:
                   style: |
                     ha-card {
-                      --chip-border-radius: 12px;
+                      padding-right: 8px;
                     }
-              - type: entity
-                entity: input_boolean.arrosage_auto_zone_1
-                tap_action:
-                  action: perform-action
-                  perform_action: input_boolean.turn_on
-                  target:
-                    entity_id: input_boolean.arrosage_auto_zone_1
-                content_info: none
-                icon_color: light-green
-                card_mod:
-                  style: |
-                    ha-card {
-                      --chip-border-radius: 12px;
-                    }
-            alignment: end
-            card_mod:
-              style: |
-                ha-card {
-                  padding-right: 8px;
-                }
           - type: custom:vertical-stack-in-card
             cards:
               - type: custom:mushroom-template-card
@@ -821,52 +825,56 @@ views:
                     border-color: #DCDCDC;
                   {% endif %}
                 }
-          - type: custom:mod-card
-            card:
-              type: custom:mushroom-title-card
-              title: ''
-              subtitle: '{{ state_attr(''sensor.arrosage_noms_des_zones'', ''zone_2'') }}'
-            card_mod:
-              style:
-                mushroom-title-card$: |
-                  .subtitle {
-                    border-bottom: 1px solid var(--ha-card-border-color,var(--divider-color,#e0e0e0));
-                    padding-bottom: 0px;
-                  }
-                  .header {
-                    margin-bottom: -7px;
-                  }
-          - type: custom:mushroom-chips-card
-            chips:
-              - type: entity
-                entity: input_boolean.arrosage_programmation_zone_2
-                content_info: none
-                icon_color: light-green
+          - type: vertical-stack
+            cards:
+              - type: custom:mod-card
+                card:
+                  type: custom:mushroom-title-card
+                  title: ''
+                  subtitle: >-
+                    {{ state_attr('sensor.arrosage_noms_des_zones', 'zone_2') }}
+                    - Zone 2
+                card_mod:
+                  style:
+                    mushroom-title-card$: |
+                      .subtitle {
+                        border-bottom: 1px solid var(--ha-card-border-color,var(--divider-color,#e0e0e0));
+                        padding-bottom: 0px;
+                      }
+                      .header {
+                        margin-bottom: -7px;
+                      }
+              - type: custom:mushroom-chips-card
+                chips:
+                  - type: entity
+                    entity: input_boolean.arrosage_programmation_zone_2
+                    content_info: none
+                    icon_color: light-green
+                    card_mod:
+                      style: |
+                        ha-card {
+                          --chip-border-radius: 12px;
+                        }
+                  - type: entity
+                    entity: input_boolean.arrosage_auto_zone_2
+                    tap_action:
+                      action: perform-action
+                      perform_action: input_boolean.turn_on
+                      target:
+                        entity_id: input_boolean.arrosage_auto_zone_2
+                    content_info: none
+                    icon_color: light-green
+                    card_mod:
+                      style: |
+                        ha-card {
+                          --chip-border-radius: 12px;
+                        }
+                alignment: end
                 card_mod:
                   style: |
                     ha-card {
-                      --chip-border-radius: 12px;
+                      padding-right: 8px;
                     }
-              - type: entity
-                entity: input_boolean.arrosage_auto_zone_2
-                tap_action:
-                  action: perform-action
-                  perform_action: input_boolean.turn_on
-                  target:
-                    entity_id: input_boolean.arrosage_auto_zone_2
-                content_info: none
-                icon_color: light-green
-                card_mod:
-                  style: |
-                    ha-card {
-                      --chip-border-radius: 12px;
-                    }
-            alignment: end
-            card_mod:
-              style: |
-                ha-card {
-                  padding-right: 8px;
-                }
           - type: custom:vertical-stack-in-card
             cards:
               - type: custom:mushroom-template-card
@@ -1097,52 +1105,56 @@ views:
                 }
       - type: grid
         cards:
-          - type: custom:mod-card
-            card:
-              type: custom:mushroom-title-card
-              title: ''
-              subtitle: '{{ state_attr(''sensor.arrosage_noms_des_zones'', ''zone_3'') }}'
-            card_mod:
-              style:
-                mushroom-title-card$: |
-                  .subtitle {
-                    border-bottom: 1px solid var(--ha-card-border-color,var(--divider-color,#e0e0e0));
-                    padding-bottom: 0px;
-                  }
-                  .header {
-                    margin-bottom: -7px;
-                  }
-          - type: custom:mushroom-chips-card
-            chips:
-              - type: entity
-                entity: input_boolean.arrosage_programmation_zone_3
-                content_info: none
-                icon_color: light-green
+          - type: vertical-stack
+            cards:
+              - type: custom:mod-card
+                card:
+                  type: custom:mushroom-title-card
+                  title: ''
+                  subtitle: >-
+                    {{ state_attr('sensor.arrosage_noms_des_zones', 'zone_3') }}
+                    - Zone 3
+                card_mod:
+                  style:
+                    mushroom-title-card$: |
+                      .subtitle {
+                        border-bottom: 1px solid var(--ha-card-border-color,var(--divider-color,#e0e0e0));
+                        padding-bottom: 0px;
+                      }
+                      .header {
+                        margin-bottom: -7px;
+                      }
+              - type: custom:mushroom-chips-card
+                chips:
+                  - type: entity
+                    entity: input_boolean.arrosage_programmation_zone_3
+                    content_info: none
+                    icon_color: light-green
+                    card_mod:
+                      style: |
+                        ha-card {
+                          --chip-border-radius: 12px;
+                        }
+                  - type: entity
+                    entity: input_boolean.arrosage_auto_zone_3
+                    tap_action:
+                      action: perform-action
+                      perform_action: input_boolean.turn_on
+                      target:
+                        entity_id: input_boolean.arrosage_auto_zone_3
+                    content_info: none
+                    icon_color: light-green
+                    card_mod:
+                      style: |
+                        ha-card {
+                          --chip-border-radius: 12px;
+                        }
+                alignment: end
                 card_mod:
                   style: |
                     ha-card {
-                      --chip-border-radius: 12px;
+                      padding-right: 8px;
                     }
-              - type: entity
-                entity: input_boolean.arrosage_auto_zone_3
-                tap_action:
-                  action: perform-action
-                  perform_action: input_boolean.turn_on
-                  target:
-                    entity_id: input_boolean.arrosage_auto_zone_3
-                content_info: none
-                icon_color: light-green
-                card_mod:
-                  style: |
-                    ha-card {
-                      --chip-border-radius: 12px;
-                    }
-            alignment: end
-            card_mod:
-              style: |
-                ha-card {
-                  padding-right: 8px;
-                }
           - type: custom:vertical-stack-in-card
             cards:
               - type: custom:mushroom-template-card
@@ -1371,9 +1383,21 @@ views:
                     border-color: #DCDCDC;
                   {% endif %}
                 }
-          - type: custom:mushroom-title-card
-            title: ''
-            subtitle: Infos complémentaires
+          - type: custom:mod-card
+            card:
+              type: custom:mushroom-title-card
+              title: ''
+              subtitle: Infos complémentaires
+            card_mod:
+              style:
+                mushroom-title-card$: |
+                  .subtitle {
+                    border-bottom: 1px solid var(--ha-card-border-color,var(--divider-color,#e0e0e0));
+                    padding-bottom: 0px;
+                  }
+                  .header {
+                    margin-bottom: -7px;
+                  }
           - type: custom:mushroom-template-card
             multiline_secondary: true
             icon: mdi:calendar-clock
