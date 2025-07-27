@@ -1,0 +1,23 @@
+type: custom:mushroom-template-card
+entity: binary_sensor.arrosage_electrovannes_connected
+primary: Electrovannes
+secondary: |-
+  {% if is_state(entity, "on") %}
+    Connecté
+  {% else %}
+    Déconnecté
+  {% endif %}
+icon_color: |-
+  {% if is_state(entity, "on") %}
+    light-blue
+  {% else %}
+    red
+  {% endif %}
+icon: |-
+  {% if is_state(entity, "on") %}
+    mdi:check-network-outline   
+  {% else %}
+    mdi:network-off-outline
+  {% endif %}
+grid_options:
+  columns: full
