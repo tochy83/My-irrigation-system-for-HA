@@ -1,0 +1,15 @@
+type: custom:mod-card
+card:
+  type: custom:mushroom-title-card
+  title: ""
+  subtitle: Infos complémentaires
+card_mod:
+  style:
+    mushroom-title-card$: |
+      .subtitle {
+        border-bottom: 1px solid var(--ha-card-border-color,var(--divider-color,#e0e0e0));
+        padding-bottom: 0px;
+      }
+      .header {
+        margin-bottom: -7px;
+      }
