@@ -4,7 +4,7 @@
 
 automation:
 
-  arrosage_alerte:
+  - id: 'arrosage_alerte'
     alias: Arrosage - Alerte
     description: >-
       Envoi une notification sur le téléphone si l'heure prévue de fin du cycle
@@ -81,7 +81,7 @@ automation:
                   persistent: "true"
     mode: single
 
-  arrosage_calendrier:
+  - id: 'arrosage_calendrier'
     alias: Arrosage - Calendrier
     description: >-
       Détecte les événéments sur le calendrier Arrosage pour démarrer les cycles
@@ -141,7 +141,7 @@ automation:
                 action: input_boolean.turn_on
     mode: single
 
-  arrosage_voie_1:
+  - id: 'arrosage_voie_1'
     alias: Arrosage - Voie 1
     description: >-
       Permet de démarrer/arrêter le minuteur de la voie 1 et le stockage des données
@@ -224,7 +224,7 @@ automation:
                   entity_id: input_text.arrosage_volume_voie_1
     mode: single
 
-  arrosage_voie_2:
+  - id: 'arrosage_voie_2'
     alias: Arrosage - Voie 2
     description: >-
       Permet de démarrer/arrêter le minuteur de la voie 2 et le stockage des données
@@ -310,7 +310,7 @@ automation:
                   entity_id: input_text.arrosage_volume_voie_2
     mode: single
 
-  arrosage_voie_3:
+  - id: 'arrosage_voie_3'
     alias: Arrosage - Voie 3
     description: >-
       Permet de démarrer/arrêter le minuteur de la voie 3 et le stockage des données
@@ -396,7 +396,7 @@ automation:
                   entity_id: input_text.arrosage_volume_voie_3
     mode: single
 
-  arrosage_voie_4:
+  - id: 'arrosage_voie_4'
     alias: Arrosage - Voie 4
     description: >-
       Permet de démarrer/arrêter le minuteur de la voie 4 et le stockage des données
@@ -482,7 +482,7 @@ automation:
                   entity_id: input_text.arrosage_volume_voie_4
     mode: single
 
-  arrosage_voie_5:
+  - id: 'arrosage_voie_5'
     alias: Arrosage - Voie 5
     description: >-
       Permet de démarrer/arrêter le minuteur de la voie 5 et le stockage des données
@@ -568,7 +568,7 @@ automation:
                   entity_id: input_text.arrosage_volume_voie_5
     mode: single
 
-  arrosage_voie_6:
+  - id: 'arrosage_voie_6'
     alias: Arrosage - Voie 6
     description: >-
       Permet de démarrer/arrêter le minuteur de la voie 6 et le stockage des données
@@ -656,7 +656,7 @@ automation:
                   entity_id: input_text.arrosage_volume_voie_6
     mode: single
 
-  arrosage_voie_7:
+  - id: 'arrosage_voie_7'
     alias: Arrosage - Voie 7
     description: >-
       Permet de démarrer/arrêter le minuteur de la voie 7 et le stockage des données
@@ -744,7 +744,7 @@ automation:
                   entity_id: input_text.arrosage_volume_voie_7
     mode: single
 
-  arrosage_voie_8:
+  - id: 'arrosage_voie_8'
     alias: Arrosage - Voie 8
     description: >-
       Permet de démarrer/arrêter le minuteur de la voie 1 et le stockage des données
@@ -832,7 +832,7 @@ automation:
                   entity_id: input_text.arrosage_volume_voie_8
     mode: single
 
-  arrosage_voie_9:
+  - id: 'arrosage_voie_9'
     alias: Arrosage - Voie 9
     description: >-
       Permet de démarrer/arrêter le minuteur de la voie 1 et le stockage des données
@@ -920,7 +920,7 @@ automation:
                   entity_id: input_text.arrosage_volume_voie_9
     mode: single
 
-  arrosage_zone_1:
+  - id: 'arrosage_zone_1'
     alias: Arrosage - Zone 1
     description: Cycle d'arrosage de la zone 1
     triggers:
@@ -1001,7 +1001,7 @@ automation:
                   persistent: "true"
     mode: single
 
-  arrosage_zone_2:
+  - id: 'arrosage_zone_2'
     alias: Arrosage - Zone 2
     description: >-
       Cycle d'arrosage de la zone 2
@@ -1086,7 +1086,7 @@ automation:
                   persistent: "true"
     mode: single
 
-  arrosage_zone_3:
+  - id: 'arrosage_zone_3'
     alias: Arrosage - Zone 3
     description: >-
       Cycle d'arrosage de la zone 3
