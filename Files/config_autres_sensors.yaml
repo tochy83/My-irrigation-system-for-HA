@@ -13,7 +13,7 @@ template:
 
 # Pour avoir un vrai retour de la connectivité de vos électrovannes en production (si vous le souhaitez)
 # il faudra remplacer 'sensor.home_assistant_operating_system_version' dans la ligne 'my_entity:'
-# par votre votre entité remontant la connectivité de vos électrovannes, sinon laissez le tel qu'il est.
+# par votre votre entité remontant la connectivité de vos électrovannes, sinon laisser tel quel.
 
 # Exemple de ma config :
 #          my_entity: binary_sensor.arrosage_esp_status
@@ -37,8 +37,9 @@ template:
         variables:
           my_entity: sensor.d1mini_verger_compteur_eau_jour
 
-# Si vous n'avez pas de moyen de comptabliser votre consommation d'eau, laissez le capteur ci-dessus tel qu'il est.
-# Si vous en avez un, remplacer 'sensor.d1mini_verger_compteur_eau_jour' dans la ligne 'my_entity:' par votre entité qui comptabilise votre consommation d'eau.
+# Si vous n'avez pas de moyen de comptabliser votre consommation d'eau, laissez le sensor ci-dessus tel quel.
+# Si vous en avez un, remplacer 'sensor.d1mini_verger_compteur_eau_jour' dans la ligne 'my_entity:'
+# par votre entité qui comptabilise votre consommation d'eau.
 
 input_text:
   arrosage_volume_depart:  # Stocke le volume d'arrosage au déclenchement d'une électrovanne
