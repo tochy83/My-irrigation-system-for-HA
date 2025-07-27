@@ -31,12 +31,14 @@ template:
   - sensor:
       - name: Arrosage - Compteur eau
         unique_id: arrosage_compteur_eau
-        state: "{{ states('sensor.d1mini_verger_compteur_eau_jour') | int(0) }}"
+        state: "{{ states(my_entity) | int(0) }}"
         icon: mdi:water
         unit_of_measurement: L
+        variables:
+          my_entity: sensor.d1mini_verger_compteur_eau_jour
 
 # Si vous n'avez pas de moyen de comptabliser votre consommation d'eau, laissez le capteur ci-dessus tel qu'il est.
-# Si vous en avez un, remplacer 'sensor.d1mini_verger_compteur_eau_jour' par votre entité qui comptabilise votre consommation d'eau.
+# Si vous en avez un, remplacer 'sensor.d1mini_verger_compteur_eau_jour' dans la ligne 'my_entity:' par votre entité qui comptabilise votre consommation d'eau.
 
 input_text:
   arrosage_volume_depart:  # Stocke le volume d'arrosage au déclenchement d'une électrovanne
