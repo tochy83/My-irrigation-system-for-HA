@@ -1,7 +1,8 @@
 
-La page arrosage (Sans arrosage en cours):
-![](../Medias/arrosage_page.jpg | width=50%)
-<img src="../Medias/arrosage_page.jpg" width=50%>
+La page arrosage (Sans arrosage en cours) :
+<p align="center"><img src="../Medias/arrosage_page.jpg" width=75%></p>
 <br><br>
-La page arrosage (Avec arrosage en cours):
-![](../Medias/arrosage_page_arrosage_en_cours.jpg)
+
+La page arrosage (Avec arrosage en cours) :
+<p align="center"><img src="../Medias/arrosage_page_arrosage_en_cours.jpg" width=75%></p>
+<br><br>
