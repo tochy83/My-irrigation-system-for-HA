@@ -1505,44 +1505,46 @@ cards: []
 <br><br>
 
 **Les cartes de la page arrosage** :
+<br>
+
 ***La carte navigation*** :
-<p align="center"><img src="../Medias/navigation_card.jpg" width=75%></p>
+<p align="center"><img src="../Medias/navigation_card.jpg"></p>
 <br><br>
 
 ***La carte notification*** :
-<p align="center"><img src="../Medias/notification_card.jpg" width=75%></p>
+<p align="center"><img src="../Medias/notification_card.jpg"></p>
 <br><br>
 
 ***La carte zone*** :
-<p align="center"><img src="../Medias/zone_card.jpg" width=75%></p>
+<p align="center"><img src="../Medias/zone_card.jpg"></p>
 <br><br>
 
 ***La carte electrovanne*** :
-<p align="center"><img src="../Medias/electrovanne_card.jpg" width=75%></p>
+<p align="center"><img src="../Medias/electrovanne_card.jpg"></p>
 <br><br>
 
 ***La carte electrovanne*** (Avec arrosage en cours) :
-<p align="center"><img src="../Medias/electrovanne_card_arrosage_en_cours.jpg" width=75%></p>
+<p align="center"><img src="../Medias/electrovanne_card_arrosage_en_cours.jpg"></p>
 <br><br>
 
 ***La carte titre*** :
-<p align="center"><img src="../Medias/titre_card.jpg" width=75%></p>
+<p align="center"><img src="../Medias/titre_card.jpg"></p>
 <br><br>
 
 ***La carte prochains arrosages*** :
-<p align="center"><img src="../Medias/prochains_arrosages_card.jpg" width=75%></p>
+<p align="center"><img src="../Medias/prochains_arrosages_card.jpg"></p>
 <br><br>
 
 ***La carte programmation d'arrosage*** :
-<p align="center"><img src="../Medias/programmation_card.jpg" width=75%></p>
+<p align="center"><img src="../Medias/programmation_card.jpg"></p>
 <br><br>
 
 ***La carte connectivité*** :
-<p align="center"><img src="../Medias/connectivity_card.jpg" width=75%></p>
+<p align="center"><img src="../Medias/connectivity_card.jpg"></p>
 <br><br>
 
 ***La carte compteur d'eau*** :
-<p align="center"><img src="../Medias/compteur_card.jpg" width=75%></p>
+<p align="center"><img src="../Medias/compteur_card.jpg"></p>
 <br><br>
 
 
