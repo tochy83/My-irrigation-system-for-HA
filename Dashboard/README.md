@@ -1,8 +1,14 @@
+<details>
+  <summary>Le code de la page : (Cliquer pour afficher)</summary>
+
+```yml
+
+```
+</details>
+<br><br>
 
 **La page arrosage** (Sans arrosage en cours) :
 <p align="center"><img src="../Medias/arrosage_page.jpg" width=75%></p>
-<br><br>
-
 
 <details>
   <summary>Le code de la page : (Cliquer pour afficher)</summary>
