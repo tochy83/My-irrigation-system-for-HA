@@ -1508,9 +1508,9 @@ Une vue d'ensemble de la page arrosage lorsqu'un arrosage de zone est en cours.
 <br><br><br>
 
 **Les cartes de la page arrosage** :
-<br><br><br>
+<br><br>
 Les différentes cartes qui constituent la page arrosage.
-<br>
+<br><br>
 
 ***La carte navigation*** :
 <p align="center"><img src="../Medias/navigation_card.jpg"></p>
