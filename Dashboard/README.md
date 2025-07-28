@@ -1505,7 +1505,7 @@ cards: []
 **La page arrosage** (Avec arrosage en cours) :
 <p align="center"><img src="../Medias/arrosage_page_arrosage_en_cours.jpg" width=75%></p>
 Une vue d'ensemble de la page arrosage lorsqu'un arrosage de zone est en cours.
-<br><br>
+<br><br><br>
 
 **Les cartes de la page arrosage** :
 Les différentes cartes qui constituent la page arrosage.
