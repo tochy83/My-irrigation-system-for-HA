@@ -9,15 +9,15 @@
 
 ### La page arrosage :
 <p align="center"><img src="../Medias/arrosage_page.jpg" width=75%></p>
-<center>*Une vue d'ensemble de la page arrosage.*</center>
-<br><br>
+<p align="center">Une vue d'ensemble de la page arrosage.</p>
+<br>
 
 
 <p align="center"><img src="../Medias/arrosage_page_arrosage_en_cours.jpg" width=75%></p>
-<center>*Une vue d'ensemble de la page arrosage lorsqu'un arrosage de zone est en cours.*</center>
+<p align="center">Une vue d'ensemble de la page arrosage lorsqu'un arrosage de zone est en cours.*</p>
 <br><br>
 
-### Les cartes de la page arrosage :
+### Les cartes qui la compose :
 
 
 ***La carte navigation*** :
