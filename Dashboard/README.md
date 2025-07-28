@@ -1528,7 +1528,7 @@ cards: []
 <br><br>
 
 ***La carte electrovanne*** (Avec compteur d'eau) :
-<p align="center"><img src="../Medias/electrovanne_card_avec volume.jpg"></p>
+<p align="center"><img src="../Medias/electrovanne_card_avec_volume.jpg"></p>
 <br><br>
 
 ***La carte titre*** :
