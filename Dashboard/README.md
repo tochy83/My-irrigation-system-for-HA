@@ -14,7 +14,7 @@
 
 
 <p align="center"><img src="../Medias/arrosage_page_arrosage_en_cours.jpg" width=75%></p>
-<p align="center">Une vue d'ensemble de la page arrosage lorsqu'un arrosage de zone est en cours.*</p>
+<p align="center">Une vue d'ensemble de la page arrosage lorsqu'un arrosage de zone est en cours.</p>
 <br><br>
 
 #### Les cartes qui la compose :
