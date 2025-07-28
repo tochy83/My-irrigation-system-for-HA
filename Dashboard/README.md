@@ -1552,7 +1552,7 @@ cards: []
 
 
 **La page calendrier** :
-<p align="center"><img src="../Medias/calendarr_page.jpg" width=75%></p>
+<p align="center"><img src="../Medias/calendar_page.jpg" width=75%></p>
 
 <details>
   <summary>Le code de la page : (Cliquer pour afficher)</summary>
