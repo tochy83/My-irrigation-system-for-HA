@@ -73,7 +73,7 @@ Si vous avez un sensor qui permet de savoir si vos électrovannes sont connecté
 
 - ***La carte compteur d'eau*** :
 <p align="center"><img src="../Medias/compteur_card.jpg"></p>
-Si vouz avez un sensor qui comptabilise votre consommation d'eau, cette carte affiche celle ci.
+Si vous avez un sensor qui comptabilise votre consommation d'eau, cette carte affiche celle ci.
 <br><br><br>
 
 
