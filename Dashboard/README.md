@@ -61,7 +61,9 @@ Une carte qui affiche simplement un titre stylisé.
 
 - ***La carte prochains arrosages*** :
 <p align="center"><img src="../Medias/prochains_arrosages_card.jpg"></p>
-Cette carte récupère automatiquement les infos du calendrier d'arrosage pour les afficher. Par contre il est impératif pour qu'elle affiche quelque chose, d'avoir au préalable installer et configurer le calendar merge helper https://github.com/kgn3400/calendar_merge disponible sur HACS. [Link](https://github.com/)
+Cette carte récupère automatiquement les infos du calendrier d'arrosage pour les afficher. Par contre il est impératif pour qu'elle affiche quelque chose, d'avoir au préalable installer et configurer le calendar merge helper https://github.com/kgn3400/calendar_merge disponible sur HACS.
+[Link](https://github.com/)
+
 <br><br><br>
 
 - ***La carte programmation d'arrosage*** :
