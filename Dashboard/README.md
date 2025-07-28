@@ -11,6 +11,7 @@
 <p align="center"><img src="../Medias/arrosage_page.jpg" width=75%></p>
 Une vue d'ensemble de la page arrosage.
 
+<br>
 <details>
   <summary>Le code de la page : (Cliquer pour afficher)</summary>
 
@@ -1574,6 +1575,7 @@ Si vouz avez un sensor qui comptabilise votre consommation d'eau, cette carte af
 <p align="center"><img src="../Medias/calendar_page.jpg" width=75%></p>
 Une vue d'ensemble de la page calendrier d'arrosage.
 
+<br>
 <details>
   <summary>Le code de la page : (Cliquer pour afficher)</summary>
 
