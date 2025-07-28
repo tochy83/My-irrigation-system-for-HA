@@ -1500,20 +1500,21 @@ icon: mdi:sprinkler-variant
 cards: []
 ```
 </details>
-<br><br>
+<br>
 
 **La page arrosage** (Avec arrosage en cours) :
 <p align="center"><img src="../Medias/arrosage_page_arrosage_en_cours.jpg" width=75%></p>
 Une vue d'ensemble de la page arrosage lorsqu'un arrosage de zone est en cours.
 <br><br><br>
 
-**Les cartes de la page arrosage** :
+**Les cartes de la page arrosage** :<br>
 Les différentes cartes qui constituent la page arrosage.
 <br>
 
 ***La carte navigation*** :
 <p align="center"><img src="../Medias/navigation_card.jpg"></p>
-Une carte qui affiche simplement le nom de la page en affichée ainsi qu'un bouton pour retourner à la page précédente. Cette carte n'est pas nécessaire au dashboard arrosage en lui même.
+Une carte qui affiche simplement le nom de la page en affichée ainsi qu'un bouton pour retourner à la page précédente.<br>
+Cette carte n'est pas nécessaire au dashboard arrosage en lui même.
 <br><br>
 
 ***La carte notification*** :
@@ -1523,13 +1524,12 @@ Cette carte affiche si un arrosage de zone est en cours. On retrouve l'heure de 
 
 ***La carte zone*** :
 <p align="center"><img src="../Medias/zone_card.jpg"></p>
-Cette carte affiche le nom de la zone d'arrosage.
-Elle permet de choisir si cette zone d'arrosage doit être incluse dans les programmations du calendrier et également de déclencher un arrosage manuel de la zone.
+Cette carte affiche le nom de la zone d'arrosage. Elle permet de choisir si cette zone d'arrosage doit être incluse dans les programmations du calendrier et également de déclencher un arrosage manuel de la zone.
 <br><br>
 
 ***La carte electrovanne*** :
 <p align="center"><img src="../Medias/electrovanne_card.jpg"></p>
-Carte qui permet de déclencher/arrêter une électrovanne manuellement. Elle permet aussi de régler la durée du cycle d'arrosage de cette électroavnne et d'inclure ou non cette électrovanne au cycle d'arrosage de la zone dans laquelle elle se trouve.
+Carte qui permet de déclencher/arrêter une électrovanne manuellement. Elle permet aussi de régler la durée du cycle d'arrosage de cette électroavnne et d'inclure ou non cette électrovanne au cycle d'arrosage de la zone dans laquelle elle se trouve.<br>
 Elle affiche également la date et l'heure du dernier cycle de fonctionnement l'électrovanne.
 <br><br>
 
