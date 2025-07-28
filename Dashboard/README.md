@@ -12,13 +12,11 @@
 <p align="center">Une vue d'ensemble de la page arrosage.</p>
 <br>
 
-
 <p align="center"><img src="../Medias/arrosage_page_arrosage_en_cours.jpg" width=75%></p>
 <p align="center">Une vue d'ensemble de la page arrosage lorsqu'un arrosage de zone est en cours.</p>
 <br><br>
 
 #### Les cartes qui la composent :
-
 
 - ***La carte navigation*** :
 <p align="center"><img src="../Medias/navigation_card.jpg"></p>
@@ -75,8 +73,7 @@ Si vous avez un sensor qui permet de savoir si vos électrovannes sont connecté
 <p align="center"><img src="../Medias/compteur_card.jpg"></p>
 Si vous avez un sensor qui comptabilise votre consommation d'eau, cette carte affiche celle ci.
 <br><br><br>
----
-<br>
+
 
 ### La page calendrier d'arrosage<br><br>
 <p align="center"><img src="../Medias/calendar_page.jpg" width=75%></p>
