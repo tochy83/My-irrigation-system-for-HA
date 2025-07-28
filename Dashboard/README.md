@@ -75,10 +75,8 @@ Si vous avez un sensor qui permet de savoir si vos électrovannes sont connecté
 <p align="center"><img src="../Medias/compteur_card.jpg"></p>
 Si vous avez un sensor qui comptabilise votre consommation d'eau, cette carte affiche celle ci.
 <br><br><br>
-
-
-
-
+---
+<br>
 
 ### La page calendrier d'arrosage<br><br>
 <p align="center"><img src="../Medias/calendar_page.jpg" width=75%></p>
