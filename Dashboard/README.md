@@ -7,7 +7,7 @@
 </details>
 <br><br>
 
-### La page arrosage :
+### La page arrosage<br>
 <p align="center"><img src="../Medias/arrosage_page.jpg" width=75%></p>
 <p align="center">Une vue d'ensemble de la page arrosage.</p>
 <br>
@@ -17,7 +17,7 @@
 <p align="center">Une vue d'ensemble de la page arrosage lorsqu'un arrosage de zone est en cours.</p>
 <br><br>
 
-#### Les cartes qui la compose :
+#### Les cartes qui la composent :
 
 
 - ***La carte navigation*** :
@@ -80,12 +80,12 @@ Si vous avez un sensor qui comptabilise votre consommation d'eau, cette carte af
 
 
 
-### La page calendrier d'arrosage :
+### La page calendrier d'arrosage<br>
 <p align="center"><img src="../Medias/calendar_page.jpg" width=75%></p>
 <p align="center">Une vue d'ensemble de la page arrosage.</p>
 <br><br>
 
-#### Les cartes qui la compose :
+#### Les cartes qui la composent :
 
 
 <br><br>
