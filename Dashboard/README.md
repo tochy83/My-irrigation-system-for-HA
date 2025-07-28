@@ -1,4 +1,11 @@
-[Link](https://github.com/)
+#### Integrations nécessaires au fonctionnment du dashboard arrosage :
+
+* Calendrier local disponible dans les intégrations de base de HA
+* Les [mushrooms card](https://github.com/piitaya/lovelace-mushroom?tab=readme-ov-file#-mushroom) disponibles sur HACS
+* [Card mod 3](https://github.com/thomasloven/lovelace-card-mod?tab=readme-ov-file#card-mod-3) disponible sur HACS
+* [Vertical stack in card](https://github.com/ofekashery/vertical-stack-in-card?tab=readme-ov-file#vertical-stack-in-card) disponible sur HACS
+* [Timer bar card](https://github.com/rianadon/timer-bar-card?tab=readme-ov-file#timer-bar-card) disponible sur HACS
+* [Calendar merge](https://github.com/kgn3400/calendar_merge?tab=readme-ov-file#calendar-merge-helper) disponible sur HACS
 
 <details>
   <summary>Le code de la page : (Cliquer pour afficher)</summary>
@@ -61,9 +68,7 @@ Une carte qui affiche simplement un titre stylisé.
 
 - ***La carte prochains arrosages*** :
 <p align="center"><img src="../Medias/prochains_arrosages_card.jpg"></p>
-Cette carte récupère automatiquement les infos du calendrier d'arrosage pour les afficher. Par contre il est impératif pour qu'elle affiche quelque chose, d'avoir au préalable installer et configurer le calendar merge helper https://github.com/kgn3400/calendar_merge disponible sur HACS.
-[Link](https://github.com/)
-
+Cette carte récupère automatiquement les infos du calendrier d'arrosage pour les afficher. Par contre il est impératif pour qu'elle affiche quelque chose, d'avoir au préalable installer et configurer le helper https://github.com/kgn3400/calendar_merge disponible sur HACS.
 <br><br><br>
 
 - ***La carte programmation d'arrosage*** :
