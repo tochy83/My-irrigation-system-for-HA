@@ -12,11 +12,13 @@
 <p align="center">Une vue d'ensemble de la page arrosage.</p>
 <br>
 
+
 <p align="center"><img src="../Medias/arrosage_page_arrosage_en_cours.jpg" width=75%></p>
 <p align="center">Une vue d'ensemble de la page arrosage lorsqu'un arrosage de zone est en cours.</p>
 <br><br>
 
 #### Les cartes qui la composent :
+
 
 - ***La carte navigation*** :
 <p align="center"><img src="../Medias/navigation_card.jpg"></p>
@@ -57,6 +59,7 @@ Une carte qui affiche simplement un titre stylisé.
 
 - ***La carte prochains arrosages*** :
 <p align="center"><img src="../Medias/prochains_arrosages_card.jpg"></p>
+Cette carte récupère automatiquement les infos du calendrier d'arrosage pour les afficher. Par contre il est impératif pour qu'elle affiche quelque chose, d'avoir au préalable installer et configurer le *['calendar merge helper'](https://github.com/kgn3400/calendar_merge?tab=readme-ov-file#calendar-merge-helper)* disponible sur HACS.
 <br><br><br>
 
 - ***La carte programmation d'arrosage*** :
