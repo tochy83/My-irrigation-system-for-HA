@@ -528,7 +528,7 @@ script:
         required: false
       tag:
         selector:
-          text: {}
+          text: null
         name: Tag
       persistent:
         selector:
@@ -548,5 +548,5 @@ script:
         name: TTS_text
       image:
         selector:
-          text: {}
+          text: null
         name: Image
