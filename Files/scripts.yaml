@@ -525,7 +525,6 @@ script:
         selector:
           text: null
         name: Title
-        required: false
       tag:
         selector:
           text: null
