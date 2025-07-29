@@ -4,13 +4,13 @@
 
 timer:
   arrosage_voie_8:
-    name: Arrosage - Timer voie 2
+    name: Arrosage - Timer voie 8
     duration: "00:00:00"
     restore: true
 
 input_number:
-  duree_arrosage_voie_8:  # Définit la durée d'arrosage de la voie 2
-    name: Arrosage - Durée timer voie 2
+  duree_arrosage_voie_8:  # Définit la durée d'arrosage de la voie 8
+    name: Arrosage - Durée timer voie 8
     min: 0
     max: 1799
     step: 10
@@ -18,8 +18,8 @@ input_number:
     unit_of_measurement: secondes
 
 input_text:
-  arrosage_dernier_declenchement_voie_8:  # Stocke la date du dernier déclenchement de la voie 2
-    name: Arrosage - Dernier déclenchement voie 2
+  arrosage_dernier_declenchement_voie_8:  # Stocke la date du dernier déclenchement de la voie 8
+    name: Arrosage - Dernier déclenchement voie 8
     min: 0
     max: 40
 
@@ -29,8 +29,8 @@ input_text:
     max: 10
 
 input_boolean:
-  arrosage_enable_voie_8:  # Définit si la voie 2 doit être incluse dans les séquences d'arrosage
-    name: Arrosage - Enable voie 2
+  arrosage_enable_voie_8:  # Définit si la voie 8 doit être incluse dans les séquences d'arrosage
+    name: Arrosage - Enable voie 8
 
 template:
   - switch:
