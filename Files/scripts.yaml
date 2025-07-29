@@ -496,3 +496,57 @@ script:
           minutes: 0
           seconds: 1
           milliseconds: 0
+
+  envoi_notification_vers_mon_telephone:
+    alias: Envoi notification vers mon telephone
+    sequence:
+      - data:
+          message: "{{ message }}"
+          title: "{{ title }}"
+          data:
+            tts_text: "{{ tts_text }}"
+            color: "{{ color }}"
+            tag: "{{ tag }}"
+            persistent: "{{ persistent }}"
+            image: "{{ image }}"
+            notification_icon: "{{ icon }}"
+            priority: high
+            ttl: 0
+        action: notify.mobile_app_pixel
+    mode: single
+    icon: mdi:cellphone-information
+    fields:
+      message:
+        selector:
+          text: null
+        name: Message
+        required: true
+      title:
+        selector:
+          text: null
+        name: Title
+        required: false
+      tag:
+        selector:
+          text: {}
+        name: Tag
+      persistent:
+        selector:
+          text: null
+        name: Persistent
+      icon:
+        selector:
+          text: null
+        name: Icon
+      color:
+        selector:
+          text: null
+        name: Color
+      tts_text:
+        selector:
+          text: null
+        name: TTS_text
+      image:
+        selector:
+          text: {}
+        name: Image
