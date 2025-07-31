@@ -40,6 +40,9 @@ Cette carte n'est pas nécessaire au dashboard arrosage en lui même.
 - ***La carte notification*** :
 <p align="center"><img src="../Medias/notification_card.jpg"></p>
 Cette carte affiche si un arrosage de zone est en cours. On retrouve l'heure de fin du cycle prévue ainsi qu'un bouton permetttant d'arrêter l'arrosage de zone en cours.
+<br><br>
+L'ensemble des cartes notifications
+<p align="center"><img src="../Medias/notifications_card.jpg"></p>
 <br><br><br>
 
 - ***La carte zone*** :
