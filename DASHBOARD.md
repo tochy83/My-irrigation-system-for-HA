@@ -1,4 +1,4 @@
-## Le dashboard arrosage
+# Le dashboard arrosage
 
 #### Integrations nécessaires au fonctionnment du dashboard arrosage :
 
