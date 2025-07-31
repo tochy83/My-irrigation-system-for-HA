@@ -190,6 +190,7 @@ Dans la configuration nommer le capteur 'Arrosage a venir', il est **important d
 
 
 * #### Etape 12 :
+[Voilà c'est fini](https://www.youtube.com/watch?v=EVDlleOUQXY)
 Il n'y a plus rien à faire si ce n'est de pouvoir enfin **tester toutes les fonctionnalités** de "l'intégration" 'My-irrigation-sytem-for-HA'.
 <br>
 
