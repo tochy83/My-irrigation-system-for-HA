@@ -19,7 +19,7 @@ Vous trouverez sur cette page toutes les explications nécessaires à la mise en
 * Et bien sur HACS pour pouvoir installer tout ce que je viens de lister ci-dessus
 <br><br>
 
-Pour bénéficier de la réception des notifications envoyées par "l'intégration", il faut avoir installé également l'application sur son smartphone ou une tablette.
+**Pour bénéficier de la réception des notifications** envoyées par "l'intégration", il faut avoir installé également **l'application sur son smartphone ou une tablette**.
 Ce n'est pas une obligation mais dans ce cas là vous n'aurez simplement pas de notifications. De toute façon, par défaut elles sont désactivées.
 <br>
 
@@ -30,7 +30,7 @@ Il est, à mon avis, facilement adaptable pour télégram également.
 <br><br>
 
 
-Pour coller au plus grand nombre, toutes les étapes de l'installation que je vais décrire seront réalisées avec File Editor.
+**Pour coller au plus grand nombre, toutes les étapes de l'installation que je vais décrire seront réalisées avec File Editor.**
 <br><br>
 
 ### Les différentes étapes de l'installation :
