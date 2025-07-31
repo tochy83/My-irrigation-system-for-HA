@@ -10,6 +10,7 @@
 * [Calendar merge](https://github.com/kgn3400/calendar_merge?tab=readme-ov-file#calendar-merge-helper) disponible sur HACS
 
 <br><br>
+[Comment installer un dashboard sur Home assistant.](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Medias/Install/add_dashboard.gif)
 <details>
   <summary>Le code du dashboard : (Cliquer pour afficher)</summary>
 https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/dashboard.yaml
