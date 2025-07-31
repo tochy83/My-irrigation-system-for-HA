@@ -82,6 +82,9 @@ views:
               - condition: state
                 entity: input_boolean.arrosage_auto_zone_1
                 state: 'on'
+              - condition: numeric_state
+                entity: input_number.arrosage_electrovannes_incluses_zone_1
+                above: 0
           - type: horizontal-stack
             cards:
               - type: custom:vertical-stack-in-card
@@ -142,6 +145,9 @@ views:
               - condition: state
                 entity: input_boolean.arrosage_auto_zone_2
                 state: 'on'
+              - condition: numeric_state
+                entity: input_number.arrosage_electrovannes_incluses_zone_2
+                above: 0
           - type: horizontal-stack
             cards:
               - type: custom:vertical-stack-in-card
@@ -202,6 +208,9 @@ views:
               - condition: state
                 entity: input_boolean.arrosage_auto_zone_3
                 state: 'on'
+              - condition: numeric_state
+                entity: input_number.arrosage_electrovannes_incluses_zone_3
+                above: 0
           - type: horizontal-stack
             cards:
               - type: custom:vertical-stack-in-card
@@ -253,6 +262,105 @@ views:
               - condition: state
                 entity: calendar.arrosage
                 state: unknown
+          - type: horizontal-stack
+            cards:
+              - type: custom:vertical-stack-in-card
+                cards:
+                  - type: custom:mushroom-template-card
+                    multiline_secondary: true
+                    primary: ''
+                    secondary: >-
+                      Aucune électrovanne n'est incluse dans le cycle d'arrosage
+                      de la {{ state_attr('sensor.arrosage_noms_des_zones',
+                      'zone_1') }}.
+                    icon: mdi:alert
+                    icon_color: deep-orange
+                    tap_action:
+                      action: none
+                    hold_action:
+                      action: none
+                    double_tap_action:
+                      action: none
+                    card_mod:
+                      style: |
+                        ha-card {
+                          background-color: #FAEFDB;
+                        }
+            grid_options:
+              columns: full
+            visibility:
+              - condition: numeric_state
+                entity: input_number.arrosage_electrovannes_incluses_zone_1
+                below: 1
+              - condition: state
+                entity: input_boolean.arrosage_auto_zone_1
+                state: 'on'
+          - type: horizontal-stack
+            cards:
+              - type: custom:vertical-stack-in-card
+                cards:
+                  - type: custom:mushroom-template-card
+                    multiline_secondary: true
+                    primary: ''
+                    secondary: >-
+                      Aucune électrovanne n'est incluse dans le cycle d'arrosage
+                      de la zone {{ state_attr('sensor.arrosage_noms_des_zones',
+                      'zone_2') }}.
+                    icon: mdi:alert
+                    icon_color: deep-orange
+                    tap_action:
+                      action: none
+                    hold_action:
+                      action: none
+                    double_tap_action:
+                      action: none
+                    card_mod:
+                      style: |
+                        ha-card {
+                          background-color: #FAEFDB;
+                        }
+            grid_options:
+              columns: full
+            visibility:
+              - condition: numeric_state
+                entity: input_number.arrosage_electrovannes_incluses_zone_2
+                below: 1
+              - condition: state
+                entity: input_boolean.arrosage_auto_zone_2
+                state: 'on'
+          - type: horizontal-stack
+            cards:
+              - type: custom:vertical-stack-in-card
+                cards:
+                  - type: custom:mushroom-template-card
+                    multiline_secondary: true
+                    primary: ''
+                    secondary: >-
+                      Aucune électrovanne n'est incluse dans le cycle d'arrosage
+                      de la zone {{ state_attr('sensor.arrosage_noms_des_zones',
+                      'zone_3') }}.
+                    icon: mdi:alert
+                    icon_color: deep-orange
+                    tap_action:
+                      action: none
+                    hold_action:
+                      action: none
+                    double_tap_action:
+                      action: none
+                    card_mod:
+                      style: |
+                        ha-card {
+                          background-color: #FAEFDB;
+                        }
+            grid_options:
+              columns: full
+            visibility:
+              - condition: numeric_state
+                entity: input_number.arrosage_electrovannes_incluses_zone_3
+                below: 1
+              - condition: state
+                entity: input_boolean.arrosage_auto_zone_3
+                state: 'on'
         column_span: 2
       - type: grid
         cards:
@@ -340,7 +448,7 @@ views:
                   type: custom:mushroom-chips-card
                   chips:
                     - type: template
-                      entity: input_number.duree_arrosage_voie_1
+                      entity: input_number.arrosage_duree_voie_1
                       content: >-
                         {{ states(entity) |int | timestamp_custom('%M min %S s',
                         false) }}
@@ -454,7 +562,7 @@ views:
                   type: custom:mushroom-chips-card
                   chips:
                     - type: template
-                      entity: input_number.duree_arrosage_voie_2
+                      entity: input_number.arrosage_duree_voie_2
                       content: >-
                         {{ states(entity) |int | timestamp_custom('%M min %S s',
                         false) }}
@@ -568,7 +676,7 @@ views:
                   type: custom:mushroom-chips-card
                   chips:
                     - type: template
-                      entity: input_number.duree_arrosage_voie_3
+                      entity: input_number.arrosage_duree_voie_3
                       content: >-
                         {{ states(entity) |int | timestamp_custom('%M min %S s',
                         false) }}
@@ -682,7 +790,7 @@ views:
                   type: custom:mushroom-chips-card
                   chips:
                     - type: template
-                      entity: input_number.duree_arrosage_voie_4
+                      entity: input_number.arrosage_duree_voie_4
                       content: >-
                         {{ states(entity) |int | timestamp_custom('%M min %S s',
                         false) }}
@@ -796,7 +904,7 @@ views:
                   type: custom:mushroom-chips-card
                   chips:
                     - type: template
-                      entity: input_number.duree_arrosage_voie_8
+                      entity: input_number.arrosage_duree_voie_8
                       content: >-
                         {{ states(entity) |int | timestamp_custom('%M min %S s',
                         false) }}
@@ -960,7 +1068,7 @@ views:
                   type: custom:mushroom-chips-card
                   chips:
                     - type: template
-                      entity: input_number.duree_arrosage_voie_7
+                      entity: input_number.arrosage_duree_voie_7
                       content: >-
                         {{ states(entity) |int | timestamp_custom('%M min %S s',
                         false) }}
@@ -1074,7 +1182,7 @@ views:
                   type: custom:mushroom-chips-card
                   chips:
                     - type: template
-                      entity: input_number.duree_arrosage_voie_9
+                      entity: input_number.arrosage_duree_voie_9
                       content: >-
                         {{ states(entity) |int | timestamp_custom('%M min %S s',
                         false) }}
@@ -1240,7 +1348,7 @@ views:
                   type: custom:mushroom-chips-card
                   chips:
                     - type: template
-                      entity: input_number.duree_arrosage_voie_5
+                      entity: input_number.arrosage_duree_voie_5
                       content: >-
                         {{ states(entity) |int | timestamp_custom('%M min %S s',
                         false) }}
@@ -1354,7 +1462,7 @@ views:
                   type: custom:mushroom-chips-card
                   chips:
                     - type: template
-                      entity: input_number.duree_arrosage_voie_6
+                      entity: input_number.arrosage_duree_voie_6
                       content: >-
                         {{ states(entity) |int | timestamp_custom('%M min %S s',
                         false) }}
@@ -1579,6 +1687,47 @@ views:
             name: Compteur d'eau
             grid_options:
               columns: full
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: template
+                content: Envoi de notifications vers l'application mobile
+                card_mod:
+                  style: |
+                    ha-card {
+                      border: none;
+                      background: transparent !important;
+                    }
+              - type: template
+                entity: input_boolean.enable_notifications
+                icon: |
+                  {%if is_state('input_boolean.enable_notifications','on')%}
+                    mdi:cellphone-check
+                  {%else%}
+                    mdi:cellphone-remove
+                  {%endif%}
+                icon_color: |
+                  {%if is_state('input_boolean.enable_notifications','on')%}
+                    light-green
+                  {%else%}
+                    disabled
+                  {%endif%}
+                tap_action:
+                  action: toggle
+                content_info: none
+                card_mod:
+                  style: |
+                    ha-card {
+                      --chip-border-radius: 12px;
+                    }
+            alignment: end
+            grid_options:
+              columns: full
+              rows: auto
+            card_mod:
+              style: |
+                ha-card {
+                  padding-right: 8px;
+                }
     title: Arrosage
     icon: mdi:sprinkler-variant
     cards: []
