@@ -1,5 +1,8 @@
 # Installation
 
+Vous trouverez sur cette page toutes les explications nécessaires à la mise en place du Dashboard arrosage ainsi que de toutes les automatisations, scripts, entrées utiles à son bon fonctionnement.
+<br><br>
+
 #### Les modules complémentaires nécessaires pour installer le dashboard :
 * File Editor ou Studio Code Server
 * Si vous avez en plus Samba Share c'est un plus pour la copie des fichiers (C'est bien plus rapide qu'avec File Editor)
@@ -24,7 +27,16 @@ Ce n'est pas une obligation mais dans ce cas là vous n'aurez simplement pas de 
 Pour coller au plus grand nombre, toutes les étapes de l'installation de je vais décrire seront réalisées avec File Editor.
 <br><br>
 
-### La page arrosage<br><br>
-<p align="center"><img src="Medias/arrosage_page.jpg" width=75%></p>
-<p align="center">Une vue d'ensemble de la page arrosage.</p>
+### Les différentes étapes de l'installation :
 <br>
+
+#### Etape 1:
+<br>
+Vérifier que tous les modules complémentaires et les intégrations nécessaires (voir le listing ci-dessus) sont installés sur votre instance de Home Assitant.
+<br>
+Je ne rentrerai pas ici dans les détails de comment installer tout ça. Je pars du principe que si vous en êtes à faire des "dashboards avancés", c'est que vous maitrisez cette partie. Si ce n'est pas le cas dans les liens que j'ai mis il y'a en général toutes les explications nécessaires et dans tous les cas ces sujets ont été abordés maintes fois sur le forum HACF.
+<br><br>
+
+
+
+
