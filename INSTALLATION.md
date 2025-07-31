@@ -35,13 +35,13 @@ Il est, à mon avis, facilement adaptable pour télégram également.
 
 ### Les différentes étapes de l'installation :
 
-* #### Etape 1 :
+#### - ***Etape 1*** :
 Vérifier que tous les modules complémentaires et les intégrations nécessaires (voir le listing ci-dessus) sont installés sur votre instance de Home Assitant.
 <br>
 Je ne rentrerai pas ici dans les détails de comment installer tout ça. Je pars du principe que si vous en êtes à faire des "dashboards avancés", c'est que vous maitrisez cette partie. Si ce n'est pas le cas dans les liens que j'ai mis il y'a en général toutes les explications nécessaires et dans tous les cas ces sujets ont été abordés maintes fois sur le [forum HACF](https://forum.hacf.fr/).
 <br><br>
 
-* #### Etape 2 :
+#### - ***Etape 2*** :
 Vérifier dans le fichier 'configuration.yaml' les packages sont actifs. Si vous ne voyez pas de quoi je parle c'est que probablement vous ne les avez jamais utlisé et que du coup ils ne sont pas actifs.
 A l'aide de File Editor, ouvrer le fichier 'configuration.yaml' et rechercher si il contient la ligne suivante :
 ```yml
@@ -62,7 +62,7 @@ Une fois l'ajout effectué, on va dans Outils de développement, on vérifie la 
 Pour en savoir plus sur les packages et découvrir leur intérêt, vous pouvez lire cet [article](https://www.domo-blog.fr/packages-home-assistant-organiser-configuration-code-yaml-domotique/) sur Domo-blog.fr
 <br><br>
 
-* #### Etape 3 :
+#### - ***Etape 3*** :
 Depuis [la page d'accueil de ce 'repository'](https://github.com/tochy83/My-irrigation-system-for-HA) télécharger le fichier zip contenant toutes les fichiers de "l'intégration".
 <p align="center"><img src="Medias/Install/download_from_github.gif"></p>
 
@@ -70,7 +70,7 @@ Une fois téléchargé, on les extrait dans le dossier de son choix.
 <br><br>
 
 
-* #### Etape 4 :
+#### - ***Etape 4*** :
 A l'aide de File Editor, créer dans le dossier 'config' de Home Assistant, un dossier nommé 'packages'. Pour rappel le dossier 'config' se nomme pour File Editor 'homeassistant' et c'est le dossier où l'on se trouve par défaut quand on ouvre File Editor.
 <br>
 
@@ -79,7 +79,7 @@ Dans ce dossier 'packages' créer un dossier 'arrosage'.
 <br>
 
 
-* #### Etape 5 :
+#### - ***Etape 5*** :
 A l'aide de File Editor, copier tous les fichier '.yaml' qui se trouvent dans le dossier 'Files' du zip décompressé précedemment, dans le dossier 'arrosage' que l'on vient de créer.
 <p align="center"><img src="Medias/Install/add_files.gif"></p>
 
@@ -97,13 +97,13 @@ Je vous conseille d'ajouter un libellé 'Arrosage' ainsi qu'une catégorie à to
 <br>
 
 
-* #### Etape 6 :
+#### - ***Etape 6*** :
 Si il n'est pas déja actif, activer le 'sensor.home_assistant_operating_system_version'. C'est le sensor qui me sert à simuler la connectivité des électrovannes pour le mode simulation de "l'intégration".
 
 <br>
 
 
-* #### Etape 7 :
+#### - ***Etape 7*** :
 Pour pouvoir recevoir les notifications, même en mode simulation, il est nécessaire de modifier le fichier '/packages/arrosage/scripts.yaml' afin d'y mettre l'id de votre téléphone ou tablette où est installée l'application mobile de Home Assistant.
 <br>
 
@@ -130,7 +130,7 @@ Une fois la modification effectuée, on va dans Outils de développement, on vé
 <br><br>
 
 
-* #### Etape 8 :
+#### - ***Etape 8*** :
 Il faut maintenant attribuer des libellés aux différents scripts 'script.arrosage_declenchement_auto_voie_[x]' pour indiquer à "l'intégration" quelle électrovannes se trouve dans quel zone.
 <br>
 
@@ -145,7 +145,7 @@ Par defaut, puisque c'est comme ça que le Dashboard se présente il faut attrib
 <br><br>
 
 
-* #### Etape 9 :
+#### - ***Etape 9*** :
 Vient enfin la mise en place du Dashboard en lui même.
 <br>
 
@@ -165,7 +165,7 @@ Maintenant "l'intégration" est opérationnelle, il ne reste plus qu'à configur
 <br><br>
 
 
-* #### Etape 10 :
+#### - ***Etape 10*** :
 Ajouter l'intégration 'Calendrier local si elle n'est pas déjà présente sur votre instance de Home Assistant.
 <p align="center"><img src="Medias/Install/add_local_calendar_int.gif"></p>
 
@@ -174,7 +174,7 @@ Ajouter un calendrier nommé 'Arrosage', à l'intégration 'Calendrier local'. *
 <br>
 
 
-* #### Etape 11 :
+#### - ***Etape 11*** :
 Si ce n'est pas dejà fait, ajouter l'intégration 'Calendar merge'. Normalement vous auriez du le faire avant l'étape 1.
 <p align="center"><img src="Medias/Install/add_calendar_merge_int.gif"></p>
 <br>
@@ -189,7 +189,7 @@ Dans la configuration nommer le capteur 'Arrosage a venir', il est **important d
 <br><br>
 
 
-* #### Etape 12 :
+#### - ***Etape 12*** :
 **[Voilà c'est fini](https://www.youtube.com/watch?v=EVDlleOUQXY)**
 <br>
 
