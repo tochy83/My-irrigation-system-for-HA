@@ -100,10 +100,8 @@ Si vous avez un sensor qui comptabilise votre consommation d'eau, cette carte af
 <p align="center"><img src="Medias/calendar_page.jpg" width=75%></p>
 <p align="center">Une vue d'ensemble de la page arrosage.</p>
 <br>
-<details>
-  <summary>Le code de la page : (Cliquer pour afficher)</summary>
-https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/calendar_page.yaml
-</details>
+
+Le code de la page calendrier : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/calendar_page.yaml)
 <br><br>
 
 #### Les cartes qui la composent :
