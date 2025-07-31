@@ -101,6 +101,9 @@ Si il n'est pas déja actif, activer le 'sensor.home_assistant_operating_system_
 Pour pouvoir recevoir les notifications, même en mode simulation, il est nécessaire de modifier le fichier '/packages/arrosage/scripts.yaml' afin d'y mettre l'id de votre téléphone ou tablette où est installée l'application mobile de Home Assistant.
 <br>
 
+Si vous ne souhaitez pas tester les notifications passer directement à l'étape 8.
+<br>
+
 A l'aide de File Editor, ouvrir le fichier '/packages/arrosage/scripts.yaml'. Aller à la ligne 533
 ```yml
         action: notify.mobile_app_pixel
@@ -116,6 +119,9 @@ Si je voulais recevoir les notifications sur ma tablette plutôt que sur mon té
         action: notify.mobile_app_mipad_5
 ```
 <br>
+
+Une fois ceci fait on va dans Outils de développement, on vérifie la configuration pour être sur qu'il n'ya pas d'erreurs et on redémarre Home Assistant.
+<br><br>
 
 
 * #### Etape 8 :
