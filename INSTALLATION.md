@@ -21,6 +21,12 @@ Vous trouverez sur cette page toutes les explications nécessaires à la mise en
 
 Pour bénéficier de la réception des notifications envoyées par "l'intégration", il faut avoir installé également l'application sur son smartphone ou une tablette.
 Ce n'est pas une obligation mais dans ce cas là vous n'aurez simplement pas de notifications. De toute façon, par défaut elles sont désactivées.
+<br>
+
+Je précise également que le script des notifications a été ecrit pour des appareils tournant sous ANDROID. Je ne sais pas quelle sera sont comportement sous IOS puisque les 2 plateformes ne supportent pas les mêmes fonctionnalités pour les notifications (tout du moins dans leur syntaxe). Je suppose que si vous utilisez déjà cette fonctionnalité sur votre appareil IOS, vous saurez adapter le script à celui-ci.
+<br>
+
+Il est, à mon avis, facilement adaptable pour télégram également.
 <br><br>
 
 
@@ -171,10 +177,24 @@ Ajouter un calendrier nommé 'Arrosage', à l'intégration 'Calendrier local'. *
 * #### Etape 11 :
 Si ce n'est pas dejà fait, ajouter l'intégration 'Calendar merge'. Normalement vous auriez du le faire avant l'étape 1.
 <p align="center"><img src="Medias/Install/add_calendar_merge_int.gif"></p>
+<br>
 
 Configurer une entrée pour l'intégration 'Calendar merge'.
 <p align="center"><img src="Medias/Install/config_calendar_merge.gif"></p>
 
+Le fait de configurer cette intégration, va créer 5 entrées supplémentaires. Ce sont ces entrées qui permettent d'afficher les arrosages à venir du calendrier.
+<br>
+
+Dans la configuration nommer le capteur 'Arrosage a venir', il est **important de le respecter**. mettre 7 jours pour avoir les événements à venir sur une semaine, 3 en nombre maximum d'événements parce que par défaut il y'a 3 zones d'arrosage, activer 'Supprimer les événements récurrents du calendrier', choisir le calendrier 'Arrosage' et sur la seconde page, activer 'Afficher l'événement du calendrier comme heure de' et laisser le reste par défaut.
+<br><br>
+
+
+* #### Etape 12 :
+Il n'y a plus rien à faire si ce n'est de pouvoir enfin **tester toutes les fonctionnalités** de "l'intégration" 'My-irrigation-sytem-for-HA'.
+<br>
+
+Je rappelle qu'a ce stade "l'intégration" tourne en mode simulation afin que vous puissiez vous faire une idée de son fonctionnement ou de voir comment elle est construite en examinant les différents fichiers et cartes de celle-ci.
+<br><br><br>
 
 
 
