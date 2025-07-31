@@ -92,8 +92,32 @@ Je vous conseille d'ajouter un libellé 'Arrosage' ainsi qu'une catégorie à to
 
 
 * #### Etape 6 :
+Si il n'est pas déja actif, activer le 'sensor.home_assistant_operating_system_version'. C'est le sensor qui me sert à simuler la connectivité des électrovannes pour le mode simulation de "l'intégration".
+
+<br>
 
 
+* #### Etape 7 :
+Pour pouvoir recevoir les notifications, même en mode simulation, il est nécessaire de modifier le fichier '/packages/arrosage/scripts.yaml' afin d'y mettre l'id de votre téléphone ou tablette où est installée l'application mobile de Home Assistant.
+<br>
+
+A l'aide de File Editor, ouvrir le fichier '/packages/arrosage/scripts.yaml'. Aller à la ligne 533
+```yml
+        action: notify.mobile_app_pixel
+```
+Remplacer 'notify.mobile_app_pixel' par l'id de votre téléphone ou tablette.
+<br>
+
+Pour retrouver l'id de votre appareil aller à Outils de développement/Actions et chercher dans les actions 'notify.mobile', vous devriez voir la liste de tous vos appareils sur lesquels l'application mobile est installée. Dans mon cas :
+<p align="center"><img src="Medias/Install/notify.jpg"></p>
+Si je voulais recevoir les notifications sur ma tablette plutôt que sur mon téléphone il faudrait que je remplace 'notify.mobile_app_pixel' par :
+```yml
+        action: notify.mobile_app_mipad_5
+```
+<br>
+
+
+* #### Etape 8 :
 
 
 
