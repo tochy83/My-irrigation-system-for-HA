@@ -51,18 +51,18 @@ L'ensemble des cartes notifications
 Cette carte affiche le nom de la zone d'arrosage. Elle permet de choisir si cette zone d'arrosage doit être incluse dans les programmations du calendrier et également de déclencher un arrosage manuel de la zone.
 <br><br><br>
 
-#### - ***La carte electrovanne*** :
+#### - La carte électrovanne :
 <p align="center"><img src="Medias/electrovanne_card.jpg"></p>
 Carte qui permet de déclencher/arrêter une électrovanne manuellement. Elle permet aussi de régler la durée du cycle d'arrosage de cette électrovanne et d'inclure ou non cette électrovanne au cycle d'arrosage de la zone dans laquelle elle se trouve.<br>
 Elle affiche également la date et l'heure du dernier cycle de fonctionnement l'électrovanne.
 <br><br><br>
 
-- ***La carte electrovanne*** (Avec arrosage en cours) :
+- ***La carte électrovanne*** (Avec arrosage en cours) :
 <p align="center"><img src="Medias/electrovanne_card_arrosage_en_cours.jpg"></p>
 Quand une électrovanne est en fonctionnement l'affichage de la carte change pour afficher le temps restant.
 <br><br><br>
 
-- ***La carte electrovanne*** (Avec compteur d'eau) :
+- ***La carte électrovanne*** (Avec compteur d'eau) :
 <p align="center"><img src="Medias/electrovanne_card_avec_volume.jpg"></p>
 Si vouz avez un sensor qui comptabilise votre consommation d'eau, la consommation du dernier cycle de l'électrovanne peut être affiché.
 <br><br><br>
