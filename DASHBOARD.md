@@ -53,7 +53,7 @@ Cette carte affiche le nom de la zone d'arrosage. Elle permet de choisir si cett
 
 - ***La carte electrovanne*** :
 <p align="center"><img src="Medias/electrovanne_card.jpg"></p>
-Carte qui permet de déclencher/arrêter une électrovanne manuellement. Elle permet aussi de régler la durée du cycle d'arrosage de cette électroavnne et d'inclure ou non cette électrovanne au cycle d'arrosage de la zone dans laquelle elle se trouve.<br>
+Carte qui permet de déclencher/arrêter une électrovanne manuellement. Elle permet aussi de régler la durée du cycle d'arrosage de cette électrovanne et d'inclure ou non cette électrovanne au cycle d'arrosage de la zone dans laquelle elle se trouve.<br>
 Elle affiche également la date et l'heure du dernier cycle de fonctionnement l'électrovanne.
 <br><br><br>
 
