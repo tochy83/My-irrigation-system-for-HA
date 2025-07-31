@@ -41,8 +41,24 @@ A l'aide de File Editor, ouvrer le fichier 'configuration.yaml' et rechercher si
 ```yml
   packages: !include_dir_named packages
 ```
-Si oui c'est tout bon, sinon il va falloir la rajouter.
+Si oui c'est tout bon, sinon il va falloir la rajouter sous la "clé" 'homeassistant:' pour au final avoir un résultat qui ressemble à ça :
+```yml
+homeassistant:
+  packages: !include_dir_named packages
+```
+Si vous avez déjà d'autres lignes sous la "clé" 'homeassistant:' vous les laissez bien sur et vous rajouter simplement :
+```yml
+  packages: !include_dir_named packages
+```
+Un fois ceci fait vous allez dans Outils de développement, vous vérifiez la configuration pour être sur qu'il n'ya pas d'erreurs et vous redemarrez Home Assistant.
+<br>
 
+Pour en savoir plus sur les packages, allez lire cet [article](https://www.domo-blog.fr/packages-home-assistant-organiser-configuration-code-yaml-domotique/) sur Domo-blog.fr
+
+
+
+
+<br><br>
 
 
 
