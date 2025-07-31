@@ -41,7 +41,7 @@ A l'aide de File Editor, ouvrer le fichier 'configuration.yaml' et rechercher si
 ```yml
   packages: !include_dir_named packages
 ```
-Si oui c'est tout bon, sinon il va falloir la rajouter sous la "clé" 'homeassistant:' pour au final avoir un résultat qui ressemble à ça :
+Si oui c'est tout bon et vous pouvez passer directement à l'étape 3, sinon il va falloir la rajouter sous la "clé" 'homeassistant:' pour au final avoir un résultat qui ressemble à ça :
 ```yml
 homeassistant:
   packages: !include_dir_named packages
@@ -50,7 +50,7 @@ Si il y a déjà d'autres lignes sous la "clé" 'homeassistant:' on les laisse b
 ```yml
   packages: !include_dir_named packages
 ```
-Une fois ceci fait on va dans Outils de développement, on vérifie la configuration pour être sur qu'il n'ya pas d'erreurs et on redémarre Home Assistant.
+Une fois l'ajout effectué, on va dans Outils de développement, on vérifie la configuration pour être sur qu'il n'ya pas d'erreurs et on redémarre Home Assistant.
 <br>
 
 Pour en savoir plus sur les packages et découvrir leur intérêt, vous pouvez lire cet [article](https://www.domo-blog.fr/packages-home-assistant-organiser-configuration-code-yaml-domotique/) sur Domo-blog.fr
@@ -120,13 +120,23 @@ Si je voulais recevoir les notifications sur ma tablette plutôt que sur mon té
 ```
 <br>
 
-Une fois ceci fait on va dans Outils de développement, on vérifie la configuration pour être sur qu'il n'ya pas d'erreurs et on redémarre Home Assistant.
+Une fois la modification effectuée, on va dans Outils de développement, on vérifie la configuration pour être sur qu'il n'ya pas d'erreurs et on redémarre Home Assistant.
 <br><br>
 
 
 * #### Etape 8 :
+Il faut maintenant attribuer des libellés aux différents scripts 'script.arrosage_declenchement_auto_voie_[x]' pour indiquer à "l'intégration" quelle électrovannes se trouve dans quel zone.
+<br>
+
+Par defaut, puisque c'est comme ça que le Dashboard se présente il faut attribuer aux scripts :
+* Pour les 'script.arrosage_declenchement_auto_voie_[x] 1,2,3,4 et 8 le libellé 'Zone 1'
+* Pour les 'script.arrosage_declenchement_auto_voie_[x] 7 et 9 le libellé 'Zone 2'
+* Pour les 'script.arrosage_declenchement_auto_voie_[x] 5 et 6 le libellé 'Zone 3'
+<p align="center"><img src="Medias/Install/add_label.gif"></p>
+<br>
 
 
+* #### Etape 9 :
 
 
 
