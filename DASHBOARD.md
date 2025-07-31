@@ -27,7 +27,7 @@
 <p align="center"><img src="Medias/arrosage_page_arrosage_en_cours.jpg" width=75%></p>
 <p align="center">Une vue d'ensemble de la page arrosage lorsqu'un arrosage de zone est en cours.</p>
 <br>
-https://youtu.be/zj8lhvfRkjQ
+[Comment installer msunpv.yaml](https://youtu.be/zj8lhvfRkjQ)
 <br><br>
 
 
