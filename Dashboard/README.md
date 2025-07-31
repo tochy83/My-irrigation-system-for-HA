@@ -26,7 +26,10 @@
 
 <p align="center"><img src="../Medias/arrosage_page_arrosage_en_cours.jpg" width=75%></p>
 <p align="center">Une vue d'ensemble de la page arrosage lorsqu'un arrosage de zone est en cours.</p>
+<br>
+[Le code de la page](https://../Dashboard/arrosage_page.yaml)
 <br><br>
+
 
 #### Les cartes qui la composent :
 
