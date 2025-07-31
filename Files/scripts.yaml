@@ -530,8 +530,8 @@ script:
             notification_icon: "{{ icon }}"
             priority: high
             ttl: 0
-#        action: notify.mobile_app_sm_g960f
         action: notify.mobile_app_pixel
+#        action: notify.mobile_app_sm_g960f
     fields:
       message:
         selector:
