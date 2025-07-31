@@ -83,7 +83,7 @@ Sur l'animation je montre comment faire pour 2 fichiers, mais il faut bien rép�
 Une fois ceci fait on va dans Outils de développement, on vérifie la configuration pour être sur qu'il n'ya pas d'erreurs et on redémarre Home Assistant.
 <br>
 
-Après redemmarage on doit retrouver 14 nouvelles automatisations, 11 nouveaux scripts et les 68 entrées nécessaires à "l'intégration".
+Après redemmarage on doit retrouver 15 nouvelles automatisations, 11 nouveaux scripts et les 77 entrées nécessaires à "l'intégration".
 <br>
 
 Je vous conseille d'ajouter un libellé 'Arrosage' ainsi qu'une catégorie à tout ce petit monde, cela sera plus simple pour les retrouver par la suite au milieu de toutes les entités Home Assistant.
