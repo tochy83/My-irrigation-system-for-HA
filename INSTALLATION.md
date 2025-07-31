@@ -24,7 +24,7 @@ Ce n'est pas une obligation mais dans ce cas là vous n'aurez simplement pas de 
 <br><br>
 
 
-Pour coller au plus grand nombre, toutes les étapes de l'installation de je vais décrire seront réalisées avec File Editor.
+Pour coller au plus grand nombre, toutes les étapes de l'installation que je vais décrire seront réalisées avec File Editor.
 <br><br>
 
 ### Les différentes étapes de l'installation :
@@ -32,7 +32,7 @@ Pour coller au plus grand nombre, toutes les étapes de l'installation de je vai
 * #### Etape 1 :
 Vérifier que tous les modules complémentaires et les intégrations nécessaires (voir le listing ci-dessus) sont installés sur votre instance de Home Assitant.
 <br>
-Je ne rentrerai pas ici dans les détails de comment installer tout ça. Je pars du principe que si vous en êtes à faire des "dashboards avancés", c'est que vous maitrisez cette partie. Si ce n'est pas le cas dans les liens que j'ai mis il y'a en général toutes les explications nécessaires et dans tous les cas ces sujets ont été abordés maintes fois sur le forum HACF.
+Je ne rentrerai pas ici dans les détails de comment installer tout ça. Je pars du principe que si vous en êtes à faire des "dashboards avancés", c'est que vous maitrisez cette partie. Si ce n'est pas le cas dans les liens que j'ai mis il y'a en général toutes les explications nécessaires et dans tous les cas ces sujets ont été abordés maintes fois sur le [forum HACF](https://forum.hacf.fr/).
 <br><br>
 
 * #### Etape 2 :
@@ -46,11 +46,11 @@ Si oui c'est tout bon, sinon il va falloir la rajouter sous la "clé" 'homeassis
 homeassistant:
   packages: !include_dir_named packages
 ```
-Si vous avez déjà d'autres lignes sous la "clé" 'homeassistant:' vous les laissez bien sur et vous rajouter simplement :
+Si il y a déjà d'autres lignes sous la "clé" 'homeassistant:' on les laisse bien sur et on rajoute simplement :
 ```yml
   packages: !include_dir_named packages
 ```
-Un fois ceci fait vous allez dans Outils de développement, vous vérifiez la configuration pour être sur qu'il n'ya pas d'erreurs et vous redemarrez Home Assistant.
+Une fois ceci fait on va dans Outils de développement, on vérifie la configuration pour être sur qu'il n'ya pas d'erreurs et on redémarre Home Assistant.
 <br>
 
 Pour en savoir plus sur les packages et découvrir leur intérêt, vous pouvez lire cet [article](https://www.domo-blog.fr/packages-home-assistant-organiser-configuration-code-yaml-domotique/) sur Domo-blog.fr
@@ -58,23 +58,42 @@ Pour en savoir plus sur les packages et découvrir leur intérêt, vous pouvez l
 
 * #### Etape 3 :
 Depuis [la page d'accueil de ce 'repository'](https://github.com/tochy83/My-irrigation-system-for-HA) télécharger le fichier zip contenant toutes les fichiers de "l'intégration".
-Une fois téléchargé, vous pouvez les extraires dans le dossier de votre choix.
 <p align="center"><img src="Medias/Install/download_from_github.gif"></p>
 
-Une fois téléchargé, vous pouvez les extraires dans le dossier de votre choix.
+Une fois téléchargé, on les extrait dans le dossier de son choix.
 <br><br>
 
 
 * #### Etape 4 :
-A l'aide de File Editor, créer dans votre dossier 'config' de Home Assistant, un dossier nommé 'packages'. Pour rappel le dossier 'config' se nomme pour File Editor 'homeassistant' et c'est le dossier où l'on se trouve par défaut quand on ouvre File Editor.
+A l'aide de File Editor, créer dans le dossier 'config' de Home Assistant, un dossier nommé 'packages'. Pour rappel le dossier 'config' se nomme pour File Editor 'homeassistant' et c'est le dossier où l'on se trouve par défaut quand on ouvre File Editor.
 <br>
 
-Dans ce dossier 'Packages' créer un dossier 'Arrosage'.
+Dans ce dossier 'packages' créer un dossier 'arrosage'.
 <p align="center"><img src="Medias/Install/add_folder.gif"></p>
-<br><br>
+<br>
 
 
 * #### Etape 5 :
+A l'aide de File Editor, copier tous les fichier '.yaml' qui se trouvent dans le dossier 'Files' du zip décompressé précedemment, dans le dossier 'arrosage' que l'on vient de créer.
+<p align="center"><img src="Medias/Install/add_files.gif"></p>
+
+Sur l'animation je montre comment faire pour 2 fichiers, mais il faut bien répéter la manipulation pour tous '.yaml' présent dans le dossier. C'est à cette étape qu'avoir le module complémentaire Samba share rend bien service.
+<br>
+
+Une fois ceci fait on va dans Outils de développement, on vérifie la configuration pour être sur qu'il n'ya pas d'erreurs et on redémarre Home Assistant.
+<br>
+
+Après redemmarage on doit retrouver 14 nouvelles automatisations, 11 nouveaux scripts et les 68 entrées nécessaires à "l'intégration".
+<br>
+
+Je vous conseille d'ajouter un libellé 'Arrosage' ainsi qu'une catégorie à tout ce petit monde, cela sera plus simple pour les retrouver par la suite au milieu de toutes les entités Home Assistant.
+<p align="center"><img src="Medias/Install/add_categorie.gif"></p>
+<br>
+
+
+* #### Etape 6 :
+
+
 
 
 
