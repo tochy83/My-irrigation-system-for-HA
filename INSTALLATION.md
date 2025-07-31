@@ -29,11 +29,21 @@ Pour coller au plus grand nombre, toutes les étapes de l'installation de je vai
 
 ### Les différentes étapes de l'installation :
 
-* #### Etape 1:
+* #### Etape 1 :
 Vérifier que tous les modules complémentaires et les intégrations nécessaires (voir le listing ci-dessus) sont installés sur votre instance de Home Assitant.
 <br>
 Je ne rentrerai pas ici dans les détails de comment installer tout ça. Je pars du principe que si vous en êtes à faire des "dashboards avancés", c'est que vous maitrisez cette partie. Si ce n'est pas le cas dans les liens que j'ai mis il y'a en général toutes les explications nécessaires et dans tous les cas ces sujets ont été abordés maintes fois sur le forum HACF.
 <br><br>
+
+* #### Etape 2 :
+Vérifier dans le fichier 'configuration.yaml' les packages sont actifs. Si vous ne voyez pas de quoi je parle c'est que probablement vous ne les avez jamais utlisé et que du coup ils ne sont pas actifs.
+A l'aide de File Editor, ouvrer le fichier 'configuration.yaml' et rechercher si il contient la ligne suivante :
+```yml
+  packages: !include_dir_named packages
+```
+Si oui c'est tout bon, sinon il va falloir la rajouter.
+
+
 
 
 
