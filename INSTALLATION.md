@@ -28,10 +28,8 @@ Pour coller au plus grand nombre, toutes les étapes de l'installation de je vai
 <br><br>
 
 ### Les différentes étapes de l'installation :
-<br>
 
 #### Etape 1:
-<br>
 Vérifier que tous les modules complémentaires et les intégrations nécessaires (voir le listing ci-dessus) sont installés sur votre instance de Home Assitant.
 <br>
 Je ne rentrerai pas ici dans les détails de comment installer tout ça. Je pars du principe que si vous en êtes à faire des "dashboards avancés", c'est que vous maitrisez cette partie. Si ce n'est pas le cas dans les liens que j'ai mis il y'a en général toutes les explications nécessaires et dans tous les cas ces sujets ont été abordés maintes fois sur le forum HACF.
