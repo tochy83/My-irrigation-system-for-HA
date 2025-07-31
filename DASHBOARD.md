@@ -10,11 +10,8 @@
 * [Calendar merge](https://github.com/kgn3400/calendar_merge?tab=readme-ov-file#calendar-merge-helper) disponible sur HACS
 
 <details>
-  <summary>Le code de la page : (Cliquer pour afficher)</summary>
-
-```yml
-
-```
+  <summary>Le code du dashboard : (Cliquer pour afficher)</summary>
+https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/dashboard.yaml
 </details>
 <br><br>
 
@@ -104,6 +101,11 @@ Si vous avez un sensor qui comptabilise votre consommation d'eau, cette carte af
 ### La page calendrier d'arrosage<br><br>
 <p align="center"><img src="Medias/calendar_page.jpg" width=75%></p>
 <p align="center">Une vue d'ensemble de la page arrosage.</p>
+<br>
+<details>
+  <summary>Le code de la page : (Cliquer pour afficher)</summary>
+https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/calendar_page.yaml
+</details>
 <br><br>
 
 #### Les cartes qui la composent :
