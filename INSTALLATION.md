@@ -115,7 +115,7 @@ Si je voulais recevoir les notifications sur ma tablette plutôt que sur mon té
 ```yml
         action: notify.mobile_app_mipad_5
 ```
-<br><br>
+<br>
 
 
 * #### Etape 8 :
