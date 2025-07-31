@@ -66,7 +66,7 @@ Une fois téléchargé, vous pouvez les extraires dans le dossier de votre choix
 
 
 * #### Etape 4 :
-A l'aide de File Editor, créer dans votre dossier 'config' de Home Assistant, un dossier nommé 'packages'.
+A l'aide de File Editor, créer dans votre dossier 'config' de Home Assistant, un dossier nommé 'packages'. Pour rappel le dossier 'config' se nomme pour File Editor 'homeassistant' et c'est le dossier où l'on se trouve par défaut quand on ouvre File Editor.
 <br>
 
 Dans ce dossier 'Packages' créer un dossier 'Arrosage'.
