@@ -58,12 +58,23 @@ Pour en savoir plus sur les packages et découvrir leur intérêt, vous pouvez l
 
 * #### Etape 3 :
 Depuis [la page d'accueil de ce 'repository'](https://github.com/tochy83/My-irrigation-system-for-HA) télécharger le fichier zip contenant toutes les fichiers de "l'intégration".
-<br>
-
 Une fois téléchargé, vous pouvez les extraires dans le dossier de votre choix.
 <p align="center"><img src="Medias/Install/download_from_github.gif"></p>
 
+Une fois téléchargé, vous pouvez les extraires dans le dossier de votre choix.
 <br><br>
+
+
+* #### Etape 4 :
+A l'aide de File Editor, créer dans votre dossier 'config' de Home Assistant, un dossier nommé 'packages'.
+<br>
+
+Dans ce dossier 'Packages' créer un dossier 'Arrosage'.
+<p align="center"><img src="Medias/Install/add_folder.gif"></p>
+<br><br>
+
+
+* #### Etape 5 :
 
 
 
