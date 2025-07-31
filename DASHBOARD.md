@@ -19,12 +19,12 @@
 <br><br>
 
 ### La page arrosage<br><br>
-<p align="center"><img src="../Medias/arrosage_page.jpg" width=75%></p>
+<p align="center"><img src="Medias/arrosage_page.jpg" width=75%></p>
 <p align="center">Une vue d'ensemble de la page arrosage.</p>
 <br>
 
 
-<p align="center"><img src="../Medias/arrosage_page_arrosage_en_cours.jpg" width=75%></p>
+<p align="center"><img src="Medias/arrosage_page_arrosage_en_cours.jpg" width=75%></p>
 <p align="center">Une vue d'ensemble de la page arrosage lorsqu'un arrosage de zone est en cours.</p>
 <br>
 [Comment installer msunpv.yaml](https://youtu.be/zj8lhvfRkjQ)
@@ -35,7 +35,7 @@
 
 
 - ***La carte navigation*** :
-<p align="center"><img src="../Medias/navigation_card.jpg"></p>
+<p align="center"><img src="Medias/navigation_card.jpg"></p>
 Une carte qui affiche simplement le nom de la page en affichée ainsi qu'un bouton pour retourner à la page précédente.<br>
 Cette carte n'est pas nécessaire au dashboard arrosage en lui même.
 <br><br><br>
