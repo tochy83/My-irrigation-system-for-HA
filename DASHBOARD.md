@@ -27,7 +27,10 @@
 <p align="center"><img src="Medias/arrosage_page_arrosage_en_cours.jpg" width=75%></p>
 <p align="center">Une vue d'ensemble de la page arrosage lorsqu'un arrosage de zone est en cours.</p>
 <br>
-[Le code de la page complète](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/arrosage_page.yaml)
+<details>
+  <summary>Le code de la page : (Cliquer pour afficher)</summary>
+https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/arrosage_page.yaml
+</details>
 <br><br>
 
 
