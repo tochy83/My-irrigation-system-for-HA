@@ -43,7 +43,7 @@ Cette carte affiche si un arrosage de zone est en cours. On retrouve l'heure de 
 <br><br>
 L'ensemble des cartes notifications
 <p align="center"><img src="../Medias/notifications_card.jpg"></p>
-<br><br><br>
+<br><br>
 
 - ***La carte zone*** :
 <p align="center"><img src="../Medias/zone_card.jpg"></p>
@@ -77,7 +77,7 @@ Cette carte récupère automatiquement les infos du calendrier d'arrosage pour l
 <br><br>
 L'ensemble des cartes prochains arrosages
 <p align="center"><img src="../Medias/prochains_arrosages_cards.jpg"></p>
-<br><br><br>
+<br><br>
 
 - ***La carte programmation d'arrosage*** :
 <p align="center"><img src="../Medias/programmation_card.jpg"></p>
