@@ -46,3 +46,7 @@ input_text:
     name: Arrosage - Volume de départ
     min: 0
     max: 10
+    
+input_boolean:
+  enable_notifications:  # Définit si les notifications doivent être envoyées
+    name: Arrosage - Enable notifications

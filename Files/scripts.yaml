@@ -7,134 +7,151 @@ script:
   arrosage_arret:
     alias: Arrosage - Arret
     icon: mdi:stop-circle-outline
-    description: Script permettant l'arrêt d'un cycle d'arrosage depuis les notifications
+    description: >-
+      Script permettant l'arrêt d'un cycle d'arrosage depuis les notifications
       apparaissant sur le dashboard.
     fields:
       zone:
         selector:
-          text:
+          text: null
         name: zone
         required: true
     sequence:
-    - choose:
-      - conditions:
-        - condition: template
-          value_template: '{{ true if zone == ''zone 1'' }}'
-        sequence:
-        - repeat:
-            for_each: '{{ label_entities(''Zone 1'') | select(''match'', ''script.arrosage_declenchement_auto_voie'')
-              | join | replace (''script.arrosage_declenchement_auto_voie_'','''') |
-              list }}'
+      - choose:
+          - conditions:
+              - condition: template
+                value_template: "{{ true if zone == 'zone 1' }}"
             sequence:
-            - action: switch.turn_off
-              metadata: {}
-              data: {}
-              target:
-                entity_id: switch.arrosage_electrovanne_{{repeat.item}}
-        - action: input_boolean.turn_off
-          metadata: {}
-          data: {}
-          target:
-            entity_id: input_boolean.arrosage_auto_zone_1
-        - action: automation.turn_off
-          metadata: {}
-          data:
-            stop_actions: true
-          target:
-            entity_id: automation.arrosage_zone_1
-        - delay:
-            hours: 0
-            minutes: 0
-            seconds: 1
-            milliseconds: 0
-          enabled: false
-        - action: automation.turn_on
-          target:
-            entity_id: automation.arrosage_zone_1
-          data: {}
-        - action: script.envoi_notification_vers_mon_telephone
-          data:
-            message: clear_notification
-            tag: arrosage zone 1
-      - conditions:
-        - condition: template
-          value_template: '{{ true if zone == ''zone 2'' }}'
-        sequence:
-        - repeat:
-            for_each: '{{ label_entities(''Zone 2'') | select(''match'', ''script.arrosage_declenchement_auto_voie'')
-              | join | replace (''script.arrosage_declenchement_auto_voie_'','''') |
-              list }}'
+              - repeat:
+                  for_each: >-
+                    {{ label_entities('Zone 1') | select('match',
+                    'script.arrosage_declenchement_auto_voie') | join | replace
+                    ('script.arrosage_declenchement_auto_voie_','') | list }}
+                  sequence:
+                    - action: switch.turn_off
+                      metadata: {}
+                      data: {}
+                      target:
+                        entity_id: switch.arrosage_electrovanne_{{repeat.item}}
+              - action: input_boolean.turn_off
+                metadata: {}
+                data: {}
+                target:
+                  entity_id: input_boolean.arrosage_auto_zone_1
+              - action: automation.turn_off
+                metadata: {}
+                data:
+                  stop_actions: true
+                target:
+                  entity_id: automation.arrosage_zone_1
+              - delay:
+                  hours: 0
+                  minutes: 0
+                  seconds: 1
+                  milliseconds: 0
+                enabled: false
+              - action: automation.turn_on
+                target:
+                  entity_id: automation.arrosage_zone_1
+                data: {}
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.enable_notifications
+                    state: "on"
+                  - action: script.envoi_notification_vers_mon_telephone
+                    data:
+                      message: clear_notification
+                      tag: arrosage zone 1
+          - conditions:
+              - condition: template
+                value_template: "{{ true if zone == 'zone 2' }}"
             sequence:
-            - action: switch.turn_off
-              metadata: {}
-              data: {}
-              target:
-                entity_id: switch.arrosage_electrovanne_{{repeat.item}}
-        - action: input_boolean.turn_off
-          metadata: {}
-          data: {}
-          target:
-            entity_id: input_boolean.arrosage_auto_zone_2
-        - action: automation.turn_off
-          metadata: {}
-          data:
-            stop_actions: true
-          target:
-            entity_id: automation.arrosage_zone_2
-          enabled: true
-        - delay:
-            hours: 0
-            minutes: 0
-            seconds: 1
-            milliseconds: 0
-          enabled: false
-        - action: automation.turn_on
-          target:
-            entity_id: automation.arrosage_zone_2
-          data: {}
-        - action: script.envoi_notification_vers_mon_telephone
-          data:
-            message: clear_notification
-            tag: arrosage zone 2
-      - conditions:
-        - condition: template
-          value_template: '{{ true if zone == ''zone 3'' }}'
-        sequence:
-        - repeat:
-            for_each: '{{ label_entities(''Zone 3'') | select(''match'', ''script.arrosage_declenchement_auto_voie'')
-              | join | replace (''script.arrosage_declenchement_auto_voie_'','''') |
-              list }}'
+              - repeat:
+                  for_each: >-
+                    {{ label_entities('Zone 2') | select('match',
+                    'script.arrosage_declenchement_auto_voie') | join | replace
+                    ('script.arrosage_declenchement_auto_voie_','') | list }}
+                  sequence:
+                    - action: switch.turn_off
+                      metadata: {}
+                      data: {}
+                      target:
+                        entity_id: switch.arrosage_electrovanne_{{repeat.item}}
+              - action: input_boolean.turn_off
+                metadata: {}
+                data: {}
+                target:
+                  entity_id: input_boolean.arrosage_auto_zone_2
+              - action: automation.turn_off
+                metadata: {}
+                data:
+                  stop_actions: true
+                target:
+                  entity_id: automation.arrosage_zone_2
+                enabled: true
+              - delay:
+                  hours: 0
+                  minutes: 0
+                  seconds: 1
+                  milliseconds: 0
+                enabled: false
+              - action: automation.turn_on
+                target:
+                  entity_id: automation.arrosage_zone_2
+                data: {}
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.enable_notifications
+                    state: "on"
+                  - action: script.envoi_notification_vers_mon_telephone
+                    data:
+                      message: clear_notification
+                      tag: arrosage zone 2
+          - conditions:
+              - condition: template
+                value_template: "{{ true if zone == 'zone 3' }}"
             sequence:
-            - action: switch.turn_off
-              metadata: {}
-              data: {}
-              target:
-                entity_id: switch.arrosage_electrovanne_{{repeat.item}}
-        - action: input_boolean.turn_off
-          metadata: {}
-          data: {}
-          target:
-            entity_id: input_boolean.arrosage_auto_zone_3
-        - action: automation.turn_off
-          metadata: {}
-          data:
-            stop_actions: true
-          target:
-            entity_id: automation.arrosage_zone_3
-        - delay:
-            hours: 0
-            minutes: 0
-            seconds: 1
-            milliseconds: 0
-          enabled: false
-        - action: automation.turn_on
-          target:
-            entity_id: automation.arrosage_zone_3
-          data: {}
-        - action: script.envoi_notification_vers_mon_telephone
-          data:
-            message: clear_notification
-            tag: arrosage zone 3
+              - repeat:
+                  for_each: >-
+                    {{ label_entities('Zone 3') | select('match',
+                    'script.arrosage_declenchement_auto_voie') | join | replace
+                    ('script.arrosage_declenchement_auto_voie_','') | list }}
+                  sequence:
+                    - action: switch.turn_off
+                      metadata: {}
+                      data: {}
+                      target:
+                        entity_id: switch.arrosage_electrovanne_{{repeat.item}}
+              - action: input_boolean.turn_off
+                metadata: {}
+                data: {}
+                target:
+                  entity_id: input_boolean.arrosage_auto_zone_3
+              - action: automation.turn_off
+                metadata: {}
+                data:
+                  stop_actions: true
+                target:
+                  entity_id: automation.arrosage_zone_3
+              - delay:
+                  hours: 0
+                  minutes: 0
+                  seconds: 1
+                  milliseconds: 0
+                enabled: false
+              - action: automation.turn_on
+                target:
+                  entity_id: automation.arrosage_zone_3
+                data: {}
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.enable_notifications
+                    state: "on"
+                  - action: script.envoi_notification_vers_mon_telephone
+                    data:
+                      message: clear_notification
+                      tag: arrosage zone 3
+
 
   arrosage_declenchement_auto_voie_1:
     alias: Arrosage - Déclenchement auto voie 1
@@ -167,7 +184,7 @@ script:
         timeout:
           hours: 0
           minutes: 0
-          seconds: "{{ states('input_number.duree_arrosage_voie_1') }}"
+          seconds: "{{ states('input_number.arrosage_duree_voie_1') }}"
           milliseconds: 0
         alias: Attendre la fin du timer de cette électrovanne.
       - delay:
@@ -208,7 +225,7 @@ script:
         timeout:
           hours: 0
           minutes: 0
-          seconds: "{{ states('input_number.duree_arrosage_voie_2') }}"
+          seconds: "{{ states('input_number.arrosage_duree_voie_2') }}"
           milliseconds: 0
         alias: Attendre la fin du timer de cette électrovanne.
       - delay:
@@ -248,7 +265,7 @@ script:
         timeout:
           hours: 0
           minutes: 0
-          seconds: "{{ states('input_number.duree_arrosage_voie_3') }}"
+          seconds: "{{ states('input_number.arrosage_duree_voie_3') }}"
           milliseconds: 0
         alias: Attendre la fin du timer de cette électrovanne.
       - delay:
@@ -288,7 +305,7 @@ script:
         timeout:
           hours: 0
           minutes: 0
-          seconds: "{{ states('input_number.duree_arrosage_voie_4') }}"
+          seconds: "{{ states('input_number.arrosage_duree_voie_4') }}"
           milliseconds: 0
         alias: Attendre la fin du timer de cette électrovanne.
       - delay:
@@ -328,7 +345,7 @@ script:
         timeout:
           hours: 0
           minutes: 0
-          seconds: "{{ states('input_number.duree_arrosage_voie_5') }}"
+          seconds: "{{ states('input_number.arrosage_duree_voie_5') }}"
           milliseconds: 0
         alias: Attendre la fin du timer de cette électrovanne.
       - delay:
@@ -368,7 +385,7 @@ script:
         timeout:
           hours: 0
           minutes: 0
-          seconds: "{{ states('input_number.duree_arrosage_voie_6') }}"
+          seconds: "{{ states('input_number.arrosage_duree_voie_6') }}"
           milliseconds: 0
         alias: Attendre la fin du timer de cette électrovanne.
       - delay:
@@ -408,7 +425,7 @@ script:
         timeout:
           hours: 0
           minutes: 0
-          seconds: "{{ states('input_number.duree_arrosage_voie_7') }}"
+          seconds: "{{ states('input_number.arrosage_duree_voie_7') }}"
           milliseconds: 0
         alias: Attendre la fin du timer de cette électrovanne.
       - delay:
@@ -448,7 +465,7 @@ script:
         timeout:
           hours: 0
           minutes: 0
-          seconds: "{{ states('input_number.duree_arrosage_voie_8') }}"
+          seconds: "{{ states('input_number.arrosage_duree_voie_8') }}"
           milliseconds: 0
         alias: Attendre la fin du timer de cette électrovanne.
       - delay:
@@ -488,7 +505,7 @@ script:
         timeout:
           hours: 0
           minutes: 0
-          seconds: "{{ states('input_number.duree_arrosage_voie_9') }}"
+          seconds: "{{ states('input_number.arrosage_duree_voie_9') }}"
           milliseconds: 0
         alias: Attendre la fin du timer de cette électrovanne.
       - delay:
@@ -499,6 +516,7 @@ script:
 
   envoi_notification_vers_mon_telephone:
     alias: Envoi notification vers mon telephone
+    icon: mdi:cellphone-information
     sequence:
       - data:
           message: "{{ message }}"
@@ -512,9 +530,8 @@ script:
             notification_icon: "{{ icon }}"
             priority: high
             ttl: 0
+#        action: notify.mobile_app_sm_g960f
         action: notify.mobile_app_pixel
-    mode: single
-    icon: mdi:cellphone-information
     fields:
       message:
         selector:

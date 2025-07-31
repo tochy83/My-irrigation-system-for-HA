@@ -9,7 +9,7 @@ timer:
     restore: true
 
 input_number:
-  duree_arrosage_voie_3:  # Définit la durée d'arrosage de la voie 3
+  arrosage_duree_voie_3:  # Définit la durée d'arrosage de la voie 3
     name: Arrosage - Durée timer voie 3
     min: 0
     max: 1799

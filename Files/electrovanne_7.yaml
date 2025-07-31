@@ -9,7 +9,7 @@ timer:
     restore: true
 
 input_number:
-  duree_arrosage_voie_7:  # Définit la durée d'arrosage de la voie 7
+  arrosage_duree_voie_7:  # Définit la durée d'arrosage de la voie 7
     name: Arrosage - Durée timer voie 7
     min: 0
     max: 1799
