@@ -83,7 +83,7 @@ Sur l'animation je montre comment faire pour 2 fichiers, mais il faut bien rép�
 Une fois ceci fait on va dans Outils de développement, on vérifie la configuration pour être sur qu'il n'ya pas d'erreurs et on redémarre Home Assistant.
 <br>
 
-Après redemmarage on doit retrouver 15 nouvelles automatisations, 11 nouveaux scripts et les 77 entrées nécessaires à "l'intégration".
+Après redemmarage on doit retrouver 15 nouvelles automatisations, 11 nouveaux scripts et les 72 entrées nécessaires à "l'intégration".
 <br>
 
 Je vous conseille d'ajouter un libellé 'Arrosage' ainsi qu'une catégorie à tout ce petit monde, cela sera plus simple pour les retrouver par la suite au milieu de toutes les entités Home Assistant.
@@ -160,11 +160,20 @@ Maintenant "l'intégration" est opérationnelle, il ne reste plus qu'à configur
 
 
 * #### Etape 10 :
+Ajouter l'intégration 'Calendrier local si elle n'est pas déjà présente sur votre instance de Home Assistant.
+<p align="center"><img src="Medias/Install/add_local_calendar_int.gif"></p>
+
+Ajouter un calendrier nommé 'Arrosage', à l'intégration 'Calendrier local'. **Ici aussi le nom du calendrier** à son importance pour un fonctionnement "Out of the box" de "l'intégration".
+<p align="center"><img src="Medias/Install/add_calendar.gif"></p>
+<br>
 
 
+* #### Etape 11 :
+Si ce n'est pas dejà fait, ajouter l'intégration 'Calendar merge'. Normalement vous auriez du le faire avant l'étape 1.
+<p align="center"><img src="Medias/Install/add_calendar_merge_int.gif"></p>
 
-
-
+Configurer une entrée pour l'intégration 'Calendar merge'.
+<p align="center"><img src="Medias/Install/config_calendar_merge.gif"></p>
 
 
 
