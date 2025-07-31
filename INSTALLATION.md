@@ -132,11 +132,40 @@ Par defaut, puisque c'est comme ça que le Dashboard se présente il faut attrib
 * Pour les 'script.arrosage_declenchement_auto_voie_[x] 1,2,3,4 et 8 le libellé 'Zone 1'
 * Pour les 'script.arrosage_declenchement_auto_voie_[x] 7 et 9 le libellé 'Zone 2'
 * Pour les 'script.arrosage_declenchement_auto_voie_[x] 5 et 6 le libellé 'Zone 3'
-<p align="center"><img src="Medias/Install/add_label.gif"></p>
+<p align="center"><img src="Medias/Install/add_labels.gif"></p>
 <br>
+
+**Attention à bien respecter le noms des libellés** que j'ai donné. Autant les libellés à l'étape 5 étaient purement dans un but d'organisation, ici au contraire ils sont obligatoires au bon fonctionnement de "l'intégration".
+<br><br>
 
 
 * #### Etape 9 :
+Vient enfin la mise en place du Dashboard en lui même.
+<br>
+
+Pour ne pas risquer de casser votre Dashboard principal de Home Assistant, on va en créer un nouveau dans un premier temps. Si par la suite tout se passe bien et que l'intégration vous convient vous pourrez simplement copier ses 2 pages dans votre Dashboard principal.
+<br>
+
+A l'aide d'un éditeur de texte, ouvrir le fichier 'dashboard.yaml' situé dans le dossier 'Dashboard' du zip décompressé à l'étape 3, sélectionner tout son contenu et le copier.
+<br>
+
+Ajouter un nouveau Dashboard nommé 'Arrosage' à Home Assistant.
+<br>
+
+Modifier ce nouveau Dashboard pour y coller le contenu du fichier 'dashboard.yaml'.
+<p align="center"><img src="Medias/Install/add_dashboard.gif"></p>
+
+Maintenant "l'intégration" est opérationnelle, il ne reste plus qu'à configurer le calendrier pour pouvoir activer la programmation.
+<br><br>
+
+
+* #### Etape 10 :
+
+
+
+
+
+
 
 
 
