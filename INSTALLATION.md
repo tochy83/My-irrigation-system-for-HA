@@ -175,7 +175,7 @@ Ajouter un calendrier nommé 'Arrosage', à l'intégration 'Calendrier local'. *
 
 
 #### - ***Etape 11*** :
-Si ce n'est pas dejà fait, ajouter l'intégration 'Calendar merge'. Normalement vous auriez du le faire avant l'étape 1.
+Si ce n'est pas dejà fait, ajouter l'intégration 'Calendar merge'. Normalement vous auriez du le faire à l'étape 1.
 <p align="center"><img src="Medias/Install/add_calendar_merge_int.gif"></p>
 <br>
 
