@@ -531,6 +531,7 @@ script:
             priority: high
             ttl: 0
         action: notify.mobile_app_pixel
+#        action: notify.mobile_app_mipad_5
 #        action: notify.mobile_app_sm_g960f
     fields:
       message:
