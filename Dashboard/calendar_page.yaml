@@ -44,27 +44,84 @@ sections:
               .header {
                 margin-bottom: -7px;
               }
-      - type: calendar
-        entities:
-          - calendar.arrosage
-      - type: custom:mushroom-chips-card
-        chips:
-          - type: template
-            tap_action:
-              action: navigate
-              navigation_path: /calendar
-            icon: mdi:plus
-            icon_color: white
-            content: ""
-        alignment: end
-        card_mod:
-          style: |
-            ha-card {
-              --chip-background: #0CACF4;
-              --chip-border-color: #0CACF4;
-              --primary-text-color: white;
-              padding-right: 8px;
-            }
+      - type: horizontal-stack
+        cards:
+          - type: custom:vertical-stack-in-card
+            cards:
+              - type: custom:mushroom-template-card
+                multiline_secondary: true
+                primary: ""
+                secondary: Vous n'avez pas encore crée de calendrier pour l'arrosage.
+                icon: mdi:alert
+                icon_color: deep-orange
+                tap_action:
+                  action: none
+                hold_action:
+                  action: none
+                double_tap_action:
+                  action: none
+                card_mod:
+                  style: |
+                    ha-card {
+                      background-color: #FAEFDB;
+                    }
+              - type: custom:mushroom-chips-card
+                chips:
+                  - type: template
+                    icon: mdi:calendar-edit-outline
+                    tap_action:
+                      action: navigate
+                      navigation_path: /calendar
+                    card_mod:
+                      style: |
+                        ha-card {
+                          border:none; 
+                          --chip-border-radius: 12px;
+                          --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                        }
+                alignment: end
+                card_mod:
+                  style: |
+                    ha-card {
+                      margin-top: -46px;
+                      margin-left: 50%;
+                      padding-bottom: 8px;
+                      padding-left: 8px;
+                      padding-right: 8px;
+                    }
+        grid_options:
+          columns: full
+        visibility:
+          - condition: state
+            entity: calendar.arrosage
+            state: unknown
+      - type: vertical-stack
+        cards:
+          - type: calendar
+            entities:
+              - calendar.arrosage
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: template
+                tap_action:
+                  action: navigate
+                  navigation_path: /calendar
+                icon: mdi:plus
+                icon_color: white
+                content: ""
+            alignment: end
+            card_mod:
+              style: |
+                ha-card {
+                  --chip-background: #0CACF4;
+                  --chip-border-color: #0CACF4;
+                  --primary-text-color: white;
+                  padding-right: 8px;
+                }
+        visibility:
+          - condition: state
+            entity: calendar.arrosage
+            state_not: unknown
   - type: grid
     cards:
       - type: custom:mod-card
