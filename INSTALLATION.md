@@ -53,10 +53,15 @@ Si vous avez déjà d'autres lignes sous la "clé" 'homeassistant:' vous les lai
 Un fois ceci fait vous allez dans Outils de développement, vous vérifiez la configuration pour être sur qu'il n'ya pas d'erreurs et vous redemarrez Home Assistant.
 <br>
 
-Pour en savoir plus sur les packages, allez lire cet [article](https://www.domo-blog.fr/packages-home-assistant-organiser-configuration-code-yaml-domotique/) sur Domo-blog.fr
+Pour en savoir plus sur les packages et découvrir leur intérêt, vous pouvez lire cet [article](https://www.domo-blog.fr/packages-home-assistant-organiser-configuration-code-yaml-domotique/) sur Domo-blog.fr
+<br><br>
 
+* #### Etape 3 :
+Depuis [la page d'accueil de ce 'repository'](https://github.com/tochy83/My-irrigation-system-for-HA) télécharger le fichier zip contenant toutes les fichiers de "l'intégration".
+<br>
 
-
+Une fois téléchargé, vous pouvez les extraires dans le dossier de votre choix.
+<p align="center"><img src="Medias/Install/download_from_github.gif"></p>
 
 <br><br>
 
