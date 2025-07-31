@@ -9,6 +9,7 @@
 * [Timer bar card](https://github.com/rianadon/timer-bar-card?tab=readme-ov-file#timer-bar-card) disponible sur HACS
 * [Calendar merge](https://github.com/kgn3400/calendar_merge?tab=readme-ov-file#calendar-merge-helper) disponible sur HACS
 
+<br><br>
 <details>
   <summary>Le code du dashboard : (Cliquer pour afficher)</summary>
 https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/dashboard.yaml
