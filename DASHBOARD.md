@@ -32,13 +32,13 @@ Le code de la page arrosage : [Voir](https://github.com/tochy83/My-irrigation-sy
 #### Les cartes qui la composent :
 
 
-- ***La carte navigation*** :
+#### - ***La carte navigation*** :
 <p align="center"><img src="Medias/navigation_card.jpg"></p>
 Une carte qui affiche simplement le nom de la page en affichée ainsi qu'un bouton pour retourner à la page précédente.<br>
 Cette carte n'est pas nécessaire au dashboard arrosage en lui même.
 <br><br><br>
 
-- ***La carte notification*** :
+#### - ***La carte notification*** :
 <p align="center"><img src="Medias/notification_card.jpg"></p>
 Cette carte affiche si un arrosage de zone est en cours. On retrouve l'heure de fin du cycle prévue ainsi qu'un bouton permetttant d'arrêter l'arrosage de zone en cours.
 <br><br>
@@ -46,7 +46,7 @@ L'ensemble des cartes notifications
 <p align="center"><img src="Medias/notifications_card.jpg"></p>
 <br><br>
 
-- ***La carte zone*** :
+#### - ***La carte zone*** :
 <p align="center"><img src="Medias/zone_card.jpg"></p>
 Cette carte affiche le nom de la zone d'arrosage. Elle permet de choisir si cette zone d'arrosage doit être incluse dans les programmations du calendrier et également de déclencher un arrosage manuel de la zone.
 <br><br><br>
@@ -57,22 +57,22 @@ Carte qui permet de déclencher/arrêter une électrovanne manuellement. Elle pe
 Elle affiche également la date et l'heure du dernier cycle de fonctionnement l'électrovanne.
 <br><br><br>
 
-- ***La carte électrovanne*** (Avec arrosage en cours) :
+#### - ***La carte électrovanne*** (Avec arrosage en cours) :
 <p align="center"><img src="Medias/electrovanne_card_arrosage_en_cours.jpg"></p>
 Quand une électrovanne est en fonctionnement l'affichage de la carte change pour afficher le temps restant.
 <br><br><br>
 
-- ***La carte électrovanne*** (Avec compteur d'eau) :
+#### - ***La carte électrovanne*** (Avec compteur d'eau) :
 <p align="center"><img src="Medias/electrovanne_card_avec_volume.jpg"></p>
 Si vouz avez un sensor qui comptabilise votre consommation d'eau, la consommation du dernier cycle de l'électrovanne peut être affiché.
 <br><br><br>
 
-- ***La carte titre*** :
+#### - ***La carte titre*** :
 <p align="center"><img src="Medias/titre_card.jpg"></p>
 Une carte qui affiche simplement un titre stylisé.
 <br><br><br>
 
-- ***La carte prochains arrosages*** :
+#### - ***La carte prochains arrosages*** :
 <p align="center"><img src="Medias/prochains_arrosages_card.jpg"></p>
 Cette carte récupère automatiquement les infos du calendrier d'arrosage pour les afficher. Par contre il est impératif pour qu'elle affiche quelque chose, d'avoir au préalable installer et configurer le helper https://github.com/kgn3400/calendar_merge disponible sur HACS.
 <br><br>
@@ -80,17 +80,17 @@ L'ensemble des cartes prochains arrosages
 <p align="center"><img src="Medias/prochains_arrosages_cards.jpg"></p>
 <br><br>
 
-- ***La carte programmation d'arrosage*** :
+#### - ***La carte programmation d'arrosage*** :
 <p align="center"><img src="Medias/programmation_card.jpg"></p>
 Carte qui permet d'afficher la page calendrier d'arrosage.
 <br><br><br>
 
-- ***La carte connectivité*** :
+#### - ***La carte connectivité*** :
 <p align="center"><img src="Medias/connectivity_card.jpg"></p>
 Si vous avez un sensor qui permet de savoir si vos électrovannes sont connectées à votre serveur Home Assistant, cette carte affiche l'état de la connectivité.
 <br><br><br>
 
-- ***La carte compteur d'eau*** :
+#### - ***La carte compteur d'eau*** :
 <p align="center"><img src="Medias/compteur_card.jpg"></p>
 Si vous avez un sensor qui comptabilise votre consommation d'eau, cette carte affiche celle ci.
 <br><br><br>
