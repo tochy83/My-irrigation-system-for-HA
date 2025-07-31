@@ -4,8 +4,8 @@ Vous trouverez sur cette page toutes les explications nécessaires à la mise en
 <br><br>
 
 #### Les modules complémentaires nécessaires pour installer le dashboard :
-* File Editor ou Studio Code Server
-* Si vous avez en plus Samba Share c'est un plus pour la copie des fichiers (C'est bien plus rapide qu'avec File Editor)
+* 'File Editor' ou 'Studio Code Server'
+* Si vous avez en plus 'Samba share' c'est un plus pour la copie des fichiers (C'est bien plus rapide qu'avec File Editor)
 <br><br>
 
 #### Integrations nécessaires au fonctionnment du dashboard arrosage :
