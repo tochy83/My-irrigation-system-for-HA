@@ -111,10 +111,11 @@ Remplacer 'notify.mobile_app_pixel' par l'id de votre téléphone ou tablette.
 Pour retrouver l'id de votre appareil aller à Outils de développement/Actions et chercher dans les actions 'notify.mobile', vous devriez voir la liste de tous vos appareils sur lesquels l'application mobile est installée. Dans mon cas :
 <p align="center"><img src="Medias/Install/notify.jpg"></p>
 Si je voulais recevoir les notifications sur ma tablette plutôt que sur mon téléphone il faudrait que je remplace 'notify.mobile_app_pixel' par :
+
 ```yml
         action: notify.mobile_app_mipad_5
 ```
-<br>
+<br><br>
 
 
 * #### Etape 8 :
