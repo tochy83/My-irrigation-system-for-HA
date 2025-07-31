@@ -15,6 +15,7 @@
 * [Calendar merge](https://github.com/kgn3400/calendar_merge?tab=readme-ov-file#calendar-merge-helper) disponible sur HACS
 * Et bien sur HACS pour pouvoir installer tout ce que je viens de lister ci-dessus
 <br><br>
+
 Pour bénéficier de la réception des notifications envoyées par "l'intégration", il faut avoir installé également l'application sur son smartphone ou une tablette.
 Ce n'est pas une obligation mais dans ce cas là vous n'aurez simplement pas de notifications. De toute façon, par défaut elles sont désactivées.
 <br><br>
