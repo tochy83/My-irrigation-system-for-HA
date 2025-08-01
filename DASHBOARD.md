@@ -90,7 +90,7 @@ Une carte qui affiche simplement un titre stylisé.
 <br><br>
 
 #### - ***La carte prochains arrosages*** :
-<p align="center"><img src="Medias/prochains_arrosages_card_2.jpg"></p>
+<p align="center"><img src="Medias/prochains_arrosages_card_2.jpg" witdh="517"></p>
 
 Cette carte récupère automatiquement les infos du calendrier d'arrosage pour les afficher. Par contre il est impératif pour qu'elle affiche quelque chose, d'avoir au préalable installer et configurer le helper [Calendar merge](https://github.com/kgn3400/calendar_merge) disponible sur HACS.
 <br><br>
