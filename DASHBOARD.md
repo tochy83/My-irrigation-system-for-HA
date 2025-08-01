@@ -63,9 +63,13 @@ Cette carte affiche le nom de la zone d'arrosage. Elle permet de choisir si la p
 
 #### - ***La carte électrovanne*** :
 <p align="center"><img src="Medias/electrovanne_card.jpg"></p>
-Carte qui permet de déclencher/arrêter une électrovanne manuellement. Elle permet aussi de régler la durée du cycle d'arrosage de cette électrovanne et d'inclure ou non cette électrovanne au cycle d'arrosage de la zone dans laquelle elle se trouve.<br>
-Elle affiche également la date et l'heure du dernier cycle de fonctionnement l'électrovanne.
-<br><br><br>
+Cette carte permet de déclencher/arrêter une électrovanne manuellement avec le bouton "sprinkler".<br>
+Elle permet aussi de régler la durée du cycle d'arrosage de cette électrovanne et d'inclure ou non cette électrovanne au cycle d'arrosage de la zone dans laquelle elle se trouve.<br>
+Elle affiche également la date et l'heure du dernier cycle de fonctionnement l'électrovanne et volume d'arrosage du dernier cycle de fonctionnement si un dispositif de comptage d'eau est rattaché à "l'intégration".
+<br><br>
+
+*Le code de la carte : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/electrovanne_card.yaml)*
+<br><br>
 
 #### - ***La carte électrovanne*** (Avec arrosage en cours) :
 <p align="center"><img src="Medias/electrovanne_card_arrosage_en_cours.jpg"></p>
@@ -80,7 +84,10 @@ Si vouz avez un sensor qui comptabilise votre consommation d'eau, la consommatio
 #### - ***La carte titre*** :
 <p align="center"><img src="Medias/titre_card.jpg"></p>
 Une carte qui affiche simplement un titre stylisé.
-<br><br><br>
+<br><br>
+
+*Le code de la carte : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/titre_card.yaml)*
+<br><br>
 
 #### - ***La carte prochains arrosages*** :
 <p align="center"><img src="Medias/prochains_arrosages_card.jpg"></p>
@@ -90,20 +97,43 @@ L'ensemble des cartes prochains arrosages
 <p align="center"><img src="Medias/prochains_arrosages_cards.jpg"></p>
 <br><br>
 
+*Le code de la carte : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/prochains_arrosages_card.yaml)*
+<br><br>
+
 #### - ***La carte programmation d'arrosage*** :
 <p align="center"><img src="Medias/programmation_card.jpg"></p>
 Carte qui permet d'afficher la page calendrier d'arrosage.
-<br><br><br>
+<br><br>
+
+*Le code de la carte : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/programmation_card.yaml)*
+<br><br>
 
 #### - ***La carte connectivité*** :
 <p align="center"><img src="Medias/connectivity_card.jpg"></p>
 Si vous avez un sensor qui permet de savoir si vos électrovannes sont connectées à votre serveur Home Assistant, cette carte affiche l'état de la connectivité.
-<br><br><br>
+<br><br>
+
+*Le code de la carte : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/connectivity_card)*
+<br><br>
 
 #### - ***La carte compteur d'eau*** :
 <p align="center"><img src="Medias/compteur_card.jpg"></p>
 Si vous avez un sensor qui comptabilise votre consommation d'eau, cette carte affiche celle ci.
-<br><br><br>
+<br><br>
+
+*Le code de la carte : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/compteur_card.yaml)*
+<br><br>
+
+#### - ***La carte autorisation d'envoi de notifications vers l'app mobile*** :
+<p align="center"><img src="Medias/compteur_card.jpg"></p>
+Cette carte à pour but d'autoriser ou non l'envoie des notifications vers l'application mobile de Home Assistant. Elle n'a pas grand intérêt en soit sur le dashboard arrosage mais lors de mes tests, avant de mettre à disposition "l'intégration," je me suis aperçu que si on ne disposait pas de l'application mobile l'envoi des notifications vers celle-ci faisait planter les automatisations (Ce qui est logique, puisque l'action notify.mobile_app n'exsiste pas dans ce cas).<br>
+J'avais donc le choix soit de désactiver l'envoi de notifications dans les automatisations et scripts et libre à vous de les remettre manuellement dans chaque automatisations et scripts, soit de faire en sorte qu'elles soient activées/désactivées simplement en un clic.<br>
+Voilà donc la raison d'exister de cette carte que j'ai rajouté en dernière minute.
+<br><br>
+
+*Le code de la carte : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/enable_notification_card.yaml)*
+<br><br>
+
 
 
 ### La page calendrier d'arrosage<br><br>
