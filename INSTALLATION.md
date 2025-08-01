@@ -82,7 +82,7 @@ Installation déconseillée en l'état. Vous avez ces entités en commun avec l'
 Si c'est tout bon, vous devriez voir un message comme celui-ci :
 <p align="center"><img src="Medias/Install/verify.jpg"></p>
 
-Sinon le résultat ressemblera plus à ça, avec une liste de toutes les entités ayant un 'entity_id' en commun abvec "l'intégration" :
+Sinon le résultat ressemblera plus à ça, avec une liste de toutes les entités ayant un 'entity_id' en commun avec "l'intégration" :
 <p align="center"><img src="Medias/Install/verify_pas_ok.jpg"></p>
 <br>
 
