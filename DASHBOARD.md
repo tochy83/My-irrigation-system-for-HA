@@ -36,7 +36,10 @@
 <p align="center"><img src="Medias/navigation_card.jpg"></p>
 Une carte qui affiche simplement le nom de la page en affichée ainsi qu'un bouton pour retourner à la page précédente.<br>
 Cette carte n'est pas nécessaire au dashboard arrosage en lui même.
-<br><br><br>
+</br>
+
+*Le code de la carte : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/navigation_card.yaml)*
+<br><br>
 
 #### - ***La carte notification*** :
 <p align="center"><img src="Medias/notification_card.jpg"></p>
@@ -52,8 +55,11 @@ Certaines cartes disposent de boutons qui renvoi soit vers des pages de Home Ass
 
 #### - ***La carte zone*** :
 <p align="center"><img src="Medias/zone_card.jpg"></p>
-Cette carte affiche le nom de la zone d'arrosage. Elle permet de choisir si cette zone d'arrosage doit être incluse dans les programmations du calendrier et également de déclencher un arrosage manuel de la zone.
-<br><br><br>
+Cette carte affiche le nom de la zone d'arrosage. Elle permet de choisir si la planification doit être activée pour cette zone d'arrosage avec le bouton calendrier et également de déclencher un arrosage manuel de la zone avec le bouton "sprinkler".
+<br>
+
+*Le code de la carte : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/zone_card.yaml)*
+<br><br>
 
 #### - ***La carte électrovanne*** :
 <p align="center"><img src="Medias/electrovanne_card.jpg"></p>
