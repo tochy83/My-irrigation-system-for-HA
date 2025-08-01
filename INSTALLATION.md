@@ -38,8 +38,46 @@ Il est, à mon avis, facilement adaptable pour télégram également.
 #### - ***Etape 1*** :
 Vérifier que tous les modules complémentaires et les intégrations nécessaires (voir le listing ci-dessus) sont installés sur votre instance de Home Assitant.
 <br>
-Je ne rentrerai pas ici dans les détails de comment installer tout ça. Je pars du principe que si vous en êtes à faire des "dashboards avancés", c'est que vous maitrisez cette partie. Si ce n'est pas le cas dans les liens que j'ai mis il y'a en général toutes les explications nécessaires et dans tous les cas ces sujets ont été abordés maintes fois sur le [forum HACF](https://forum.hacf.fr/).
+Je ne rentrerai pas ici dans les détails de comment installer tout ça. Je pars du principe que si vous en êtes à faire des "dashboards avancés", c'est que vous maitrisez cette partie. Si ce n'est pas le cas dans les liens que j'ai mis il y'a en général toutes les explications nécessaires et dans tous les cas ces sujets ont été abordés à maintes reprises sur le [forum HACF](https://forum.hacf.fr/).
 <br><br>
+
+S'assurer que vous n'avez pas d'entités sur votre instance Home Assistant ayant les même 'entity_id' que ceux que l'on s'apprête à installer.
+<br>
+
+Pour ça, on se rend dans Outils de développement/Modèle et on copie dans l'éditeur de modèle tous le bloc de code ci-dessous :
+```yml
+Entités en commun avec Arrosage :
+{%- set boolean = (states['input_boolean'] | selectattr('entity_id','match','input_boolean.arrosage_') |map(attribute='entity_id') | list ) %}
+{%- set text = (states['input_text'] | selectattr('entity_id','match','input_text.arrosage_') |map(attribute='entity_id') | list ) %}
+{%- set number = (states['input_number'] | selectattr('entity_id','match','input_number.arrosage_') |map(attribute='entity_id') | list ) %}
+{%- set datetime = (states['input_datetime'] | selectattr('entity_id','match','input_datetime.arrosage_') |map(attribute='entity_id') | list ) %}
+{%- set sensor = (states['sensor'] | selectattr('entity_id','match','sensor.arrosage_') |map(attribute='entity_id') | list ) %}
+{%- set binary_sensor = (states['binary_sensor'] | selectattr('entity_id','match','binary_sensor.arrosage_') |map(attribute='entity_id') | list ) %}
+{%- set timer = (states['timer'] | selectattr('entity_id','match','timer.arrosage_') |map(attribute='entity_id') | list ) %}
+{%- set switch = (states['switch'] | selectattr('entity_id','match','switch.arrosage_') |map(attribute='entity_id') | list ) %}
+{%- set automation = (states['automation'] | selectattr('entity_id','match','automation.arrosage_') |map(attribute='entity_id') | list ) %}
+{%- set script = (states['script'] | selectattr('entity_id','match','script.arrosage_') |map(attribute='entity_id') | list ) %}
+{%- set helpers = boolean|count + text|count + number|count + datetime|count + sensor|count + binary_sensor|count + timer|count + switch|count %}
+Entrées : {{ helpers }}
+Automatisations : {{ automation | count }}
+Scripts : {{ script | count }}
+{% if (helpers + automation|count + script|count) == 0 %}
+Pas de soucis pour procéder à l'installation
+{% else %}
+Installation déconseillée en l'état
+Vous avez ces entités en commun avec l'intégration :
+input_boolean : {{ iif (boolean|count > 0, boolean|join(', '), boolean|count)}}
+input_text : {{ iif (text|count > 0, text|join(', '), text|count)}}
+input_number : {{ iif (number|count > 0, number|join(', '), number|count)}}
+input_datetime : {{ iif (datetime|count > 0, datetime|join(', '), datetime|count)}}
+sensor : {{ iif (sensor|count > 0, sensor|join(', '), sensor|count)}}
+binary_sensor : {{ iif (binary_sensor|count > 0, binary_sensor|join(', '), boolean|count)}}
+timer : {{ iif (timer|count > 0, timer|join(', '), binary_sensor|count)}}
+switch : {{ iif (switch|count > 0, switch|join(', '), boolean|count)}}
+automation : {{ iif (automation|count > 0, automation|join(', '), boolean|count)}}
+script : {{ iif (script|count > 0, script|join(', '), boolean|count)}}
+{% endif %}
+```
 
 #### - ***Etape 2*** :
 Vérifier dans le fichier 'configuration.yaml' les packages sont actifs. Si vous ne voyez pas de quoi je parle c'est que probablement vous ne les avez jamais utlisé et que du coup ils ne sont pas actifs.
