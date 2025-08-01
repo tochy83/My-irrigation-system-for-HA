@@ -1793,15 +1793,17 @@ sections:
                   background: transparent !important;
                 }
           - type: template
-            entity: input_boolean.enable_notifications
-            icon: |
-              {%if is_state('input_boolean.enable_notifications','on')%}
+            entity: input_boolean.arrosage_enable_notifications
+            icon: >
+              {%if
+              is_state('input_boolean.arrosage_enable_notifications','on')%}
                 mdi:cellphone-check
               {%else%}
                 mdi:cellphone-remove
               {%endif%}
-            icon_color: |
-              {%if is_state('input_boolean.enable_notifications','on')%}
+            icon_color: >
+              {%if
+              is_state('input_boolean.arrosage_enable_notifications','on')%}
                 light-green
               {%else%}
                 disabled
