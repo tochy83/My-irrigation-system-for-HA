@@ -48,5 +48,5 @@ input_text:
     max: 10
     
 input_boolean:
-  enable_notifications:  # Définit si les notifications doivent être envoyées
+  arrosage_enable_notifications:  # Définit si les notifications doivent être envoyées
     name: Arrosage - Enable notifications

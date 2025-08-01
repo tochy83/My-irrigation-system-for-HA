@@ -24,7 +24,7 @@ automation:
         entity_id: binary_sensor.arrosage_zone_status
         state: "on"
       - condition: state
-        entity_id: input_boolean.enable_notifications
+        entity_id: input_boolean.arrosage_enable_notifications
         state: "on"
     actions:
       - choose:
@@ -1204,7 +1204,7 @@ automation:
                     - input_boolean.arrosage_auto_zone_1
               - sequence:
                   - condition: state
-                    entity_id: input_boolean.enable_notifications
+                    entity_id: input_boolean.arrosage_enable_notifications
                     state: "on"
                   - action: script.envoi_notification_vers_mon_telephone
                     data:
@@ -1224,7 +1224,7 @@ automation:
             sequence:
               - sequence:
                   - condition: state
-                    entity_id: input_boolean.enable_notifications
+                    entity_id: input_boolean.arrosage_enable_notifications
                     state: "on"
                   - action: script.envoi_notification_vers_mon_telephone
                     data:
@@ -1261,7 +1261,7 @@ automation:
                     - input_boolean.arrosage_auto_zone_1
               - sequence:
                   - condition: state
-                    entity_id: input_boolean.enable_notifications
+                    entity_id: input_boolean.arrosage_enable_notifications
                     state: "on"
                   - action: script.envoi_notification_vers_mon_telephone
                     data:
@@ -1285,7 +1285,7 @@ automation:
                     - input_boolean.arrosage_auto_zone_1
               - sequence:
                   - condition: state
-                    entity_id: input_boolean.enable_notifications
+                    entity_id: input_boolean.arrosage_enable_notifications
                     state: "on"
                   - action: script.envoi_notification_vers_mon_telephone
                     data:
@@ -1328,7 +1328,7 @@ automation:
                     - input_boolean.arrosage_auto_zone_2
               - sequence:
                   - condition: state
-                    entity_id: input_boolean.enable_notifications
+                    entity_id: input_boolean.arrosage_enable_notifications
                     state: "on"
                   - action: script.envoi_notification_vers_mon_telephone
                     data:
@@ -1348,7 +1348,7 @@ automation:
             sequence:
               - sequence:
                   - condition: state
-                    entity_id: input_boolean.enable_notifications
+                    entity_id: input_boolean.arrosage_enable_notifications
                     state: "on"
                   - action: script.envoi_notification_vers_mon_telephone
                     data:
@@ -1385,7 +1385,7 @@ automation:
                     - input_boolean.arrosage_auto_zone_2
               - sequence:
                   - condition: state
-                    entity_id: input_boolean.enable_notifications
+                    entity_id: input_boolean.arrosage_enable_notifications
                     state: "on"
                   - action: script.envoi_notification_vers_mon_telephone
                     data:
@@ -1409,7 +1409,7 @@ automation:
                     - input_boolean.arrosage_auto_zone_2
               - sequence:
                   - condition: state
-                    entity_id: input_boolean.enable_notifications
+                    entity_id: input_boolean.arrosage_enable_notifications
                     state: "on"
                   - action: script.envoi_notification_vers_mon_telephone
                     data:
@@ -1452,7 +1452,7 @@ automation:
                     - input_boolean.arrosage_auto_zone_3
               - sequence:
                   - condition: state
-                    entity_id: input_boolean.enable_notifications
+                    entity_id: input_boolean.arrosage_enable_notifications
                     state: "on"
                   - action: script.envoi_notification_vers_mon_telephone
                     data:
@@ -1472,7 +1472,7 @@ automation:
             sequence:
               - sequence:
                   - condition: state
-                    entity_id: input_boolean.enable_notifications
+                    entity_id: input_boolean.arrosage_enable_notifications
                     state: "on"
                   - action: script.envoi_notification_vers_mon_telephone
                     data:
@@ -1509,7 +1509,7 @@ automation:
                     - input_boolean.arrosage_auto_zone_3
               - sequence:
                   - condition: state
-                    entity_id: input_boolean.enable_notifications
+                    entity_id: input_boolean.arrosage_enable_notifications
                     state: "on"
                   - action: script.envoi_notification_vers_mon_telephone
                     data:
@@ -1533,7 +1533,7 @@ automation:
                     - input_boolean.arrosage_auto_zone_3
               - sequence:
                   - condition: state
-                    entity_id: input_boolean.enable_notifications
+                    entity_id: input_boolean.arrosage_enable_notifications
                     state: "on"
                   - action: script.envoi_notification_vers_mon_telephone
                     data:
