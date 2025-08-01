@@ -10,9 +10,9 @@
 * [Calendar merge](https://github.com/kgn3400/calendar_merge?tab=readme-ov-file#calendar-merge-helper) disponible sur HACS
 
 <br><br>
-Comment installer ce dashboard sur Home assistant : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Medias/Install/add_dashboard.gif)
+*Comment installer ce dashboard sur Home assistant : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Medias/Install/add_dashboard.gif)*
 <br>
-Le code du dashboard complet : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/dashboard.yaml)
+*Le code du dashboard complet : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/dashboard.yaml)*
 <br><br>
 
 ### La page arrosage<br><br>
@@ -25,7 +25,7 @@ Le code du dashboard complet : [Voir](https://github.com/tochy83/My-irrigation-s
 <p align="center">Une vue d'ensemble de la page arrosage lorsqu'un arrosage de zone est en cours.</p>
 <br>
 
-Le code de la page arrosage : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/arrosage_page.yaml)
+*Le code de la page arrosage : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/arrosage_page.yaml)*
 <br><br>
 
 
@@ -47,7 +47,7 @@ L'ensemble des cartes notifications
 Certaines cartes disposent de boutons qui renvoi soit vers des pages de Home Assistant soit vers des pages de ce repository.
 <br><br>
 
-Le code de la section notifications contenant toutes les cartes : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/notification_card.yaml)
+*Le code de la section notifications contenant toutes les cartes : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/notification_card.yaml)*
 <br><br>
 
 #### - ***La carte zone*** :
