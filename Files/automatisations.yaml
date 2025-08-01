@@ -21,7 +21,7 @@ automation:
         trigger: time
     conditions:
       - condition: state
-        entity_id: group.arrosage_zone_status
+        entity_id: binary_sensor.arrosage_zone_status
         state: "on"
       - condition: state
         entity_id: input_boolean.enable_notifications

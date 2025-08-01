@@ -33,16 +33,11 @@ template:
 # En cas d'ajout ou de suppression de zone, n'oubliez pas d'ajouter ou de supprimer un label (libellé) correspondant à la zone désirée
 # Celà se fait dans l'interface de home assistant. 
 
-group:
-  arrosage_zone_status: # Groupe permettant se savoir si l'arrosage automatique est déclenché (Me permet d'afficher une notification sur la page principale de mon dashboard)
-    name: Arrosage - Zone status
-    entities:
-      - input_boolean.arrosage_auto_zone_1
-      - input_boolean.arrosage_auto_zone_2
-      - input_boolean.arrosage_auto_zone_3
+  - binary_sensor:
+      - name: Arrosage - Zone status # Binary_sensor permettant se savoir si un cycle d'arrosage de zone est en cours (Me permet d'afficher une notification sur la page principale de mon dashboard)
+        unique_id: arrosage_zone_status
+        state: >-
+          {% set nb_zones = (states['input_boolean'] | selectattr('entity_id','match','input_boolean.arrosage_auto_zone_') | selectattr('state','eq','on') | list | count) %}
+          {{ iif(nb_zones == 0, 'off', 'on') }}
 
-# Si vous avez plus de zone d'arrosage, il faudra ajouter autant de lignes input_boolean.arrosage_auto_zone_x (x repésentant le numéro de la zone)
-# que nécessaire dans le groupe ci-dessus.
-# Ex pour une 4ème zone :
-#      - input_boolean.arrosage_auto_zone_4
  
