@@ -40,10 +40,14 @@ Cette carte n'est pas nécessaire au dashboard arrosage en lui même.
 
 #### - ***La carte notification*** :
 <p align="center"><img src="Medias/notification_card.jpg"></p>
-Cette carte affiche si un arrosage de zone est en cours. On retrouve l'heure de fin du cycle prévue ainsi qu'un bouton permetttant d'arrêter l'arrosage de zone en cours.
+Cette carte affiche si un arrosage de zone est en cours. On retrouve l'heure de fin du cycle prévue ainsi qu'un bouton permettant d'arrêter l'arrosage de zone en cours.
 <br><br>
 L'ensemble des cartes notifications
 <p align="center"><img src="Medias/notifications_card.jpg"></p>
+Certaines cartes disposent de boutons qui renvoi soit vers des pages de Home Assistant soit vers des pages de ce repository.
+<br>
+
+Le code de la section notifications contenant toutes les cartes : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/notification_card.yaml)
 <br><br>
 
 #### - ***La carte zone*** :
