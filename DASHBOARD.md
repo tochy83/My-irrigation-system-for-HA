@@ -45,7 +45,7 @@ Cette carte affiche si un arrosage de zone est en cours. On retrouve l'heure de 
 L'ensemble des cartes notifications
 <p align="center"><img src="Medias/notifications_card.jpg"></p>
 Certaines cartes disposent de boutons qui renvoi soit vers des pages de Home Assistant soit vers des pages de ce repository.
-<br>
+<br><br>
 
 Le code de la section notifications contenant toutes les cartes : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/notification_card.yaml)
 <br><br>
