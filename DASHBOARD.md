@@ -94,7 +94,7 @@ Une carte qui affiche simplement un titre stylisé.
 Cette carte récupère automatiquement les infos du calendrier d'arrosage pour les afficher. Par contre il est impératif pour qu'elle affiche quelque chose, d'avoir au préalable installer et configurer le helper https://github.com/kgn3400/calendar_merge disponible sur HACS.
 <br><br>
 L'ensemble des cartes prochains arrosages
-<p align="center"><img src="Medias/prochains_arrosages_cards.jpg"></p>
+<p align="center"><img src="Medias/prochains_arrosages_cards_2.jpg"></p>
 <br><br>
 
 *Le code de la carte : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/prochains_arrosages_card.yaml)*
