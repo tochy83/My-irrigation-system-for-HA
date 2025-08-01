@@ -64,20 +64,28 @@ Scripts : {{ script | count }}
 {% if (helpers + automation|count + script|count) == 0 %}
 Pas de soucis pour procéder à l'installation
 {% else %}
-Installation déconseillée en l'état
-Vous avez ces entités en commun avec l'intégration :
-input_boolean : {{ iif (boolean|count > 0, boolean|join(', '), boolean|count)}}
-input_text : {{ iif (text|count > 0, text|join(', '), text|count)}}
-input_number : {{ iif (number|count > 0, number|join(', '), number|count)}}
-input_datetime : {{ iif (datetime|count > 0, datetime|join(', '), datetime|count)}}
-sensor : {{ iif (sensor|count > 0, sensor|join(', '), sensor|count)}}
-binary_sensor : {{ iif (binary_sensor|count > 0, binary_sensor|join(', '), boolean|count)}}
-timer : {{ iif (timer|count > 0, timer|join(', '), binary_sensor|count)}}
-switch : {{ iif (switch|count > 0, switch|join(', '), boolean|count)}}
-automation : {{ iif (automation|count > 0, automation|join(', '), boolean|count)}}
-script : {{ iif (script|count > 0, script|join(', '), boolean|count)}}
+Installation déconseillée en l'état. Vous avez ces entités en commun avec l'intégration :
+- input_boolean : {{ iif (boolean|count > 0, boolean|join(', '), boolean|count)}}
+- input_text : {{ iif (text|count > 0, text|join(', '), text|count)}}
+- input_number : {{ iif (number|count > 0, number|join(', '), number|count)}}
+- input_datetime : {{ iif (datetime|count > 0, datetime|join(', '), datetime|count)}}
+- sensor : {{ iif (sensor|count > 0, sensor|join(', '), sensor|count)}}
+- binary_sensor : {{ iif (binary_sensor|count > 0, binary_sensor|join(', '), boolean|count)}}
+- timer : {{ iif (timer|count > 0, timer|join(', '), binary_sensor|count)}}
+- switch : {{ iif (switch|count > 0, switch|join(', '), boolean|count)}}
+- automation : {{ iif (automation|count > 0, automation|join(', '), boolean|count)}}
+- script : {{ iif (script|count > 0, script|join(', '), boolean|count)}}
 {% endif %}
 ```
+<br>
+
+Si c'est tout bon, vous devriez voir un message comme celui-ci :
+<p align="center"><img src="Medias/Install/verify.jpg"></p>
+
+Sinon le résultat ressemblera plus à ça :
+<p align="center"><img src="Medias/Install/verify_pas_ok.jpg"></p>
+<br>
+
 
 #### - ***Etape 2*** :
 Vérifier dans le fichier 'configuration.yaml' les packages sont actifs. Si vous ne voyez pas de quoi je parle c'est que probablement vous ne les avez jamais utlisé et que du coup ils ne sont pas actifs.
