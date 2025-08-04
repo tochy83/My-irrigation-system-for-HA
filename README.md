@@ -18,6 +18,8 @@ Répliquer le fonctionnement du programmateur d'arrosage de la marque Hunter (ce
 - Pouvoir établir/supprimer un planning d'arrosage de zone.
 - Pouvoir inclure/exclure une voie d'un planning d'arrosage de zone.
 
+Pour résumé, les fonctions de base de tout programmateur d'arrosage.
+
 <br><br>
 **L'objectif que je me suis fixé :**
 
