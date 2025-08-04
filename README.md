@@ -42,4 +42,5 @@ Adopter le Dashboard arrosage à son sytème d'arrosage. Laisser vous guider pas
 
 <br><br>
 **Comment le supprimer :**
+
 Vous vouliez juste tester, faire le curieux et souhaitez maintenant supprimer le Dashboard arrosage, c'est par là que cela se passe : *Voir*
