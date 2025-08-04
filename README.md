@@ -9,7 +9,7 @@ Un dashboard pour Home Assistant, conçu pour 9 électrovannes réparties sur 3 
 <br><br>
 **L'objectif de départ :**
 
-Répliquer le fonctionnement du programmateur hunter (ceux d'autres marques fonctionnant à peu de choses près de la même façon) que j'avais pour l'arrosage de mon jardin.
+Répliquer le fonctionnement du programmateur d'arrosage de la marque Hunter (ceux d'autres marques fonctionnant à peu de choses près de la même façon) que j'avais pour l'arrosage de mon jardin.
 
 Pouvoir déclencher l'arrosage d'une voie.
 Pouvoir régler le temps d'arrosage d'une voie.
