@@ -162,6 +162,6 @@ Voilà donc la raison d'exister de cette carte que j'ai rajouté en dernière mi
 
 Le code de la page calendrier : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/calendar_page.yaml)
 <br><br>
-Il n'y a pas grand chose à ajouter sur cette page, elle se contente d'afficher les infos du calendrier d'arrosage ainsi que comment ajouter ajouter une programmation de zone dans le calendrier.
+Il n'y a pas grand chose à ajouter sur cette page, elle se contente d'afficher les infos du calendrier d'arrosage ainsi que comment ajouter une programmation de zone dans le calendrier.
 
 <br><br>
