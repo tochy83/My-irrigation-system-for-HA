@@ -16,6 +16,7 @@ Vous trouverez sur cette page toutes les explications nécessaires à la mise en
 * [Vertical stack in card](https://github.com/ofekashery/vertical-stack-in-card?tab=readme-ov-file#vertical-stack-in-card) disponible sur HACS
 * [Timer bar card](https://github.com/rianadon/timer-bar-card?tab=readme-ov-file#timer-bar-card) disponible sur HACS
 * [Calendar merge](https://github.com/kgn3400/calendar_merge?tab=readme-ov-file#calendar-merge-helper) disponible sur HACS
+* [Streamline card](https://github.com/brunosabot/streamline-card) disponible sur HACS
 * Et bien sur HACS pour pouvoir installer tout ce que je viens de lister ci-dessus
 <br><br>
 
