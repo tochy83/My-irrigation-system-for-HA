@@ -1,6 +1,6 @@
 # Le dashboard arrosage
 
-#### Integrations nécessaires à la mise du dashboard arrosage :
+#### Integrations nécessaires à la mise en place du dashboard arrosage :
 
 * Calendrier local disponible dans les intégrations de base de HA
 * Les [mushrooms card](https://github.com/piitaya/lovelace-mushroom?tab=readme-ov-file#-mushroom) disponibles sur HACS
