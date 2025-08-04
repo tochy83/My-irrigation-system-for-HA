@@ -1,0 +1,366 @@
+arrosage_electrovanne:
+  card:
+    type: custom:vertical-stack-in-card
+    cards:
+      - type: custom:mushroom-template-card
+        entity: switch.arrosage_electrovanne_[[numero_de_la_voie]]
+        primary: "[[nom_de_la_voie]] - Voie [[numero_de_la_voie]]"
+        secondary: >-
+          {% if not states('input_text.arrosage_volume_voie_[[numero_de_la_voie]]') in ['unknown','0']%}
+            {% set volume = states('input_text.arrosage_volume_voie_[[numero_de_la_voie]]')+" L, " %}
+          {% else %}
+            {% set volume = "" %}
+          {% endif %}
+          {% if not
+          is_state('input_text.arrosage_dernier_declenchement_voie_[[numero_de_la_voie]]', 'unknown')%}
+            Dernier arrosage {{ volume }}le {{ as_timestamp(states('input_text.arrosage_dernier_declenchement_voie_[[numero_de_la_voie]]')) | timestamp_custom('%d/%m/%Y à %-H:%M') }}
+          {% endif %}  
+        icon: mdi:sprinkler-variant
+        icon_color: |-
+          {% if is_state(entity, 'on') %}
+            cyan
+          {% endif %} 
+        tap_action:
+          action: toggle
+      - type: conditional
+        conditions:
+          - condition: state
+            entity: timer.arrosage_voie_[[numero_de_la_voie]]
+            state: idle
+        card:
+          type: custom:mushroom-chips-card
+          chips:
+            - type: template
+              entity: input_number.arrosage_duree_voie_[[numero_de_la_voie]]
+              content: >-
+                {{ states(entity) |int | timestamp_custom('%M min %S s',
+                false) }}
+              tap_action:
+                action: more-info
+              card_mod:
+                style: |
+                  ha-card {
+                    --chip-border-radius: 12px;
+                  }
+            - type: template
+              entity: input_boolean.arrosage_enable_voie_[[numero_de_la_voie]]
+              icon: |
+                {% if is_state(entity, 'on')%}
+                  mdi:check-circle
+                {% else %}
+                  mdi:close-circle-outline
+                {% endif %}  
+              icon_color: |-
+                {% if is_state(entity, 'on')%}
+                  light-green
+                {% else %}
+                  disabled
+                {% endif %}
+              tap_action:
+                action: toggle
+              card_mod:
+                style: |
+                  ha-card {
+                    --chip-border-radius: 12px;
+                  }
+          alignment: end
+          card_mod:
+            style: |
+              ha-card {
+                padding-top: 2px;
+                margin-top: -14px;
+                margin-left: 0px;
+                padding-bottom: 4px;
+                padding-left: 8px;
+                padding-right: 8px;
+              }
+      - type: conditional
+        conditions:
+          - condition: state
+            entity: timer.arrosage_voie_[[numero_de_la_voie]]
+            state: active
+        card:
+          type: custom:timer-bar-card
+          entity: timer.arrosage_voie_[[numero_de_la_voie]]
+          sync_issues: fix
+          invert: true
+          bar_direction: ltr
+          bar_radius: 5px
+          mushroom:
+            primary_info: none
+            icon_type: none
+          card_mod:
+            style: |
+              ha-card {
+                transition: none !important;
+                padding: 0px !important;
+                --spacing: var(--mush-spacing, 10px) !important;
+                --icon-size: var(--mush-icon-size, 36px) !important;
+                background: none;
+                border: none;
+                margin-top: -4px;
+              }
+    card_mod:
+      style: |
+        ha-card {
+          {% if is_state('switch.arrosage_electrovanne_[[numero_de_la_voie]]', 'on') %}
+            background: linear-gradient(180deg, rgba(204,242,247,1) 70%, rgba(255,255,255,1) 100%) !important;
+            border-color: #DCDCDC;
+          {% else %}
+            background: linear-gradient(180deg, rgba(171,171,171,1) 20%, rgba(255,255,255,1) 100%) !important;
+            border-color: #DCDCDC;
+          {% endif %}
+        }
+arrosage_zone:
+  card:      
+    type: vertical-stack
+    cards:
+      - type: custom:mod-card
+        card:
+          type: custom:mushroom-title-card
+          title: ""
+          subtitle: "{{ state_attr('sensor.arrosage_noms_des_zones', 'zone_[[numero_de_la_zone]]') }} - Zone [[numero_de_la_zone]]"
+        card_mod:
+          style:
+            mushroom-title-card$: |
+              .subtitle {
+                border-bottom: 1px solid var(--ha-card-border-color,var(--divider-color,#e0e0e0));
+                padding-bottom: 0px;
+              }
+              .header {
+                margin-bottom: -7px;
+              }
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: entity
+            entity: input_boolean.arrosage_programmation_zone_[[numero_de_la_zone]]
+            content_info: none
+            icon_color: light-green
+            card_mod:
+              style: |
+                ha-card {
+                  --chip-border-radius: 12px;
+                }
+          - type: entity
+            entity: input_boolean.arrosage_auto_zone_[[numero_de_la_zone]]
+            tap_action:
+              action: perform-action
+              perform_action: input_boolean.turn_on
+              target:
+                entity_id: input_boolean.arrosage_auto_zone_[[numero_de_la_zone]]
+            content_info: none
+            icon_color: light-green
+            card_mod:
+              style: |
+                ha-card {
+                  --chip-border-radius: 12px;
+                }
+        alignment: end
+        card_mod:
+          style: |
+            ha-card {
+              padding-right: 8px;
+            }
+arrosage_notification_arrosage_en_cours:
+  card:
+    type: horizontal-stack
+    cards:
+      - type: custom:vertical-stack-in-card
+        cards:
+          - type: custom:mushroom-template-card
+            multiline_secondary: true
+            primary: ''
+            secondary: >-
+              L arrosage de la zone
+              {{state_attr('sensor.arrosage_noms_des_zones',
+              'zone_[[numero_de_la_zone]]')}} est en cours.
+              
+              Arrêt prévu à
+              {{state_attr('input_datetime.arrosage_duree_cycle_zone_[[numero_de_la_zone]]',
+              'timestamp')| timestamp_custom("%Hh%M", true)}}
+            icon: mdi:sprinkler-variant
+            icon_color: light-green
+            tap_action:
+              action: none
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style: |
+                ha-card {
+                  background-color: #e8f3db;
+                }
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: template
+                icon: mdi:stop
+                tap_action:
+                  action: perform-action
+                  perform_action: script.arrosage_arret
+                  data:
+                    zone: zone [[numero_de_la_zone]]
+                card_mod:
+                  style: |
+                    ha-card {
+                      border:none; 
+                      --chip-border-radius: 12px;
+                      --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                    }
+            alignment: end
+            card_mod:
+              style: |
+                ha-card {
+                  margin-top: -46px;
+                  margin-left: 50%;
+                  padding-bottom: 8px;
+                  padding-left: 8px;
+                  padding-right: 8px;
+                }
+    grid_options:
+      columns: full
+    visibility:
+      - condition: state
+        entity: input_boolean.arrosage_auto_zone_[[numero_de_la_zone]]
+        state: 'on'
+      - condition: numeric_state
+        entity: input_number.arrosage_electrovannes_incluses_zone_[[numero_de_la_zone]]
+        above: 0
+arrosage_notification_electrovanne_non_incluse:
+  card:
+    type: horizontal-stack
+    cards:
+      - type: custom:vertical-stack-in-card
+        cards:
+          - type: custom:mushroom-template-card
+            multiline_secondary: true
+            primary: ""
+            secondary: >-
+              Aucune électrovanne n'est incluse dans le cycle d'arrosage de la zone
+              {{ state_attr('sensor.arrosage_noms_des_zones', 'zone_[[numero_de_la_zone]]') }}.
+            icon: mdi:alert
+            icon_color: deep-orange
+            tap_action:
+              action: none
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style: |
+                ha-card {
+                  background-color: #FAEFDB;
+                  padding-right: 50px;
+                }
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: template
+                tap_action:
+                  action: url
+                  url_path: >-
+                    https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/DASHBOARD.md#--la-carte-%C3%A9lectrovanne-
+                icon: mdi:information
+                icon_color: orange
+                card_mod:
+                  style: |
+                    ha-card {
+                      border:none; 
+                      --chip-border-radius: 12px;
+                      --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                    }
+            alignment: end
+            card_mod:
+              style: |
+                ha-card {
+                  margin-top: -46px;
+                  margin-left: 50%;
+                  padding-bottom: 8px;
+                  padding-left: 8px;
+                  padding-right: 8px;
+                }
+    grid_options:
+      columns: full
+    visibility:
+      - condition: numeric_state
+        entity: input_number.arrosage_electrovannes_incluses_zone_[[numero_de_la_zone]]
+        below: 1
+      - condition: state
+        entity: input_boolean.arrosage_auto_zone_[[numero_de_la_zone]]
+        state: "on"
+arrosage_notification_programmation_activee:
+  card:
+    type: horizontal-stack
+    cards:
+      - type: custom:vertical-stack-in-card
+        cards:
+          - type: custom:mushroom-template-card
+            multiline_secondary: true
+            primary: ""
+            secondary: >-
+              Programmation activée pour la zone {{
+              state_attr('sensor.arrosage_noms_des_zones', 'zone_[[numero_de_la_zone]]') }}.
+            icon: mdi:calendar-clock-outline
+            icon_color: light-green
+            tap_action:
+              action: none
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style: |
+                ha-card {
+                  background-color: #e8f3db;
+                  padding-right: 50px;
+                }
+    grid_options:
+      columns: full
+    visibility:
+      - condition: state
+        entity: input_boolean.arrosage_display_notifications
+        state: "on"
+      - condition: state
+        entity: input_boolean.arrosage_programmation_zone_[[numero_de_la_zone]]
+        state: "on"
+      - condition: state
+        entity: input_text.arrosage_display_notifications_zone
+        state: zone [[numero_de_la_zone]]
+arrosage_notification_programmation_desactivee:
+  card:
+    type: horizontal-stack
+    cards:
+      - type: custom:vertical-stack-in-card
+        cards:
+          - type: custom:mushroom-template-card
+            multiline_secondary: true
+            primary: ""
+            secondary: >-
+              Programmation désactivée pour la zone {{
+              state_attr('sensor.arrosage_noms_des_zones', 'zone_[[numero_de_la_zone]]') }}.
+            icon: mdi:calendar-clock-outline
+            icon_color: light-green
+            tap_action:
+              action: none
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style: |
+                ha-card {
+                  background-color: #e8f3db;
+                  padding-right: 50px;
+                }
+    grid_options:
+      columns: full
+    visibility:
+      - condition: state
+        entity: input_boolean.arrosage_display_notifications
+        state: "on"
+      - condition: state
+        entity: input_boolean.arrosage_programmation_zone_[[numero_de_la_zone]]
+        state: "off"
+      - condition: state
+        entity: input_text.arrosage_display_notifications_zone
+        state: zone [[numero_de_la_zone]]
+
