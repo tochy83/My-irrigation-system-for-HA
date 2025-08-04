@@ -1,0 +1,14 @@
+type: custom:mushroom-chips-card
+chips:
+  - type: back
+  - type: template
+    content: ARROSAGE
+    card_mod:
+      style: |
+        ha-card {
+          border: none;
+          background: transparent !important;
+        }
+grid_options:
+  columns: full
+  rows: auto

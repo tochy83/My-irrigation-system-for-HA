@@ -1,0 +1,48 @@
+type: vertical-stack
+cards:
+  - type: custom:mod-card
+    card:
+      type: custom:mushroom-title-card
+      title: ""
+      subtitle: "{{ state_attr('sensor.arrosage_noms_des_zones', 'zone_[x]') }} - Zone [x]"
+    card_mod:
+      style:
+        mushroom-title-card$: |
+          .subtitle {
+            border-bottom: 1px solid var(--ha-card-border-color,var(--divider-color,#e0e0e0));
+            padding-bottom: 0px;
+          }
+          .header {
+            margin-bottom: -7px;
+          }
+  - type: custom:mushroom-chips-card
+    chips:
+      - type: entity
+        entity: input_boolean.arrosage_programmation_zone_[x]
+        content_info: none
+        icon_color: light-green
+        card_mod:
+          style: |
+            ha-card {
+              --chip-border-radius: 12px;
+            }
+      - type: entity
+        entity: input_boolean.arrosage_auto_zone_[x]
+        tap_action:
+          action: perform-action
+          perform_action: input_boolean.turn_on
+          target:
+            entity_id: input_boolean.arrosage_auto_zone_[x]
+        content_info: none
+        icon_color: light-green
+        card_mod:
+          style: |
+            ha-card {
+              --chip-border-radius: 12px;
+            }
+    alignment: end
+    card_mod:
+      style: |
+        ha-card {
+          padding-right: 8px;
+        }

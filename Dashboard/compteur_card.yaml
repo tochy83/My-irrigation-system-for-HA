@@ -1,0 +1,5 @@
+type: custom:mushroom-entity-card
+entity: sensor.arrosage_compteur_eau
+name: Compteur d'eau
+grid_options:
+  columns: full

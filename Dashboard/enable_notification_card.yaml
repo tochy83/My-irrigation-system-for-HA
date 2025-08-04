@@ -1,0 +1,41 @@
+type: custom:mushroom-chips-card
+chips:
+  - type: template
+    content: Envoi de notifications vers l'application mobile
+    card_mod:
+      style: |
+        ha-card {
+          border: none;
+          background: transparent !important;
+        }
+  - type: template
+    entity: input_boolean.arrosage_enable_notifications
+    icon: |
+      {%if is_state('input_boolean.arrosage_enable_notifications','on')%}
+        mdi:cellphone-check
+      {%else%}
+        mdi:cellphone-remove
+      {%endif%}
+    icon_color: |
+      {%if is_state('input_boolean.arrosage_enable_notifications','on')%}
+        light-green
+      {%else%}
+        disabled
+      {%endif%}
+    tap_action:
+      action: toggle
+    content_info: none
+    card_mod:
+      style: |
+        ha-card {
+          --chip-border-radius: 12px;
+        }
+alignment: end
+grid_options:
+  columns: full
+  rows: auto
+card_mod:
+  style: |
+    ha-card {
+      padding-right: 8px;
+    }

@@ -1,0 +1,1602 @@
+# Name : automatisations.yaml
+# Dans ce fichier, se trouve toutes les automatisations nécessaires pour 9 voies et 3 zones d'arrosage.
+
+
+automation:
+
+  - id: 'arrosage_alerte'
+    alias: Arrosage - Alerte
+    description: >-
+      Envoi une notification sur le téléphone si l'heure prévue de fin du cycle
+      d'arrosage est passée et que l'arrosage est encore marche.
+    triggers:
+      - at: input_datetime.arrosage_duree_cycle_zone_1
+        id: zone 1
+        trigger: time
+      - at: input_datetime.arrosage_duree_cycle_zone_2
+        id: zone 2
+        trigger: time
+      - at: input_datetime.arrosage_duree_cycle_zone_3
+        id: zone 3
+        trigger: time
+    conditions:
+      - condition: state
+        entity_id: binary_sensor.arrosage_zone_status
+        state: "on"
+      - condition: state
+        entity_id: input_boolean.arrosage_enable_notifications
+        state: "on"
+    actions:
+      - choose:
+          - conditions:
+              - condition: trigger
+                id:
+                  - zone 1
+              - condition: state
+                entity_id: input_boolean.arrosage_auto_zone_1
+                state: "on"
+            sequence:
+              - action: script.envoi_notification_vers_mon_telephone
+                data:
+                  message: >-
+                    L'arrosage de la zone
+                    {{state_attr('sensor.arrosage_noms_des_zones', 'zone_1') }}
+                    semble être toujours en cours !
+                  color: red
+                  tag: arrosage
+                  icon: mdi:sprinkler-variant
+                  persistent: "true"
+          - conditions:
+              - condition: trigger
+                id:
+                  - zone 2
+              - condition: state
+                entity_id: input_boolean.arrosage_auto_zone_2
+                state: "on"
+            sequence:
+              - action: script.envoi_notification_vers_mon_telephone
+                data:
+                  message: >-
+                    L'arrosage de la zone
+                    {{state_attr('sensor.arrosage_noms_des_zones', 'zone_2') }}
+                    semble être toujours en cours !
+                  color: red
+                  tag: arrosage
+                  icon: mdi:sprinkler-variant
+                  persistent: "true"
+          - conditions:
+              - condition: trigger
+                id:
+                  - zone 3
+              - condition: state
+                entity_id: input_boolean.arrosage_auto_zone_3
+                state: "on"
+            sequence:
+              - action: script.envoi_notification_vers_mon_telephone
+                data:
+                  message: >-
+                    L'arrosage de la zone
+                    {{state_attr('sensor.arrosage_noms_des_zones', 'zone_3') }}
+                    semble être toujours en cours !
+                  color: red
+                  tag: arrosage
+                  icon: mdi:sprinkler-variant
+                  persistent: "true"
+    mode: single
+
+  - id: 'arrosage_calendrier'
+    alias: Arrosage - Calendrier
+    description: >-
+      Détecte les événéments sur le calendrier Arrosage pour démarrer les cycles
+      d'arrosage programmés
+    triggers:
+      - event: start
+        offset: "0:0:0"
+        entity_id: calendar.arrosage
+        trigger: calendar
+    conditions: []
+    actions:
+      - choose:
+          - conditions:
+              - condition: template
+                value_template: >-
+                  {{ state_attr('sensor.arrosage_noms_des_zones', 'zone_1') in
+                  trigger.calendar_event.summary }}
+              - condition: state
+                entity_id: input_boolean.arrosage_programmation_zone_1
+                state: "on"
+            sequence:
+              - metadata: {}
+                data: {}
+                target:
+                  entity_id:
+                    - input_boolean.arrosage_auto_zone_1
+                action: input_boolean.turn_on
+          - conditions:
+              - condition: template
+                value_template: >-
+                  {{ state_attr('sensor.arrosage_noms_des_zones', 'zone_2') in
+                  trigger.calendar_event.summary }}
+              - condition: state
+                entity_id: input_boolean.arrosage_programmation_zone_2
+                state: "on"
+            sequence:
+              - metadata: {}
+                data: {}
+                target:
+                  entity_id:
+                    - input_boolean.arrosage_auto_zone_2
+                action: input_boolean.turn_on
+          - conditions:
+              - condition: template
+                value_template: >-
+                  {{ state_attr('sensor.arrosage_noms_des_zones', 'zone_3') in
+                  trigger.calendar_event.summary }}
+              - condition: state
+                entity_id: input_boolean.arrosage_programmation_zone_3
+                state: "on"
+            sequence:
+              - metadata: {}
+                data: {}
+                target:
+                  entity_id:
+                    - input_boolean.arrosage_auto_zone_3
+                action: input_boolean.turn_on
+    mode: single
+
+  - id: 'arrosage_voie_1'
+    alias: Arrosage - Voie 1
+    description: >-
+      Permet de démarrer/arrêter le minuteur de la voie 1 et le stockage des données
+      propre à cette voie.
+    triggers:
+      - entity_id:
+          - switch.arrosage_electrovanne_1
+        from: "off"
+        to: "on"
+        id: marche manuel
+        trigger: state
+      - entity_id:
+          - switch.arrosage_electrovanne_1
+        from: "on"
+        to: "off"
+        id: arret manuel
+        trigger: state
+      - event_type: timer.finished
+        event_data:
+          entity_id: timer.arrosage_voie_1
+        id: arret auto
+        trigger: event
+    conditions:
+      - condition: state
+        entity_id: binary_sensor.arrosage_electrovannes_connected
+        state: "on"
+        alias: >-
+          Vérifier si les électrovannes sont connectées avant de lancer les actions. Si
+          vous ne voulez pas faire cette vérification (qui n'est pas obligatoire) vous
+          pouvez désactiver cette condition.
+    actions:
+      - choose:
+          - conditions:
+              - condition: trigger
+                id:
+                  - marche manuel
+            sequence:
+              - data:
+                  value: "{{ states('sensor.arrosage_compteur_eau') }}"
+                action: input_text.set_value
+                target:
+                  entity_id:
+                    - input_text.arrosage_volume_depart
+              - target:
+                  entity_id: timer.arrosage_voie_1
+                data:
+                  duration: "{{ states('input_number.arrosage_duree_voie_1') }}"
+                action: timer.start
+          - conditions:
+              - condition: trigger
+                id:
+                  - arret manuel
+            sequence:
+              - metadata: {}
+                data: {}
+                target:
+                  entity_id: timer.arrosage_voie_1
+                action: timer.finish
+          - conditions:
+              - condition: trigger
+                id:
+                  - arret auto
+            sequence:
+              - metadata: {}
+                data: {}
+                target:
+                  entity_id: switch.arrosage_electrovanne_1
+                action: switch.turn_off
+              - data:
+                  value: "{{ as_local(now()) }}"
+                target:
+                  entity_id: input_text.arrosage_dernier_declenchement_voie_1
+                action: input_text.set_value
+              - data:
+                  value: >-
+                    {{ states('sensor.arrosage_compteur_eau')|int -
+                    states('input_text.arrosage_volume_depart')|int }}
+                action: input_text.set_value
+                target:
+                  entity_id: input_text.arrosage_volume_voie_1
+    mode: single
+
+  - id: 'arrosage_voie_2'
+    alias: Arrosage - Voie 2
+    description: >-
+      Permet de démarrer/arrêter le minuteur de la voie 2 et le stockage des données
+      propre à cette voie.
+
+      Si vous avez moins de 2 voies d'arrosage vous pouvez supprimer cette
+      automatisation.
+    triggers:
+      - entity_id:
+          - switch.arrosage_electrovanne_2
+        from: "off"
+        to: "on"
+        id: marche manuel
+        trigger: state
+      - entity_id:
+          - switch.arrosage_electrovanne_2
+        from: "on"
+        to: "off"
+        id: arret manuel
+        trigger: state
+      - event_type: timer.finished
+        event_data:
+          entity_id: timer.arrosage_voie_2
+        id: arret auto
+        trigger: event
+    conditions:
+      - condition: state
+        entity_id: binary_sensor.arrosage_electrovannes_connected
+        state: "on"
+        alias: >-
+          Vérifier si les électrovannes sont connectées avant de lancer les actions. Si
+          vous ne voulez pas faire cette vérification (qui n'est pas obligatoire) vous
+          pouvez désactiver cette condition.
+    actions:
+      - choose:
+          - conditions:
+              - condition: trigger
+                id:
+                  - marche manuel
+            sequence:
+              - data:
+                  value: "{{ states('sensor.arrosage_compteur_eau') }}"
+                action: input_text.set_value
+                target:
+                  entity_id:
+                    - input_text.arrosage_volume_depart
+              - target:
+                  entity_id: timer.arrosage_voie_2
+                data:
+                  duration: "{{ states('input_number.arrosage_duree_voie_2') }}"
+                action: timer.start
+          - conditions:
+              - condition: trigger
+                id:
+                  - arret manuel
+            sequence:
+              - metadata: {}
+                data: {}
+                target:
+                  entity_id: timer.arrosage_voie_2
+                action: timer.finish
+          - conditions:
+              - condition: trigger
+                id:
+                  - arret auto
+            sequence:
+              - metadata: {}
+                data: {}
+                target:
+                  entity_id: switch.arrosage_electrovanne_2
+                action: switch.turn_off
+              - data:
+                  value: "{{ as_local(now()) }}"
+                target:
+                  entity_id: input_text.arrosage_dernier_declenchement_voie_2
+                action: input_text.set_value
+              - data:
+                  value: >-
+                    {{ states('sensor.arrosage_compteur_eau')|int -
+                    states('input_text.arrosage_volume_depart')|int }}
+                action: input_text.set_value
+                target:
+                  entity_id: input_text.arrosage_volume_voie_2
+    mode: single
+
+  - id: 'arrosage_voie_3'
+    alias: Arrosage - Voie 3
+    description: >-
+      Permet de démarrer/arrêter le minuteur de la voie 3 et le stockage des données
+      propre à cette voie.
+
+      Si vous avez moins de 3 voies d'arrosage vous pouvez supprimer cette
+      automatisation.
+    triggers:
+      - entity_id:
+          - switch.arrosage_electrovanne_3
+        from: "off"
+        to: "on"
+        id: marche manuel
+        trigger: state
+      - entity_id:
+          - switch.arrosage_electrovanne_3
+        from: "on"
+        to: "off"
+        id: arret manuel
+        trigger: state
+      - event_type: timer.finished
+        event_data:
+          entity_id: timer.arrosage_voie_3
+        id: arret auto
+        trigger: event
+    conditions:
+      - condition: state
+        entity_id: binary_sensor.arrosage_electrovannes_connected
+        state: "on"
+        alias: >-
+          Vérifier si les électrovannes sont connectées avant de lancer les actions. Si
+          vous ne voulez pas faire cette vérification (qui n'est pas obligatoire) vous
+          pouvez désactiver cette condition.
+    actions:
+      - choose:
+          - conditions:
+              - condition: trigger
+                id:
+                  - marche manuel
+            sequence:
+              - data:
+                  value: "{{ states('arrosage_compteur_eau') }}"
+                action: input_text.set_value
+                target:
+                  entity_id:
+                    - input_text.arrosage_volume_depart
+              - target:
+                  entity_id: timer.arrosage_voie_3
+                data:
+                  duration: "{{ states('input_number.arrosage_duree_voie_3') }}"
+                action: timer.start
+          - conditions:
+              - condition: trigger
+                id:
+                  - arret manuel
+            sequence:
+              - metadata: {}
+                data: {}
+                target:
+                  entity_id: timer.arrosage_voie_3
+                action: timer.finish
+          - conditions:
+              - condition: trigger
+                id:
+                  - arret auto
+            sequence:
+              - metadata: {}
+                data: {}
+                target:
+                  entity_id: switch.arrosage_electrovanne_3
+                action: switch.turn_off
+              - data:
+                  value: "{{ as_local(now()) }}"
+                target:
+                  entity_id: input_text.arrosage_dernier_declenchement_voie_3
+                action: input_text.set_value
+              - data:
+                  value: >-
+                    {{ states('sensor.arrosage_compteur_eau')|int -
+                    states('input_text.arrosage_volume_depart')|int }}
+                action: input_text.set_value
+                target:
+                  entity_id: input_text.arrosage_volume_voie_3
+    mode: single
+
+  - id: 'arrosage_voie_4'
+    alias: Arrosage - Voie 4
+    description: >-
+      Permet de démarrer/arrêter le minuteur de la voie 4 et le stockage des données
+      propre à cette voie.
+
+      Si vous avez moins de 4 voies d'arrosage vous pouvez supprimer cette
+      automatisation.
+    triggers:
+      - entity_id:
+          - switch.arrosage_electrovanne_4
+        from: "off"
+        to: "on"
+        id: marche manuel
+        trigger: state
+      - entity_id:
+          - switch.arrosage_electrovanne_4
+        from: "on"
+        to: "off"
+        id: arret manuel
+        trigger: state
+      - event_type: timer.finished
+        event_data:
+          entity_id: timer.arrosage_voie_4
+        id: arret auto
+        trigger: event
+    conditions:
+      - condition: state
+        entity_id: binary_sensor.arrosage_electrovannes_connected
+        state: "on"
+        alias: >-
+          Vérifier si les électrovannes sont connectées avant de lancer les actions. Si
+          vous ne voulez pas faire cette vérification (qui n'est pas obligatoire) vous
+          pouvez désactiver cette condition.
+    actions:
+      - choose:
+          - conditions:
+              - condition: trigger
+                id:
+                  - marche manuel
+            sequence:
+              - data:
+                  value: "{{ states('arrosage_compteur_eau') }}"
+                action: input_text.set_value
+                target:
+                  entity_id:
+                    - input_text.arrosage_volume_depart
+              - target:
+                  entity_id: timer.arrosage_voie_4
+                data:
+                  duration: "{{ states('input_number.arrosage_duree_voie_4') }}"
+                action: timer.start
+          - conditions:
+              - condition: trigger
+                id:
+                  - arret manuel
+            sequence:
+              - metadata: {}
+                data: {}
+                target:
+                  entity_id: timer.arrosage_voie_4
+                action: timer.finish
+          - conditions:
+              - condition: trigger
+                id:
+                  - arret auto
+            sequence:
+              - metadata: {}
+                data: {}
+                target:
+                  entity_id: switch.arrosage_electrovanne_4
+                action: switch.turn_off
+              - data:
+                  value: "{{ as_local(now()) }}"
+                target:
+                  entity_id: input_text.arrosage_dernier_declenchement_voie_4
+                action: input_text.set_value
+              - data:
+                  value: >-
+                    {{ states('sensor.arrosage_compteur_eau')|int -
+                    states('input_text.arrosage_volume_depart')|int }}
+                action: input_text.set_value
+                target:
+                  entity_id: input_text.arrosage_volume_voie_4
+    mode: single
+
+  - id: 'arrosage_voie_5'
+    alias: Arrosage - Voie 5
+    description: >-
+      Permet de démarrer/arrêter le minuteur de la voie 5 et le stockage des données
+      propre à cette voie.
+
+      Si vous avez moins de 5 voies d'arrosage vous pouvez supprimer cette
+      automatisation.
+    triggers:
+      - entity_id:
+          - switch.arrosage_electrovanne_5
+        from: "off"
+        to: "on"
+        id: marche manuel
+        trigger: state
+      - entity_id:
+          - switch.arrosage_electrovanne_5
+        from: "on"
+        to: "off"
+        id: arret manuel
+        trigger: state
+      - event_type: timer.finished
+        event_data:
+          entity_id: timer.arrosage_voie_5
+        id: arret auto
+        trigger: event
+    conditions:
+      - condition: state
+        entity_id: binary_sensor.arrosage_electrovannes_connected
+        state: "on"
+        alias: >-
+          Vérifier si les électrovannes sont connectées avant de lancer les actions. Si
+          vous ne voulez pas faire cette vérification (qui n'est pas obligatoire) vous
+          pouvez désactiver cette condition.
+    actions:
+      - choose:
+          - conditions:
+              - condition: trigger
+                id:
+                  - marche manuel
+            sequence:
+              - data:
+                  value: "{{ states('arrosage_compteur_eau') }}"
+                action: input_text.set_value
+                target:
+                  entity_id:
+                    - input_text.arrosage_volume_depart
+              - target:
+                  entity_id: timer.arrosage_voie_5
+                data:
+                  duration: "{{ states('input_number.arrosage_duree_voie_5') }}"
+                action: timer.start
+          - conditions:
+              - condition: trigger
+                id:
+                  - arret manuel
+            sequence:
+              - metadata: {}
+                data: {}
+                target:
+                  entity_id: timer.arrosage_voie_5
+                action: timer.finish
+          - conditions:
+              - condition: trigger
+                id:
+                  - arret auto
+            sequence:
+              - metadata: {}
+                data: {}
+                target:
+                  entity_id: switch.arrosage_electrovanne_5
+                action: switch.turn_off
+              - data:
+                  value: "{{ as_local(now()) }}"
+                target:
+                  entity_id: input_text.arrosage_dernier_declenchement_voie_5
+                action: input_text.set_value
+              - data:
+                  value: >-
+                    {{ states('sensor.arrosage_compteur_eau')|int -
+                    states('input_text.arrosage_volume_depart')|int }}
+                action: input_text.set_value
+                target:
+                  entity_id: input_text.arrosage_volume_voie_5
+    mode: single
+
+  - id: 'arrosage_voie_6'
+    alias: Arrosage - Voie 6
+    description: >-
+      Permet de démarrer/arrêter le minuteur de la voie 6 et le stockage des données
+      propre à cette voie.
+
+      Si vous avez moins de 6 voies d'arrosage vous pouvez supprimer cette
+      automatisation.
+    triggers:
+      - entity_id:
+          - switch.arrosage_electrovanne_6
+        from: "off"
+        to: "on"
+        id: marche manuel
+        trigger: state
+      - entity_id:
+          - switch.arrosage_electrovanne_6
+        from: "on"
+        to: "off"
+        id: arret manuel
+        trigger: state
+      - event_type: timer.finished
+        event_data:
+          entity_id: timer.arrosage_voie_6
+        id: arret auto
+        trigger: event
+    conditions:
+      - condition: state
+        entity_id: binary_sensor.arrosage_electrovannes_connected
+        state: "on"
+        alias: >-
+          Vérifier si les électrovannes sont connectées avant de lancer les actions. Si
+          vous ne voulez pas faire cette vérification (qui n'est pas obligatoire) vous
+          pouvez désactiver cette condition.
+    actions:
+      - choose:
+          - conditions:
+              - condition: trigger
+                id:
+                  - marche manuel
+            sequence:
+              - data:
+                  value: "{{ states('arrosage_compteur_eau') }}"
+                action: input_text.set_value
+                target:
+                  entity_id:
+                    - input_text.arrosage_volume_depart
+              - target:
+                  entity_id: timer.arrosage_voie_6
+                data:
+                  duration: "{{ states('input_number.arrosage_duree_voie_6') }}"
+                action: timer.start
+          - conditions:
+              - condition: trigger
+                id:
+                  - arret manuel
+            sequence:
+              - metadata: {}
+                data: {}
+                target:
+                  entity_id:
+                    - timer.arrosage_voie_6
+                action: timer.finish
+          - conditions:
+              - condition: trigger
+                id:
+                  - arret auto
+            sequence:
+              - metadata: {}
+                data: {}
+                target:
+                  entity_id:
+                    - switch.arrosage_electrovanne_6
+                action: switch.turn_off
+              - data:
+                  value: "{{ as_local(now()) }}"
+                target:
+                  entity_id: input_text.arrosage_dernier_declenchement_voie_6
+                action: input_text.set_value
+              - data:
+                  value: >-
+                    {{ states('sensor.arrosage_compteur_eau')|int -
+                    states('input_text.arrosage_volume_depart')|int }}
+                action: input_text.set_value
+                target:
+                  entity_id: input_text.arrosage_volume_voie_6
+    mode: single
+
+  - id: 'arrosage_voie_7'
+    alias: Arrosage - Voie 7
+    description: >-
+      Permet de démarrer/arrêter le minuteur de la voie 7 et le stockage des données
+      propre à cette voie.
+
+      Si vous avez moins de 7 voies d'arrosage vous pouvez supprimer cette
+      automatisation.
+    triggers:
+      - entity_id:
+          - switch.arrosage_electrovanne_7
+        from: "off"
+        to: "on"
+        id: marche manuel
+        trigger: state
+      - entity_id:
+          - switch.arrosage_electrovanne_7
+        from: "on"
+        to: "off"
+        id: arret manuel
+        trigger: state
+      - event_type: timer.finished
+        event_data:
+          entity_id: timer.arrosage_voie_7
+        id: arret auto
+        trigger: event
+    conditions:
+      - condition: state
+        entity_id: binary_sensor.arrosage_electrovannes_connected
+        state: "on"
+        alias: >-
+          Vérifier si les électrovannes sont connectées avant de lancer les actions. Si
+          vous ne voulez pas faire cette vérification (qui n'est pas obligatoire) vous
+          pouvez désactiver cette condition.
+    actions:
+      - choose:
+          - conditions:
+              - condition: trigger
+                id:
+                  - marche manuel
+            sequence:
+              - data:
+                  value: "{{ states('arrosage_compteur_eau') }}"
+                action: input_text.set_value
+                target:
+                  entity_id:
+                    - input_text.arrosage_volume_depart
+              - target:
+                  entity_id: timer.arrosage_voie_7
+                data:
+                  duration: "{{ states('input_number.arrosage_duree_voie_7') }}"
+                action: timer.start
+          - conditions:
+              - condition: trigger
+                id:
+                  - arret manuel
+            sequence:
+              - metadata: {}
+                data: {}
+                target:
+                  entity_id:
+                    - timer.arrosage_voie_7
+                action: timer.finish
+          - conditions:
+              - condition: trigger
+                id:
+                  - arret auto
+            sequence:
+              - metadata: {}
+                data: {}
+                target:
+                  entity_id:
+                    - switch.arrosage_electrovanne_7
+                action: switch.turn_off
+              - data:
+                  value: "{{ as_local(now()) }}"
+                target:
+                  entity_id: input_text.arrosage_dernier_declenchement_voie_7
+                action: input_text.set_value
+              - data:
+                  value: >-
+                    {{ states('sensor.arrosage_compteur_eau')|int -
+                    states('input_text.arrosage_volume_depart')|int }}
+                action: input_text.set_value
+                target:
+                  entity_id: input_text.arrosage_volume_voie_7
+    mode: single
+
+  - id: 'arrosage_voie_8'
+    alias: Arrosage - Voie 8
+    description: >-
+      Permet de démarrer/arrêter le minuteur de la voie 1 et le stockage des données
+      propre à cette voie.
+
+      Si vous avez moins de 8 voies d'arrosage vous pouvez supprimer cette
+      automatisation.
+    triggers:
+      - entity_id:
+          - switch.arrosage_electrovanne_8
+        from: "off"
+        to: "on"
+        id: marche manuel
+        trigger: state
+      - entity_id:
+          - switch.arrosage_electrovanne_8
+        from: "on"
+        to: "off"
+        id: arret manuel
+        trigger: state
+      - event_type: timer.finished
+        event_data:
+          entity_id: timer.arrosage_voie_8
+        id: arret auto
+        trigger: event
+    conditions:
+      - condition: state
+        entity_id: binary_sensor.arrosage_electrovannes_connected
+        state: "on"
+        alias: >-
+          Vérifier si les électrovannes sont connectées avant de lancer les actions. Si
+          vous ne voulez pas faire cette vérification (qui n'est pas obligatoire) vous
+          pouvez désactiver cette condition.
+    actions:
+      - choose:
+          - conditions:
+              - condition: trigger
+                id:
+                  - marche manuel
+            sequence:
+              - data:
+                  value: "{{ states('arrosage_compteur_eau') }}"
+                action: input_text.set_value
+                target:
+                  entity_id:
+                    - input_text.arrosage_volume_depart
+              - target:
+                  entity_id: timer.arrosage_voie_8
+                data:
+                  duration: "{{ states('input_number.arrosage_duree_voie_8') }}"
+                action: timer.start
+          - conditions:
+              - condition: trigger
+                id:
+                  - arret manuel
+            sequence:
+              - metadata: {}
+                data: {}
+                target:
+                  entity_id:
+                    - timer.arrosage_voie_8
+                action: timer.finish
+          - conditions:
+              - condition: trigger
+                id:
+                  - arret auto
+            sequence:
+              - metadata: {}
+                data: {}
+                target:
+                  entity_id:
+                    - switch.arrosage_electrovanne_8
+                action: switch.turn_off
+              - data:
+                  value: "{{ as_local(now()) }}"
+                target:
+                  entity_id: input_text.arrosage_dernier_declenchement_voie_8
+                action: input_text.set_value
+              - data:
+                  value: >-
+                    {{ states('sensor.arrosage_compteur_eau')|int -
+                    states('input_text.arrosage_volume_depart')|int }}
+                action: input_text.set_value
+                target:
+                  entity_id: input_text.arrosage_volume_voie_8
+    mode: single
+
+  - id: 'arrosage_voie_9'
+    alias: Arrosage - Voie 9
+    description: >-
+      Permet de démarrer/arrêter le minuteur de la voie 1 et le stockage des données
+      propre à cette voie.
+
+      Si vous avez moins de 2 voies d'arrosage vous pouvez supprimer cette
+      automatisation.
+    triggers:
+      - entity_id:
+          - switch.arrosage_electrovanne_9
+        from: "off"
+        to: "on"
+        id: marche manuel
+        trigger: state
+      - entity_id:
+          - switch.arrosage_electrovanne_9
+        from: "on"
+        to: "off"
+        id: arret manuel
+        trigger: state
+      - event_type: timer.finished
+        event_data:
+          entity_id: timer.arrosage_voie_9
+        id: arret auto
+        trigger: event
+    conditions:
+      - condition: state
+        entity_id: binary_sensor.arrosage_electrovannes_connected
+        state: "on"
+        alias: >-
+          Vérifier si les électrovannes sont connectées avant de lancer les actions. Si
+          vous ne voulez pas faire cette vérification (qui n'est pas obligatoire) vous
+          pouvez désactiver cette condition.
+    actions:
+      - choose:
+          - conditions:
+              - condition: trigger
+                id:
+                  - marche manuel
+            sequence:
+              - data:
+                  value: "{{ states('arrosage_compteur_eau') }}"
+                action: input_text.set_value
+                target:
+                  entity_id:
+                    - input_text.arrosage_volume_depart
+              - target:
+                  entity_id: timer.arrosage_voie_9
+                data:
+                  duration: "{{ states('input_number.arrosage_duree_voie_9') }}"
+                action: timer.start
+          - conditions:
+              - condition: trigger
+                id:
+                  - arret manuel
+            sequence:
+              - metadata: {}
+                data: {}
+                target:
+                  entity_id:
+                    - timer.arrosage_voie_9
+                action: timer.finish
+          - conditions:
+              - condition: trigger
+                id:
+                  - arret auto
+            sequence:
+              - metadata: {}
+                data: {}
+                target:
+                  entity_id:
+                    - switch.arrosage_electrovanne_9
+                action: switch.turn_off
+              - data:
+                  value: "{{ as_local(now()) }}"
+                target:
+                  entity_id: input_text.arrosage_dernier_declenchement_voie_9
+                action: input_text.set_value
+              - data:
+                  value: >-
+                    {{ states('sensor.arrosage_compteur_eau')|int -
+                    states('input_text.arrosage_volume_depart')|int }}
+                action: input_text.set_value
+                target:
+                  entity_id: input_text.arrosage_volume_voie_9
+    mode: single
+
+#  - id: 'arrosage_zone_1'
+#    alias: Arrosage - Zone 1
+#    description: Cycle d'arrosage de la zone 1
+#    triggers:
+#      - entity_id:
+#          - input_boolean.arrosage_auto_zone_1
+#        from: "off"
+#        to: "on"
+#        trigger: state
+#    conditions: []
+#    actions:
+#      - choose:
+#          - conditions:
+#              - condition: state
+#                entity_id: binary_sensor.arrosage_electrovannes_connected
+#                state: "on"
+#            sequence:
+#              - action: script.envoi_notification_vers_mon_telephone
+#                data:
+#                  message: >-
+#                    Arrosage démarré {{ as_timestamp(now()) | timestamp_custom('à
+#                    %-H:%M') }}
+#                  title: "{{ state_attr('sensor.arrosage_noms_des_zones', 'zone_1') }}"
+#                  tag: arrosage zone 1
+#                  color: cyan
+#                  icon: mdi:sprinkler-variant
+#                  persistent: "true"
+#              - action: input_datetime.set_datetime
+#                target:
+#                  entity_id: input_datetime.arrosage_duree_cycle_zone_1
+#                data:
+#                  timestamp: >-
+#                    {% set ns = namespace(duree = as_timestamp(now()) + 60) %} {%
+#                    for item in label_entities("Zone 1") | select('match',
+#                    'script.arrosage_declenchement_auto_voie') | sort %}
+#                      {% set ns.duree = ns.duree + states('input_number.arrosage_duree_voie_' ~ item[-1]) | float if is_state('input_boolean.arrosage_enable_voie_' ~ item[-1], 'on') else ns.duree %}
+#                    {% endfor %} {{ns.duree}}
+#              - repeat:
+#                  for_each: >-
+#                    {{ label_entities('Zone 1') | select('match',
+#                    'script.arrosage_declenchement_auto_voie') | sort }}
+#                  sequence:
+#                    - action: "{{repeat.item}}"
+#                      data: {}
+#              - action: input_boolean.turn_off
+#                metadata: {}
+#                data: {}
+#                target:
+#                  entity_id:
+#                    - input_boolean.arrosage_auto_zone_1
+#              - action: script.envoi_notification_vers_mon_telephone
+#                data:
+#                  message: clear_notification
+#                  tag: arrosage zone 1
+#          - conditions:
+#              - condition: state
+#                entity_id: binary_sensor.arrosage_electrovannes_connected
+#                state: "off"
+#            sequence:
+#              - delay:
+#                  hours: 0
+#                  minutes: 0
+#                  seconds: 1
+#                  milliseconds: 0
+#              - action: input_boolean.turn_off
+#                metadata: {}
+#                data: {}
+#                target:
+#                  entity_id:
+#                    - input_boolean.arrosage_auto_zone_1
+#              - action: script.envoi_notification_vers_mon_telephone
+#                data:
+#                  message: >-
+#                    L'arrosage ne peut pas démarrer. Les programmateurs d'arrosage
+#                    ne sont pas connectés.
+#                  color: red
+#                  tag: arrosage
+#                  icon: mdi:sprinkler-variant
+#                  persistent: "true"
+#    mode: single
+#
+#  - id: 'arrosage_zone_2'
+#    alias: Arrosage - Zone 2
+#    description: >-
+#      Cycle d'arrosage de la zone 2
+#
+#      Si vous avez moins de 2 zones d'arrosage vous pouvez supprimer cette
+#      automatisation.
+#    triggers:
+#      - entity_id:
+#          - input_boolean.arrosage_auto_zone_2
+#        from: "off"
+#        to: "on"
+#        trigger: state
+#    conditions: []
+#    actions:
+#      - choose:
+#          - conditions:
+#              - condition: state
+#                entity_id: binary_sensor.arrosage_electrovannes_connected
+#                state: "on"
+#            sequence:
+#              - action: script.envoi_notification_vers_mon_telephone
+#                data:
+#                  message: >-
+#                    Arrosage démarré {{ as_timestamp(now()) | timestamp_custom('à
+#                    %-H:%M') }}
+#                  title: "{{ state_attr('sensor.arrosage_noms_des_zones', 'zone_2') }}"
+#                  tag: arrosage zone 2
+#                  color: cyan
+#                  icon: mdi:sprinkler-variant
+#                  persistent: "true"
+#              - action: input_datetime.set_datetime
+#                target:
+#                  entity_id: input_datetime.arrosage_duree_cycle_zone_2
+#                data:
+#                  timestamp: >-
+#                    {% set ns = namespace(duree = as_timestamp(now()) + 60) %} {%
+#                    for item in label_entities("Zone 2") | select('match',
+#                    'script.arrosage_declenchement_auto_voie') | sort %}
+#                      {% set ns.duree = ns.duree + states('input_number.arrosage_duree_voie_' ~ item[-1]) | float if is_state('input_boolean.arrosage_enable_voie_' ~ item[-1], 'on') else ns.duree %}
+#                    {% endfor %} {{ns.duree}}
+#              - repeat:
+#                  for_each: >-
+#                    {{ label_entities('Zone 2') | select('match',
+#                    'script.arrosage_declenchement_auto_voie') | sort }}
+#                  sequence:
+#                    - action: "{{repeat.item}}"
+#                      data: {}
+#              - action: input_boolean.turn_off
+#                metadata: {}
+#                data: {}
+#                target:
+#                  entity_id:
+#                    - input_boolean.arrosage_auto_zone_2
+#              - action: script.envoi_notification_vers_mon_telephone
+#                data:
+#                  message: clear_notification
+#                  tag: arrosage zone 2
+#          - conditions:
+#              - condition: state
+#                entity_id: binary_sensor.arrosage_electrovannes_connected
+#                state: "off"
+#            sequence:
+#              - delay:
+#                  hours: 0
+#                  minutes: 0
+#                  seconds: 1
+#                  milliseconds: 0
+#              - action: input_boolean.turn_off
+#                metadata: {}
+#                data: {}
+#                target:
+#                  entity_id:
+#                    - input_boolean.arrosage_auto_zone_2
+#              - action: script.envoi_notification_vers_mon_telephone
+#                data:
+#                  message: >-
+#                    L'arrosage ne peut pas démarrer. Les programmateurs d'arrosage
+#                    ne sont pas connectés.
+#                  color: red
+#                  tag: arrosage
+#                  icon: mdi:sprinkler-variant
+#                  persistent: "true"
+#    mode: single
+#
+#  - id: 'arrosage_zone_3'
+#    alias: Arrosage - Zone 3
+#    description: >-
+#      Cycle d'arrosage de la zone 3
+#
+#      Si vous avez moins de 3 zones d'arrosage vous pouvez supprimer cette
+#      automatisation.
+#    triggers:
+#      - entity_id:
+#          - input_boolean.arrosage_auto_zone_3
+#        from: "off"
+#        to: "on"
+#        trigger: state
+#    conditions: []
+#    actions:
+#      - choose:
+#          - conditions:
+#              - condition: state
+#                entity_id: binary_sensor.arrosage_electrovannes_connected
+#                state: "on"
+#            sequence:
+#              - action: script.envoi_notification_vers_mon_telephone
+#                data:
+#                  message: >-
+#                    Arrosage démarré {{ as_timestamp(now()) | timestamp_custom('à
+#                    %-H:%M') }}
+#                  title: "{{ state_attr('sensor.arrosage_noms_des_zones', 'zone_3') }}"
+#                  tag: arrosage zone 3
+#                  color: cyan
+#                  icon: mdi:sprinkler-variant
+#                  persistent: "true"
+#              - action: input_datetime.set_datetime
+#                target:
+#                  entity_id: input_datetime.arrosage_duree_cycle_zone_3
+#                data:
+#                  timestamp: >-
+#                    {% set ns = namespace(duree = as_timestamp(now()) + 60) %} {%
+#                    for item in label_entities("Zone 3") | select('match',
+#                    'script.arrosage_declenchement_auto_voie') | sort %}
+#                      {% set ns.duree = ns.duree + states('input_number.arrosage_duree_voie_' ~ item[-1]) | float if is_state('input_boolean.arrosage_enable_voie_' ~ item[-1], 'on') else ns.duree %}
+#                    {% endfor %} {{ns.duree}}
+#              - repeat:
+#                  for_each: >-
+#                    {{ label_entities('Zone 3') | select('match',
+#                    'script.arrosage_declenchement_auto_voie') | sort }}
+#                  sequence:
+#                    - action: "{{repeat.item}}"
+#                      data: {}
+#              - action: input_boolean.turn_off
+#                metadata: {}
+#                data: {}
+#                target:
+#                  entity_id:
+#                    - input_boolean.arrosage_auto_zone_3
+#              - action: script.envoi_notification_vers_mon_telephone
+#                data:
+#                  message: clear_notification
+#                  tag: arrosage zone 3
+#          - conditions:
+#              - condition: state
+#                entity_id: binary_sensor.arrosage_electrovannes_connected
+#                state: "off"
+#            sequence:
+#              - delay:
+#                  hours: 0
+#                  minutes: 0
+#                  seconds: 1
+#                  milliseconds: 0
+#              - action: input_boolean.turn_off
+#                metadata: {}
+#                data: {}
+#                target:
+#                  entity_id:
+#                    - input_boolean.arrosage_auto_zone_3
+#              - action: script.envoi_notification_vers_mon_telephone
+#                data:
+#                  message: >-
+#                    L'arrosage ne peut pas démarrer. Les programmateurs d'arrosage
+#                    ne sont pas connectés.
+#                  color: red
+#                  tag: arrosage
+#                  icon: mdi:sprinkler-variant
+#                  persistent: "true"
+#    mode: single
+
+  - id: 'arrosage_zone_1'
+    alias: Arrosage - Zone 1
+    description: Cycle d'arrosage de la zone 1
+    triggers:
+      - entity_id:
+          - input_boolean.arrosage_auto_zone_1
+        from: "off"
+        to: "on"
+        trigger: state
+    conditions: []
+    actions:
+      - choose:
+          - conditions:
+              - condition: numeric_state
+                entity_id: input_number.arrosage_electrovannes_incluses_zone_1
+                below: 1
+            sequence:
+              - delay:
+                  hours: 0
+                  minutes: 0
+                  seconds: 5
+                  milliseconds: 0
+              - action: input_boolean.turn_off
+                metadata: {}
+                data: {}
+                target:
+                  entity_id:
+                    - input_boolean.arrosage_auto_zone_1
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_notifications
+                    state: "on"
+                  - action: script.envoi_notification_vers_mon_telephone
+                    data:
+                      message: >-
+                        Le cycle d'arrosage de la zone {{
+                        state_attr('sensor.arrosage_noms_des_zones', 'zone_1') }} ne
+                        peut pas démarrer car aucune éléctrovanne n'est incluse dans
+                        le cycle de la zone.
+                      color: red
+                      tag: arrosage
+                      icon: mdi:sprinkler-variant
+                      persistent: "true"
+          - conditions:
+              - condition: state
+                entity_id: binary_sensor.arrosage_electrovannes_connected
+                state: "on"
+            sequence:
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_notifications
+                    state: "on"
+                  - action: script.envoi_notification_vers_mon_telephone
+                    data:
+                      message: >-
+                        Arrosage démarré {{ as_timestamp(now()) |
+                        timestamp_custom('à %-H:%M') }}
+                      title: "{{ state_attr('sensor.arrosage_noms_des_zones', 'zone_1') }}"
+                      tag: arrosage zone 1
+                      color: cyan
+                      icon: mdi:sprinkler-variant
+                      persistent: "true"
+              - action: input_datetime.set_datetime
+                target:
+                  entity_id: input_datetime.arrosage_duree_cycle_zone_1
+                data:
+                  timestamp: >-
+                    {% set ns = namespace(duree = as_timestamp(now()) + 60) %} {%
+                    for item in label_entities("Zone 1") | select('match',
+                    'script.arrosage_declenchement_auto_voie') | sort %}
+                      {% set ns.duree = ns.duree + states('input_number.arrosage_duree_voie_' ~ item[-1]) | float if is_state('input_boolean.arrosage_enable_voie_' ~ item[-1], 'on') else ns.duree %}
+                    {% endfor %} {{ns.duree}}
+              - repeat:
+                  for_each: >-
+                    {{ label_entities('Zone 1') | select('match',
+                    'script.arrosage_declenchement_auto_voie') | sort }}
+                  sequence:
+                    - action: "{{repeat.item}}"
+                      data: {}
+              - action: input_boolean.turn_off
+                metadata: {}
+                data: {}
+                target:
+                  entity_id:
+                    - input_boolean.arrosage_auto_zone_1
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_notifications
+                    state: "on"
+                  - action: script.envoi_notification_vers_mon_telephone
+                    data:
+                      message: clear_notification
+                      tag: arrosage zone 1
+          - conditions:
+              - condition: state
+                entity_id: binary_sensor.arrosage_electrovannes_connected
+                state: "off"
+            sequence:
+              - delay:
+                  hours: 0
+                  minutes: 0
+                  seconds: 1
+                  milliseconds: 0
+              - action: input_boolean.turn_off
+                metadata: {}
+                data: {}
+                target:
+                  entity_id:
+                    - input_boolean.arrosage_auto_zone_1
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_notifications
+                    state: "on"
+                  - action: script.envoi_notification_vers_mon_telephone
+                    data:
+                      message: >-
+                        L'arrosage ne peut pas démarrer. Les programmateurs
+                        d'arrosage ne sont pas connectés.
+                      color: red
+                      tag: arrosage
+                      icon: mdi:sprinkler-variant
+                      persistent: "true"
+    mode: single
+
+  - id: 'arrosage_zone_2'
+    alias: Arrosage - Zone 2
+    description: Cycle d'arrosage de la zone 2
+    triggers:
+      - entity_id:
+          - input_boolean.arrosage_auto_zone_2
+        from: "off"
+        to: "on"
+        trigger: state
+    conditions: []
+    actions:
+      - choose:
+          - conditions:
+              - condition: numeric_state
+                entity_id: input_number.arrosage_electrovannes_incluses_zone_2
+                below: 1
+            sequence:
+              - delay:
+                  hours: 0
+                  minutes: 0
+                  seconds: 5
+                  milliseconds: 0
+              - action: input_boolean.turn_off
+                metadata: {}
+                data: {}
+                target:
+                  entity_id:
+                    - input_boolean.arrosage_auto_zone_2
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_notifications
+                    state: "on"
+                  - action: script.envoi_notification_vers_mon_telephone
+                    data:
+                      message: >-
+                        Le cycle d'arrosage de la zone {{
+                        state_attr('sensor.arrosage_noms_des_zones', 'zone_2') }} ne
+                        peut pas démarrer car aucune éléctrovanne n'est incluse dans
+                        le cycle de la zone.
+                      color: red
+                      tag: arrosage
+                      icon: mdi:sprinkler-variant
+                      persistent: "true"
+          - conditions:
+              - condition: state
+                entity_id: binary_sensor.arrosage_electrovannes_connected
+                state: "on"
+            sequence:
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_notifications
+                    state: "on"
+                  - action: script.envoi_notification_vers_mon_telephone
+                    data:
+                      message: >-
+                        Arrosage démarré {{ as_timestamp(now()) |
+                        timestamp_custom('à %-H:%M') }}
+                      title: "{{ state_attr('sensor.arrosage_noms_des_zones', 'zone_2') }}"
+                      tag: arrosage zone 2
+                      color: cyan
+                      icon: mdi:sprinkler-variant
+                      persistent: "true"
+              - action: input_datetime.set_datetime
+                target:
+                  entity_id: input_datetime.arrosage_duree_cycle_zone_2
+                data:
+                  timestamp: >-
+                    {% set ns = namespace(duree = as_timestamp(now()) + 60) %} {%
+                    for item in label_entities("Zone 2") | select('match',
+                    'script.arrosage_declenchement_auto_voie') | sort %}
+                      {% set ns.duree = ns.duree + states('input_number.arrosage_duree_voie_' ~ item[-1]) | float if is_state('input_boolean.arrosage_enable_voie_' ~ item[-1], 'on') else ns.duree %}
+                    {% endfor %} {{ns.duree}}
+              - repeat:
+                  for_each: >-
+                    {{ label_entities('Zone 2') | select('match',
+                    'script.arrosage_declenchement_auto_voie') | sort }}
+                  sequence:
+                    - action: "{{repeat.item}}"
+                      data: {}
+              - action: input_boolean.turn_off
+                metadata: {}
+                data: {}
+                target:
+                  entity_id:
+                    - input_boolean.arrosage_auto_zone_2
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_notifications
+                    state: "on"
+                  - action: script.envoi_notification_vers_mon_telephone
+                    data:
+                      message: clear_notification
+                      tag: arrosage zone 2
+          - conditions:
+              - condition: state
+                entity_id: binary_sensor.arrosage_electrovannes_connected
+                state: "off"
+            sequence:
+              - delay:
+                  hours: 0
+                  minutes: 0
+                  seconds: 1
+                  milliseconds: 0
+              - action: input_boolean.turn_off
+                metadata: {}
+                data: {}
+                target:
+                  entity_id:
+                    - input_boolean.arrosage_auto_zone_2
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_notifications
+                    state: "on"
+                  - action: script.envoi_notification_vers_mon_telephone
+                    data:
+                      message: >-
+                        L'arrosage ne peut pas démarrer. Les programmateurs
+                        d'arrosage ne sont pas connectés.
+                      color: red
+                      tag: arrosage
+                      icon: mdi:sprinkler-variant
+                      persistent: "true"
+    mode: single
+
+  - id: 'arrosage_zone_3'
+    alias: Arrosage - Zone 3
+    description: Cycle d'arrosage de la zone 3
+    triggers:
+      - entity_id:
+          - input_boolean.arrosage_auto_zone_3
+        from: "off"
+        to: "on"
+        trigger: state
+    conditions: []
+    actions:
+      - choose:
+          - conditions:
+              - condition: numeric_state
+                entity_id: input_number.arrosage_electrovannes_incluses_zone_3
+                below: 1
+            sequence:
+              - delay:
+                  hours: 0
+                  minutes: 0
+                  seconds: 5
+                  milliseconds: 0
+              - action: input_boolean.turn_off
+                metadata: {}
+                data: {}
+                target:
+                  entity_id:
+                    - input_boolean.arrosage_auto_zone_3
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_notifications
+                    state: "on"
+                  - action: script.envoi_notification_vers_mon_telephone
+                    data:
+                      message: >-
+                        Le cycle d'arrosage de la zone {{
+                        state_attr('sensor.arrosage_noms_des_zones', 'zone_3') }} ne
+                        peut pas démarrer car aucune éléctrovanne n'est incluse dans
+                        le cycle de la zone.
+                      color: red
+                      tag: arrosage
+                      icon: mdi:sprinkler-variant
+                      persistent: "true"
+          - conditions:
+              - condition: state
+                entity_id: binary_sensor.arrosage_electrovannes_connected
+                state: "on"
+            sequence:
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_notifications
+                    state: "on"
+                  - action: script.envoi_notification_vers_mon_telephone
+                    data:
+                      message: >-
+                        Arrosage démarré {{ as_timestamp(now()) |
+                        timestamp_custom('à %-H:%M') }}
+                      title: "{{ state_attr('sensor.arrosage_noms_des_zones', 'zone_3') }}"
+                      tag: arrosage zone 3
+                      color: cyan
+                      icon: mdi:sprinkler-variant
+                      persistent: "true"
+              - action: input_datetime.set_datetime
+                target:
+                  entity_id: input_datetime.arrosage_duree_cycle_zone_3
+                data:
+                  timestamp: >-
+                    {% set ns = namespace(duree = as_timestamp(now()) + 60) %} {%
+                    for item in label_entities("Zone 3") | select('match',
+                    'script.arrosage_declenchement_auto_voie') | sort %}
+                      {% set ns.duree = ns.duree + states('input_number.arrosage_duree_voie_' ~ item[-1]) | float if is_state('input_boolean.arrosage_enable_voie_' ~ item[-1], 'on') else ns.duree %}
+                    {% endfor %} {{ns.duree}}
+              - repeat:
+                  for_each: >-
+                    {{ label_entities('Zone 3') | select('match',
+                    'script.arrosage_declenchement_auto_voie') | sort }}
+                  sequence:
+                    - action: "{{repeat.item}}"
+                      data: {}
+              - action: input_boolean.turn_off
+                metadata: {}
+                data: {}
+                target:
+                  entity_id:
+                    - input_boolean.arrosage_auto_zone_3
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_notifications
+                    state: "on"
+                  - action: script.envoi_notification_vers_mon_telephone
+                    data:
+                      message: clear_notification
+                      tag: arrosage zone 3
+          - conditions:
+              - condition: state
+                entity_id: binary_sensor.arrosage_electrovannes_connected
+                state: "off"
+            sequence:
+              - delay:
+                  hours: 0
+                  minutes: 0
+                  seconds: 1
+                  milliseconds: 0
+              - action: input_boolean.turn_off
+                metadata: {}
+                data: {}
+                target:
+                  entity_id:
+                    - input_boolean.arrosage_auto_zone_3
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_notifications
+                    state: "on"
+                  - action: script.envoi_notification_vers_mon_telephone
+                    data:
+                      message: >-
+                        L'arrosage ne peut pas démarrer. Les programmateurs
+                        d'arrosage ne sont pas connectés.
+                      color: red
+                      tag: arrosage
+                      icon: mdi:sprinkler-variant
+                      persistent: "true"
+    mode: single
+
+  - id: 'arrosage_nombre_electrovannes_incluses_par_zone'
+    alias: Arrosage - Nombre électrovannes incluses par zone
+    description: >-
+      Calcule le nombre d'électrovannes qui sont cochées dans le cycle d'arrosage de
+      chaque zone.
+    triggers:
+      - trigger: state
+        entity_id:
+          - input_boolean.arrosage_enable_voie_1
+          - input_boolean.arrosage_enable_voie_2
+          - input_boolean.arrosage_enable_voie_3
+          - input_boolean.arrosage_enable_voie_4
+          - input_boolean.arrosage_enable_voie_5
+          - input_boolean.arrosage_enable_voie_6
+          - input_boolean.arrosage_enable_voie_7
+          - input_boolean.arrosage_enable_voie_8
+          - input_boolean.arrosage_enable_voie_9
+    conditions: []
+    actions:
+      - action: input_number.set_value
+        metadata: {}
+        data:
+          value: >-
+            {%- set ns = namespace(nb_electrovanne_enabled = 0) %} {%- for item in
+            label_entities("Zone 1") | select('match',
+            'script.arrosage_declenchement_auto_voie') | sort %}
+              {%- set ns.nb_electrovanne_enabled = ns.nb_electrovanne_enabled + 1 if is_state('input_boolean.arrosage_enable_voie_' ~ item[-1], 'on') else ns.nb_electrovanne_enabled %}
+            {%- endfor %} {{ns.nb_electrovanne_enabled}}
+        target:
+          entity_id: input_number.arrosage_electrovannes_incluses_zone_1
+      - action: input_number.set_value
+        metadata: {}
+        data:
+          value: >-
+            {%- set ns = namespace(nb_electrovanne_enabled = 0) %} {%- for item in
+            label_entities("Zone 2") | select('match',
+            'script.arrosage_declenchement_auto_voie') | sort %}
+              {%- set ns.nb_electrovanne_enabled = ns.nb_electrovanne_enabled + 1 if is_state('input_boolean.arrosage_enable_voie_' ~ item[-1], 'on') else ns.nb_electrovanne_enabled %}
+            {%- endfor %} {{ns.nb_electrovanne_enabled}}
+        target:
+          entity_id:
+            - input_number.arrosage_electrovannes_incluses_zone_2
+      - action: input_number.set_value
+        metadata: {}
+        data:
+          value: >-
+            {%- set ns = namespace(nb_electrovanne_enabled = 0) %} {%- for item in
+            label_entities("Zone 3") | select('match',
+            'script.arrosage_declenchement_auto_voie') | sort %}
+              {%- set ns.nb_electrovanne_enabled = ns.nb_electrovanne_enabled + 1 if is_state('input_boolean.arrosage_enable_voie_' ~ item[-1], 'on') else ns.nb_electrovanne_enabled %}
+            {%- endfor %} {{ns.nb_electrovanne_enabled}}
+        target:
+          entity_id: input_number.arrosage_electrovannes_incluses_zone_3
+    mode: single

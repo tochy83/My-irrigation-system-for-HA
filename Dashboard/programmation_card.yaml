@@ -1,0 +1,14 @@
+type: custom:mushroom-template-card
+primary: Programmation arrosage
+secondary: Voir/Modifier les horaires d'arrosage
+icon: mdi:calendar-clock
+icon_color: light-green
+tap_action:
+  action: navigate
+  navigation_path: /dashboard-arrosage/planning-arrosage
+grid_options:
+  columns: full
+visibility:
+  - condition: state
+    entity: calendar.arrosage
+    state_not: unknown

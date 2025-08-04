@@ -1,0 +1,43 @@
+# Name : zones.yaml
+# Dans ce fichier, se trouve le sensor qui définit le nombre de zone ainsi que leur nom.
+
+
+template:
+  - sensor:
+      - name: Arrosage - Noms des zones
+        unique_id: arrosage_noms_des_zones
+        state: "Sensor qui défini le nombre et le nom des zones d'arrosage. Pour changer le nom des zones ou en ajouter une, il faut éditer directement le fichier packages/arrosage/zones.yaml"
+        icon: mdi:map-outline
+        attributes:
+          zone_1: "Potager"
+          zone_2: "Fruitiers"
+          zone_3: "Agrumes"
+
+# Une zone d'arrosage correspond à un lieu géographique de votre jardin et comprend une ou plusieurs électrovannes.
+# Cela implique que si vous n'avez qu'une électrovanne pour tout le jardin, nous n'avez forcement qu'une seule zone.
+
+# Vous pouvez remplacer les noms comme vous le voulez. Par exemple remplacer "Potager" par "Allée".
+# Par contre les noms d'attributs ne doivent pas être modifié.
+
+# Si vous avez une seule zone, supprimer les lignes zone_2 et zone_3.
+#       attributes:
+#        zone_1: "Potager"
+
+# Si vous avez 4 zones il faudra ajouter une ligne zone_4.
+#       attributes:
+#         zone_1: "Potager"
+#         zone_2: "Fruitiers"
+#         zone_3: "Agrumes"
+#         zone_4: "Fleurs"
+
+# En cas d'ajout ou de suppression de zone, n'oubliez pas d'ajouter ou de supprimer un label (libellé) correspondant à la zone désirée
+# Celà se fait dans l'interface de home assistant. 
+
+  - binary_sensor:
+      - name: Arrosage - Zone status # Binary_sensor permettant se savoir si un cycle d'arrosage de zone est en cours (Me permet d'afficher une notification sur la page principale de mon dashboard)
+        unique_id: arrosage_zone_status
+        state: >-
+          {% set nb_zones = (states['input_boolean'] | selectattr('entity_id','match','input_boolean.arrosage_auto_zone_') | selectattr('state','eq','on') | list | count) %}
+          {{ iif(nb_zones == 0, 'off', 'on') }}
+
+ 

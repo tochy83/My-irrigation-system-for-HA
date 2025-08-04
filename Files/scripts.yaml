@@ -1,0 +1,569 @@
+# Name : scripts.yaml
+# Dans ce fichier, se trouve toutes les scripts nécessaires pour 9 voies et 3 zones d'arrosage.
+
+
+script:
+
+  arrosage_arret:
+    alias: Arrosage - Arret
+    icon: mdi:stop-circle-outline
+    description: >-
+      Script permettant l'arrêt d'un cycle d'arrosage depuis les notifications
+      apparaissant sur le dashboard.
+    fields:
+      zone:
+        selector:
+          text: null
+        name: zone
+        required: true
+    sequence:
+      - choose:
+          - conditions:
+              - condition: template
+                value_template: "{{ true if zone == 'zone 1' }}"
+            sequence:
+              - repeat:
+                  for_each: >-
+                    {{ label_entities('Zone 1') | select('match',
+                    'script.arrosage_declenchement_auto_voie') | join | replace
+                    ('script.arrosage_declenchement_auto_voie_','') | list }}
+                  sequence:
+                    - action: switch.turn_off
+                      metadata: {}
+                      data: {}
+                      target:
+                        entity_id: switch.arrosage_electrovanne_{{repeat.item}}
+              - action: input_boolean.turn_off
+                metadata: {}
+                data: {}
+                target:
+                  entity_id: input_boolean.arrosage_auto_zone_1
+              - action: automation.turn_off
+                metadata: {}
+                data:
+                  stop_actions: true
+                target:
+                  entity_id: automation.arrosage_zone_1
+              - delay:
+                  hours: 0
+                  minutes: 0
+                  seconds: 1
+                  milliseconds: 0
+                enabled: false
+              - action: automation.turn_on
+                target:
+                  entity_id: automation.arrosage_zone_1
+                data: {}
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_notifications
+                    state: "on"
+                  - action: script.envoi_notification_vers_mon_telephone
+                    data:
+                      message: clear_notification
+                      tag: arrosage zone 1
+          - conditions:
+              - condition: template
+                value_template: "{{ true if zone == 'zone 2' }}"
+            sequence:
+              - repeat:
+                  for_each: >-
+                    {{ label_entities('Zone 2') | select('match',
+                    'script.arrosage_declenchement_auto_voie') | join | replace
+                    ('script.arrosage_declenchement_auto_voie_','') | list }}
+                  sequence:
+                    - action: switch.turn_off
+                      metadata: {}
+                      data: {}
+                      target:
+                        entity_id: switch.arrosage_electrovanne_{{repeat.item}}
+              - action: input_boolean.turn_off
+                metadata: {}
+                data: {}
+                target:
+                  entity_id: input_boolean.arrosage_auto_zone_2
+              - action: automation.turn_off
+                metadata: {}
+                data:
+                  stop_actions: true
+                target:
+                  entity_id: automation.arrosage_zone_2
+                enabled: true
+              - delay:
+                  hours: 0
+                  minutes: 0
+                  seconds: 1
+                  milliseconds: 0
+                enabled: false
+              - action: automation.turn_on
+                target:
+                  entity_id: automation.arrosage_zone_2
+                data: {}
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_notifications
+                    state: "on"
+                  - action: script.envoi_notification_vers_mon_telephone
+                    data:
+                      message: clear_notification
+                      tag: arrosage zone 2
+          - conditions:
+              - condition: template
+                value_template: "{{ true if zone == 'zone 3' }}"
+            sequence:
+              - repeat:
+                  for_each: >-
+                    {{ label_entities('Zone 3') | select('match',
+                    'script.arrosage_declenchement_auto_voie') | join | replace
+                    ('script.arrosage_declenchement_auto_voie_','') | list }}
+                  sequence:
+                    - action: switch.turn_off
+                      metadata: {}
+                      data: {}
+                      target:
+                        entity_id: switch.arrosage_electrovanne_{{repeat.item}}
+              - action: input_boolean.turn_off
+                metadata: {}
+                data: {}
+                target:
+                  entity_id: input_boolean.arrosage_auto_zone_3
+              - action: automation.turn_off
+                metadata: {}
+                data:
+                  stop_actions: true
+                target:
+                  entity_id: automation.arrosage_zone_3
+              - delay:
+                  hours: 0
+                  minutes: 0
+                  seconds: 1
+                  milliseconds: 0
+                enabled: false
+              - action: automation.turn_on
+                target:
+                  entity_id: automation.arrosage_zone_3
+                data: {}
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_notifications
+                    state: "on"
+                  - action: script.envoi_notification_vers_mon_telephone
+                    data:
+                      message: clear_notification
+                      tag: arrosage zone 3
+
+
+  arrosage_declenchement_auto_voie_1:
+    alias: Arrosage - Déclenchement auto voie 1
+    description: >-
+      Script de déclenchement de la voie 1 pour les arrosages de zone.
+
+
+      Très important, il faut ajouter à ce script un label (libellé) correspondant à
+      la zone dans laquelle cette électrovanne sera, sinon elle ne sera pas prise en
+      compte dans les cycles d'arrosage.
+
+      Ex: si c'est la zone d'arrosage 1 le label sera Zone 1
+    sequence:
+      - condition: state
+        entity_id: input_boolean.arrosage_enable_voie_1
+        state: "on"
+        alias: >-
+          Vérifier si cette électrovanne est incluse dans le cycle d'arrosage en
+          cours.
+      - action: switch.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id: switch.arrosage_electrovanne_1
+      - wait_for_trigger:
+          - event_type: timer.finished
+            event_data:
+              entity_id: timer.arrosage_voie_1
+            trigger: event
+        timeout:
+          hours: 0
+          minutes: 0
+          seconds: "{{ states('input_number.arrosage_duree_voie_1') }}"
+          milliseconds: 0
+        alias: Attendre la fin du timer de cette électrovanne.
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 1
+          milliseconds: 0
+
+  arrosage_declenchement_auto_voie_2:
+    alias: Arrosage - Déclenchement auto voie 2
+    description: >-
+      Script de déclenchement de la voie 2 pour les arrosages de zone. Si vous avez
+      moins de 2 voies d'arrosage vous pouvez supprimer ce script.
+
+
+      Très important, il faut ajouter à ce script un label (libellé) correspondant à
+      la zone dans laquelle cette électrovanne sera, sinon elle ne sera pas prise en
+      compte dans les cycles d'arrosage.
+
+      Ex: si c'est la zone d'arrosage 1 le label sera Zone 1
+    sequence:
+      - condition: state
+        entity_id: input_boolean.arrosage_enable_voie_2
+        state: "on"
+        alias: >-
+          Vérifier si cette électrovanne est incluse dans le cycle d'arrosage en
+          cours.
+      - action: switch.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id: switch.arrosage_electrovanne_2
+      - wait_for_trigger:
+          - event_type: timer.finished
+            event_data:
+              entity_id: timer.arrosage_voie_2
+            trigger: event
+        timeout:
+          hours: 0
+          minutes: 0
+          seconds: "{{ states('input_number.arrosage_duree_voie_2') }}"
+          milliseconds: 0
+        alias: Attendre la fin du timer de cette électrovanne.
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 1
+          milliseconds: 0
+
+  arrosage_declenchement_auto_voie_3:
+    alias: Arrosage - Déclenchement auto voie 3
+    description: >-
+      Script de déclenchement de la voie 3 pour les arrosages de zone. Si vous avez
+      moins de 3 voies d'arrosage vous pouvez supprimer ce script.
+
+      Très important, il faut ajouter à ce script un label (libellé) correspondant à
+      la zone dans laquelle cette électrovanne sera, sinon elle ne sera pas prise en
+      compte dans les cycles d'arrosage.
+
+      Ex: si c'est la zone d'arrosage 1 le label sera Zone 1
+    sequence:
+      - condition: state
+        entity_id: input_boolean.arrosage_enable_voie_3
+        state: "on"
+        alias: >-
+          Vérifier si cette électrovanne est incluse dans le cycle d'arrosage en
+          cours.
+      - action: switch.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id: switch.arrosage_electrovanne_3
+      - wait_for_trigger:
+          - event_type: timer.finished
+            event_data:
+              entity_id: timer.arrosage_voie_3
+            trigger: event
+        timeout:
+          hours: 0
+          minutes: 0
+          seconds: "{{ states('input_number.arrosage_duree_voie_3') }}"
+          milliseconds: 0
+        alias: Attendre la fin du timer de cette électrovanne.
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 1
+          milliseconds: 0
+
+  arrosage_declenchement_auto_voie_4:
+    alias: Arrosage - Déclenchement auto voie 4
+    description: >-
+      Script de déclenchement de la voie 4 pour les arrosages de zone. Si vous avez
+      moins de 4 voies d'arrosage vous pouvez supprimer ce script.
+
+      Très important, il faut ajouter à ce script un label (libellé) correspondant à
+      la zone dans laquelle cette électrovanne sera, sinon elle ne sera pas prise en
+      compte dans les cycles d'arrosage.
+
+      Ex: si c'est la zone d'arrosage 1 le label sera Zone 1
+    sequence:
+      - condition: state
+        entity_id: input_boolean.arrosage_enable_voie_4
+        state: "on"
+        alias: >-
+          Vérifier si cette électrovanne est incluse dans le cycle d'arrosage en
+          cours.
+      - action: switch.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id: switch.arrosage_electrovanne_4
+      - wait_for_trigger:
+          - event_type: timer.finished
+            event_data:
+              entity_id: timer.arrosage_voie_4
+            trigger: event
+        timeout:
+          hours: 0
+          minutes: 0
+          seconds: "{{ states('input_number.arrosage_duree_voie_4') }}"
+          milliseconds: 0
+        alias: Attendre la fin du timer de cette électrovanne.
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 1
+          milliseconds: 0
+
+  arrosage_declenchement_auto_voie_5:
+    alias: Arrosage - Déclenchement auto voie 5
+    description: >-
+      Script de déclenchement de la voie 5 pour les arrosages de zone. Si vous avez
+      moins de 5 voies d'arrosage vous pouvez supprimer ce script.
+
+      Très important, il faut ajouter à ce script un label (libellé) correspondant à
+      la zone dans laquelle cette électrovanne sera, sinon elle ne sera pas prise en
+      compte dans les cycles d'arrosage.
+
+      Ex: si c'est la zone d'arrosage 1 le label sera Zone 1
+    sequence:
+      - condition: state
+        entity_id: input_boolean.arrosage_enable_voie_5
+        state: "on"
+        alias: >-
+          Vérifier si cette électrovanne est incluse dans le cycle d'arrosage en
+          cours.
+      - action: switch.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id: switch.arrosage_electrovanne_5
+      - wait_for_trigger:
+          - event_type: timer.finished
+            event_data:
+              entity_id: timer.arrosage_voie_5
+            trigger: event
+        timeout:
+          hours: 0
+          minutes: 0
+          seconds: "{{ states('input_number.arrosage_duree_voie_5') }}"
+          milliseconds: 0
+        alias: Attendre la fin du timer de cette électrovanne.
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 1
+          milliseconds: 0
+
+  arrosage_declenchement_auto_voie_6:
+    alias: Arrosage - Déclenchement auto voie 6
+    description: >-
+      Script de déclenchement de la voie 6 pour les arrosages de zone. Si vous avez
+      moins de 6 voies d'arrosage vous pouvez supprimer ce script.
+
+      Très important, il faut ajouter à ce script un label (libellé) correspondant à
+      la zone dans laquelle cette électrovanne sera, sinon elle ne sera pas prise en
+      compte dans les cycles d'arrosage.
+
+      Ex: si c'est la zone d'arrosage 1 le label sera Zone 1
+    sequence:
+      - condition: state
+        entity_id: input_boolean.arrosage_enable_voie_6
+        state: "on"
+        alias: >-
+          Vérifier si cette électrovanne est incluse dans le cycle d'arrosage en
+          cours.
+      - action: switch.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id: switch.arrosage_electrovanne_6
+      - wait_for_trigger:
+          - event_type: timer.finished
+            event_data:
+              entity_id: timer.arrosage_voie_6
+            trigger: event
+        timeout:
+          hours: 0
+          minutes: 0
+          seconds: "{{ states('input_number.arrosage_duree_voie_6') }}"
+          milliseconds: 0
+        alias: Attendre la fin du timer de cette électrovanne.
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 1
+          milliseconds: 0
+
+  arrosage_declenchement_auto_voie_7:
+    alias: Arrosage - Déclenchement auto voie 7
+    description: >-
+      Script de déclenchement de la voie 7 pour les arrosages de zone. Si vous avez
+      moins de 7 voies d'arrosage vous pouvez supprimer ce script.
+
+      Très important, il faut ajouter à ce script un label (libellé) correspondant à
+      la zone dans laquelle cette électrovanne sera, sinon elle ne sera pas prise en
+      compte dans les cycles d'arrosage.
+
+      Ex: si c'est la zone d'arrosage 1 le label sera Zone 1
+    sequence:
+      - condition: state
+        entity_id: input_boolean.arrosage_enable_voie_7
+        state: "on"
+        alias: >-
+          Vérifier si cette électrovanne est incluse dans le cycle d'arrosage en
+          cours.
+      - action: switch.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id: switch.arrosage_electrovanne_7
+      - wait_for_trigger:
+          - event_type: timer.finished
+            event_data:
+              entity_id: timer.arrosage_voie_7
+            trigger: event
+        timeout:
+          hours: 0
+          minutes: 0
+          seconds: "{{ states('input_number.arrosage_duree_voie_7') }}"
+          milliseconds: 0
+        alias: Attendre la fin du timer de cette électrovanne.
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 1
+          milliseconds: 0
+
+  arrosage_declenchement_auto_voie_8:
+    alias: Arrosage - Déclenchement auto voie 8
+    description: >-
+      Script de déclenchement de la voie 8 pour les arrosages de zone. Si vous avez
+      moins de 8 voies d'arrosage vous pouvez supprimer ce script.
+
+      Très important, il faut ajouter à ce script un label (libellé) correspondant à
+      la zone dans laquelle cette électrovanne sera, sinon elle ne sera pas prise en
+      compte dans les cycles d'arrosage.
+
+      Ex: si c'est la zone d'arrosage 1 le label sera Zone 1
+    sequence:
+      - condition: state
+        entity_id: input_boolean.arrosage_enable_voie_8
+        state: "on"
+        alias: >-
+          Vérifier si cette électrovanne est incluse dans le cycle d'arrosage en
+          cours.
+      - action: switch.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id: switch.arrosage_electrovanne_8
+      - wait_for_trigger:
+          - event_type: timer.finished
+            event_data:
+              entity_id: timer.arrosage_voie_8
+            trigger: event
+        timeout:
+          hours: 0
+          minutes: 0
+          seconds: "{{ states('input_number.arrosage_duree_voie_8') }}"
+          milliseconds: 0
+        alias: Attendre la fin du timer de cette électrovanne.
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 1
+          milliseconds: 0
+
+  arrosage_declenchement_auto_voie_9:
+    alias: Arrosage - Déclenchement auto voie 9
+    description: >-
+      Script de déclenchement de la voie 9 pour les arrosages de zone. Si vous avez
+      moins de 9 voies d'arrosage vous pouvez supprimer ce script.
+
+      Très important, il faut ajouter à ce script un label (libellé) correspondant à
+      la zone dans laquelle cette électrovanne sera, sinon elle ne sera pas prise en
+      compte dans les cycles d'arrosage.
+
+      Ex: si c'est la zone d'arrosage 1 le label sera Zone 1
+    sequence:
+      - condition: state
+        entity_id: input_boolean.arrosage_enable_voie_9
+        state: "on"
+        alias: >-
+          Vérifier si cette électrovanne est incluse dans le cycle d'arrosage en
+          cours.
+      - action: switch.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id: switch.arrosage_electrovanne_9
+      - wait_for_trigger:
+          - event_type: timer.finished
+            event_data:
+              entity_id: timer.arrosage_voie_9
+            trigger: event
+        timeout:
+          hours: 0
+          minutes: 0
+          seconds: "{{ states('input_number.arrosage_duree_voie_9') }}"
+          milliseconds: 0
+        alias: Attendre la fin du timer de cette électrovanne.
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 1
+          milliseconds: 0
+
+  envoi_notification_vers_mon_telephone:
+    alias: Envoi notification vers mon telephone
+    icon: mdi:cellphone-information
+    sequence:
+      - data:
+          message: "{{ message }}"
+          title: "{{ title }}"
+          data:
+            tts_text: "{{ tts_text }}"
+            color: "{{ color }}"
+            tag: "{{ tag }}"
+            persistent: "{{ persistent }}"
+            image: "{{ image }}"
+            notification_icon: "{{ icon }}"
+            priority: high
+            ttl: 0
+        action: notify.mobile_app_pixel
+#        action: notify.mobile_app_mipad_5
+#        action: notify.mobile_app_sm_g960f
+    fields:
+      message:
+        selector:
+          text: null
+        name: Message
+        required: true
+      title:
+        selector:
+          text: null
+        name: Title
+      tag:
+        selector:
+          text: null
+        name: Tag
+      persistent:
+        selector:
+          text: null
+        name: Persistent
+      icon:
+        selector:
+          text: null
+        name: Icon
+      color:
+        selector:
+          text: null
+        name: Color
+      tts_text:
+        selector:
+          text: null
+        name: TTS_text
+      image:
+        selector:
+          text: null
+        name: Image

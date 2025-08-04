@@ -1,0 +1,66 @@
+type: vertical-stack
+cards:
+  - type: custom:mushroom-template-card
+    multiline_secondary: true
+    primary: Prochains arrosages
+    secondary: Vous n'avez pas installé l'intégration Calendar Merge
+    icon: mdi:calendar-clock
+    icon_color: deep-orange
+    tap_action:
+      action: navigate
+      navigation_path: /hacs
+    grid_options:
+      columns: full
+    visibility:
+      - condition: state
+        entity: update.calendar_merge_update
+        state: unknown
+    card_mod:
+      style: |
+        ha-card {
+          background-color: #FAEFDB;
+        }
+  - type: custom:mushroom-template-card
+    multiline_secondary: true
+    primary: Prochains arrosages
+    secondary: Vous n'avez pas configuré l'entrée Calendar Merge
+    icon: mdi:calendar-clock
+    icon_color: deep-orange
+    tap_action:
+      action: navigate
+      navigation_path: /config/helpers
+    grid_options:
+      columns: full
+    visibility:
+      - condition: state
+        entity: calendar.arrosage_a_venir
+        state: unknown
+    card_mod:
+      style: |
+        ha-card {
+          background-color: #FAEFDB;
+        }
+  - type: custom:mushroom-template-card
+    multiline_secondary: true
+    primary: Prochains arrosages
+    secondary: |-
+      {% if states('sensor.arrosage_a_venir')|int > 0 %}  
+
+      {% for i in range(0, states('sensor.arrosage_a_venir')|int) %}
+       {{states('sensor.arrosage_a_venir_event_' ~ i)}}
+      {% endfor %}
+
+      {% else %}
+        Aucune programmation d'arrosage prévue
+      {% endif %}
+    icon: mdi:calendar-clock
+    icon_color: light-green
+    tap_action:
+      action: navigate
+      navigation_path: /dashboard-sections/planning-arrosage
+    grid_options:
+      columns: full
+    visibility:
+      - condition: state
+        entity: calendar.arrosage_a_venir
+        state_not: unknown

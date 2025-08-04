@@ -1,0 +1,52 @@
+# Name : config_autres_sensor.yaml
+# Dans ce fichier, se trouve les sensors utiles pour gérér des conditions
+
+
+template:
+  - binary_sensor:
+      - name: Arrosage - Electrovannes connected  # Définit si toutes electrovannes sont connectées
+        unique_id: arrosage_electrovannes_connected
+        state: "{{ states(my_entity) }}"
+        device_class: connectivity
+        variables:
+          my_entity: sensor.home_assistant_operating_system_version
+
+# Pour avoir un vrai retour de la connectivité de vos électrovannes en production (si vous le souhaitez)
+# il faudra remplacer 'sensor.home_assistant_operating_system_version' dans la ligne 'my_entity:'
+# par votre votre entité remontant la connectivité de vos électrovannes, sinon laisser tel quel.
+
+# Exemple de ma config :
+#          my_entity: binary_sensor.arrosage_esp_status
+
+# Mon entité remontant la connectivité de mes électrovannes étant :
+#binary_sensor:
+#  - platform: group # Groupe comprenant tous les ESP gérants les électrovannes d'arrosage (Sert de condition dans les automatisations)
+#    name: Arrosage - ESP status
+#    unique_id: arrosage_esp_status
+#    device_class: connectivity
+#    entities:
+#      - binary_sensor.d1mini_potager_d1mini_potager_status
+#      - binary_sensor.d1mini_verger_d1mini_verger_status
+
+  - sensor:
+      - name: Arrosage - Compteur eau
+        unique_id: arrosage_compteur_eau
+        state: "{{ states(my_entity) | int(0) }}"
+        icon: mdi:water
+        unit_of_measurement: L
+        variables:
+          my_entity: sensor.d1mini_verger_compteur_eau_jour
+
+# Si vous n'avez pas de moyen de comptabliser votre consommation d'eau, laissez le sensor ci-dessus tel quel.
+# Si vous en avez un, remplacer 'sensor.d1mini_verger_compteur_eau_jour' dans la ligne 'my_entity:'
+# par votre entité qui comptabilise votre consommation d'eau.
+
+input_text:
+  arrosage_volume_depart:  # Stocke le volume d'arrosage au déclenchement d'une électrovanne
+    name: Arrosage - Volume de départ
+    min: 0
+    max: 10
+    
+input_boolean:
+  arrosage_enable_notifications:  # Définit si les notifications doivent être envoyées
+    name: Arrosage - Enable notifications

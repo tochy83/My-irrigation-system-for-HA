@@ -1,0 +1,435 @@
+type: grid
+cards:
+  - type: horizontal-stack
+    cards:
+      - type: custom:vertical-stack-in-card
+        cards:
+          - type: custom:mushroom-template-card
+            multiline_secondary: true
+            primary: ""
+            secondary: >-
+              L'arrosage de la zone {{
+              state_attr('sensor.arrosage_noms_des_zones', 'zone_1') }} est en
+              cours !
+
+              Arrêt prévu à
+              {{state_attr('input_datetime.arrosage_duree_cycle_zone_1',
+              'timestamp')| timestamp_custom("%Hh%M", true)}}
+            icon: mdi:sprinkler-variant
+            icon_color: green
+            tap_action:
+              action: none
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style: |
+                ha-card {
+                  background-color: #E8F3E9;
+                }
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: template
+                icon: mdi:stop
+                tap_action:
+                  action: perform-action
+                  perform_action: script.arrosage_arret
+                  data:
+                    zone: zone 1
+                card_mod:
+                  style: |
+                    ha-card {
+                      border:none; 
+                      --chip-border-radius: 12px;
+                      --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                    }
+            alignment: end
+            card_mod:
+              style: |
+                ha-card {
+                  margin-top: -46px;
+                  margin-left: 50%;
+                  padding-bottom: 8px;
+                  padding-left: 8px;
+                  padding-right: 8px;
+                }
+    grid_options:
+      columns: full
+    visibility:
+      - condition: state
+        entity: input_boolean.arrosage_auto_zone_1
+        state: "on"
+      - condition: numeric_state
+        entity: input_number.arrosage_electrovannes_incluses_zone_1
+        above: 0
+  - type: horizontal-stack
+    cards:
+      - type: custom:vertical-stack-in-card
+        cards:
+          - type: custom:mushroom-template-card
+            multiline_secondary: true
+            primary: ""
+            secondary: >-
+              L'arrosage de la zone {{
+              state_attr('sensor.arrosage_noms_des_zones', 'zone_2') }} est en
+              cours !
+
+              Arrêt prévu à
+              {{state_attr('input_datetime.arrosage_duree_cycle_zone_2',
+              'timestamp')| timestamp_custom("%Hh%M", true)}}
+            icon: mdi:sprinkler-variant
+            icon_color: green
+            tap_action:
+              action: none
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style: |
+                ha-card {
+                  background-color: #E8F3E9;
+                }
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: template
+                icon: mdi:stop
+                tap_action:
+                  action: perform-action
+                  perform_action: script.arrosage_arret
+                  data:
+                    zone: zone 2
+                card_mod:
+                  style: |
+                    ha-card {
+                      border:none; 
+                      --chip-border-radius: 12px;
+                      --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                    }
+            alignment: end
+            card_mod:
+              style: |
+                ha-card {
+                  margin-top: -46px;
+                  margin-left: 50%;
+                  padding-bottom: 8px;
+                  padding-left: 8px;
+                  padding-right: 8px;
+                }
+    grid_options:
+      columns: full
+    visibility:
+      - condition: state
+        entity: input_boolean.arrosage_auto_zone_2
+        state: "on"
+      - condition: numeric_state
+        entity: input_number.arrosage_electrovannes_incluses_zone_2
+        above: 0
+  - type: horizontal-stack
+    cards:
+      - type: custom:vertical-stack-in-card
+        cards:
+          - type: custom:mushroom-template-card
+            multiline_secondary: true
+            primary: ""
+            secondary: >-
+              L'arrosage de la zone {{
+              state_attr('sensor.arrosage_noms_des_zones', 'zone_3') }} est en
+              cours !
+
+              Arrêt prévu à
+              {{state_attr('input_datetime.arrosage_duree_cycle_zone_3',
+              'timestamp')| timestamp_custom("%Hh%M", true)}}
+            icon: mdi:sprinkler-variant
+            icon_color: green
+            tap_action:
+              action: none
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style: |
+                ha-card {
+                  background-color: #E8F3E9;
+                }
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: template
+                icon: mdi:stop
+                tap_action:
+                  action: perform-action
+                  perform_action: script.arrosage_arret
+                  data:
+                    zone: zone 3
+                card_mod:
+                  style: |
+                    ha-card {
+                      border:none; 
+                      --chip-border-radius: 12px;
+                      --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                    }
+            alignment: end
+            card_mod:
+              style: |
+                ha-card {
+                  margin-top: -46px;
+                  margin-left: 50%;
+                  padding-bottom: 8px;
+                  padding-left: 8px;
+                  padding-right: 8px;
+                }
+    grid_options:
+      columns: full
+    visibility:
+      - condition: state
+        entity: input_boolean.arrosage_auto_zone_3
+        state: "on"
+      - condition: numeric_state
+        entity: input_number.arrosage_electrovannes_incluses_zone_3
+        above: 0
+  - type: horizontal-stack
+    cards:
+      - type: custom:vertical-stack-in-card
+        cards:
+          - type: custom:mushroom-template-card
+            multiline_secondary: true
+            primary: ""
+            secondary: Vous n'avez pas encore créé de calendrier pour l'arrosage.
+            icon: mdi:alert
+            icon_color: deep-orange
+            tap_action:
+              action: none
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style: |
+                ha-card {
+                  background-color: #FAEFDB;
+                  padding-right: 100px;
+                }
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: template
+                icon: mdi:calendar-edit-outline
+                tap_action:
+                  action: navigate
+                  navigation_path: /calendar
+                card_mod:
+                  style: |
+                    ha-card {
+                      border:none; 
+                      --chip-border-radius: 12px;
+                      --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                    }
+              - type: template
+                tap_action:
+                  action: url
+                  url_path: >-
+                    https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/INSTALLATION.md#--etape-10-
+                icon: mdi:information
+                icon_color: orange
+                card_mod:
+                  style: |
+                    ha-card {
+                      border:none; 
+                      --chip-border-radius: 12px;
+                      --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                    }
+            alignment: end
+            card_mod:
+              style: |
+                ha-card {
+                  margin-top: -46px;
+                  margin-left: 50%;
+                  padding-bottom: 8px;
+                  padding-left: 8px;
+                  padding-right: 8px;
+                }
+    grid_options:
+      columns: full
+    visibility:
+      - condition: state
+        entity: calendar.arrosage
+        state: unknown
+  - type: horizontal-stack
+    cards:
+      - type: custom:vertical-stack-in-card
+        cards:
+          - type: custom:mushroom-template-card
+            multiline_secondary: true
+            primary: ""
+            secondary: >-
+              Aucune électrovanne n'est incluse dans le cycle d'arrosage de la
+              zone {{ state_attr('sensor.arrosage_noms_des_zones', 'zone_1') }}.
+            icon: mdi:alert
+            icon_color: deep-orange
+            tap_action:
+              action: none
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style: |
+                ha-card {
+                  background-color: #FAEFDB;
+                  padding-right: 50px;
+                }
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: template
+                tap_action:
+                  action: url
+                  url_path: >-
+                    https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/DASHBOARD.md#--la-carte-%C3%A9lectrovanne-
+                icon: mdi:information
+                icon_color: orange
+                card_mod:
+                  style: |
+                    ha-card {
+                      border:none; 
+                      --chip-border-radius: 12px;
+                      --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                    }
+            alignment: end
+            card_mod:
+              style: |
+                ha-card {
+                  margin-top: -46px;
+                  margin-left: 50%;
+                  padding-bottom: 8px;
+                  padding-left: 8px;
+                  padding-right: 8px;
+                }
+    grid_options:
+      columns: full
+    visibility:
+      - condition: numeric_state
+        entity: input_number.arrosage_electrovannes_incluses_zone_1
+        below: 1
+      - condition: state
+        entity: input_boolean.arrosage_auto_zone_1
+        state: "on"
+  - type: horizontal-stack
+    cards:
+      - type: custom:vertical-stack-in-card
+        cards:
+          - type: custom:mushroom-template-card
+            multiline_secondary: true
+            primary: ""
+            secondary: >-
+              Aucune électrovanne n'est incluse dans le cycle d'arrosage de la
+              zone {{ state_attr('sensor.arrosage_noms_des_zones', 'zone_2') }}.
+            icon: mdi:alert
+            icon_color: deep-orange
+            tap_action:
+              action: none
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style: |
+                ha-card {
+                  background-color: #FAEFDB;
+                  padding-right: 50px;
+                }
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: template
+                tap_action:
+                  action: url
+                  url_path: >-
+                    https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/DASHBOARD.md#--la-carte-%C3%A9lectrovanne-
+                icon: mdi:information
+                icon_color: orange
+                card_mod:
+                  style: |
+                    ha-card {
+                      border:none; 
+                      --chip-border-radius: 12px;
+                      --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                    }
+            alignment: end
+            card_mod:
+              style: |
+                ha-card {
+                  margin-top: -46px;
+                  margin-left: 50%;
+                  padding-bottom: 8px;
+                  padding-left: 8px;
+                  padding-right: 8px;
+                }
+    grid_options:
+      columns: full
+    visibility:
+      - condition: numeric_state
+        entity: input_number.arrosage_electrovannes_incluses_zone_2
+        below: 1
+      - condition: state
+        entity: input_boolean.arrosage_auto_zone_2
+        state: "on"
+  - type: horizontal-stack
+    cards:
+      - type: custom:vertical-stack-in-card
+        cards:
+          - type: custom:mushroom-template-card
+            multiline_secondary: true
+            primary: ""
+            secondary: >-
+              Aucune électrovanne n'est incluse dans le cycle d'arrosage de la
+              zone {{ state_attr('sensor.arrosage_noms_des_zones', 'zone_3') }}.
+            icon: mdi:alert
+            icon_color: deep-orange
+            tap_action:
+              action: none
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style: |
+                ha-card {
+                  background-color: #FAEFDB;
+                  padding-right: 50px;
+                }
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: template
+                tap_action:
+                  action: url
+                  url_path: >-
+                    https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/DASHBOARD.md#--la-carte-%C3%A9lectrovanne-
+                icon: mdi:information
+                icon_color: orange
+                card_mod:
+                  style: |
+                    ha-card {
+                      border:none; 
+                      --chip-border-radius: 12px;
+                      --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                    }
+            alignment: end
+            card_mod:
+              style: |
+                ha-card {
+                  margin-top: -46px;
+                  margin-left: 50%;
+                  padding-bottom: 8px;
+                  padding-left: 8px;
+                  padding-right: 8px;
+                }
+    grid_options:
+      columns: full
+    visibility:
+      - condition: numeric_state
+        entity: input_number.arrosage_electrovannes_incluses_zone_3
+        below: 1
+      - condition: state
+        entity: input_boolean.arrosage_auto_zone_3
+        state: "on"
+column_span: 2
