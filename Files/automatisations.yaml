@@ -24,7 +24,7 @@ automation:
         entity_id: binary_sensor.arrosage_zone_status
         state: "on"
       - condition: state
-        entity_id: input_boolean.arrosage_enable_notifications
+        entity_id: input_boolean.arrosage_enable_mobileapp_notifications
         state: "on"
     actions:
       - choose:
@@ -1194,8 +1194,8 @@ automation:
               - delay:
                   hours: 0
                   minutes: 0
-                  seconds: 5
-                  milliseconds: 0
+                  seconds: 0
+                  milliseconds: 500
               - action: input_boolean.turn_off
                 metadata: {}
                 data: {}
@@ -1204,7 +1204,7 @@ automation:
                     - input_boolean.arrosage_auto_zone_1
               - sequence:
                   - condition: state
-                    entity_id: input_boolean.arrosage_enable_notifications
+                    entity_id: input_boolean.arrosage_enable_mobileapp_notifications
                     state: "on"
                   - action: script.envoi_notification_vers_mon_telephone
                     data:
@@ -1224,7 +1224,7 @@ automation:
             sequence:
               - sequence:
                   - condition: state
-                    entity_id: input_boolean.arrosage_enable_notifications
+                    entity_id: input_boolean.arrosage_enable_mobileapp_notifications
                     state: "on"
                   - action: script.envoi_notification_vers_mon_telephone
                     data:
@@ -1261,7 +1261,7 @@ automation:
                     - input_boolean.arrosage_auto_zone_1
               - sequence:
                   - condition: state
-                    entity_id: input_boolean.arrosage_enable_notifications
+                    entity_id: input_boolean.arrosage_enable_mobileapp_notifications
                     state: "on"
                   - action: script.envoi_notification_vers_mon_telephone
                     data:
@@ -1285,7 +1285,7 @@ automation:
                     - input_boolean.arrosage_auto_zone_1
               - sequence:
                   - condition: state
-                    entity_id: input_boolean.arrosage_enable_notifications
+                    entity_id: input_boolean.arrosage_enable_mobileapp_notifications
                     state: "on"
                   - action: script.envoi_notification_vers_mon_telephone
                     data:
@@ -1318,8 +1318,8 @@ automation:
               - delay:
                   hours: 0
                   minutes: 0
-                  seconds: 5
-                  milliseconds: 0
+                  seconds: 0
+                  milliseconds: 500
               - action: input_boolean.turn_off
                 metadata: {}
                 data: {}
@@ -1328,7 +1328,7 @@ automation:
                     - input_boolean.arrosage_auto_zone_2
               - sequence:
                   - condition: state
-                    entity_id: input_boolean.arrosage_enable_notifications
+                    entity_id: input_boolean.arrosage_enable_mobileapp_notifications
                     state: "on"
                   - action: script.envoi_notification_vers_mon_telephone
                     data:
@@ -1348,7 +1348,7 @@ automation:
             sequence:
               - sequence:
                   - condition: state
-                    entity_id: input_boolean.arrosage_enable_notifications
+                    entity_id: input_boolean.arrosage_enable_mobileapp_notifications
                     state: "on"
                   - action: script.envoi_notification_vers_mon_telephone
                     data:
@@ -1385,7 +1385,7 @@ automation:
                     - input_boolean.arrosage_auto_zone_2
               - sequence:
                   - condition: state
-                    entity_id: input_boolean.arrosage_enable_notifications
+                    entity_id: input_boolean.arrosage_enable_mobileapp_notifications
                     state: "on"
                   - action: script.envoi_notification_vers_mon_telephone
                     data:
@@ -1409,7 +1409,7 @@ automation:
                     - input_boolean.arrosage_auto_zone_2
               - sequence:
                   - condition: state
-                    entity_id: input_boolean.arrosage_enable_notifications
+                    entity_id: input_boolean.arrosage_enable_mobileapp_notifications
                     state: "on"
                   - action: script.envoi_notification_vers_mon_telephone
                     data:
@@ -1442,8 +1442,8 @@ automation:
               - delay:
                   hours: 0
                   minutes: 0
-                  seconds: 5
-                  milliseconds: 0
+                  seconds: 0
+                  milliseconds: 500
               - action: input_boolean.turn_off
                 metadata: {}
                 data: {}
@@ -1452,7 +1452,7 @@ automation:
                     - input_boolean.arrosage_auto_zone_3
               - sequence:
                   - condition: state
-                    entity_id: input_boolean.arrosage_enable_notifications
+                    entity_id: input_boolean.arrosage_enable_mobileapp_notifications
                     state: "on"
                   - action: script.envoi_notification_vers_mon_telephone
                     data:
@@ -1472,7 +1472,7 @@ automation:
             sequence:
               - sequence:
                   - condition: state
-                    entity_id: input_boolean.arrosage_enable_notifications
+                    entity_id: input_boolean.arrosage_enable_mobileapp_notifications
                     state: "on"
                   - action: script.envoi_notification_vers_mon_telephone
                     data:
@@ -1509,7 +1509,7 @@ automation:
                     - input_boolean.arrosage_auto_zone_3
               - sequence:
                   - condition: state
-                    entity_id: input_boolean.arrosage_enable_notifications
+                    entity_id: input_boolean.arrosage_enable_mobileapp_notifications
                     state: "on"
                   - action: script.envoi_notification_vers_mon_telephone
                     data:
@@ -1533,7 +1533,7 @@ automation:
                     - input_boolean.arrosage_auto_zone_3
               - sequence:
                   - condition: state
-                    entity_id: input_boolean.arrosage_enable_notifications
+                    entity_id: input_boolean.arrosage_enable_mobileapp_notifications
                     state: "on"
                   - action: script.envoi_notification_vers_mon_telephone
                     data:
@@ -1600,3 +1600,83 @@ automation:
         target:
           entity_id: input_number.arrosage_electrovannes_incluses_zone_3
     mode: single
+
+  - id: 'arrosage_affichage_notifications_temporaires'
+    alias: Arrosage - Affichage notifications temporaires
+    description: >-
+      Définit la durée d'affichage des notifications temporaires ainsi que le "nom"
+      de la notification concernée. Le "nom" sert dans les conditions de visibilité
+      de la carte notification concernée.
+    triggers:
+      - trigger: state
+        entity_id:
+          - input_boolean.arrosage_programmation_zone_1
+        id: programmation_zone_1
+      - trigger: state
+        entity_id:
+          - input_boolean.arrosage_programmation_zone_2
+        id: programmation_zone_2
+      - trigger: state
+        entity_id:
+          - input_boolean.arrosage_programmation_zone_3
+        id: programmation_zone_3
+      - trigger: state
+        entity_id:
+          - input_boolean.arrosage_auto_zone_1
+        from: "off"
+        to: "on"
+        id: auto_zone_1
+      - trigger: state
+        entity_id:
+          - input_boolean.arrosage_auto_zone_2
+        from: "off"
+        to: "on"
+        id: auto_zone_2
+      - trigger: state
+        entity_id:
+          - input_boolean.arrosage_auto_zone_3
+        from: "off"
+        to: "on"
+        id: auto_zone_3
+    conditions: []
+    actions:
+      - action: input_boolean.turn_off
+        metadata: {}
+        data: {}
+        target:
+          entity_id: input_boolean.arrosage_display_notifications
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 0
+          milliseconds: 250
+        enabled: true
+      - action: input_text.set_value
+        metadata: {}
+        data:
+          value: "{{ trigger.id }}"
+        target:
+          entity_id: input_text.arrosage_display_notifications_choix
+        alias: >-
+          On stocke le trigger_id ce qui va nous permettre de choisir la
+          notification à afficher
+      - action: input_boolean.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id: input_boolean.arrosage_display_notifications
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 3
+          milliseconds: 0
+        alias: >-
+          Le temps de délai sert à définir la durée d'affichage des notifications
+          temporaires
+      - action: input_boolean.turn_off
+        metadata: {}
+        data: {}
+        target:
+          entity_id: input_boolean.arrosage_display_notifications
+    mode: restart
+

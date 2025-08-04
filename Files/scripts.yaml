@@ -56,7 +56,7 @@ script:
                 data: {}
               - sequence:
                   - condition: state
-                    entity_id: input_boolean.arrosage_enable_notifications
+                    entity_id: input_boolean.arrosage_enable_mobileapp_notifications
                     state: "on"
                   - action: script.envoi_notification_vers_mon_telephone
                     data:
@@ -101,7 +101,7 @@ script:
                 data: {}
               - sequence:
                   - condition: state
-                    entity_id: input_boolean.arrosage_enable_notifications
+                    entity_id: input_boolean.arrosage_enable_mobileapp_notifications
                     state: "on"
                   - action: script.envoi_notification_vers_mon_telephone
                     data:
@@ -145,7 +145,7 @@ script:
                 data: {}
               - sequence:
                   - condition: state
-                    entity_id: input_boolean.arrosage_enable_notifications
+                    entity_id: input_boolean.arrosage_enable_mobileapp_notifications
                     state: "on"
                   - action: script.envoi_notification_vers_mon_telephone
                     data:

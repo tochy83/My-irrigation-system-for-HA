@@ -46,7 +46,15 @@ input_text:
     name: Arrosage - Volume de départ
     min: 0
     max: 10
-    
+
+  arrosage_display_notifications_choix:  # Stocke le "nom" de la la notification qui doit s'afficher. Le "nom" est définit par le trigger_id de l'automatisation 'arrosage_affichage_notifications_temporaires'
+    name: Arrosage - Affichage notifications choix
+    min: 0
+    max: 30
+
 input_boolean:
-  arrosage_enable_notifications:  # Définit si les notifications doivent être envoyées
-    name: Arrosage - Enable notifications
+  arrosage_display_notifications:  # Définit si les notifications doivent être affichées
+    name: Arrosage - Affichage notifications
+
+  arrosage_enable_mobileapp_notifications:  # Définit si les notifications doivent être envoyées vers l'application mobile
+    name: Arrosage - Enable mobileapp notifications
