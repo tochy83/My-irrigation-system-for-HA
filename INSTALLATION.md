@@ -248,5 +248,5 @@ Il n'y a plus rien à faire si ce n'est de pouvoir enfin **tester toutes les fon
 Je rappelle qu'a ce stade "l'intégration" tourne en mode simulation afin que vous puissiez vous faire une idée de son fonctionnement ou de voir comment elle est construite en examinant les différents fichiers et cartes de celle-ci.
 <br><br><br>
 
-
+Une vidéo complète de l'installation pas à pas en partant d'un Home Assistant vierge ou j'ai juste installé tous les modules complémentaires et intégrations nécessaires à l'installation et au fonctionnement du Dashboard.
 
