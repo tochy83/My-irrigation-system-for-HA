@@ -31,13 +31,13 @@ sections:
                 secondary: >-
                   L'arrosage de la zone {{
                   state_attr('sensor.arrosage_noms_des_zones', 'zone_1') }} est
-                  en cours !
+                  en cours.
 
                   Arrêt prévu à
                   {{state_attr('input_datetime.arrosage_duree_cycle_zone_1',
                   'timestamp')| timestamp_custom("%Hh%M", true)}}
                 icon: mdi:sprinkler-variant
-                icon_color: green
+                icon_color: light-green
                 tap_action:
                   action: none
                 hold_action:
@@ -47,7 +47,7 @@ sections:
                 card_mod:
                   style: |
                     ha-card {
-                      background-color: #E8F3E9;
+                      background-color: #e8f3db;
                     }
               - type: custom:mushroom-chips-card
                 chips:
@@ -94,13 +94,13 @@ sections:
                 secondary: >-
                   L'arrosage de la zone {{
                   state_attr('sensor.arrosage_noms_des_zones', 'zone_2') }} est
-                  en cours !
+                  en cours.
 
                   Arrêt prévu à
                   {{state_attr('input_datetime.arrosage_duree_cycle_zone_2',
                   'timestamp')| timestamp_custom("%Hh%M", true)}}
                 icon: mdi:sprinkler-variant
-                icon_color: green
+                icon_color: light-green
                 tap_action:
                   action: none
                 hold_action:
@@ -110,7 +110,7 @@ sections:
                 card_mod:
                   style: |
                     ha-card {
-                      background-color: #E8F3E9;
+                      background-color: #e8f3db;
                     }
               - type: custom:mushroom-chips-card
                 chips:
@@ -157,13 +157,13 @@ sections:
                 secondary: >-
                   L'arrosage de la zone {{
                   state_attr('sensor.arrosage_noms_des_zones', 'zone_3') }} est
-                  en cours !
+                  en cours.
 
                   Arrêt prévu à
                   {{state_attr('input_datetime.arrosage_duree_cycle_zone_3',
                   'timestamp')| timestamp_custom("%Hh%M", true)}}
                 icon: mdi:sprinkler-variant
-                icon_color: green
+                icon_color: light-green
                 tap_action:
                   action: none
                 hold_action:
@@ -173,7 +173,7 @@ sections:
                 card_mod:
                   style: |
                     ha-card {
-                      background-color: #E8F3E9;
+                      background-color: #e8f3db;
                     }
               - type: custom:mushroom-chips-card
                 chips:
@@ -334,8 +334,11 @@ sections:
             entity: input_number.arrosage_electrovannes_incluses_zone_1
             below: 1
           - condition: state
-            entity: input_boolean.arrosage_auto_zone_1
+            entity: input_boolean.arrosage_display_notifications
             state: "on"
+          - condition: state
+            entity: input_text.arrosage_display_notifications_choix
+            state: auto_zone_1
       - type: horizontal-stack
         cards:
           - type: custom:vertical-stack-in-card
@@ -394,8 +397,11 @@ sections:
             entity: input_number.arrosage_electrovannes_incluses_zone_2
             below: 1
           - condition: state
-            entity: input_boolean.arrosage_auto_zone_2
+            entity: input_boolean.arrosage_display_notifications
             state: "on"
+          - condition: state
+            entity: input_text.arrosage_display_notifications_choix
+            state: auto_zone_2
       - type: horizontal-stack
         cards:
           - type: custom:vertical-stack-in-card
@@ -454,8 +460,227 @@ sections:
             entity: input_number.arrosage_electrovannes_incluses_zone_3
             below: 1
           - condition: state
-            entity: input_boolean.arrosage_auto_zone_3
+            entity: input_boolean.arrosage_display_notifications
             state: "on"
+          - condition: state
+            entity: input_text.arrosage_display_notifications_choix
+            state: auto_zone_3
+      - type: horizontal-stack
+        cards:
+          - type: custom:vertical-stack-in-card
+            cards:
+              - type: custom:mushroom-template-card
+                multiline_secondary: true
+                primary: ""
+                secondary: >-
+                  Programmation activée pour la zone {{
+                  state_attr('sensor.arrosage_noms_des_zones', 'zone_1') }}.
+                icon: mdi:calendar-clock-outline
+                icon_color: light-green
+                tap_action:
+                  action: none
+                hold_action:
+                  action: none
+                double_tap_action:
+                  action: none
+                card_mod:
+                  style: |
+                    ha-card {
+                      background-color: #e8f3db;
+                      padding-right: 50px;
+                    }
+        grid_options:
+          columns: full
+        visibility:
+          - condition: state
+            entity: input_boolean.arrosage_display_notifications
+            state: "on"
+          - condition: state
+            entity: input_boolean.arrosage_programmation_zone_1
+            state: "on"
+          - condition: state
+            entity: input_text.arrosage_display_notifications_choix
+            state: programmation_zone_1
+      - type: horizontal-stack
+        cards:
+          - type: custom:vertical-stack-in-card
+            cards:
+              - type: custom:mushroom-template-card
+                multiline_secondary: true
+                primary: ""
+                secondary: >-
+                  Programmation désactivée pour la zone {{
+                  state_attr('sensor.arrosage_noms_des_zones', 'zone_1') }}.
+                icon: mdi:calendar-clock-outline
+                icon_color: light-green
+                tap_action:
+                  action: none
+                hold_action:
+                  action: none
+                double_tap_action:
+                  action: none
+                card_mod:
+                  style: |
+                    ha-card {
+                      background-color: #e8f3db;
+                      padding-right: 50px;
+                    }
+        grid_options:
+          columns: full
+        visibility:
+          - condition: state
+            entity: input_boolean.arrosage_display_notifications
+            state: "on"
+          - condition: state
+            entity: input_boolean.arrosage_programmation_zone_1
+            state: "off"
+          - condition: state
+            entity: input_text.arrosage_display_notifications_choix
+            state: programmation_zone_1
+      - type: horizontal-stack
+        cards:
+          - type: custom:vertical-stack-in-card
+            cards:
+              - type: custom:mushroom-template-card
+                multiline_secondary: true
+                primary: ""
+                secondary: >-
+                  Programmation activée pour la zone {{
+                  state_attr('sensor.arrosage_noms_des_zones', 'zone_2') }}.
+                icon: mdi:calendar-clock-outline
+                icon_color: light-green
+                tap_action:
+                  action: none
+                hold_action:
+                  action: none
+                double_tap_action:
+                  action: none
+                card_mod:
+                  style: |
+                    ha-card {
+                      background-color: #e8f3db;
+                      padding-right: 50px;
+                    }
+        grid_options:
+          columns: full
+        visibility:
+          - condition: state
+            entity: input_boolean.arrosage_display_notifications
+            state: "on"
+          - condition: state
+            entity: input_boolean.arrosage_programmation_zone_2
+            state: "on"
+          - condition: state
+            entity: input_text.arrosage_display_notifications_choix
+            state: programmation_zone_2
+      - type: horizontal-stack
+        cards:
+          - type: custom:vertical-stack-in-card
+            cards:
+              - type: custom:mushroom-template-card
+                multiline_secondary: true
+                primary: ""
+                secondary: >-
+                  Programmation désactivée pour la zone {{
+                  state_attr('sensor.arrosage_noms_des_zones', 'zone_2') }}.
+                icon: mdi:calendar-clock-outline
+                icon_color: light-green
+                tap_action:
+                  action: none
+                hold_action:
+                  action: none
+                double_tap_action:
+                  action: none
+                card_mod:
+                  style: |
+                    ha-card {
+                      background-color: #e8f3db;
+                      padding-right: 50px;
+                    }
+        grid_options:
+          columns: full
+        visibility:
+          - condition: state
+            entity: input_boolean.arrosage_display_notifications
+            state: "on"
+          - condition: state
+            entity: input_boolean.arrosage_programmation_zone_2
+            state: "off"
+          - condition: state
+            entity: input_text.arrosage_display_notifications_choix
+            state: programmation_zone_2
+      - type: horizontal-stack
+        cards:
+          - type: custom:vertical-stack-in-card
+            cards:
+              - type: custom:mushroom-template-card
+                multiline_secondary: true
+                primary: ""
+                secondary: >-
+                  Programmation activée pour la zone {{
+                  state_attr('sensor.arrosage_noms_des_zones', 'zone_3') }}.
+                icon: mdi:calendar-clock-outline
+                icon_color: light-green
+                tap_action:
+                  action: none
+                hold_action:
+                  action: none
+                double_tap_action:
+                  action: none
+                card_mod:
+                  style: |
+                    ha-card {
+                      background-color: #e8f3db;
+                      padding-right: 50px;
+                    }
+        grid_options:
+          columns: full
+        visibility:
+          - condition: state
+            entity: input_boolean.arrosage_display_notifications
+            state: "on"
+          - condition: state
+            entity: input_boolean.arrosage_programmation_zone_3
+            state: "on"
+          - condition: state
+            entity: input_text.arrosage_display_notifications_choix
+            state: programmation_zone_3
+      - type: horizontal-stack
+        cards:
+          - type: custom:vertical-stack-in-card
+            cards:
+              - type: custom:mushroom-template-card
+                multiline_secondary: true
+                primary: ""
+                secondary: >-
+                  Programmation désactivée pour la zone {{
+                  state_attr('sensor.arrosage_noms_des_zones', 'zone_3') }}.
+                icon: mdi:calendar-clock-outline
+                icon_color: light-green
+                tap_action:
+                  action: none
+                hold_action:
+                  action: none
+                double_tap_action:
+                  action: none
+                card_mod:
+                  style: |
+                    ha-card {
+                      background-color: #e8f3db;
+                      padding-right: 50px;
+                    }
+        grid_options:
+          columns: full
+        visibility:
+          - condition: state
+            entity: input_boolean.arrosage_display_notifications
+            state: "on"
+          - condition: state
+            entity: input_boolean.arrosage_programmation_zone_3
+            state: "off"
+          - condition: state
+            entity: input_text.arrosage_display_notifications_choix
+            state: programmation_zone_3
     column_span: 2
   - type: grid
     cards:
@@ -482,6 +707,8 @@ sections:
             chips:
               - type: entity
                 entity: input_boolean.arrosage_programmation_zone_1
+                tap_action:
+                  action: toggle
                 content_info: none
                 icon_color: light-green
                 card_mod:
@@ -1102,6 +1329,8 @@ sections:
             chips:
               - type: entity
                 entity: input_boolean.arrosage_programmation_zone_2
+                tap_action:
+                  action: toggle
                 content_info: none
                 icon_color: light-green
                 card_mod:
@@ -1357,6 +1586,120 @@ sections:
                 border-color: #DCDCDC;
               {% endif %}
             }
+      - type: custom:vertical-stack-in-card
+        cards:
+          - type: custom:mushroom-template-card
+            entity: switch.arrosage_electrovanne_9
+            primary: Pêcher/Figuier - Voie 9
+            secondary: >-
+              {% if not states('input_text.arrosage_volume_voie_9') in
+              ['unknown','0']%}
+                {% set volume = states('input_text.arrosage_volume_voie_9')+" L, " %}
+              {% else %}
+                {% set volume = "" %}
+              {% endif %}
+
+              {% if not
+              is_state('input_text.arrosage_dernier_declenchement_voie_9',
+              'unknown')%}
+                Dernier arrosage {{ volume }}le {{ as_timestamp(states('input_text.arrosage_dernier_declenchement_voie_9')) | timestamp_custom('%d/%m/%Y à %-H:%M') }}
+              {% endif %}  
+            icon: mdi:sprinkler-variant
+            icon_color: |-
+              {% if is_state(entity, 'on') %}
+                cyan
+              {% endif %} 
+            tap_action:
+              action: toggle
+          - type: conditional
+            conditions:
+              - condition: state
+                entity: timer.arrosage_voie_9
+                state: idle
+            card:
+              type: custom:mushroom-chips-card
+              chips:
+                - type: template
+                  entity: input_number.arrosage_duree_voie_9
+                  content: >-
+                    {{ states(entity) |int | timestamp_custom('%M min %S s',
+                    false) }}
+                  tap_action:
+                    action: more-info
+                  card_mod:
+                    style: |
+                      ha-card {
+                        --chip-border-radius: 12px;
+                      }
+                - type: template
+                  entity: input_boolean.arrosage_enable_voie_9
+                  icon: |
+                    {% if is_state(entity, 'on')%}
+                      mdi:check-circle
+                    {% else %}
+                      mdi:close-circle-outline
+                    {% endif %}  
+                  icon_color: |-
+                    {% if is_state(entity, 'on')%}
+                      light-green
+                    {% else %}
+                      disabled
+                    {% endif %}
+                  tap_action:
+                    action: toggle
+                  card_mod:
+                    style: |
+                      ha-card {
+                        --chip-border-radius: 12px;
+                      }
+              alignment: end
+              card_mod:
+                style: |
+                  ha-card {
+                    padding-top: 2px;
+                    margin-top: -14px;
+                    margin-left: 0px;
+                    padding-bottom: 4px;
+                    padding-left: 8px;
+                    padding-right: 8px;
+                  }
+          - type: conditional
+            conditions:
+              - condition: state
+                entity: timer.arrosage_voie_9
+                state: active
+            card:
+              type: custom:timer-bar-card
+              entity: timer.arrosage_voie_9
+              sync_issues: fix
+              invert: true
+              bar_direction: ltr
+              bar_radius: 5px
+              mushroom:
+                primary_info: none
+                icon_type: none
+              card_mod:
+                style: |
+                  ha-card {
+                    transition: none !important;
+                    padding: 0px !important;
+                    --spacing: var(--mush-spacing, 10px) !important;
+                    --icon-size: var(--mush-icon-size, 36px) !important;
+                    background: none;
+                    border: none;
+                    margin-top: -4px;
+                  }
+        card_mod:
+          style: |
+            ha-card {
+              {% if is_state('switch.arrosage_electrovanne_9', 'on') %}
+                background: linear-gradient(180deg, rgba(204,242,247,1) 70%, rgba(255,255,255,1) 100%) !important;
+                border-color: #DCDCDC;
+              {% else %}
+                background: linear-gradient(180deg, rgba(171,171,171,1) 20%, rgba(255,255,255,1) 100%) !important;
+                border-color: #DCDCDC;
+              {% endif %}
+            }
   - type: grid
     cards:
       - type: vertical-stack
@@ -1382,6 +1725,8 @@ sections:
             chips:
               - type: entity
                 entity: input_boolean.arrosage_programmation_zone_3
+                tap_action:
+                  action: toggle
                 content_info: none
                 icon_color: light-green
                 card_mod:
@@ -1711,7 +2056,7 @@ sections:
             icon_color: light-green
             tap_action:
               action: navigate
-              navigation_path: /dashboard-sections/planning-arrosage
+              navigation_path: /dashboard-arrosage/planning-arrosage
             grid_options:
               columns: full
             visibility:
@@ -1793,17 +2138,17 @@ sections:
                   background: transparent !important;
                 }
           - type: template
-            entity: input_boolean.arrosage_enable_notifications
+            entity: input_boolean.arrosage_enable_mobileapp_notifications
             icon: >
               {%if
-              is_state('input_boolean.arrosage_enable_notifications','on')%}
+              is_state('input_boolean.arrosage_enable_mobileapp_notifications','on')%}
                 mdi:cellphone-check
               {%else%}
                 mdi:cellphone-remove
               {%endif%}
             icon_color: >
               {%if
-              is_state('input_boolean.arrosage_enable_notifications','on')%}
+              is_state('input_boolean.arrosage_enable_mobileapp_notifications','on')%}
                 light-green
               {%else%}
                 disabled
