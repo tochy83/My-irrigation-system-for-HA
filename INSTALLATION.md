@@ -203,7 +203,7 @@ Pour ne pas risquer de casser votre Dashboard principal de Home Assistant, on va
 A l'aide d'un éditeur de texte, ouvrir le fichier 'dashboard.yaml' situé dans le dossier 'Dashboard' du zip décompressé à l'étape 3, sélectionner tout son contenu et le copier.
 <br>
 
-Ajouter un nouveau Dashboard nommé 'Arrosage' à Home Assistant. **Ici aussi respecter le nom du calendrier** car des liens dans le Dashboard l'utilise.
+Ajouter un nouveau Dashboard nommé 'Arrosage' à Home Assistant. **Ici aussi respecter le nom** car des liens dans le Dashboard l'utilise.
 <br>
 
 Modifier ce nouveau Dashboard pour y coller le contenu du fichier 'dashboard.yaml'.
