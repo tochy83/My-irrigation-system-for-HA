@@ -147,6 +147,7 @@ Je vous conseille d'ajouter un libellé 'Arrosage' ainsi qu'une catégorie à to
 #### - ***Etape 6*** :
 Si il n'est pas déja actif, activer le 'sensor.home_assistant_operating_system_version'. C'est le sensor qui me sert à simuler la connectivité des électrovannes pour le mode simulation de "l'intégration".
 
+<p align="center"><img src="Medias/Install/enabble_sensor_haos_version.gif"></p>
 <br>
 
 
