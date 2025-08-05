@@ -217,6 +217,8 @@ Ajouter l'intégration 'Calendrier local si elle n'est pas déjà présente sur 
 <p align="center"><img src="Medias/Install/add_local_calendar_int.gif"></p>
 
 Ajouter un calendrier nommé 'Arrosage', à l'intégration 'Calendrier local'. **Ici aussi le nom du calendrier** à son importance pour un fonctionnement "Out of the box" de "l'intégration".
+
+Si vous avez déjà un calendrier nommé 'Arrosage', pas de soucis ça fonctionnera également.
 <p align="center"><img src="Medias/Install/add_calendar.gif"></p>
 <br>
 
@@ -232,7 +234,7 @@ Configurer une entrée pour l'intégration 'Calendar merge'.
 Le fait de configurer cette intégration, va créer 5 entrées supplémentaires. Ce sont ces entrées qui permettent d'afficher les arrosages à venir du calendrier.
 <br>
 
-Dans la configuration nommer le capteur 'Arrosage a venir', il est **important de le respecter**. mettre 7 jours pour avoir les événements à venir sur une semaine, 3 en nombre maximum d'événements parce que par défaut il y'a 3 zones d'arrosage, activer 'Supprimer les événements récurrents du calendrier', choisir le calendrier 'Arrosage' et sur la seconde page, activer 'Afficher l'événement du calendrier comme heure de' et laisser le reste par défaut.
+Dans la configuration nommer le capteur 'Arrosage a venir', il est **important de respecter ce nom**. Mettre 7 jours pour avoir les événements à venir sur une semaine, 3 en nombre maximum d'événements parce que par défaut il y'a 3 zones d'arrosage, activer 'Supprimer les événements récurrents du calendrier', choisir le calendrier 'Arrosage' et sur la seconde page, activer 'Afficher l'événement du calendrier comme heure de' et laisser le reste par défaut.
 <br><br>
 
 
