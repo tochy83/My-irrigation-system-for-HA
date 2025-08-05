@@ -246,7 +246,7 @@ Dans la configuration nommer le capteur 'Arrosage a venir', il est **important d
 Il n'y a plus rien à faire si ce n'est de pouvoir enfin **tester toutes les fonctionnalités** de "l'intégration" 'My-irrigation-sytem-for-HA'.
 <br>
 
-Pour tester la partie prgrammation, il faudra bien sur ajouter des événements au calendrier d'arrosage. Je montre comment faire à la fin de la vidéo ci-dessous.
+Pour tester la partie programmation, il faudra bien sur ajouter des événements au calendrier d'arrosage. Je montre comment faire à la fin de la vidéo ci-dessous.
 <br>
 
 Je rappelle qu'à ce stade "l'intégration" tourne en mode simulation afin que vous puissiez vous faire une idée de son fonctionnement ou de voir comment elle est construite en examinant les différents fichiers et cartes de celle-ci.
