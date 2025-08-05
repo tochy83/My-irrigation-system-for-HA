@@ -252,9 +252,12 @@ Pour tester la partie programmation, il faudra bien sur ajouter des événements
 Je rappelle qu'à ce stade "l'intégration" tourne en mode simulation afin que vous puissiez vous faire une idée de son fonctionnement ou de voir comment elle est construite en examinant les différents fichiers et cartes de celle-ci.
 <br><br><br>
 
+<div align="center">
+
+  [![Lancer la vidéo](https://img.youtube.com/vi/XecQMBDLVuI/0.jpg)](https://www.youtube.com/watch?v=XecQMBDLVuI "Lancer la vidéo")
+
+</div>
+
 Une vidéo complète de l'installation pas à pas en partant d'un Home Assistant vierge ou j'ai juste installé tous les modules complémentaires et intégrations nécessaires à l'installation et au fonctionnement du Dashboard.
 La seule différence avec les étapes décrites ci-dessus est que je passerai par l'explorateur de fichiers windows pour créer les différents dossiers nécessaires au packages et copier les fichiers car c'est plus rapide pour la vidéo.
-
-[![Lancer la vidéo](https://img.youtube.com/vi/XecQMBDLVuI/0.jpg)](https://www.youtube.com/watch?v=XecQMBDLVuI "Lancer la vidéo")
-
 <br><br><br>
