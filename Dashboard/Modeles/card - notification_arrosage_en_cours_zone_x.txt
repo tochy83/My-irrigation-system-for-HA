@@ -1,0 +1,62 @@
+type: horizontal-stack
+cards:
+  - type: custom:vertical-stack-in-card
+    cards:
+      - type: custom:mushroom-template-card
+        multiline_secondary: true
+        primary: ""
+        secondary: >-
+          L'arrosage de la zone {{ state_attr('sensor.arrosage_noms_des_zones',
+          'zone_[X]') }} est en cours.
+
+          Arrêt prévu à
+          {{state_attr('input_datetime.arrosage_duree_cycle_zone_[X]',
+          'timestamp')| timestamp_custom("%Hh%M", true)}}
+        icon: mdi:sprinkler-variant
+        icon_color: light-green
+        tap_action:
+          action: none
+        hold_action:
+          action: none
+        double_tap_action:
+          action: none
+        card_mod:
+          style: |
+            ha-card {
+              background-color: #e8f3db;
+            }
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: template
+            icon: mdi:stop
+            tap_action:
+              action: perform-action
+              perform_action: script.arrosage_arret
+              data:
+                zone: zone [X]
+            card_mod:
+              style: |
+                ha-card {
+                  border:none; 
+                  --chip-border-radius: 12px;
+                  --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                }
+        alignment: end
+        card_mod:
+          style: |
+            ha-card {
+              margin-top: -46px;
+              margin-left: 50%;
+              padding-bottom: 8px;
+              padding-left: 8px;
+              padding-right: 8px;
+            }
+grid_options:
+  columns: full
+visibility:
+  - condition: state
+    entity: input_boolean.arrosage_auto_zone_[X]
+    state: "on"
+  - condition: numeric_state
+    entity: input_number.arrosage_electrovannes_incluses_zone_[X]
+    above: 0

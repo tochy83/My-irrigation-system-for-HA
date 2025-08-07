@@ -1,0 +1,36 @@
+type: horizontal-stack
+cards:
+  - type: custom:vertical-stack-in-card
+    cards:
+      - type: custom:mushroom-template-card
+        multiline_secondary: true
+        primary: ""
+        secondary: >-
+          Programmation désactivée pour la zone {{
+          state_attr('sensor.arrosage_noms_des_zones', 'zone_[X]') }}.
+        icon: mdi:calendar-clock-outline
+        icon_color: light-green
+        tap_action:
+          action: none
+        hold_action:
+          action: none
+        double_tap_action:
+          action: none
+        card_mod:
+          style: |
+            ha-card {
+              background-color: #e8f3db;
+              padding-right: 50px;
+            }
+grid_options:
+  columns: full
+visibility:
+  - condition: state
+    entity: input_boolean.arrosage_display_notifications
+    state: "on"
+  - condition: state
+    entity: input_boolean.arrosage_programmation_zone_[X]
+    state: "off"
+  - condition: state
+    entity: input_text.arrosage_display_notifications_choix
+    state: programmation_zone_[X]
