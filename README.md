@@ -9,7 +9,7 @@ Un dashboard pour Home Assistant, conçu pour 9 électrovannes réparties sur 3 
 <br><br>
 **L'objectif de départ :**
 
-Répliquer le fonctionnement du programmateur d'arrosage de la marque Hunter (ceux d'autres marques fonctionnant à peu de choses près de la même façon) que j'avais pour l'arrosage de mon jardin.
+Répliquer le fonctionnement du programmateur d'arrosage de la marque Hunter (ceux d'autres marques fonctionnant à peu de choses près de la même façon) que j'avais pour l'arrosage de mon jardin. Rendre le tout plus ergonomique et profiter des avantages de Home Assistant.
 
 - Pouvoir déclencher l'arrosage d'une voie.
 - Pouvoir régler le temps d'arrosage d'une voie.
@@ -18,7 +18,11 @@ Répliquer le fonctionnement du programmateur d'arrosage de la marque Hunter (ce
 - Pouvoir établir/supprimer un planning d'arrosage de zone.
 - Pouvoir inclure/exclure une voie d'un planning d'arrosage de zone.
 
-Pour résumé, les fonctions de base de tout programmateur d'arrosage.
+Pour résumé, les fonctions de base de tout programmateur d'arrosage, auquel j'ai ajouté :
+
+- Un dashboard pour piloter tout ça de manière simple et intuitive.
+- L'envoi de notifications vers l'application mobile (désactivables) et/ou Télégram pour avoir un retour sur l'état du système.
+> Je n'ai pas ajouté de prise en compte de capteur de pluie ou d'humidité du sol car je n'en dispose pas mais il est possible d'en tenir compte. J'aborde ce sujet ce point dans la documentation.
 
 <br><br>
 **L'objectif que je me suis fixé :**
