@@ -117,7 +117,7 @@ Une fois l'ajout effectué, on va dans Outils de développement, on vérifie la 
 Pour en savoir plus sur les packages et découvrir leur intérêt, vous pouvez lire cet [article](https://www.domo-blog.fr/packages-home-assistant-organiser-configuration-code-yaml-domotique/) sur Domo-blog.fr
 <br><br>
 
-> Il est possible, si vous utilisez les packages que vous ayez la ligne
+> Il est possible, si vous utilisez déjà les packages que vous ayez la ligne
 > ```
 >packages: !include_dir_merge_named packages/
 > ```
