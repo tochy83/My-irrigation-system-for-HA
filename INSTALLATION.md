@@ -20,14 +20,15 @@ Vous trouverez sur cette page toutes les explications nécessaires à la mise en
 * Et bien sur HACS pour pouvoir installer tout ce que je viens de lister ci-dessus
 <br><br>
 
-**Pour bénéficier de la réception des notifications** envoyées par "l'intégration", il faut avoir installé également **l'application sur son smartphone ou une tablette**.
+> **Pour bénéficier de la réception des notifications** envoyées par "l'intégration", il faut avoir installé également **l'application sur son smartphone ou une tablette**.
 Ce n'est pas une obligation mais dans ce cas là vous n'aurez simplement pas de notifications. De toute façon, par défaut elles sont désactivées.
-<br>
-
-Je précise également que le script des notifications a été ecrit pour des appareils tournant sous ANDROID. Je ne sais pas quelle sera sont comportement sous IOS puisque les 2 plateformes ne supportent pas les mêmes fonctionnalités pour les notifications (tout du moins dans leur syntaxe). Je suppose que si vous utilisez déjà cette fonctionnalité sur votre appareil IOS, vous saurez adapter le script à celui-ci.
-<br>
-
-Il est, à mon avis, facilement adaptable pour télégram également.
+> <br>
+> 
+> Je précise également que le script des notifications a été ecrit pour des appareils tournant sous ANDROID. Je ne sais pas quelle sera sont comportement sous IOS puisque les 2 plateformes ne supportent pas les mêmes fonctionnalités pour les notifications (tout du moins dans leur syntaxe). Je suppose que si vous utilisez déjà cette fonctionnalité sur votre appareil IOS, vous saurez adapter le script à celui-ci.
+> <br>
+> 
+> Je l'ai également adapté "l'intégration" pour avoir la possibilité de recevoir les notifications sur Télégram. Pour ça, il faut bien sur avoir l'intégration Télégram d'installée au préalable. Comme pour les notifications
+> vers l'application mobile elles sont désactivées par défaut.
 <br><br>
 
 
@@ -179,7 +180,7 @@ Une fois la modification effectuée, on va dans Outils de développement, on vé
 
 
 #### - ***Etape 8*** :
-Il faut maintenant attribuer des libellés aux différents scripts 'script.arrosage_declenchement_auto_voie_[x]' pour indiquer à "l'intégration" quelle électrovannes se trouve dans quel zone.
+Il faut maintenant attribuer des libellés aux différents scripts 'script.arrosage_declenchement_auto_voie_[x]' pour indiquer à "l'intégration" quelle électrovannes se trouve dans quelle zone.
 <br>
 
 Par defaut, puisque c'est comme ça que le Dashboard se présente il faut attribuer aux scripts :
