@@ -59,11 +59,13 @@ Entités en commun avec Arrosage :
 {%- set switch = (states['switch'] | selectattr('entity_id','match','switch.arrosage_') |map(attribute='entity_id') | list ) %}
 {%- set automation = (states['automation'] | selectattr('entity_id','match','automation.arrosage_') |map(attribute='entity_id') | list ) %}
 {%- set script = (states['script'] | selectattr('entity_id','match','script.arrosage_') |map(attribute='entity_id') | list ) %}
+{%- set script_notification = (states['script'] | selectattr('entity_id','match','script.envoi_notification_vers_mon_telephone') |map(attribute='entity_id') | list ) %}
 {%- set helpers = boolean|count + text|count + number|count + datetime|count + sensor|count + binary_sensor|count + timer|count + switch|count %}
 Entrées : {{ helpers }}
 Automatisations : {{ automation | count }}
 Scripts : {{ script | count }}
-{% if (helpers + automation|count + script|count) == 0 %}
+Script de notification app_mobile: {{ script_notification | count }}
+{% if (helpers + automation|count + script|count + script_notification|count) == 0 %}
 Pas de soucis pour procéder à l'installation
 {% else %}
 Installation déconseillée en l'état. Vous avez ces entités en commun avec l'intégration :
@@ -77,6 +79,7 @@ Installation déconseillée en l'état. Vous avez ces entités en commun avec l'
 - switch : {{ iif (switch|count > 0, switch|join(', '), boolean|count)}}
 - automation : {{ iif (automation|count > 0, automation|join(', '), boolean|count)}}
 - script : {{ iif (script|count > 0, script|join(', '), boolean|count)}}
+- script de notification app_mobile: {{ iif (script_notification|count > 0, script_notification|join(', '), boolean|count)}}
 {% endif %}
 ```
 <br>
