@@ -1,0 +1,24 @@
+# Name : zone_9.yaml
+# Dans ce fichier, se trouve les entités utiles pour une zone d'arrosage.
+
+
+input_boolean:
+  arrosage_auto_zone_9: # Déclenche la séquence d'arrosage de la zone 9
+    name: Arrosage - Auto zone 9
+    icon: mdi:sprinkler-variant
+
+  arrosage_programmation_zone_9: # Définit si la zone 9 doit être déclenchée par le calendrier d'arrosage
+    name: Arrosage - Programmation zone 9
+    icon: mdi:calendar-clock-outline
+
+input_datetime:
+  arrosage_duree_cycle_zone_9: # Stocke la durée du dernier du cycle de la zone 9
+    name: Arrosage - Durée cycle zone 9
+    has_date: true
+    has_time: true
+
+input_number:
+  arrosage_electrovannes_incluses_zone_9:  # Stocke le nombre d'éléctrovannes incluse dans le cycle d'arrosage de la zone 9
+    name: Arrosage - Electrovannes incluses zone 9
+    min: 0
+    max: 100
