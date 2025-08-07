@@ -29,11 +29,15 @@ Ce n'est pas une obligation mais dans ce cas là vous n'aurez simplement pas de 
 > 
 > Je l'ai également adapté "l'intégration" pour avoir la possibilité de recevoir les notifications sur Télégram. Pour ça, il faut bien sur avoir l'intégration Télégram d'installée au préalable. Comme pour les notifications
 > vers l'application mobile elles sont désactivées par défaut.
-<br><br>
 
+<br>
 
 **Pour coller au plus grand nombre, toutes les étapes de l'installation que je vais décrire seront réalisées avec File Editor.**
 <br><br>
+
+> Certains screenshots ou vidéos, présents ci-dessous peuvent ne pas être à jour car j'ai ajouté de nouvelles fonctionnalités depuis que j'ai rédigé cette page.
+> Cela ne modifie en rien la procédure d'installation.
+<br>
 
 ### Les différentes étapes de l'installation :
 
