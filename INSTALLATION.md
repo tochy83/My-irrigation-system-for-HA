@@ -117,6 +117,18 @@ Une fois l'ajout effectué, on va dans Outils de développement, on vérifie la 
 Pour en savoir plus sur les packages et découvrir leur intérêt, vous pouvez lire cet [article](https://www.domo-blog.fr/packages-home-assistant-organiser-configuration-code-yaml-domotique/) sur Domo-blog.fr
 <br><br>
 
+> Il est possible, si vous utilisez les packages que vous ayez la ligne
+> ```
+>packages: !include_dir_merge_named packages/
+> ```
+> Au lieu de
+> ```
+> packages: !include_dir_named packages
+> ```
+> Dans ce cas il y a quelques modifications à faire pour rendre "l'intégration" instalable.
+
+<br>
+
 #### - ***Etape 3*** :
 Depuis [la page d'accueil de ce 'repository'](https://github.com/tochy83/My-irrigation-system-for-HA) télécharger le fichier zip contenant toutes les fichiers de "l'intégration".
 <p align="center"><img src="Medias/Install/download_from_github.gif"></p>
