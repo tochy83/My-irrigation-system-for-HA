@@ -11,18 +11,18 @@ triggers:
       - switch.arrosage_electrovanne_[X]
     from: "off"
     to: "on"
-    id: marche manuel
+    id: marche
     trigger: state
   - entity_id:
       - switch.arrosage_electrovanne_[X]
     from: "on"
     to: "off"
-    id: arret manuel
+    id: arret
     trigger: state
   - event_type: timer.finished
     event_data:
       entity_id: timer.arrosage_voie_[X]
-    id: arret auto
+    id: arret timer
     trigger: event
 conditions:
   - condition: state
@@ -37,7 +37,7 @@ actions:
       - conditions:
           - condition: trigger
             id:
-              - marche manuel
+              - marche
         sequence:
           - data:
               value: "{{ states('arrosage_compteur_eau') }}"
@@ -53,7 +53,7 @@ actions:
       - conditions:
           - condition: trigger
             id:
-              - arret manuel
+              - arret
         sequence:
           - metadata: {}
             data: {}
@@ -64,7 +64,7 @@ actions:
       - conditions:
           - condition: trigger
             id:
-              - arret auto
+              - arret timer
         sequence:
           - metadata: {}
             data: {}

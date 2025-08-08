@@ -3,13 +3,17 @@
 
 
 script:
-
   arrosage_arret:
     alias: Arrosage - Arret
     icon: mdi:stop-circle-outline
     description: >-
       Script permettant l'arrêt d'un cycle d'arrosage depuis les notifications
       apparaissant sur le dashboard.
+
+      Ce script est déja pré-configurée pour prendre en compte jusqu'à 9 zones d'arrosage.
+      Si vous avez besoin de plus de 9 zones il faudra ajouter dans la partie séquence
+      autant de blocs option que de nouvelles zones
+      (Dupliquer le dernier bloc option et modifier dans le bloc dupliqué le numero de zone, partout ou il apparait dans le bloc).
     fields:
       zone:
         selector:
@@ -44,12 +48,6 @@ script:
                   stop_actions: true
                 target:
                   entity_id: automation.arrosage_zone_1
-              - delay:
-                  hours: 0
-                  minutes: 0
-                  seconds: 1
-                  milliseconds: 0
-                enabled: false
               - action: automation.turn_on
                 target:
                   entity_id: automation.arrosage_zone_1
@@ -62,6 +60,7 @@ script:
                     data:
                       message: clear_notification
                       tag: arrosage zone 1
+            alias: Zone 1
           - conditions:
               - condition: template
                 value_template: "{{ true if zone == 'zone 2' }}"
@@ -89,12 +88,6 @@ script:
                 target:
                   entity_id: automation.arrosage_zone_2
                 enabled: true
-              - delay:
-                  hours: 0
-                  minutes: 0
-                  seconds: 1
-                  milliseconds: 0
-                enabled: false
               - action: automation.turn_on
                 target:
                   entity_id: automation.arrosage_zone_2
@@ -107,6 +100,7 @@ script:
                     data:
                       message: clear_notification
                       tag: arrosage zone 2
+            alias: Zone 2
           - conditions:
               - condition: template
                 value_template: "{{ true if zone == 'zone 3' }}"
@@ -133,12 +127,6 @@ script:
                   stop_actions: true
                 target:
                   entity_id: automation.arrosage_zone_3
-              - delay:
-                  hours: 0
-                  minutes: 0
-                  seconds: 1
-                  milliseconds: 0
-                enabled: false
               - action: automation.turn_on
                 target:
                   entity_id: automation.arrosage_zone_3
@@ -151,7 +139,241 @@ script:
                     data:
                       message: clear_notification
                       tag: arrosage zone 3
-
+            alias: Zone 3
+          - conditions:
+              - condition: template
+                value_template: "{{ true if zone == 'zone 4' }}"
+            sequence:
+              - repeat:
+                  for_each: >-
+                    {{ label_entities('Zone 4') | select('match',
+                    'script.arrosage_declenchement_auto_voie') | join | replace
+                    ('script.arrosage_declenchement_auto_voie_','') | list }}
+                  sequence:
+                    - action: switch.turn_off
+                      metadata: {}
+                      data: {}
+                      target:
+                        entity_id: switch.arrosage_electrovanne_{{repeat.item}}
+              - action: input_boolean.turn_off
+                metadata: {}
+                data: {}
+                target:
+                  entity_id: input_boolean.arrosage_auto_zone_4
+              - action: automation.turn_off
+                metadata: {}
+                data:
+                  stop_actions: true
+                target:
+                  entity_id: automation.arrosage_zone_4
+              - action: automation.turn_on
+                target:
+                  entity_id: automation.arrosage_zone_4
+                data: {}
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_mobileapp_notifications
+                    state: "on"
+                  - action: script.envoi_notification_vers_mon_telephone
+                    data:
+                      message: clear_notification
+                      tag: arrosage zone 4
+            alias: Zone 4
+          - conditions:
+              - condition: template
+                value_template: "{{ true if zone == 'zone 5' }}"
+            sequence:
+              - repeat:
+                  for_each: >-
+                    {{ label_entities('Zone 5') | select('match',
+                    'script.arrosage_declenchement_auto_voie') | join | replace
+                    ('script.arrosage_declenchement_auto_voie_','') | list }}
+                  sequence:
+                    - action: switch.turn_off
+                      metadata: {}
+                      data: {}
+                      target:
+                        entity_id: switch.arrosage_electrovanne_{{repeat.item}}
+              - action: input_boolean.turn_off
+                metadata: {}
+                data: {}
+                target:
+                  entity_id: input_boolean.arrosage_auto_zone_5
+              - action: automation.turn_off
+                metadata: {}
+                data:
+                  stop_actions: true
+                target:
+                  entity_id: automation.arrosage_zone_5
+              - action: automation.turn_on
+                target:
+                  entity_id: automation.arrosage_zone_5
+                data: {}
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_mobileapp_notifications
+                    state: "on"
+                  - action: script.envoi_notification_vers_mon_telephone
+                    data:
+                      message: clear_notification
+                      tag: arrosage zone 5
+            alias: Zone 5
+          - conditions:
+              - condition: template
+                value_template: "{{ true if zone == 'zone 6' }}"
+            sequence:
+              - repeat:
+                  for_each: >-
+                    {{ label_entities('Zone 6') | select('match',
+                    'script.arrosage_declenchement_auto_voie') | join | replace
+                    ('script.arrosage_declenchement_auto_voie_','') | list }}
+                  sequence:
+                    - action: switch.turn_off
+                      metadata: {}
+                      data: {}
+                      target:
+                        entity_id: switch.arrosage_electrovanne_{{repeat.item}}
+              - action: input_boolean.turn_off
+                metadata: {}
+                data: {}
+                target:
+                  entity_id: input_boolean.arrosage_auto_zone_6
+              - action: automation.turn_off
+                metadata: {}
+                data:
+                  stop_actions: true
+                target:
+                  entity_id: automation.arrosage_zone_6
+              - action: automation.turn_on
+                target:
+                  entity_id: automation.arrosage_zone_6
+                data: {}
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_mobileapp_notifications
+                    state: "on"
+                  - action: script.envoi_notification_vers_mon_telephone
+                    data:
+                      message: clear_notification
+                      tag: arrosage zone 6
+            alias: Zone 6
+          - conditions:
+              - condition: template
+                value_template: "{{ true if zone == 'zone 7' }}"
+            sequence:
+              - repeat:
+                  for_each: >-
+                    {{ label_entities('Zone 7') | select('match',
+                    'script.arrosage_declenchement_auto_voie') | join | replace
+                    ('script.arrosage_declenchement_auto_voie_','') | list }}
+                  sequence:
+                    - action: switch.turn_off
+                      metadata: {}
+                      data: {}
+                      target:
+                        entity_id: switch.arrosage_electrovanne_{{repeat.item}}
+              - action: input_boolean.turn_off
+                metadata: {}
+                data: {}
+                target:
+                  entity_id: input_boolean.arrosage_auto_zone_7
+              - action: automation.turn_off
+                metadata: {}
+                data:
+                  stop_actions: true
+                target:
+                  entity_id: automation.arrosage_zone_7
+              - action: automation.turn_on
+                target:
+                  entity_id: automation.arrosage_zone_7
+                data: {}
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_mobileapp_notifications
+                    state: "on"
+                  - action: script.envoi_notification_vers_mon_telephone
+                    data:
+                      message: clear_notification
+                      tag: arrosage zone 7
+            alias: Zone 7
+          - conditions:
+              - condition: template
+                value_template: "{{ true if zone == 'zone 8' }}"
+            sequence:
+              - repeat:
+                  for_each: >-
+                    {{ label_entities('Zone 8') | select('match',
+                    'script.arrosage_declenchement_auto_voie') | join | replace
+                    ('script.arrosage_declenchement_auto_voie_','') | list }}
+                  sequence:
+                    - action: switch.turn_off
+                      metadata: {}
+                      data: {}
+                      target:
+                        entity_id: switch.arrosage_electrovanne_{{repeat.item}}
+              - action: input_boolean.turn_off
+                metadata: {}
+                data: {}
+                target:
+                  entity_id: input_boolean.arrosage_auto_zone_8
+              - action: automation.turn_off
+                metadata: {}
+                data:
+                  stop_actions: true
+                target:
+                  entity_id: automation.arrosage_zone_8
+              - action: automation.turn_on
+                target:
+                  entity_id: automation.arrosage_zone_8
+                data: {}
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_mobileapp_notifications
+                    state: "on"
+                  - action: script.envoi_notification_vers_mon_telephone
+                    data:
+                      message: clear_notification
+                      tag: arrosage zone 8
+            alias: Zone 8
+          - conditions:
+              - condition: template
+                value_template: "{{ true if zone == 'zone 9' }}"
+            sequence:
+              - repeat:
+                  for_each: >-
+                    {{ label_entities('Zone 9') | select('match',
+                    'script.arrosage_declenchement_auto_voie') | join | replace
+                    ('script.arrosage_declenchement_auto_voie_','') | list }}
+                  sequence:
+                    - action: switch.turn_off
+                      metadata: {}
+                      data: {}
+                      target:
+                        entity_id: switch.arrosage_electrovanne_{{repeat.item}}
+              - action: input_boolean.turn_off
+                metadata: {}
+                data: {}
+                target:
+                  entity_id: input_boolean.arrosage_auto_zone_9
+              - action: automation.turn_off
+                metadata: {}
+                data:
+                  stop_actions: true
+                target:
+                  entity_id: automation.arrosage_zone_9
+              - action: automation.turn_on
+                target:
+                  entity_id: automation.arrosage_zone_9
+                data: {}
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_mobileapp_notifications
+                    state: "on"
+                  - action: script.envoi_notification_vers_mon_telephone
+                    data:
+                      message: clear_notification
+                      tag: arrosage zone 9
+            alias: Zone 9
 
   arrosage_declenchement_auto_voie_1:
     alias: Arrosage - Déclenchement auto voie 1
@@ -530,7 +752,7 @@ script:
             notification_icon: "{{ icon }}"
             priority: high
             ttl: 0
-        action: notify.mobile_app_pixel
+        action: notify.mobile_app_sm_g960f
 #        action: notify.mobile_app_mipad_5
 #        action: notify.mobile_app_sm_g960f
     fields:

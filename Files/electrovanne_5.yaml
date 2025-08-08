@@ -38,6 +38,7 @@ template:
       - name: Arrosage - Electrovanne 5
         unique_id: arrosage_electrovanne_5
         icon: mdi:sprinkler-variant
+        #state: "{{ states(switch.arrosage_electrovanne_5) }}"
         turn_on:
           action: switch.turn_on
           target:

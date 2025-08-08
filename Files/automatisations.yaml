@@ -9,6 +9,13 @@ automation:
     description: >-
       Envoi une notification sur le téléphone si l'heure prévue de fin du cycle
       d'arrosage est passée et que l'arrosage est encore marche.
+
+
+      Cette automatisation est déja pré-configurée pour prendre en compte jusqu'à 9 zones d'arrosage.
+      Si vous avez besoin de plus de 9 zones il faudra ajouter autant de triggers que de nouvelles zones
+      (Dupliquer le dernier trigger et modifier dans le trigger dupliqué le numero de zone, partout ou il apparait dans le bloc)
+      et dans la partie action autant de bloc options que de nouvelles zones
+      (Dupliquer le dernier bloc option et modifier dans le bloc dupliqué le numero de zone, partout ou il apparait dans le bloc).
     triggers:
       - at: input_datetime.arrosage_duree_cycle_zone_1
         id: zone 1
@@ -19,13 +26,36 @@ automation:
       - at: input_datetime.arrosage_duree_cycle_zone_3
         id: zone 3
         trigger: time
+      - at: input_datetime.arrosage_duree_cycle_zone_4
+        id: zone 4
+        trigger: time
+      - at: input_datetime.arrosage_duree_cycle_zone_5
+        id: zone 5
+        trigger: time
+      - at: input_datetime.arrosage_duree_cycle_zone_6
+        id: zone 6
+        trigger: time
+      - at: input_datetime.arrosage_duree_cycle_zone_7
+        id: zone 7
+        trigger: time
+      - at: input_datetime.arrosage_duree_cycle_zone_8
+        id: zone 8
+        trigger: time
+      - at: input_datetime.arrosage_duree_cycle_zone_9
+        id: zone 9
+        trigger: time
     conditions:
       - condition: state
         entity_id: binary_sensor.arrosage_zone_status
         state: "on"
-      - condition: state
-        entity_id: input_boolean.arrosage_enable_mobileapp_notifications
-        state: "on"
+      - condition: or
+        conditions:
+          - condition: state
+            entity_id: input_boolean.arrosage_enable_mobileapp_notifications
+            state: "on"
+          - condition: state
+            entity_id: input_boolean.arrosage_enable_telegram_notifications
+            state: "on"
     actions:
       - choose:
           - conditions:
@@ -36,16 +66,34 @@ automation:
                 entity_id: input_boolean.arrosage_auto_zone_1
                 state: "on"
             sequence:
-              - action: script.envoi_notification_vers_mon_telephone
-                data:
-                  message: >-
-                    L'arrosage de la zone
-                    {{state_attr('sensor.arrosage_noms_des_zones', 'zone_1') }}
-                    semble être toujours en cours !
-                  color: red
-                  tag: arrosage
-                  icon: mdi:sprinkler-variant
-                  persistent: "true"
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_mobileapp_notifications
+                    state: "on"
+                  - action: script.envoi_notification_vers_mon_telephone
+                    data:
+                      message: >-
+                        L'arrosage de la zone
+                        {{state_attr('sensor.arrosage_noms_des_zones', 'zone_1') }}
+                        semble être toujours en cours !
+                      color: red
+                      tag: arrosage
+                      icon: mdi:sprinkler-variant
+                      persistent: "true"
+                alias: Notification application mobile
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_telegram_notifications
+                    state: "on"
+                  - action: telegram_bot.send_message
+                    data:
+                      title: "Arrosage - Attention"
+                      message: >-
+                        L'arrosage de la zone
+                        {{state_attr('sensor.arrosage_noms_des_zones', 'zone_1') }}
+                        semble être toujours en cours !
+                alias: Notification Télégram
+            alias: Zone 1
           - conditions:
               - condition: trigger
                 id:
@@ -54,16 +102,34 @@ automation:
                 entity_id: input_boolean.arrosage_auto_zone_2
                 state: "on"
             sequence:
-              - action: script.envoi_notification_vers_mon_telephone
-                data:
-                  message: >-
-                    L'arrosage de la zone
-                    {{state_attr('sensor.arrosage_noms_des_zones', 'zone_2') }}
-                    semble être toujours en cours !
-                  color: red
-                  tag: arrosage
-                  icon: mdi:sprinkler-variant
-                  persistent: "true"
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_mobileapp_notifications
+                    state: "on"
+                  - action: script.envoi_notification_vers_mon_telephone
+                    data:
+                      message: >-
+                        L'arrosage de la zone
+                        {{state_attr('sensor.arrosage_noms_des_zones', 'zone_2') }}
+                        semble être toujours en cours !
+                      color: red
+                      tag: arrosage
+                      icon: mdi:sprinkler-variant
+                      persistent: "true"
+                alias: Notification application mobile
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_telegram_notifications
+                    state: "on"
+                  - action: telegram_bot.send_message
+                    data:
+                      title: "Arrosage - Attention"
+                      message: >-
+                        L'arrosage de la zone
+                        {{state_attr('sensor.arrosage_noms_des_zones', 'zone_2') }}
+                        semble être toujours en cours !
+                alias: Notification Télégram
+            alias: Zone 2
           - conditions:
               - condition: trigger
                 id:
@@ -72,16 +138,250 @@ automation:
                 entity_id: input_boolean.arrosage_auto_zone_3
                 state: "on"
             sequence:
-              - action: script.envoi_notification_vers_mon_telephone
-                data:
-                  message: >-
-                    L'arrosage de la zone
-                    {{state_attr('sensor.arrosage_noms_des_zones', 'zone_3') }}
-                    semble être toujours en cours !
-                  color: red
-                  tag: arrosage
-                  icon: mdi:sprinkler-variant
-                  persistent: "true"
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_mobileapp_notifications
+                    state: "on"
+                  - action: script.envoi_notification_vers_mon_telephone
+                    data:
+                      message: >-
+                        L'arrosage de la zone
+                        {{state_attr('sensor.arrosage_noms_des_zones', 'zone_3') }}
+                        semble être toujours en cours !
+                      color: red
+                      tag: arrosage
+                      icon: mdi:sprinkler-variant
+                      persistent: "true"
+                alias: Notification application mobile
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_telegram_notifications
+                    state: "on"
+                  - action: telegram_bot.send_message
+                    data:
+                      title: "Arrosage - Attention"
+                      message: >-
+                        L'arrosage de la zone
+                        {{state_attr('sensor.arrosage_noms_des_zones', 'zone_3') }}
+                        semble être toujours en cours !
+                alias: Notification Télégram
+            alias: Zone 3
+          - conditions:
+              - condition: trigger
+                id:
+                  - zone 4
+              - condition: state
+                entity_id: input_boolean.arrosage_auto_zone_4
+                state: "on"
+            sequence:
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_mobileapp_notifications
+                    state: "on"
+                  - action: script.envoi_notification_vers_mon_telephone
+                    data:
+                      message: >-
+                        L'arrosage de la zone
+                        {{state_attr('sensor.arrosage_noms_des_zones', 'zone_4') }}
+                        semble être toujours en cours !
+                      color: red
+                      tag: arrosage
+                      icon: mdi:sprinkler-variant
+                      persistent: "true"
+                alias: Notification application mobile
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_telegram_notifications
+                    state: "on"
+                  - action: telegram_bot.send_message
+                    data:
+                      title: "Arrosage - Attention"
+                      message: >-
+                        L'arrosage de la zone
+                        {{state_attr('sensor.arrosage_noms_des_zones', 'zone_4') }}
+                        semble être toujours en cours !
+                alias: Notification Télégram
+            alias: Zone 4
+          - conditions:
+              - condition: trigger
+                id:
+                  - zone 5
+              - condition: state
+                entity_id: input_boolean.arrosage_auto_zone_5
+                state: "on"
+            sequence:
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_mobileapp_notifications
+                    state: "on"
+                  - action: script.envoi_notification_vers_mon_telephone
+                    data:
+                      message: >-
+                        L'arrosage de la zone
+                        {{state_attr('sensor.arrosage_noms_des_zones', 'zone_5') }}
+                        semble être toujours en cours !
+                      color: red
+                      tag: arrosage
+                      icon: mdi:sprinkler-variant
+                      persistent: "true"
+                alias: Notification application mobile
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_telegram_notifications
+                    state: "on"
+                  - action: telegram_bot.send_message
+                    data:
+                      title: "Arrosage - Attention"
+                      message: >-
+                        L'arrosage de la zone
+                        {{state_attr('sensor.arrosage_noms_des_zones', 'zone_5') }}
+                        semble être toujours en cours !
+                alias: Notification Télégram
+            alias: Zone 5
+          - conditions:
+              - condition: trigger
+                id:
+                  - zone 6
+              - condition: state
+                entity_id: input_boolean.arrosage_auto_zone_6
+                state: "on"
+            sequence:
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_mobileapp_notifications
+                    state: "on"
+                  - action: script.envoi_notification_vers_mon_telephone
+                    data:
+                      message: >-
+                        L'arrosage de la zone
+                        {{state_attr('sensor.arrosage_noms_des_zones', 'zone_6') }}
+                        semble être toujours en cours !
+                      color: red
+                      tag: arrosage
+                      icon: mdi:sprinkler-variant
+                      persistent: "true"
+                alias: Notification application mobile
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_telegram_notifications
+                    state: "on"
+                  - action: telegram_bot.send_message
+                    data:
+                      title: "Arrosage - Attention"
+                      message: >-
+                        L'arrosage de la zone
+                        {{state_attr('sensor.arrosage_noms_des_zones', 'zone_6') }}
+                        semble être toujours en cours !
+                alias: Notification Télégram
+            alias: Zone 6
+          - conditions:
+              - condition: trigger
+                id:
+                  - zone 7
+              - condition: state
+                entity_id: input_boolean.arrosage_auto_zone_7
+                state: "on"
+            sequence:
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_mobileapp_notifications
+                    state: "on"
+                  - action: script.envoi_notification_vers_mon_telephone
+                    data:
+                      message: >-
+                        L'arrosage de la zone
+                        {{state_attr('sensor.arrosage_noms_des_zones', 'zone_7') }}
+                        semble être toujours en cours !
+                      color: red
+                      tag: arrosage
+                      icon: mdi:sprinkler-variant
+                      persistent: "true"
+                alias: Notification application mobile
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_telegram_notifications
+                    state: "on"
+                  - action: telegram_bot.send_message
+                    data:
+                      title: "Arrosage - Attention"
+                      message: >-
+                        L'arrosage de la zone
+                        {{state_attr('sensor.arrosage_noms_des_zones', 'zone_7') }}
+                        semble être toujours en cours !
+                alias: Notification Télégram
+            alias: Zone 7
+          - conditions:
+              - condition: trigger
+                id:
+                  - zone 8
+              - condition: state
+                entity_id: input_boolean.arrosage_auto_zone_8
+                state: "on"
+            sequence:
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_mobileapp_notifications
+                    state: "on"
+                  - action: script.envoi_notification_vers_mon_telephone
+                    data:
+                      message: >-
+                        L'arrosage de la zone
+                        {{state_attr('sensor.arrosage_noms_des_zones', 'zone_8') }}
+                        semble être toujours en cours !
+                      color: red
+                      tag: arrosage
+                      icon: mdi:sprinkler-variant
+                      persistent: "true"
+                alias: Notification application mobile
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_telegram_notifications
+                    state: "on"
+                  - action: telegram_bot.send_message
+                    data:
+                      title: "Arrosage - Attention"
+                      message: >-
+                        L'arrosage de la zone
+                        {{state_attr('sensor.arrosage_noms_des_zones', 'zone_8') }}
+                        semble être toujours en cours !
+                alias: Notification Télégram
+            alias: Zone 8
+          - conditions:
+              - condition: trigger
+                id:
+                  - zone 9
+              - condition: state
+                entity_id: input_boolean.arrosage_auto_zone_9
+                state: "on"
+            sequence:
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_mobileapp_notifications
+                    state: "on"
+                  - action: script.envoi_notification_vers_mon_telephone
+                    data:
+                      message: >-
+                        L'arrosage de la zone
+                        {{state_attr('sensor.arrosage_noms_des_zones', 'zone_9') }}
+                        semble être toujours en cours !
+                      color: red
+                      tag: arrosage
+                      icon: mdi:sprinkler-variant
+                      persistent: "true"
+                alias: Notification application mobile
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_telegram_notifications
+                    state: "on"
+                  - action: telegram_bot.send_message
+                    data:
+                      title: "Arrosage - Attention"
+                      message: >-
+                        L'arrosage de la zone
+                        {{state_attr('sensor.arrosage_noms_des_zones', 'zone_9') }}
+                        semble être toujours en cours !
+                alias: Notification Télégram
+            alias: Zone 9
     mode: single
 
   - id: 'arrosage_calendrier'
@@ -89,6 +389,11 @@ automation:
     description: >-
       Détecte les événéments sur le calendrier Arrosage pour démarrer les cycles
       d'arrosage programmés
+
+
+      Cette automatisation est déja pré-configurée pour prendre en compte jusqu'à 9 zones d'arrosage.
+      Si vous avez besoin de plus de 9 zones il faudra ajouter dans la partie actions autant de bloc options que de nouvelles zones
+      (Dupliquer le dernier bloc option et modifier dans le bloc dupliqué le numero de zone, partout ou il apparait dans le bloc).      
     triggers:
       - event: start
         offset: "0:0:0"
@@ -112,6 +417,7 @@ automation:
                   entity_id:
                     - input_boolean.arrosage_auto_zone_1
                 action: input_boolean.turn_on
+            alias: Zone 1
           - conditions:
               - condition: template
                 value_template: >-
@@ -127,6 +433,7 @@ automation:
                   entity_id:
                     - input_boolean.arrosage_auto_zone_2
                 action: input_boolean.turn_on
+            alias: Zone 2
           - conditions:
               - condition: template
                 value_template: >-
@@ -142,6 +449,103 @@ automation:
                   entity_id:
                     - input_boolean.arrosage_auto_zone_3
                 action: input_boolean.turn_on
+            alias: Zone 3
+          - conditions:
+              - condition: template
+                value_template: >-
+                  {{ state_attr('sensor.arrosage_noms_des_zones', 'zone_4') in
+                  trigger.calendar_event.summary }}
+              - condition: state
+                entity_id: input_boolean.arrosage_programmation_zone_4
+                state: "on"
+            sequence:
+              - metadata: {}
+                data: {}
+                target:
+                  entity_id:
+                    - input_boolean.arrosage_auto_zone_4
+                action: input_boolean.turn_on
+            alias: Zone 4
+          - conditions:
+              - condition: template
+                value_template: >-
+                  {{ state_attr('sensor.arrosage_noms_des_zones', 'zone_5') in
+                  trigger.calendar_event.summary }}
+              - condition: state
+                entity_id: input_boolean.arrosage_programmation_zone_5
+                state: "on"
+            sequence:
+              - metadata: {}
+                data: {}
+                target:
+                  entity_id:
+                    - input_boolean.arrosage_auto_zone_5
+                action: input_boolean.turn_on
+            alias: Zone 5
+          - conditions:
+              - condition: template
+                value_template: >-
+                  {{ state_attr('sensor.arrosage_noms_des_zones', 'zone_6') in
+                  trigger.calendar_event.summary }}
+              - condition: state
+                entity_id: input_boolean.arrosage_programmation_zone_6
+                state: "on"
+            sequence:
+              - metadata: {}
+                data: {}
+                target:
+                  entity_id:
+                    - input_boolean.arrosage_auto_zone_6
+                action: input_boolean.turn_on
+            alias: Zone 6
+          - conditions:
+              - condition: template
+                value_template: >-
+                  {{ state_attr('sensor.arrosage_noms_des_zones', 'zone_7') in
+                  trigger.calendar_event.summary }}
+              - condition: state
+                entity_id: input_boolean.arrosage_programmation_zone_7
+                state: "on"
+            sequence:
+              - metadata: {}
+                data: {}
+                target:
+                  entity_id:
+                    - input_boolean.arrosage_auto_zone_7
+                action: input_boolean.turn_on
+            alias: Zone 7
+          - conditions:
+              - condition: template
+                value_template: >-
+                  {{ state_attr('sensor.arrosage_noms_des_zones', 'zone_8') in
+                  trigger.calendar_event.summary }}
+              - condition: state
+                entity_id: input_boolean.arrosage_programmation_zone_8
+                state: "on"
+            sequence:
+              - metadata: {}
+                data: {}
+                target:
+                  entity_id:
+                    - input_boolean.arrosage_auto_zone_8
+                action: input_boolean.turn_on
+            alias: Zone 8
+          - conditions:
+              - condition: template
+                value_template: >-
+                  {{ state_attr('sensor.arrosage_noms_des_zones', 'zone_9') in
+                  trigger.calendar_event.summary }}
+              - condition: state
+                entity_id: input_boolean.arrosage_programmation_zone_9
+                state: "on"
+            sequence:
+              - metadata: {}
+                data: {}
+                target:
+                  entity_id:
+                    - input_boolean.arrosage_auto_zone_9
+                action: input_boolean.turn_on
+            alias: Zone 9
     mode: single
 
   - id: 'arrosage_voie_1'
@@ -154,18 +558,18 @@ automation:
           - switch.arrosage_electrovanne_1
         from: "off"
         to: "on"
-        id: marche manuel
+        id: marche
         trigger: state
       - entity_id:
           - switch.arrosage_electrovanne_1
         from: "on"
         to: "off"
-        id: arret manuel
+        id: arret
         trigger: state
       - event_type: timer.finished
         event_data:
           entity_id: timer.arrosage_voie_1
-        id: arret auto
+        id: arret timer
         trigger: event
     conditions:
       - condition: state
@@ -180,7 +584,7 @@ automation:
           - conditions:
               - condition: trigger
                 id:
-                  - marche manuel
+                  - marche
             sequence:
               - data:
                   value: "{{ states('sensor.arrosage_compteur_eau') }}"
@@ -196,7 +600,7 @@ automation:
           - conditions:
               - condition: trigger
                 id:
-                  - arret manuel
+                  - arret
             sequence:
               - metadata: {}
                 data: {}
@@ -206,7 +610,7 @@ automation:
           - conditions:
               - condition: trigger
                 id:
-                  - arret auto
+                  - arret timer
             sequence:
               - metadata: {}
                 data: {}
@@ -240,18 +644,18 @@ automation:
           - switch.arrosage_electrovanne_2
         from: "off"
         to: "on"
-        id: marche manuel
+        id: marche
         trigger: state
       - entity_id:
           - switch.arrosage_electrovanne_2
         from: "on"
         to: "off"
-        id: arret manuel
+        id: arret
         trigger: state
       - event_type: timer.finished
         event_data:
           entity_id: timer.arrosage_voie_2
-        id: arret auto
+        id: arret timer
         trigger: event
     conditions:
       - condition: state
@@ -266,7 +670,7 @@ automation:
           - conditions:
               - condition: trigger
                 id:
-                  - marche manuel
+                  - marche
             sequence:
               - data:
                   value: "{{ states('sensor.arrosage_compteur_eau') }}"
@@ -282,7 +686,7 @@ automation:
           - conditions:
               - condition: trigger
                 id:
-                  - arret manuel
+                  - arret
             sequence:
               - metadata: {}
                 data: {}
@@ -292,7 +696,7 @@ automation:
           - conditions:
               - condition: trigger
                 id:
-                  - arret auto
+                  - arret timer
             sequence:
               - metadata: {}
                 data: {}
@@ -319,6 +723,7 @@ automation:
       Permet de démarrer/arrêter le minuteur de la voie 3 et le stockage des données
       propre à cette voie.
 
+
       Si vous avez moins de 3 voies d'arrosage vous pouvez supprimer cette
       automatisation.
     triggers:
@@ -326,18 +731,18 @@ automation:
           - switch.arrosage_electrovanne_3
         from: "off"
         to: "on"
-        id: marche manuel
+        id: marche
         trigger: state
       - entity_id:
           - switch.arrosage_electrovanne_3
         from: "on"
         to: "off"
-        id: arret manuel
+        id: arret
         trigger: state
       - event_type: timer.finished
         event_data:
           entity_id: timer.arrosage_voie_3
-        id: arret auto
+        id: arret timer
         trigger: event
     conditions:
       - condition: state
@@ -352,10 +757,10 @@ automation:
           - conditions:
               - condition: trigger
                 id:
-                  - marche manuel
+                  - marche
             sequence:
               - data:
-                  value: "{{ states('arrosage_compteur_eau') }}"
+                  value: "{{ states('sensor.arrosage_compteur_eau') }}"
                 action: input_text.set_value
                 target:
                   entity_id:
@@ -368,7 +773,7 @@ automation:
           - conditions:
               - condition: trigger
                 id:
-                  - arret manuel
+                  - arret
             sequence:
               - metadata: {}
                 data: {}
@@ -378,7 +783,7 @@ automation:
           - conditions:
               - condition: trigger
                 id:
-                  - arret auto
+                  - arret timer
             sequence:
               - metadata: {}
                 data: {}
@@ -405,6 +810,7 @@ automation:
       Permet de démarrer/arrêter le minuteur de la voie 4 et le stockage des données
       propre à cette voie.
 
+
       Si vous avez moins de 4 voies d'arrosage vous pouvez supprimer cette
       automatisation.
     triggers:
@@ -412,18 +818,18 @@ automation:
           - switch.arrosage_electrovanne_4
         from: "off"
         to: "on"
-        id: marche manuel
+        id: marche
         trigger: state
       - entity_id:
           - switch.arrosage_electrovanne_4
         from: "on"
         to: "off"
-        id: arret manuel
+        id: arret
         trigger: state
       - event_type: timer.finished
         event_data:
           entity_id: timer.arrosage_voie_4
-        id: arret auto
+        id: arret timer
         trigger: event
     conditions:
       - condition: state
@@ -438,10 +844,10 @@ automation:
           - conditions:
               - condition: trigger
                 id:
-                  - marche manuel
+                  - marche
             sequence:
               - data:
-                  value: "{{ states('arrosage_compteur_eau') }}"
+                  value: "{{ states('sensor.arrosage_compteur_eau') }}"
                 action: input_text.set_value
                 target:
                   entity_id:
@@ -454,7 +860,7 @@ automation:
           - conditions:
               - condition: trigger
                 id:
-                  - arret manuel
+                  - arret
             sequence:
               - metadata: {}
                 data: {}
@@ -464,7 +870,7 @@ automation:
           - conditions:
               - condition: trigger
                 id:
-                  - arret auto
+                  - arret timer
             sequence:
               - metadata: {}
                 data: {}
@@ -491,6 +897,7 @@ automation:
       Permet de démarrer/arrêter le minuteur de la voie 5 et le stockage des données
       propre à cette voie.
 
+
       Si vous avez moins de 5 voies d'arrosage vous pouvez supprimer cette
       automatisation.
     triggers:
@@ -498,18 +905,18 @@ automation:
           - switch.arrosage_electrovanne_5
         from: "off"
         to: "on"
-        id: marche manuel
+        id: marche
         trigger: state
       - entity_id:
           - switch.arrosage_electrovanne_5
         from: "on"
         to: "off"
-        id: arret manuel
+        id: arret
         trigger: state
       - event_type: timer.finished
         event_data:
           entity_id: timer.arrosage_voie_5
-        id: arret auto
+        id: arret timer
         trigger: event
     conditions:
       - condition: state
@@ -524,10 +931,10 @@ automation:
           - conditions:
               - condition: trigger
                 id:
-                  - marche manuel
+                  - marche
             sequence:
               - data:
-                  value: "{{ states('arrosage_compteur_eau') }}"
+                  value: "{{ states('sensor.arrosage_compteur_eau') }}"
                 action: input_text.set_value
                 target:
                   entity_id:
@@ -540,7 +947,7 @@ automation:
           - conditions:
               - condition: trigger
                 id:
-                  - arret manuel
+                  - arret
             sequence:
               - metadata: {}
                 data: {}
@@ -550,7 +957,7 @@ automation:
           - conditions:
               - condition: trigger
                 id:
-                  - arret auto
+                  - arret timer
             sequence:
               - metadata: {}
                 data: {}
@@ -577,6 +984,7 @@ automation:
       Permet de démarrer/arrêter le minuteur de la voie 6 et le stockage des données
       propre à cette voie.
 
+
       Si vous avez moins de 6 voies d'arrosage vous pouvez supprimer cette
       automatisation.
     triggers:
@@ -584,18 +992,18 @@ automation:
           - switch.arrosage_electrovanne_6
         from: "off"
         to: "on"
-        id: marche manuel
+        id: marche
         trigger: state
       - entity_id:
           - switch.arrosage_electrovanne_6
         from: "on"
         to: "off"
-        id: arret manuel
+        id: arret
         trigger: state
       - event_type: timer.finished
         event_data:
           entity_id: timer.arrosage_voie_6
-        id: arret auto
+        id: arret timer
         trigger: event
     conditions:
       - condition: state
@@ -610,10 +1018,10 @@ automation:
           - conditions:
               - condition: trigger
                 id:
-                  - marche manuel
+                  - marche
             sequence:
               - data:
-                  value: "{{ states('arrosage_compteur_eau') }}"
+                  value: "{{ states('sensor.arrosage_compteur_eau') }}"
                 action: input_text.set_value
                 target:
                   entity_id:
@@ -626,7 +1034,7 @@ automation:
           - conditions:
               - condition: trigger
                 id:
-                  - arret manuel
+                  - arret
             sequence:
               - metadata: {}
                 data: {}
@@ -637,7 +1045,7 @@ automation:
           - conditions:
               - condition: trigger
                 id:
-                  - arret auto
+                  - arret timer
             sequence:
               - metadata: {}
                 data: {}
@@ -665,6 +1073,7 @@ automation:
       Permet de démarrer/arrêter le minuteur de la voie 7 et le stockage des données
       propre à cette voie.
 
+
       Si vous avez moins de 7 voies d'arrosage vous pouvez supprimer cette
       automatisation.
     triggers:
@@ -672,18 +1081,18 @@ automation:
           - switch.arrosage_electrovanne_7
         from: "off"
         to: "on"
-        id: marche manuel
+        id: marche
         trigger: state
       - entity_id:
           - switch.arrosage_electrovanne_7
         from: "on"
         to: "off"
-        id: arret manuel
+        id: arret
         trigger: state
       - event_type: timer.finished
         event_data:
           entity_id: timer.arrosage_voie_7
-        id: arret auto
+        id: arret timer
         trigger: event
     conditions:
       - condition: state
@@ -698,10 +1107,10 @@ automation:
           - conditions:
               - condition: trigger
                 id:
-                  - marche manuel
+                  - marche
             sequence:
               - data:
-                  value: "{{ states('arrosage_compteur_eau') }}"
+                  value: "{{ states('sensor.arrosage_compteur_eau') }}"
                 action: input_text.set_value
                 target:
                   entity_id:
@@ -714,7 +1123,7 @@ automation:
           - conditions:
               - condition: trigger
                 id:
-                  - arret manuel
+                  - arret
             sequence:
               - metadata: {}
                 data: {}
@@ -725,7 +1134,7 @@ automation:
           - conditions:
               - condition: trigger
                 id:
-                  - arret auto
+                  - arret timer
             sequence:
               - metadata: {}
                 data: {}
@@ -750,8 +1159,9 @@ automation:
   - id: 'arrosage_voie_8'
     alias: Arrosage - Voie 8
     description: >-
-      Permet de démarrer/arrêter le minuteur de la voie 1 et le stockage des données
+      Permet de démarrer/arrêter le minuteur de la voie 8 et le stockage des données
       propre à cette voie.
+
 
       Si vous avez moins de 8 voies d'arrosage vous pouvez supprimer cette
       automatisation.
@@ -760,18 +1170,18 @@ automation:
           - switch.arrosage_electrovanne_8
         from: "off"
         to: "on"
-        id: marche manuel
+        id: marche
         trigger: state
       - entity_id:
           - switch.arrosage_electrovanne_8
         from: "on"
         to: "off"
-        id: arret manuel
+        id: arret
         trigger: state
       - event_type: timer.finished
         event_data:
           entity_id: timer.arrosage_voie_8
-        id: arret auto
+        id: arret timer
         trigger: event
     conditions:
       - condition: state
@@ -786,10 +1196,10 @@ automation:
           - conditions:
               - condition: trigger
                 id:
-                  - marche manuel
+                  - marche
             sequence:
               - data:
-                  value: "{{ states('arrosage_compteur_eau') }}"
+                  value: "{{ states('sensor.arrosage_compteur_eau') }}"
                 action: input_text.set_value
                 target:
                   entity_id:
@@ -802,7 +1212,7 @@ automation:
           - conditions:
               - condition: trigger
                 id:
-                  - arret manuel
+                  - arret
             sequence:
               - metadata: {}
                 data: {}
@@ -813,7 +1223,7 @@ automation:
           - conditions:
               - condition: trigger
                 id:
-                  - arret auto
+                  - arret timer
             sequence:
               - metadata: {}
                 data: {}
@@ -838,28 +1248,29 @@ automation:
   - id: 'arrosage_voie_9'
     alias: Arrosage - Voie 9
     description: >-
-      Permet de démarrer/arrêter le minuteur de la voie 1 et le stockage des données
+      Permet de démarrer/arrêter le minuteur de la voie 9 et le stockage des données
       propre à cette voie.
 
-      Si vous avez moins de 2 voies d'arrosage vous pouvez supprimer cette
+
+      Si vous avez moins de 9 voies d'arrosage vous pouvez supprimer cette
       automatisation.
     triggers:
       - entity_id:
           - switch.arrosage_electrovanne_9
         from: "off"
         to: "on"
-        id: marche manuel
+        id: marche
         trigger: state
       - entity_id:
           - switch.arrosage_electrovanne_9
         from: "on"
         to: "off"
-        id: arret manuel
+        id: arret
         trigger: state
       - event_type: timer.finished
         event_data:
           entity_id: timer.arrosage_voie_9
-        id: arret auto
+        id: arret timer
         trigger: event
     conditions:
       - condition: state
@@ -874,10 +1285,10 @@ automation:
           - conditions:
               - condition: trigger
                 id:
-                  - marche manuel
+                  - marche
             sequence:
               - data:
-                  value: "{{ states('arrosage_compteur_eau') }}"
+                  value: "{{ states('sensor.arrosage_compteur_eau') }}"
                 action: input_text.set_value
                 target:
                   entity_id:
@@ -890,7 +1301,7 @@ automation:
           - conditions:
               - condition: trigger
                 id:
-                  - arret manuel
+                  - arret
             sequence:
               - metadata: {}
                 data: {}
@@ -901,7 +1312,7 @@ automation:
           - conditions:
               - condition: trigger
                 id:
-                  - arret auto
+                  - arret timer
             sequence:
               - metadata: {}
                 data: {}
@@ -923,260 +1334,10 @@ automation:
                   entity_id: input_text.arrosage_volume_voie_9
     mode: single
 
-#  - id: 'arrosage_zone_1'
-#    alias: Arrosage - Zone 1
-#    description: Cycle d'arrosage de la zone 1
-#    triggers:
-#      - entity_id:
-#          - input_boolean.arrosage_auto_zone_1
-#        from: "off"
-#        to: "on"
-#        trigger: state
-#    conditions: []
-#    actions:
-#      - choose:
-#          - conditions:
-#              - condition: state
-#                entity_id: binary_sensor.arrosage_electrovannes_connected
-#                state: "on"
-#            sequence:
-#              - action: script.envoi_notification_vers_mon_telephone
-#                data:
-#                  message: >-
-#                    Arrosage démarré {{ as_timestamp(now()) | timestamp_custom('à
-#                    %-H:%M') }}
-#                  title: "{{ state_attr('sensor.arrosage_noms_des_zones', 'zone_1') }}"
-#                  tag: arrosage zone 1
-#                  color: cyan
-#                  icon: mdi:sprinkler-variant
-#                  persistent: "true"
-#              - action: input_datetime.set_datetime
-#                target:
-#                  entity_id: input_datetime.arrosage_duree_cycle_zone_1
-#                data:
-#                  timestamp: >-
-#                    {% set ns = namespace(duree = as_timestamp(now()) + 60) %} {%
-#                    for item in label_entities("Zone 1") | select('match',
-#                    'script.arrosage_declenchement_auto_voie') | sort %}
-#                      {% set ns.duree = ns.duree + states('input_number.arrosage_duree_voie_' ~ item[-1]) | float if is_state('input_boolean.arrosage_enable_voie_' ~ item[-1], 'on') else ns.duree %}
-#                    {% endfor %} {{ns.duree}}
-#              - repeat:
-#                  for_each: >-
-#                    {{ label_entities('Zone 1') | select('match',
-#                    'script.arrosage_declenchement_auto_voie') | sort }}
-#                  sequence:
-#                    - action: "{{repeat.item}}"
-#                      data: {}
-#              - action: input_boolean.turn_off
-#                metadata: {}
-#                data: {}
-#                target:
-#                  entity_id:
-#                    - input_boolean.arrosage_auto_zone_1
-#              - action: script.envoi_notification_vers_mon_telephone
-#                data:
-#                  message: clear_notification
-#                  tag: arrosage zone 1
-#          - conditions:
-#              - condition: state
-#                entity_id: binary_sensor.arrosage_electrovannes_connected
-#                state: "off"
-#            sequence:
-#              - delay:
-#                  hours: 0
-#                  minutes: 0
-#                  seconds: 1
-#                  milliseconds: 0
-#              - action: input_boolean.turn_off
-#                metadata: {}
-#                data: {}
-#                target:
-#                  entity_id:
-#                    - input_boolean.arrosage_auto_zone_1
-#              - action: script.envoi_notification_vers_mon_telephone
-#                data:
-#                  message: >-
-#                    L'arrosage ne peut pas démarrer. Les programmateurs d'arrosage
-#                    ne sont pas connectés.
-#                  color: red
-#                  tag: arrosage
-#                  icon: mdi:sprinkler-variant
-#                  persistent: "true"
-#    mode: single
-#
-#  - id: 'arrosage_zone_2'
-#    alias: Arrosage - Zone 2
-#    description: >-
-#      Cycle d'arrosage de la zone 2
-#
-#      Si vous avez moins de 2 zones d'arrosage vous pouvez supprimer cette
-#      automatisation.
-#    triggers:
-#      - entity_id:
-#          - input_boolean.arrosage_auto_zone_2
-#        from: "off"
-#        to: "on"
-#        trigger: state
-#    conditions: []
-#    actions:
-#      - choose:
-#          - conditions:
-#              - condition: state
-#                entity_id: binary_sensor.arrosage_electrovannes_connected
-#                state: "on"
-#            sequence:
-#              - action: script.envoi_notification_vers_mon_telephone
-#                data:
-#                  message: >-
-#                    Arrosage démarré {{ as_timestamp(now()) | timestamp_custom('à
-#                    %-H:%M') }}
-#                  title: "{{ state_attr('sensor.arrosage_noms_des_zones', 'zone_2') }}"
-#                  tag: arrosage zone 2
-#                  color: cyan
-#                  icon: mdi:sprinkler-variant
-#                  persistent: "true"
-#              - action: input_datetime.set_datetime
-#                target:
-#                  entity_id: input_datetime.arrosage_duree_cycle_zone_2
-#                data:
-#                  timestamp: >-
-#                    {% set ns = namespace(duree = as_timestamp(now()) + 60) %} {%
-#                    for item in label_entities("Zone 2") | select('match',
-#                    'script.arrosage_declenchement_auto_voie') | sort %}
-#                      {% set ns.duree = ns.duree + states('input_number.arrosage_duree_voie_' ~ item[-1]) | float if is_state('input_boolean.arrosage_enable_voie_' ~ item[-1], 'on') else ns.duree %}
-#                    {% endfor %} {{ns.duree}}
-#              - repeat:
-#                  for_each: >-
-#                    {{ label_entities('Zone 2') | select('match',
-#                    'script.arrosage_declenchement_auto_voie') | sort }}
-#                  sequence:
-#                    - action: "{{repeat.item}}"
-#                      data: {}
-#              - action: input_boolean.turn_off
-#                metadata: {}
-#                data: {}
-#                target:
-#                  entity_id:
-#                    - input_boolean.arrosage_auto_zone_2
-#              - action: script.envoi_notification_vers_mon_telephone
-#                data:
-#                  message: clear_notification
-#                  tag: arrosage zone 2
-#          - conditions:
-#              - condition: state
-#                entity_id: binary_sensor.arrosage_electrovannes_connected
-#                state: "off"
-#            sequence:
-#              - delay:
-#                  hours: 0
-#                  minutes: 0
-#                  seconds: 1
-#                  milliseconds: 0
-#              - action: input_boolean.turn_off
-#                metadata: {}
-#                data: {}
-#                target:
-#                  entity_id:
-#                    - input_boolean.arrosage_auto_zone_2
-#              - action: script.envoi_notification_vers_mon_telephone
-#                data:
-#                  message: >-
-#                    L'arrosage ne peut pas démarrer. Les programmateurs d'arrosage
-#                    ne sont pas connectés.
-#                  color: red
-#                  tag: arrosage
-#                  icon: mdi:sprinkler-variant
-#                  persistent: "true"
-#    mode: single
-#
-#  - id: 'arrosage_zone_3'
-#    alias: Arrosage - Zone 3
-#    description: >-
-#      Cycle d'arrosage de la zone 3
-#
-#      Si vous avez moins de 3 zones d'arrosage vous pouvez supprimer cette
-#      automatisation.
-#    triggers:
-#      - entity_id:
-#          - input_boolean.arrosage_auto_zone_3
-#        from: "off"
-#        to: "on"
-#        trigger: state
-#    conditions: []
-#    actions:
-#      - choose:
-#          - conditions:
-#              - condition: state
-#                entity_id: binary_sensor.arrosage_electrovannes_connected
-#                state: "on"
-#            sequence:
-#              - action: script.envoi_notification_vers_mon_telephone
-#                data:
-#                  message: >-
-#                    Arrosage démarré {{ as_timestamp(now()) | timestamp_custom('à
-#                    %-H:%M') }}
-#                  title: "{{ state_attr('sensor.arrosage_noms_des_zones', 'zone_3') }}"
-#                  tag: arrosage zone 3
-#                  color: cyan
-#                  icon: mdi:sprinkler-variant
-#                  persistent: "true"
-#              - action: input_datetime.set_datetime
-#                target:
-#                  entity_id: input_datetime.arrosage_duree_cycle_zone_3
-#                data:
-#                  timestamp: >-
-#                    {% set ns = namespace(duree = as_timestamp(now()) + 60) %} {%
-#                    for item in label_entities("Zone 3") | select('match',
-#                    'script.arrosage_declenchement_auto_voie') | sort %}
-#                      {% set ns.duree = ns.duree + states('input_number.arrosage_duree_voie_' ~ item[-1]) | float if is_state('input_boolean.arrosage_enable_voie_' ~ item[-1], 'on') else ns.duree %}
-#                    {% endfor %} {{ns.duree}}
-#              - repeat:
-#                  for_each: >-
-#                    {{ label_entities('Zone 3') | select('match',
-#                    'script.arrosage_declenchement_auto_voie') | sort }}
-#                  sequence:
-#                    - action: "{{repeat.item}}"
-#                      data: {}
-#              - action: input_boolean.turn_off
-#                metadata: {}
-#                data: {}
-#                target:
-#                  entity_id:
-#                    - input_boolean.arrosage_auto_zone_3
-#              - action: script.envoi_notification_vers_mon_telephone
-#                data:
-#                  message: clear_notification
-#                  tag: arrosage zone 3
-#          - conditions:
-#              - condition: state
-#                entity_id: binary_sensor.arrosage_electrovannes_connected
-#                state: "off"
-#            sequence:
-#              - delay:
-#                  hours: 0
-#                  minutes: 0
-#                  seconds: 1
-#                  milliseconds: 0
-#              - action: input_boolean.turn_off
-#                metadata: {}
-#                data: {}
-#                target:
-#                  entity_id:
-#                    - input_boolean.arrosage_auto_zone_3
-#              - action: script.envoi_notification_vers_mon_telephone
-#                data:
-#                  message: >-
-#                    L'arrosage ne peut pas démarrer. Les programmateurs d'arrosage
-#                    ne sont pas connectés.
-#                  color: red
-#                  tag: arrosage
-#                  icon: mdi:sprinkler-variant
-#                  persistent: "true"
-#    mode: single
-
   - id: 'arrosage_zone_1'
     alias: Arrosage - Zone 1
-    description: Cycle d'arrosage de la zone 1
+    description: >-
+      Lance un cycle d'arrosage de la zone 1.
     triggers:
       - entity_id:
           - input_boolean.arrosage_auto_zone_1
@@ -1217,6 +1378,21 @@ automation:
                       tag: arrosage
                       icon: mdi:sprinkler-variant
                       persistent: "true"
+                alias: Notification application mobile
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_telegram_notifications
+                    state: "on"
+                  - action: telegram_bot.send_message
+                    data:
+                      title: >-
+                        Arrosage - Problème
+                      message: >-
+                        Le cycle d'arrosage de la zone {{
+                        state_attr('sensor.arrosage_noms_des_zones', 'zone_1') }} ne
+                        peut pas démarrer car aucune éléctrovanne n'est incluse dans
+                        le cycle de la zone.
+                alias: Notification Télégram
           - conditions:
               - condition: state
                 entity_id: binary_sensor.arrosage_electrovannes_connected
@@ -1236,6 +1412,18 @@ automation:
                       color: cyan
                       icon: mdi:sprinkler-variant
                       persistent: "true"
+                alias: Notification application mobile
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_telegram_notifications
+                    state: "on"
+                  - action: telegram_bot.send_message
+                    data:
+                      message: >-
+                        Arrosage démarré {{ as_timestamp(now()) |
+                        timestamp_custom('à %-H:%M') }}
+                      title: "Arrosage - {{ state_attr('sensor.arrosage_noms_des_zones', 'zone_1') }}"
+                alias: Notification Télégram
               - action: input_datetime.set_datetime
                 target:
                   entity_id: input_datetime.arrosage_duree_cycle_zone_1
@@ -1267,6 +1455,18 @@ automation:
                     data:
                       message: clear_notification
                       tag: arrosage zone 1
+                alias: Notification application mobile
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_telegram_notifications
+                    state: "on"
+                  - action: telegram_bot.send_message
+                    data:
+                      message: >-
+                        Arrosage terminé {{ as_timestamp(now()) |
+                        timestamp_custom('à %-H:%M') }}
+                      title: "Arrosage - {{ state_attr('sensor.arrosage_noms_des_zones', 'zone_1') }}"
+                alias: Notification Télégram
           - conditions:
               - condition: state
                 entity_id: binary_sensor.arrosage_electrovannes_connected
@@ -1300,7 +1500,11 @@ automation:
 
   - id: 'arrosage_zone_2'
     alias: Arrosage - Zone 2
-    description: Cycle d'arrosage de la zone 2
+    description: >-
+      Lance un cycle d'arrosage de la zone 2.
+
+
+      Si vous avez moins de 2 voies d'arrosage vous pouvez supprimer ce script.
     triggers:
       - entity_id:
           - input_boolean.arrosage_auto_zone_2
@@ -1341,6 +1545,21 @@ automation:
                       tag: arrosage
                       icon: mdi:sprinkler-variant
                       persistent: "true"
+                alias: Notification application mobile
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_telegram_notifications
+                    state: "on"
+                  - action: telegram_bot.send_message
+                    data:
+                      title: >-
+                        Arrosage - Problème
+                      message: >-
+                        Le cycle d'arrosage de la zone {{
+                        state_attr('sensor.arrosage_noms_des_zones', 'zone_2') }} ne
+                        peut pas démarrer car aucune éléctrovanne n'est incluse dans
+                        le cycle de la zone.
+                alias: Notification Télégram
           - conditions:
               - condition: state
                 entity_id: binary_sensor.arrosage_electrovannes_connected
@@ -1360,6 +1579,18 @@ automation:
                       color: cyan
                       icon: mdi:sprinkler-variant
                       persistent: "true"
+                alias: Notification application mobile
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_telegram_notifications
+                    state: "on"
+                  - action: telegram_bot.send_message
+                    data:
+                      message: >-
+                        Arrosage démarré {{ as_timestamp(now()) |
+                        timestamp_custom('à %-H:%M') }}
+                      title: "Arrosage - {{ state_attr('sensor.arrosage_noms_des_zones', 'zone_2') }}"
+                alias: Notification Télégram
               - action: input_datetime.set_datetime
                 target:
                   entity_id: input_datetime.arrosage_duree_cycle_zone_2
@@ -1391,6 +1622,18 @@ automation:
                     data:
                       message: clear_notification
                       tag: arrosage zone 2
+                alias: Notification application mobile
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_telegram_notifications
+                    state: "on"
+                  - action: telegram_bot.send_message
+                    data:
+                      message: >-
+                        Arrosage terminé {{ as_timestamp(now()) |
+                        timestamp_custom('à %-H:%M') }}
+                      title: "Arrosage - {{ state_attr('sensor.arrosage_noms_des_zones', 'zone_2') }}"
+                alias: Notification Télégram
           - conditions:
               - condition: state
                 entity_id: binary_sensor.arrosage_electrovannes_connected
@@ -1424,7 +1667,11 @@ automation:
 
   - id: 'arrosage_zone_3'
     alias: Arrosage - Zone 3
-    description: Cycle d'arrosage de la zone 3
+    description: >-
+      Lance un cycle d'arrosage de la zone 3.
+
+
+      Si vous avez moins de 3 voies d'arrosage vous pouvez supprimer ce script.
     triggers:
       - entity_id:
           - input_boolean.arrosage_auto_zone_3
@@ -1465,6 +1712,21 @@ automation:
                       tag: arrosage
                       icon: mdi:sprinkler-variant
                       persistent: "true"
+                alias: Notification application mobile
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_telegram_notifications
+                    state: "on"
+                  - action: telegram_bot.send_message
+                    data:
+                      title: >-
+                        Arrosage - Problème
+                      message: >-
+                        Le cycle d'arrosage de la zone {{
+                        state_attr('sensor.arrosage_noms_des_zones', 'zone_3') }} ne
+                        peut pas démarrer car aucune éléctrovanne n'est incluse dans
+                        le cycle de la zone.
+                alias: Notification Télégram
           - conditions:
               - condition: state
                 entity_id: binary_sensor.arrosage_electrovannes_connected
@@ -1484,6 +1746,18 @@ automation:
                       color: cyan
                       icon: mdi:sprinkler-variant
                       persistent: "true"
+                alias: Notification application mobile
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_telegram_notifications
+                    state: "on"
+                  - action: telegram_bot.send_message
+                    data:
+                      message: >-
+                        Arrosage démarré {{ as_timestamp(now()) |
+                        timestamp_custom('à %-H:%M') }}
+                      title: "Arrosage - {{ state_attr('sensor.arrosage_noms_des_zones', 'zone_3') }}"
+                alias: Notification Télégram
               - action: input_datetime.set_datetime
                 target:
                   entity_id: input_datetime.arrosage_duree_cycle_zone_3
@@ -1515,6 +1789,18 @@ automation:
                     data:
                       message: clear_notification
                       tag: arrosage zone 3
+                alias: Notification application mobile
+              - sequence:
+                  - condition: state
+                    entity_id: input_boolean.arrosage_enable_telegram_notifications
+                    state: "on"
+                  - action: telegram_bot.send_message
+                    data:
+                      message: >-
+                        Arrosage terminé {{ as_timestamp(now()) |
+                        timestamp_custom('à %-H:%M') }}
+                      title: "Arrosage - {{ state_attr('sensor.arrosage_noms_des_zones', 'zone_3') }}"
+                alias: Notification Télégram
           - conditions:
               - condition: state
                 entity_id: binary_sensor.arrosage_electrovannes_connected
@@ -1551,6 +1837,13 @@ automation:
     description: >-
       Calcule le nombre d'électrovannes qui sont cochées dans le cycle d'arrosage de
       chaque zone.
+
+
+      Cette automatisation est déja pré-configurée pour prendre en compte jusqu'à 9 zones et 9 voies d'arrosage.
+      Si vous avez besoin de plus de 9 voies, il faudra ajouter autant de triggers que de nouvelles voies
+      (Dupliquer le dernier trigger et modifier dans le trigger dupliqué le numero de zone.
+      Si vous avez besoin de plus de 9 zones, il faudra ajouter autant de nouvelles actions que de nouvelles zones
+      (Dupliquer la dernière action et modifier dans l'action dupliquée le numero de zone, partout ou il apparait dans l'action).
     triggers:
       - trigger: state
         entity_id:
@@ -1576,6 +1869,7 @@ automation:
             {%- endfor %} {{ns.nb_electrovanne_enabled}}
         target:
           entity_id: input_number.arrosage_electrovannes_incluses_zone_1
+        alias: Zone 1
       - action: input_number.set_value
         metadata: {}
         data:
@@ -1588,6 +1882,7 @@ automation:
         target:
           entity_id:
             - input_number.arrosage_electrovannes_incluses_zone_2
+        alias: Zone 2
       - action: input_number.set_value
         metadata: {}
         data:
@@ -1599,6 +1894,79 @@ automation:
             {%- endfor %} {{ns.nb_electrovanne_enabled}}
         target:
           entity_id: input_number.arrosage_electrovannes_incluses_zone_3
+        alias: Zone 3
+      - action: input_number.set_value
+        metadata: {}
+        data:
+          value: >-
+            {%- set ns = namespace(nb_electrovanne_enabled = 0) %} {%- for item in
+            label_entities("Zone 4") | select('match',
+            'script.arrosage_declenchement_auto_voie') | sort %}
+              {%- set ns.nb_electrovanne_enabled = ns.nb_electrovanne_enabled + 1 if is_state('input_boolean.arrosage_enable_voie_' ~ item[-1], 'on') else ns.nb_electrovanne_enabled %}
+            {%- endfor %} {{ns.nb_electrovanne_enabled}}
+        target:
+          entity_id: input_number.arrosage_electrovannes_incluses_zone_4
+        alias: Zone 4
+      - action: input_number.set_value
+        metadata: {}
+        data:
+          value: >-
+            {%- set ns = namespace(nb_electrovanne_enabled = 0) %} {%- for item in
+            label_entities("Zone 5") | select('match',
+            'script.arrosage_declenchement_auto_voie') | sort %}
+              {%- set ns.nb_electrovanne_enabled = ns.nb_electrovanne_enabled + 1 if is_state('input_boolean.arrosage_enable_voie_' ~ item[-1], 'on') else ns.nb_electrovanne_enabled %}
+            {%- endfor %} {{ns.nb_electrovanne_enabled}}
+        target:
+          entity_id: input_number.arrosage_electrovannes_incluses_zone_5
+        alias: Zone 5
+      - action: input_number.set_value
+        metadata: {}
+        data:
+          value: >-
+            {%- set ns = namespace(nb_electrovanne_enabled = 0) %} {%- for item in
+            label_entities("Zone 6") | select('match',
+            'script.arrosage_declenchement_auto_voie') | sort %}
+              {%- set ns.nb_electrovanne_enabled = ns.nb_electrovanne_enabled + 1 if is_state('input_boolean.arrosage_enable_voie_' ~ item[-1], 'on') else ns.nb_electrovanne_enabled %}
+            {%- endfor %} {{ns.nb_electrovanne_enabled}}
+        target:
+          entity_id: input_number.arrosage_electrovannes_incluses_zone_6
+        alias: Zone 6
+      - action: input_number.set_value
+        metadata: {}
+        data:
+          value: >-
+            {%- set ns = namespace(nb_electrovanne_enabled = 0) %} {%- for item in
+            label_entities("Zone 7") | select('match',
+            'script.arrosage_declenchement_auto_voie') | sort %}
+              {%- set ns.nb_electrovanne_enabled = ns.nb_electrovanne_enabled + 1 if is_state('input_boolean.arrosage_enable_voie_' ~ item[-1], 'on') else ns.nb_electrovanne_enabled %}
+            {%- endfor %} {{ns.nb_electrovanne_enabled}}
+        target:
+          entity_id: input_number.arrosage_electrovannes_incluses_zone_7
+        alias: Zone 7
+      - action: input_number.set_value
+        metadata: {}
+        data:
+          value: >-
+            {%- set ns = namespace(nb_electrovanne_enabled = 0) %} {%- for item in
+            label_entities("Zone 8") | select('match',
+            'script.arrosage_declenchement_auto_voie') | sort %}
+              {%- set ns.nb_electrovanne_enabled = ns.nb_electrovanne_enabled + 1 if is_state('input_boolean.arrosage_enable_voie_' ~ item[-1], 'on') else ns.nb_electrovanne_enabled %}
+            {%- endfor %} {{ns.nb_electrovanne_enabled}}
+        target:
+          entity_id: input_number.arrosage_electrovannes_incluses_zone_8
+        alias: Zone 8
+      - action: input_number.set_value
+        metadata: {}
+        data:
+          value: >-
+            {%- set ns = namespace(nb_electrovanne_enabled = 0) %} {%- for item in
+            label_entities("Zone 9") | select('match',
+            'script.arrosage_declenchement_auto_voie') | sort %}
+              {%- set ns.nb_electrovanne_enabled = ns.nb_electrovanne_enabled + 1 if is_state('input_boolean.arrosage_enable_voie_' ~ item[-1], 'on') else ns.nb_electrovanne_enabled %}
+            {%- endfor %} {{ns.nb_electrovanne_enabled}}
+        target:
+          entity_id: input_number.arrosage_electrovannes_incluses_zone_9
+        alias: Zone 9
     mode: single
 
   - id: 'arrosage_affichage_notifications_temporaires'
@@ -1607,19 +1975,16 @@ automation:
       Définit la durée d'affichage des notifications temporaires ainsi que le "nom"
       de la notification concernée. Le "nom" sert dans les conditions de visibilité
       de la carte notification concernée.
+
+
+      Cette automatisation est déja pré-configurée pour prendre en compte jusqu'à 9 zones d'arrosage.
+      Si vous avez besoin de plus de 9 zones il faudra ajouter autant de triggers que de nouvelles zones
+      (Dupliquer les 2 dernier triggers et modifier dans chaque trigger dupliqué le numero de zone, partout ou il apparait dans le bloc).
     triggers:
       - trigger: state
         entity_id:
           - input_boolean.arrosage_programmation_zone_1
         id: programmation_zone_1
-      - trigger: state
-        entity_id:
-          - input_boolean.arrosage_programmation_zone_2
-        id: programmation_zone_2
-      - trigger: state
-        entity_id:
-          - input_boolean.arrosage_programmation_zone_3
-        id: programmation_zone_3
       - trigger: state
         entity_id:
           - input_boolean.arrosage_auto_zone_1
@@ -1628,16 +1993,84 @@ automation:
         id: auto_zone_1
       - trigger: state
         entity_id:
+          - input_boolean.arrosage_programmation_zone_2
+        id: programmation_zone_2
+      - trigger: state
+        entity_id:
           - input_boolean.arrosage_auto_zone_2
         from: "off"
         to: "on"
         id: auto_zone_2
       - trigger: state
         entity_id:
+          - input_boolean.arrosage_programmation_zone_3
+        id: programmation_zone_3
+      - trigger: state
+        entity_id:
           - input_boolean.arrosage_auto_zone_3
         from: "off"
         to: "on"
         id: auto_zone_3
+      - trigger: state
+        entity_id:
+          - input_boolean.arrosage_programmation_zone_4
+        id: programmation_zone_4
+      - trigger: state
+        entity_id:
+          - input_boolean.arrosage_auto_zone_4
+        from: "off"
+        to: "on"
+        id: auto_zone_4
+      - trigger: state
+        entity_id:
+          - input_boolean.arrosage_programmation_zone_5
+        id: programmation_zone_5
+      - trigger: state
+        entity_id:
+          - input_boolean.arrosage_auto_zone_5
+        from: "off"
+        to: "on"
+        id: auto_zone_5
+      - trigger: state
+        entity_id:
+          - input_boolean.arrosage_programmation_zone_6
+        id: programmation_zone_6
+      - trigger: state
+        entity_id:
+          - input_boolean.arrosage_auto_zone_6
+        from: "off"
+        to: "on"
+        id: auto_zone_6
+      - trigger: state
+        entity_id:
+          - input_boolean.arrosage_programmation_zone_7
+        id: programmation_zone_7
+      - trigger: state
+        entity_id:
+          - input_boolean.arrosage_auto_zone_7
+        from: "off"
+        to: "on"
+        id: auto_zone_7
+      - trigger: state
+        entity_id:
+          - input_boolean.arrosage_programmation_zone_8
+        id: programmation_zone_8
+      - trigger: state
+        entity_id:
+          - input_boolean.arrosage_auto_zone_8
+        from: "off"
+        to: "on"
+        id: auto_zone_8
+      - trigger: state
+        entity_id:
+          - input_boolean.arrosage_programmation_zone_9
+        id: programmation_zone_9
+      - trigger: state
+        entity_id:
+          - input_boolean.arrosage_auto_zone_9
+        from: "off"
+        to: "on"
+        id: auto_zone_9
     conditions: []
     actions:
       - action: input_boolean.turn_off
@@ -1671,7 +2104,7 @@ automation:
           seconds: 3
           milliseconds: 0
         alias: >-
-          Le temps de délai sert à définir la durée d'affichage des notifications
+          Le temps de délai entré ici sert à définir la durée d'affichage des notifications
           temporaires
       - action: input_boolean.turn_off
         metadata: {}

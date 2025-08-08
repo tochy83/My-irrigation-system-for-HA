@@ -1,17 +1,27 @@
 # Name : zones.yaml
-# Dans ce fichier, se trouve le sensor qui définit le nombre de zone ainsi que leur nom.
+# Dans ce fichier, se trouve le sensor qui définit le nombre de zone ainsi que leur nom et un binary_sensor pouvenat servir à l'affichage d'alertes.
 
 
 template:
   - sensor:
       - name: Arrosage - Noms des zones
         unique_id: arrosage_noms_des_zones
-        state: "Sensor qui défini le nombre et le nom des zones d'arrosage. Pour changer le nom des zones ou en ajouter une, il faut éditer directement le fichier packages/arrosage/zones.yaml"
+        state: "Sensor qui défini le nombre (9 par défaut) et le nom des zones d'arrosage. Pour changer le nom des zones, en activer une ou en ajouter une (en plus des 9 existantes), il faut éditer directement le fichier packages/arrosage/zones.yaml"
         icon: mdi:map-outline
         attributes:
           zone_1: "Potager"
           zone_2: "Fruitiers"
           zone_3: "Agrumes"
+          zone_4: "Nom_de_la_zone_4"
+          zone_5: "Nom_de_la_zone_5"
+          zone_6: "Nom_de_la_zone_6"
+          zone_7: "Nom_de_la_zone_7"
+          zone_8: "Nom_de_la_zone_8"
+          zone_9: "Nom_de_la_zone_9"
+
+# Les zones dont le nom n'est pas 'Nom_de_la_zone_x' (x étant le numéro de la zone) sont "semi-actives".
+# Pour les activer complétement, il faut ajouter un nouveau libellé correspondant à la zone désirée et ajouter ce libellé aux scripts d'activation des électrovannes.
+# Celà se fait dans l'interface de home assistant. Voir la documentation.
 
 # Une zone d'arrosage correspond à un lieu géographique de votre jardin et comprend une ou plusieurs électrovannes.
 # Cela implique que si vous n'avez qu'une électrovanne pour tout le jardin, nous n'avez forcement qu'une seule zone.
@@ -19,22 +29,36 @@ template:
 # Vous pouvez remplacer les noms comme vous le voulez. Par exemple remplacer "Potager" par "Allée".
 # Par contre les noms d'attributs ne doivent pas être modifié.
 
-# Si vous avez une seule zone, supprimer les lignes zone_2 et zone_3.
+# Si vous avez une seule zone, remplacer les noms de zone, pour les zone_2 et zone_3 par Nom_de_la_zone_2 et Nom_de_la_zone_3.
 #       attributes:
 #        zone_1: "Potager"
+#        zone_2: "Nom_de_la_zone_2"
+#        zone_3: "Nom_de_la_zone_3"
+#        zone_4: "Nom_de_la_zone_4"
+#        zone_5: "Nom_de_la_zone_5"
+#        zone_6: "Nom_de_la_zone_6"
+#        zone_7: "Nom_de_la_zone_7"
+#        zone_8: "Nom_de_la_zone_8"
+#        zone_9: "Nom_de_la_zone_9"
 
-# Si vous avez 4 zones il faudra ajouter une ligne zone_4.
+# Si vous avez 4 zones il faudra à la ligne zone_4, remplacer le nom de zone (Nom_de_la_zone_4) par le nom que vous voulez (ex: Haie).
+# Et ainsi de suite si vous avez plus de 4 zones. Si vous avez plus de 9 zones, reporter vous à la documentation de "l'intégration".
 #       attributes:
-#         zone_1: "Potager"
-#         zone_2: "Fruitiers"
-#         zone_3: "Agrumes"
-#         zone_4: "Fleurs"
+#        zone_1: "Potager"
+#        zone_2: "Fruitiers"
+#        zone_3: "Agrumes"
+#        zone_4: "Haie"
+#        zone_5: "Nom_de_la_zone_5"
+#        zone_6: "Nom_de_la_zone_6"
+#        zone_7: "Nom_de_la_zone_7"
+#        zone_8: "Nom_de_la_zone_8"
+#        zone_9: "Nom_de_la_zone_9"
 
 # En cas d'ajout ou de suppression de zone, n'oubliez pas d'ajouter ou de supprimer un label (libellé) correspondant à la zone désirée
-# Celà se fait dans l'interface de home assistant. 
+# Celà se fait dans l'interface de home assistant. Voir la documentation.
 
   - binary_sensor:
-      - name: Arrosage - Zone status # Binary_sensor permettant se savoir si un cycle d'arrosage de zone est en cours (Me permet d'afficher une notification sur la page principale de mon dashboard)
+      - name: Arrosage - Zone status # Binary_sensor permettant se savoir si un cycle d'arrosage de zone est en cours
         unique_id: arrosage_zone_status
         state: >-
           {% set nb_zones = (states['input_boolean'] | selectattr('entity_id','match','input_boolean.arrosage_auto_zone_') | selectattr('state','eq','on') | list | count) %}

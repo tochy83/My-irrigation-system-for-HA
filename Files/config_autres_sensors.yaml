@@ -58,3 +58,6 @@ input_boolean:
 
   arrosage_enable_mobileapp_notifications:  # Définit si les notifications doivent être envoyées vers l'application mobile
     name: Arrosage - Enable mobileapp notifications
+
+  arrosage_enable_telegram_notifications:  # Définit si les notifications doivent être envoyées vers Télégram
+    name: Arrosage - Enable telegram notifications
