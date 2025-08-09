@@ -147,7 +147,7 @@ Dans ce dossier 'packages' créer un dossier 'arrosage'.
 
 
 #### - ***Etape 5*** :
-A l'aide de File Editor, copier tous les fichier '.yaml' qui se trouvent dans le dossier 'Files' du zip décompressé précedemment, dans le dossier 'arrosage' que l'on vient de créer.
+A l'aide de File Editor, copier tous les fichier '.yaml' qui se trouvent dans le dossier 'Files' du zip décompressé précedemment (ainsi que les fichiers zone_4.txt à zone_9.txt), dans le dossier 'arrosage' que l'on vient de créer.
 <p align="center"><img src="Medias/Install/add_files.gif"></p>
 
 Sur l'animation je montre comment faire pour 2 fichiers, mais il faut bien répéter la manipulation pour tous '.yaml' présent dans le dossier. C'est à cette étape qu'avoir le module complémentaire Samba share rend bien service.
