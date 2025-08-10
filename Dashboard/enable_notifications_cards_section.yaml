@@ -1,0 +1,61 @@
+type: grid
+cards:
+  - type: custom:mod-card
+    card:
+      type: custom:mushroom-title-card
+      title: ""
+      subtitle: Notifications
+    card_mod:
+      style:
+        mushroom-title-card$: |
+          .subtitle {
+            border-bottom: 1px solid var(--ha-card-border-color,var(--divider-color,#e0e0e0));
+            padding-bottom: 0px;
+          }
+          .header {
+            margin-bottom: -7px;
+          }
+    grid_options:
+      columns: full
+      rows: auto
+  - type: markdown
+    content: >-
+      Activer/Désactiver les deux commandes ci-dessous autorise ou pas, l'envoi
+      de notifications vers l'application mobile ou Télégram.
+    grid_options:
+      columns: full
+    text_only: true
+  - type: custom:mushroom-entity-card
+    entity: input_boolean.arrosage_enable_mobileapp_notifications
+    icon_color: light-green
+    tap_action:
+      action: toggle
+    hold_action:
+      action: none
+    name: Notifications de l'application mobile
+    grid_options:
+      columns: 12
+      rows: 1
+  - type: custom:mushroom-entity-card
+    entity: input_boolean.arrosage_enable_telegram_notifications
+    icon_color: light-green
+    tap_action:
+      action: toggle
+    hold_action:
+      action: none
+    grid_options:
+      columns: 12
+      rows: 1
+    name: Notifications Télégram
+  - type: custom:mushroom-chips-card
+    chips:
+      - type: spacer
+    grid_options:
+      columns: full
+      rows: auto
+    card_mod:
+      style: |
+        ha-card {
+          padding-bottom: 10px;
+        }
+column_span: 2
