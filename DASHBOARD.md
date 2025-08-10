@@ -149,18 +149,6 @@ Si vous avez un sensor qui comptabilise votre consommation d'eau, cette carte af
 *Le code de la carte : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/compteur_card.yaml)*
 <br><br>
 
-#### - ***La carte autorisation d'envoi de notifications vers l'app mobile*** :
-<p align="center"><img src="Medias/enable_mobile_notifications.jpg"></p>
-Cette carte à pour but d'autoriser ou non l'envoie des notifications vers l'application mobile de Home Assistant. Elle n'a pas grand intérêt en soit sur le dashboard arrosage mais lors de mes tests, avant de mettre à disposition "l'intégration," je me suis aperçu que si on ne disposait pas de l'application mobile l'envoi des notifications vers celle-ci faisait planter les automatisations (Ce qui est logique, puisque l'action notify.mobile_app n'exsiste pas dans ce cas).<br>
-J'avais donc le choix soit de désactiver l'envoi de notifications dans les automatisations et scripts et libre à vous de les remettre manuellement dans chaque automatisations et scripts, soit de faire en sorte qu'elles soient activées/désactivées simplement en un clic.<br>
-Voilà donc la raison d'exister de cette carte que j'ai rajouté en dernière minute.
-<br><br>
-<span><img src="Medias/Icons/cellphone-remove.svg" width="18"></span> / <span><img src="Medias/Icons/cellphone-check.svg" width="18"></span> Permettent d'autoriser ou non l'envoie des notifications vers l'application mobile de Home Assistant. Lorsque le bouton <span><img src="Medias/Icons/cellphone-remove.svg" width="18"></span> est affiché en gris, les notifications ne seront pas envoyées vers l'application mobile. Quand le bouton <span><img src="Medias/Icons/cellphone-check.svg" width="18"></span> est affiché en vert, les notifications seront envoyées vers l'application mobile. Cliquer dessus bascule d'un état à l'autre.
-<br><br>
-
-*Le code de la carte : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/enable_notification_card.yaml)*
-<br><br>
-
 
 
 ### La page calendrier d'arrosage<br><br>
@@ -184,4 +172,15 @@ Le code de la page calendrier : [Voir](https://github.com/tochy83/My-irrigation-
 <br><br>
 Il n'y a pas grand chose à ajouter sur cette page, elle se contente d'afficher les infos du calendrier d'arrosage ainsi que comment ajouter une programmation de zone dans le calendrier.
 
+#### - ***La carte autorisation d'envoi de notifications vers l'app mobile*** :
+<p align="center"><img src="Medias/enable_mobile_notifications.jpg"></p>
+Cette carte à pour but d'autoriser ou non l'envoie des notifications vers l'application mobile de Home Assistant. Elle n'a pas grand intérêt en soit sur le dashboard arrosage mais lors de mes tests, avant de mettre à disposition "l'intégration," je me suis aperçu que si on ne disposait pas de l'application mobile l'envoi des notifications vers celle-ci faisait planter les automatisations (Ce qui est logique, puisque l'action notify.mobile_app n'exsiste pas dans ce cas).<br>
+J'avais donc le choix soit de désactiver l'envoi de notifications dans les automatisations et scripts et libre à vous de les remettre manuellement dans chaque automatisations et scripts, soit de faire en sorte qu'elles soient activées/désactivées simplement en un clic.<br>
+Voilà donc la raison d'exister de cette carte que j'ai rajouté en dernière minute.
+<br><br>
+<span><img src="Medias/Icons/cellphone-remove.svg" width="18"></span> / <span><img src="Medias/Icons/cellphone-check.svg" width="18"></span> Permettent d'autoriser ou non l'envoie des notifications vers l'application mobile de Home Assistant. Lorsque le bouton <span><img src="Medias/Icons/cellphone-remove.svg" width="18"></span> est affiché en gris, les notifications ne seront pas envoyées vers l'application mobile. Quand le bouton <span><img src="Medias/Icons/cellphone-check.svg" width="18"></span> est affiché en vert, les notifications seront envoyées vers l'application mobile. Cliquer dessus bascule d'un état à l'autre.
+<br><br>
+
+*Le code de la carte : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/enable_notification_card.yaml)*
+<br><br>
 <br><br>
