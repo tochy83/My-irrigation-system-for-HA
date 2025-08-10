@@ -174,10 +174,10 @@ Une page en 2 parties. Une première partie avec des paramètres à ajuster pour
 
 #### - ***Les cartes autorisation d'envoi de notifications*** :
 <p align="center"><img src="Medias/enable_mobile_notifications.jpg"></p>
-Ces cartes ont pour but d'autoriser ou non l'envoie des notifications vers l'application mobile de Home Assistant ou vers Télégram.<br>
+Ces cartes ont pour but d'autoriser ou non l'envoi des notifications vers l'application mobile de Home Assistant ou vers Télégram.<br>
 Avant d'autoriser l'envoi de notifications, assurez vous d'avoir l'application mobile d'installée et/ou l'intégration Télégram.
 <br><br>
-<span><img src="Medias/Icons/close-circle-outline.svg" width="18"></span> / <span><img src="Medias/Icons/check-circle-outline.svg" width="18"></span> Permettent d'autoriser ou non l'envoie des notifications vers l'application mobile de Home Assistant. Lorsque le bouton <span><img src="Medias/Icons/close-circle-outline.svg" width="18"></span> est affiché en gris, les notifications ne seront pas envoyées vers l'application mobile/Télégram. Quand le bouton <span><img src="Medias/Icons/check-circle-outline.svg" width="18"></span> est affiché en vert, les notifications seront envoyées vers l'application mobile/Télégram. Cliquer dessus bascule d'un état à l'autre.
+<span><img src="Medias/Icons/close-circle-outline.svg" width="18"></span> / <span><img src="Medias/Icons/check-circle-outline.svg" width="18"></span> Permettent d'autoriser ou non l'envoi des notifications vers l'application mobile/Télégram. Lorsque le bouton <span><img src="Medias/Icons/close-circle-outline.svg" width="18"></span> est affiché en gris, les notifications ne seront pas envoyées vers l'application mobile/Télégram. Quand le bouton <span><img src="Medias/Icons/check-circle-outline.svg" width="18"></span> est affiché en vert, les notifications seront envoyées vers l'application mobile/Télégram. Cliquer dessus bascule d'un état à l'autre.
 <br><br>
 
 *Le code de la section notifications : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/enable_notifications_cards_section.yaml)*
