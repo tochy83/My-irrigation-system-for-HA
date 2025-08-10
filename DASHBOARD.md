@@ -40,8 +40,8 @@
 #### - ***La carte navigation*** :
 <p align="center"><img src="Medias/navigation_card.jpg"></p>
 Une carte qui affiche simplement le nom de la page en affichée et 2 boutons de navigation.<br>
-<span><img src="Medias/Icons/sprinkler-variant.svg" width="18"></span> Permet de Déclencher/Arrêter l'arrosage de la voie.
-<span><img src="Medias/Icons/sprinkler-variant.svg" width="18"></span> Permet de Déclencher/Arrêter l'arrosage de la voie.
+<span><img src="Medias/Icons/arrow-left.svg" width="18"></span> Permet de revenir à la page précedente.
+<span><img src="Medias/Icons/tune.svg" width="18"></span> Permet d'accéder à la page Paramètres/Documentation de "l'intégration".
 <br><br>
 
 *Le code de la carte : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/navigation_card.yaml)*
