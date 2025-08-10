@@ -40,7 +40,9 @@
 #### - ***La carte navigation*** :
 <p align="center"><img src="Medias/navigation_card.jpg"></p>
 Une carte qui affiche simplement le nom de la page en affichée et 2 boutons de navigation.<br>
+<br>
 <span><img src="Medias/Icons/arrow-left.svg" width="18"></span> Permet de revenir à la page précedente.
+<br>
 <span><img src="Medias/Icons/tune.svg" width="18"></span> Permet d'accéder à la page Paramètres/Documentation de "l'intégration".
 <br><br>
 
@@ -162,6 +164,18 @@ Voilà donc la raison d'exister de cette carte que j'ai rajouté en dernière mi
 
 
 ### La page calendrier d'arrosage<br><br>
+<p align="center"><img src="Medias/calendar_page.jpg" width=75%></p>
+<p align="center">Une vue d'ensemble de la page arrosage.</p>
+<br>
+
+Le code de la page calendrier : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/calendar_page.yaml)
+<br><br>
+Il n'y a pas grand chose à ajouter sur cette page, elle se contente d'afficher les infos du calendrier d'arrosage ainsi que comment ajouter une programmation de zone dans le calendrier.
+<br><br>
+
+
+
+### La page paramètres/documentation<br><br>
 <p align="center"><img src="Medias/calendar_page.jpg" width=75%></p>
 <p align="center">Une vue d'ensemble de la page arrosage.</p>
 <br>
