@@ -156,7 +156,7 @@ Si vous avez un sensor qui comptabilise votre consommation d'eau, cette carte af
 <p align="center">Une vue d'ensemble de la page arrosage.</p>
 <br>
 
-Le code de la page : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/calendar_page.yaml)
+Le code de la page : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/parameters_page.yaml)
 <br><br>
 Il n'y a pas grand chose à ajouter sur cette page, elle se contente d'afficher les infos du calendrier d'arrosage ainsi que comment ajouter une programmation de zone dans le calendrier.
 <br><br>
