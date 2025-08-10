@@ -39,7 +39,7 @@
 
 #### - ***La carte navigation*** :
 <p align="center"><img src="Medias/navigation_card.jpg"></p>
-Une carte qui affiche simplement le nom de la page en affichée ainsi qu'un bouton pour retourner à la page précédente.<br>
+Une carte qui affiche simplement le nom de la page en affichée et 2 boutons de navigation.<br>
 Cette carte n'est pas nécessaire au dashboard arrosage en lui même.
 <br><br>
 
