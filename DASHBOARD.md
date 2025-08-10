@@ -147,7 +147,7 @@ Si vous avez un sensor qui comptabilise votre consommation d'eau, cette carte af
 <br><br>
 
 *Le code de la carte : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/compteur_card.yaml)*
-<br><br>
+<br><br><br>
 
 
 
@@ -159,7 +159,7 @@ Si vous avez un sensor qui comptabilise votre consommation d'eau, cette carte af
 Le code de la page : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/parameters_page.yaml)
 <br><br>
 Il n'y a pas grand chose à ajouter sur cette page, elle se contente d'afficher les infos du calendrier d'arrosage ainsi que comment ajouter une programmation de zone dans le calendrier.
-<br><br>
+<br><br><br>
 
 
 
