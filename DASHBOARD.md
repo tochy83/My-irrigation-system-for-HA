@@ -170,7 +170,7 @@ Il n'y a pas grand chose à ajouter sur cette page, elle se contente d'afficher 
 
 Le code de la page : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/parameters_page.yaml)
 <br><br>
-Il n'y a pas grand chose à ajouter sur cette page, elle se contente d'afficher les infos du calendrier d'arrosage ainsi que comment ajouter une programmation de zone dans le calendrier.
+Une page en 2 parties. Une première partie avec des paramètres à ajuster pour "l'intégration" et une seconde avec une documentation simplifiée.
 
 #### - ***Les cartes autorisation d'envoi de notifications*** :
 <p align="center"><img src="Medias/enable_mobile_notifications.jpg"></p>
@@ -181,5 +181,6 @@ Avant d'autoriser l'envoi de notifications, assurez vous d'avoir l'application m
 <br><br>
 
 *Le code de la section notifications : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/enable_notifications_cards_section.yaml)*
-<br><br>
+
+
 <br><br>
