@@ -1,0 +1,369 @@
+type: sections
+max_columns: 2
+title: Paramètres Dashboard arrosage
+path: parametres-dashboard-arrosage
+sections:
+  - type: grid
+    cards:
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: back
+          - type: template
+            content: PARAMETRES/DOCUMENTATION
+            double_tap_action:
+              action: none
+            tap_action:
+              action: none
+            hold_action:
+              action: none
+            card_mod:
+              style: |
+                ha-card {
+                  border: none;
+                  background: transparent !important;
+                }
+        grid_options:
+          columns: full
+          rows: auto
+    column_span: 2
+  - type: grid
+    cards:
+      - type: custom:mod-card
+        card:
+          type: custom:mushroom-title-card
+          title: ""
+          subtitle: Notifications
+        card_mod:
+          style:
+            mushroom-title-card$: |
+              .subtitle {
+                border-bottom: 1px solid var(--ha-card-border-color,var(--divider-color,#e0e0e0));
+                padding-bottom: 0px;
+              }
+              .header {
+                margin-bottom: -7px;
+              }
+        grid_options:
+          columns: full
+          rows: auto
+      - type: markdown
+        content: >-
+          Activer/Désactiver les deux commandes ci-dessous autorise ou pas,
+          l'envoi de notifications vers l'application mobile ou Télégram.
+        grid_options:
+          columns: full
+        text_only: true
+      - type: custom:mushroom-entity-card
+        entity: input_boolean.arrosage_enable_mobileapp_notifications
+        icon_color: light-green
+        tap_action:
+          action: toggle
+        hold_action:
+          action: none
+        name: Notifications de l'application mobile
+        grid_options:
+          columns: 12
+          rows: 1
+      - type: custom:mushroom-entity-card
+        entity: input_boolean.arrosage_enable_telegram_notifications
+        icon_color: light-green
+        tap_action:
+          action: toggle
+        hold_action:
+          action: none
+        grid_options:
+          columns: 12
+          rows: 1
+        name: Notifications Télégram
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: spacer
+        grid_options:
+          columns: full
+          rows: auto
+        card_mod:
+          style: |
+            ha-card {
+              padding-bottom: 10px;
+            }
+    column_span: 2
+  - type: grid
+    cards:
+      - type: custom:mod-card
+        card:
+          type: custom:mushroom-title-card
+          title: ""
+          subtitle: Documentation rapide
+        card_mod:
+          style:
+            mushroom-title-card$: |
+              .subtitle {
+                border-bottom: 1px solid var(--ha-card-border-color,var(--divider-color,#e0e0e0));
+                padding-bottom: 0px;
+              }
+              .header {
+                margin-bottom: -7px;
+              }
+        grid_options:
+          columns: full
+          rows: auto
+      - type: markdown
+        content: >-
+          **<font color=orange>Fonctionnement</font>**
+
+
+          Parce que chaque culture/plantation a son propre besoin en eau, il
+          faut bien comprendre le rôle du calendrier,  des voies d'arrosage, des
+          zones d'arrosage et des cycles d'arrosage pour appéhender le
+          fonctionnement de l'ensemble.
+
+          - Calendrier : Le calendrier contient les jours et heures de départ
+          d'arrosage ainsi que le nom de la zone concernée (les événements).
+          C'est lui qui définit **la fréquence d'arrosage** d'une zone.
+
+
+          - Voie d'arrosage : Une voie d'arrosage correspond à un ensemble
+          électrovanne (ou autre système de commande) + tuyau + goutteurs
+          (asperseurs, buses...) permettant l'arrosage d'une culture/plantation.
+
+          C'est sur la voie d'arrosage qu'on définit **la durée** d'ouverture de
+          l'électrovanne et par conséquence **la quantité d'eau délivrée à
+          chaque culture/plantation** présente sur cette voie.
+
+
+          - Zone d'arrosage : Une zone d'arrosage correspond à un groupe d'une
+          ou plusieurs voies d'arrosage. Chaque voie d'arrosage incluse dans une
+          même zone aura donc la même fréquence d'arrosage.
+
+
+          - Cycle d'arrosage de zone : Un cycle d'arrosage de zone pilote le
+          déclenchement successif de chaque voie comprise dans la zone.
+
+
+          Pour résumé :
+
+          - On définit dans le calendrier les jours et heures de départ
+          d'arrosage ainsi que le nom de la zone concernée (les événements).
+
+          - Lorsque la date présente correspond à un événement du calendrier, un
+          ordre est envoyé pour declencher un arrosage de la zone renseignée
+          dans l'événement du calendrier.
+
+          - Cet ordre déclenchera un cycle d'arrosage de la zone concernée.
+
+          - Le déclenchement du cycle ouvrira chaque éléctrovanne correspondante
+          aux voies incluses dans la zone concernée, pour la durée définie pour
+          chaque voie.
+
+          - L'ouverture de chaque éléctrovanne se fait en cascade, d'abord la
+          première pour la durée que l'on aura choisi avant de passer à la
+          seconde et ce jusqu'à la dernière incluse dans la zone.
+
+
+          On garde bien sûr la possibilité de déclencher un cycle ou une voie de
+          façon manuelle.
+        grid_options:
+          columns: full
+        text_only: true
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: spacer
+        grid_options:
+          columns: full
+          rows: auto
+        card_mod:
+          style: |
+            ha-card {
+              padding-bottom: 10px;
+            }
+      - type: markdown
+        content: >-
+          **<font color=orange>Ajouter une voie d'arrosage</font>**
+
+
+          Par défaut 9 voies d'arrosage sont déjà pré-configurés. Pour en
+          activer une qui ne le serait pas déjà il faut :
+
+          - Ajouter un libellé de zone au script
+          'script.arrosage_declenchement_auto_voie_x' (x représentant le numéro
+          de la voie) correspondant à la zone dans laquelle la voie doit être
+          rattachée.
+
+          - Ajouter une carte (Streamline-card - arrosage_electrovanne)
+          correspondant à cette voie sur le dashboard.
+
+
+          Pour utiliser plus de 9 voies, il faudra au préalable :
+
+          - Créer un fichier 'electrovanne_x.yaml' (x représentant le numéro de
+          la nouvelle électrovanne) dans le dossier 'packages/arrosage/'.
+
+          - Redémarrer Home Assistant.
+
+          - Créer un script 'script.arrosage_declenchement_auto_voie_x' (x
+          représentant le numéro de la nouvelle voie).
+
+          - Créer une automatisation 'automation.arrosage_voie_x' (x
+          représentant le numéro de la nouvelle voie).
+        grid_options:
+          columns: full
+        text_only: true
+      - type: markdown
+        content: >-
+          **<font color=orange>Supprimer une voie d'arrosage</font>**
+
+
+          - Enlever le libellé de zone au script
+          'script.arrosage_declenchement_auto_voie_x' (x représentant le numéro
+          de la voie).
+
+          - Supprimer la carte correspondante sur le dashboard.
+
+
+          Normalement le reste peux rester tel quel et ne devrait pas avoir
+          d'incidence. Si toutefois vous voulez aller jusqu'au bout du nettoyage
+          il faudra aussi :
+
+          - Supprimer le fichier 'electrovanne_x.yaml' (x représentant le numéro
+          de la voie à supprimer) dans le dossier 'packages/arrosage/' ou le
+          renommer en 'electrovanne_x.txt'.
+
+          - Redémarrer Home Assistant.
+
+          - Supprimer le 'script.arrosage_declenchement_auto_voie_x' (x
+          représentant le numéro de la voie à supprimer).
+
+          - Supprimer l'automatisation 'automation.arrosage_voie_x' (x
+          représentant le numéro de la voie à supprimer).
+        grid_options:
+          columns: full
+        text_only: true
+      - type: markdown
+        content: >-
+          **<font color=orange>Ajouter une zone d'arrosage</font>**
+
+
+          Par défaut 9 zones d'arrosage sont déjà pré-configurés mais seulement
+          3 sont activées. Pour en activer une qui ne le serait pas déjà il faut
+          :
+
+          - Modifier son nom, par le nom que l'on souhaite lui donner dans le
+          fichier 'zones.yaml' situé dans le dossier 'packages/arrosage/'.
+
+          - Renommer le fichier 'zone_x.txt' en 'zone_x.yaml' (x représentant le
+          numéro de la nouvelle zone) présent dans le dossier
+          'packages/arrosage'.
+
+          - Redémarrer Home Assistant.
+
+          - Ajouter un nouveau libellé de zone correspondant à cette zone.
+
+          - Ajouter ce libellé aux scripts
+          'script.arrosage_declenchement_auto_voie_x' (x représentant le numéro
+          de la voie) correspondant aux voies que l'on veut inclure dans cette
+          zone.
+
+          - Ajouter une carte (Streamline-card - arrosage-zone) correspondant à
+          cette zone sur le dashboard.
+
+
+          Pour utiliser plus de 9 zones, il faudra au préalable :
+
+          - Modifier le fichier 'zones.yaml' dans le dossier
+          'packages/arrosage/' pour ajouter une zone supplémentaire.
+
+          - Créer un fichier 'zone_x.yaml' (x représentant le numéro de la
+          nouvelle zone) dans le dossier 'packages/arrosage'.
+
+          - Redémarrer Home Assistant.
+
+          - Créer une automatisation 'automation.arrosage_zone_x' (x
+          représentant le numéro de la nouvelle zone).
+
+          - Modifier l'automatisation 'automation.arrosage_calendrier'.
+
+          - Modifier l'automatisation
+          'automation.arrosage_nombre_electrovannes_incluses_par_zone'.
+
+          - Modifier l'automatisation
+          'automation.arrosage_affichage_notifications_temporaires'.
+
+          - Modifier l'automatisation 'automation.arrosage_alerte'.
+
+          - Modifier le script 'script.arrosage_arret'.
+
+          - Créer les cartes notifications correspondantes à cette nouvelle zone
+          et les ajouter au dashboard.
+        grid_options:
+          columns: full
+        text_only: true
+      - type: markdown
+        content: >-
+          **<font color=orange>Désactiver une zone d'arrosage</font>**
+
+
+          - Supprimer le libellé de zone correspondant à cette zone.
+
+          - Modifier son nom, par 'Nom_de_la_zone_x' dans le fichier
+          'zones.yaml' situé dans le dossier 'packages/arrosage/'.
+
+          - Supprimer la carte de cette zone du dashboard.
+        grid_options:
+          columns: full
+        text_only: true
+      - type: markdown
+        content: >-
+          **<font color=orange>Supprimer une zone d'arrosage</font>**
+
+
+          Pour supprimer complétement une zone (toutes les entités qui y sont
+          rattachées) il faut, après l'avoir déjà désactivée :
+
+          - Supprimer le fichier 'zone_x.yaml' (x représentant le numéro de la
+          zone à supprimer) situé dans le dossier 'packages/arrosage/' ou le
+          renommer en (zone_x.txt).
+
+          - Redémarrer Home Assistant.
+
+          - Supprimer l'automatisation 'automation.arrosage_zone_x' (x
+          représentant le numéro de la zone à supprimer).
+
+
+          Normalement le reste peux rester tel quel et ne devrait pas avoir
+          d'incidence. Si toutefois vous voulez aller jusqu'au bout du nettoyage
+          il faudra aussi :
+
+          - Modifier l'automatisation 'automation.arrosage_calendrier' pour
+          retirer toutes les réfrences à cette zone.
+
+          - Modifier l'automatisation
+          'automation.arrosage_nombre_electrovannes_incluses_par_zone' pour
+          retirer toutes les réfrences à cette zone.
+
+          - Modifier l'automatisation
+          'automation.arrosage_affichage_notifications_temporaires' pour retirer
+          toutes les réfrences à cette zone.
+
+          - Modifier l'automatisation 'automation.arrosage_alerte' pour retirer
+          toutes les réfrences à cette zone.
+
+          - Supprimer du dashboard toutes les cartes notifications pour cette
+          zone.
+        grid_options:
+          columns: full
+        text_only: true
+      - type: markdown
+        content: >-
+          **<font color=orange>Capteur de pluie ou d'humidité du sol</font>**
+
+
+          Je n'ai pas ajouté de prise en compte de ce type de capteurs dans
+          "l'intégration" car je n'en dispose pas. Cependant si l'on souhaite en
+          tenir compte il suffit simplement de les rajouter en conditions de
+          l'automatistion 'automation.arrosage_calendrier'.
+        grid_options:
+          columns: full
+        text_only: true
+    column_span: 2
+cards: []
+icon: mdi:tune
