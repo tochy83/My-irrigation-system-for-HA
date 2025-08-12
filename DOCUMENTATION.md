@@ -121,7 +121,7 @@ C'est là qu'il est pratique d'avoir défini un libellé ou une catégorie pour 
 #### - Activer/Désactiver une zone
 
 Pour activer un zone d'arrosage, il faut :
-- Modifier son nom, par le nom que vous voulez dans le fichier 'zones.yaml', présent dans le dossier packages/arrosage/.
+- Modifier son nom, par le nom que vous voulez dans le fichier 'zones.yaml', présent dans le dossier 'packages/arrosage/'.
 - Avoir ajouter un libellé pour cette zone (Voir Les libellés de zone).
 - L'activation sera effective après redémmarage de Home Assistant.
 
@@ -142,6 +142,14 @@ Pour désactiver une zone, il faudra faire l'opération inverse à savoir :
 
 #### - Supprimer l'intégration
 
+Pour supprimer totalement "l'integration", il faut :
+- Supprimer le dossier 'arrosage' situé dans les dossier 'packages/'.
+- Redémarrer Home Assistant.
+- Supprimer les libellés et eventuellemnt la catégorie si vous en aviez attribuée une.
+- Supprimer toutes les entités orphelines liées à "l'intégration".
+- Supprimer le dashboard.
+- Redémarrer Home Assistant.
+<br><br>
 
 #### - Capteur de pluie ou d'humidité du sol
 
