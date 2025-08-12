@@ -123,7 +123,7 @@ Pour activer un zone d'arrosage, il faut modifier son nom, par le nom que vous v
 
 Les zones inactives ont un nom de la forme 'Nom_de_la_zone_x' (x représentant le numéro de la zone).
 
-Pour désactiver une zone, il faudra faire l'opération inverse à savoir remettre le nom par defaut pour la zone et supprimer son libellé. La désactivation sera effective après redémmarage de Home Assistant.
+Pour désactiver une zone, il faudra faire l'opération inverse à savoir remettre le nom par defaut pour la zone dans le fichier 'zones.yaml' et supprimer son libellé. La désactivation sera effective après redémmarage de Home Assistant.
 <br><br>
 
 
