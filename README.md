@@ -37,17 +37,26 @@ Pour résumé, les fonctions de base de tout programmateur d'arrosage, auquel j'
 
 C'est par là que ça se passe avec les explications détaillées, étape par étape. *[Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/INSTALLATION.md)*
 
-<br><br>
-**Documentation :**
+<br>
+
+**Le dashboard :**
 
 Une vue d'ensemble du Dashboard arrosage avec le code de chaque carte le composant et une description de toutes les interactions possibles avec celui-ci. *[Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/DASHBOARD.md)*
 
-<br><br>
+<br>
+
+**Documentation :**
+
+*[Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/DOCUMENTATION.md)*
+
+<br>
+
 **Passage en production :**
 
-Adopter le Dashboard arrosage à son sytème d'arrosage. Laisser vous guider pas à pas. *[Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/PRODUCTION.md)*
+Adopter le Dashboard arrosage à son sytème d'arrosage. Laisser vous guider pas à pas avec un exemple. *[Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/PRODUCTION.md)*
 
-<br><br>
+<br>
+
 **Comment le supprimer :**
 
 Vous vouliez juste tester, faire le curieux et souhaitez maintenant supprimer le Dashboard arrosage, c'est par là que cela se passe : *[Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/SUPPRESSION.md)*
