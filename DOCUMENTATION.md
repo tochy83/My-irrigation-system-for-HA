@@ -59,7 +59,7 @@ Un outil est présent dans la page paramètres de "l'intégration". Il permet de
 Pour supprimer une voie d'arrosage il faut :
 - Supprimer les fichiers.
 - Redémarrer Home Assistant.
-- Supprimer la carte de la voix sur le dashboard.
+- Supprimer la carte de la voie sur le dashboard.
 <br><br>
 
 
@@ -130,7 +130,7 @@ Les zones inactives ont un nom de la forme 'Nom_de_la_zone_x' (x représentant l
 Pour désactiver une zone, il faudra faire l'opération inverse à savoir :
 - Remettre le nom par defaut pour la zone dans le fichier 'zones.yaml'.
 - Supprimer son libellé.
-- La désactivation sera effective après redémmarage de Home Assistant.
+- La désactivation sera effective après redémarrage de Home Assistant.
 <br><br>
 
 
