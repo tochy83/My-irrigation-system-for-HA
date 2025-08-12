@@ -49,6 +49,7 @@ pour supprimer une zone
 
  pour supprimer une zone les étapes sont les mêmes que pour supprimer une voix. 
  il faudra en plus supprimer le libellé de la zone et modifier le fichier zones.yaml pour modifier son nom.
+ vous pouvez également supprimer les cartes de notification pour la zone supprimée mais ce n'est pas obligatoire.
 
 
 note sur l'outil de suppression 
