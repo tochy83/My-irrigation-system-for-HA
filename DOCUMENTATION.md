@@ -109,7 +109,11 @@ Il supprime les fichiers de la dernière voie ou zone existante. Ex. Si j'ai 9 v
 
 L'outil de suppression ne sera en mesure d'effacer les automatisations et scripts, que si ceci n'ont pas été migrés dans l'UI de Home Assistant. Dans ce cas, il faudra les supprimer manuellement par l'interface utilisateur de Home Assistant.
 
-Suite à la suppression des fichiers par l'outil, des entités orphelines peuvent apparaitre. Une carte du dasboard, sur la page paramètres donne une liste de celles-ci le cas échéant. Vous pouvez alors passer par Paramètres/Appareils et services/Entités pour les supprimer complètement de Home Assistant. C'est là qu'il est pratique d'avoir défini un libellé ou une catégorie pour toutes les entités de l'intégration à l'installation de celle-ci, pour les retrouver plus rapidement.
+Suite à la suppression des fichiers par l'outil, des entités orphelines peuvent apparaitre.
+
+Une carte du dasboard, sur la page paramètres donne une liste de celles-ci le cas échéant. Cette carte n'est pas visible s'il n'y à pas d'entités orphelines liées à "l'intégration". Vous pouvez alors passer par Paramètres/Appareils et services/Entités pour les supprimer complètement de Home Assistant.
+
+C'est là qu'il est pratique d'avoir défini un libellé ou une catégorie pour toutes les entités de l'intégration à l'installation de celle-ci, pour les retrouver plus rapidement.
 <br><br>
 
 
