@@ -37,7 +37,7 @@ Je n'ai malheureusement pas trouvé comment les créer ou les supprimer automati
 #### - Inclure une voie à une zone d'arrosage
 
 Pour inclure une voie à une zone d'arrosage et ainsi permettre son déclenchement lors d'un cycle d'arrosage, automatique ou manuel, il faut :
-- Ajouter un libellé de zone (voir Les libellés de zone) au script (script.arrosage_declenchement_auto_voie_X) X représentant le numéro de la voie à inclure dans la zone. Cette opération se fait par l'UI de Home Assistant.
+- Ajouter un libellé de zone (voir Les libellés de zone) au script 'script.arrosage_declenchement_auto_voie_x' (x représentant le numéro de la voie à inclure dans la zone). Cette opération se fait par l'UI de Home Assistant.
 <br><br>
 
 
@@ -83,7 +83,6 @@ Le script à modifier est :
 - script.arrosage_arret
 
 Les automatisations à modifier sont :
-- automation.arrosage_zone_x (x représentant le numéro de la nouvelle zone)
 - automation.arrosage_calendrier
 - automation.arrosage_nombre_electrovannes_incluses_par_zone
 - automation.arrosage_affichage_notifications_temporaires
@@ -136,8 +135,27 @@ Pour désactiver une zone, il faudra faire l'opération inverse à savoir :
 
 #### - Migrer
 
+Vous pouvez migrer certaines automatisations dans Home Assistant afin de les modifier depuis l'UI. Pour cela il faut :
+- Aller à Paramètres/Automatisations et scènes/Automatisation.
+- Ouvrir l'automatisation que l'on souhaite migrer dans l'UI.
+- Cliquer sur migrer et suivre les étapes.
 
-#### - Passer en production
+Je ne conseille pas de migrer toute les automatisations, notamment celles dédiées aux voies et aux zones ou l'outil de suppression ne pourra plus les supprimer et vous devrez le faire à la main depuis l'UI.
+
+La seule qui peut avoir un intêret de migrer est l'automatisation 'automation.arrosage_calendrier' sur laquelle on peut vouloir ajouter des conditions pour tenir compte de la météo ou de capteur de pluie, hygrométrie.
+
+Sinon, si vous utiliser plus de 9 zones, vous pouvez également migrer le script 'script.arrosage_arret' et les automatisations 'automation.arrosage_nombre_electrovannes_incluses_par_zone', 'automation.arrosage_affichage_notifications_temporaires', 'automation.arrosage_alerte' qu'il faudra également modifiés et qu'il sera plus pratique à faire depuis l'UI.
+<br><br>
+
+
+#### - Faire correspondre les commandes d'électrovannes avec sont matériel
+
+Pour lier votre propre matériel commandant votre arrosage à l'intégration il faut :
+- Modifier le template_switch 'switch.arrosage_electrovanne_x' (x représentant le numéro de l'éléctrovanne) présent dans les fichiers voie_x situé dans le dossier 'packages/arrosage/' comme indiqué dans les commentaires de ces fichiers.
+- Redémarrer Home Assistant pour la prise en compte des changements.
+
+A partir de ce moment "l'intégration" ne sera plus en mode simulation mais pilotera vbraiment votre matériel.
+<br><br>
 
 
 #### - Supprimer l'intégration
@@ -149,7 +167,10 @@ Pour supprimer totalement "l'integration", il faut :
 - Supprimer toutes les entités orphelines liées à "l'intégration".
 - Supprimer le dashboard.
 - Redémarrer Home Assistant.
+
+Nb: Si vous avez migré des automatisations ou script sous l'UI de Home Assistant il faudra alors les supprimer depuis celle-ci manuellement.
 <br><br>
+
 
 #### - Capteur de pluie ou d'humidité du sol
 
