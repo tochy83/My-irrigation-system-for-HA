@@ -54,7 +54,7 @@ Suite à ça vous n'avez plus qu'à ajouter une carte 'custom:streamline-card av
 
 #### - Supprimer une voie d'arrosage
 
-Pour supprimer une voie d'arrosage un bouton est présent dans la page paramètres de "l'intégration". Il permet de supprimer les fichiers d'entités, les automatisations et les scripts nécessaires au fonctionnement d'une voie d'arrosage.
+Pour supprimer une voie d'arrosage un outil est présent dans la page paramètres de "l'intégration". Il permet de supprimer les fichiers d'entités, les automatisations et les scripts nécessaires au fonctionnement d'une voie d'arrosage.
 
 Après suppression des fichiers, il faudra redémarrer Home Assistant. On supprime ensuite la carte de la voix sur le dashboard.
 <br><br>
@@ -119,6 +119,11 @@ C'est là qu'il est pratique d'avoir défini un libellé ou une catégorie pour 
 
 #### - Activer/Désactiver une zone
 
+Pour activer un zone d'arrosage, il faut modifier son nom, par le nom que vous voulez dans le fichier 'zones.yaml', présent dans le dossier packages/arrosage/ et avoir ajouter un libellé pour cette zone (Voir Les libellés de zone). L'activation sera effective après redémmarage de Home Assistant.
+
+Les zones inactives ont un nom de la forme 'Nom_de_la_zone_x' (x représentant le numéro de la zone).
+
+Pour désactiver une zone, il faudra faire l'opération inverse à savoir remettre le nom par defaut pour la zone et supprimer son libellé. La désactivation sera effective après redémmarage de Home Assistant.
 
 
 
