@@ -36,39 +36,42 @@ Je n'ai malheureusement pas trouvé comment les créer ou les supprimer automati
 
 #### - Inclure une voie à une zone d'arrosage
 
-Pour inclure une voie à une zone d'arrosage et ainsi permettre son déclenchement lors d'un cycle d'arrosage, automatique ou manuel, il faut ajouter un libellé de zone (voir Les libellés de zone) au script (script.arrosage_declenchement_auto_voie_X) X représentant le numéro de la voie à inclure dans la zone.
-
-Cette opération se fait par l'UI de Home Assistant.
+Pour inclure une voie à une zone d'arrosage et ainsi permettre son déclenchement lors d'un cycle d'arrosage, automatique ou manuel, il faut :
+- Ajouter un libellé de zone (voir Les libellés de zone) au script (script.arrosage_declenchement_auto_voie_X) X représentant le numéro de la voie à inclure dans la zone. Cette opération se fait par l'UI de Home Assistant.
 <br><br>
 
 
 #### - Ajouter une nouvelle voie d'arrosage
 
-Pour ajouter une voie d'arrosage un outil est présent dans la page paramètres de "l'intégration". Il permet de générer les fichiers d'entités, les automatisations et les scripts nécessaires au fonctionnement d'une voie d'arrosage. 
+Un outil est présent dans la page paramètres de "l'intégration". Il permet de générer les fichiers d'entités, les automatisations et les scripts nécessaires au fonctionnement d'une voie d'arrosage. 
 
-Une fois les fichiers générés, il faudra redémarrer Home Assistant pour que la nouvelle voie puisse être utilisée. Vous pouvez ajouter plusieurs voies avant le redémarrage de Home assistant.
-
-Suite à ça vous n'avez plus qu'à ajouter une carte 'custom:streamline-card avec le template arrosage_voie' pour cette nouvelle voie sur le dashboard.
+Pour ajouter une voie d'arrosage il faut :
+- Générer les fichiers.
+- Redémarrer Home Assistant. Vous pouvez ajouter plusieurs voies avant le redémarrage de Home assistant.
+- Ajouter une carte 'custom:streamline-card avec le template arrosage_voie' pour cette nouvelle voie sur le dashboard.
 <br><br>
 
 
 #### - Supprimer une voie d'arrosage
 
-Pour supprimer une voie d'arrosage un outil est présent dans la page paramètres de "l'intégration". Il permet de supprimer les fichiers d'entités, les automatisations et les scripts nécessaires au fonctionnement d'une voie d'arrosage.
+Un outil est présent dans la page paramètres de "l'intégration". Il permet de supprimer les fichiers d'entités, les automatisations et les scripts nécessaires au fonctionnement d'une voie d'arrosage.
 
-Après suppression des fichiers, il faudra redémarrer Home Assistant. On supprime ensuite la carte de la voix sur le dashboard.
+Pour supprimer une voie d'arrosage il faut :
+- Supprimer les fichiers.
+- Redémarrer Home Assistant.
+- Supprimer la carte de la voix sur le dashboard.
 <br><br>
 
 
 #### - Ajouter une zone d'arrosage
 
-Par défaut l'intégration vient 3 zones actives et 6 autres zones qui n'attendent que leurs entités.
+Par défaut l'intégration vient 3 zones actives et 6 autres zones qui n'attendent que leurs entités. Un outil est présent dans la page paramètres de "l'intégration". Il permet de générer les fichiers d'entités et les automatisations nécessaires au fonctionnement d'une zone d'arrosage.
 
-Pour ajouter une zone d'arrosage un outil est présent dans la page paramètres de "l'intégration". Il permet de générer les fichiers d'entités et les automatisations nécessaires au fonctionnement d'une zone d'arrosage.
-
-Une fois les fichiers générés, il faudra activer la ou les nouvelles zones (Voir Activer/Désactiver une zone d'arrosage) et comme vu précédemment ajouter un libellé pour les nouvelles zones (Voir Les libellés de zone) avant d'enfin redémarrer Home Assistant pour leur prise en compte.
-
-Suite à ça vous n'avez plus qu'à ajouter une carte 'custom:streamline-card avec le template arrosage_zone' pour cette nouvelle zone sur le dashboard.
+Pour ajouter une zone il faut :
+- Générer les fichiers
+- Activer la ou les nouvelles zones (Voir Activer/Désactiver une zone d'arrosage)
+- Redémarrer Home Assistant pour leur prise en compte.
+- Ajouter une carte 'custom:streamline-card avec le template arrosage_zone' pour cette nouvelle zone sur le dashboard.
 <br><br>
 
 
@@ -94,16 +97,14 @@ Il faudra également ajouter au dashboard les cartes notifications correspondant
 
 #### - Pour supprimer une zone 
 
- Pour supprimer une zone les étapes sont les mêmes que pour supprimer une voie.
- 
- Il faudra en plus supprimer le libellé de la zone (Voir Les libellés de zone) et désactiver cette zone.
+ Pour supprimer une zone les étapes sont les mêmes que pour supprimer une voie. Il faudra en plus désactiver cette zone (Voir Activer/Désactiver une zone d'arrosage).
  
  Vous pouvez également supprimer les cartes de notification pour la zone supprimée (mais ce n'est pas obligatoire).
 <br><br>
 
 #### - Note sur les outils de suppression de voie et de zone.
 
-L'outil de suppression de voie ou de zone, permet de supprimmer les fichiers d'entités, les automatisations et les scripts nécessaires au fonctionnement d'une voie ou d'une zone d'arrosage.
+L'outil de suppression de voie ou de zone, permet de supprimer les fichiers d'entités, les automatisations et les scripts nécessaires au fonctionnement d'une voie ou d'une zone d'arrosage.
 
 Il supprime les fichiers de la dernière voie ou zone existante. Ex. Si j'ai 9 voies d'arrosage il supprimera les fichiers de la voie 9.
 
@@ -119,12 +120,27 @@ C'est là qu'il est pratique d'avoir défini un libellé ou une catégorie pour 
 
 #### - Activer/Désactiver une zone
 
-Pour activer un zone d'arrosage, il faut modifier son nom, par le nom que vous voulez dans le fichier 'zones.yaml', présent dans le dossier packages/arrosage/ et avoir ajouter un libellé pour cette zone (Voir Les libellés de zone). L'activation sera effective après redémmarage de Home Assistant.
+Pour activer un zone d'arrosage, il faut :
+- Modifier son nom, par le nom que vous voulez dans le fichier 'zones.yaml', présent dans le dossier packages/arrosage/.
+- Avoir ajouter un libellé pour cette zone (Voir Les libellés de zone).
+- L'activation sera effective après redémmarage de Home Assistant.
 
 Les zones inactives ont un nom de la forme 'Nom_de_la_zone_x' (x représentant le numéro de la zone).
 
-Pour désactiver une zone, il faudra faire l'opération inverse à savoir remettre le nom par defaut pour la zone dans le fichier 'zones.yaml' et supprimer son libellé. La désactivation sera effective après redémmarage de Home Assistant.
+Pour désactiver une zone, il faudra faire l'opération inverse à savoir :
+- Remettre le nom par defaut pour la zone dans le fichier 'zones.yaml'.
+- Supprimer son libellé.
+- La désactivation sera effective après redémmarage de Home Assistant.
 <br><br>
+
+
+#### - Migrer
+
+
+#### - Passer en production
+
+
+#### - Supprimer l'intégration
 
 
 #### - Capteur de pluie ou d'humidité du sol
