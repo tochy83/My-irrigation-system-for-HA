@@ -1,7 +1,7 @@
 
 
 
-### Lexique
+#### - Lexique
 
 Parce que chaque culture/plantation a son propre besoin en eau, il faut bien comprendre le rôle du calendrier,  des voies d'arrosage, des zones d'arrosage et des cycles d'arrosage pour appéhender le fonctionnement de l'ensemble.
 - Calendrier : Le calendrier contient les jours et heures de départ d'arrosage ainsi que le nom de la zone concernée (les événements). C'est lui qui définit **la fréquence d'arrosage** d'une zone.
@@ -21,66 +21,103 @@ Pour résumé :
 - L'ouverture de chaque éléctrovanne se fait en cascade, d'abord la première pour la durée que l'on aura choisi avant de passer à la seconde et ce jusqu'à la dernière incluse dans la zone.
 
 On garde bien sûr la possibilité de déclencher un cycle ou une voie de façon manuelle.
+<br><br>
 
 
-### Les libellés de zone
+#### - Les libellés de zone
 
 C'est grâce au libellés (labels) que les cycles d'arrosage qu'ils soient programmés ou manuels fonctionnent. Pour cela il est important que chaque zone ait son libellé et que ce libellé soit supprimer si on supprime une zone.
 
 Le nom des libellés a également son importance. Ils doivent être de la forme Zone 1, Zone 2 et ainsi de suite. 
 
 Je n'ai malheureusement pas trouvé comment les créer ou les supprimer automatiquement. 
+<br><br>
 
-### Inclure une voie à une zone 
+
+#### - Inclure une voie à une zone d'arrosage
 
 Pour inclure une voie à une zone d'arrosage et ainsi permettre son déclenchement lors d'un cycle d'arrosage, automatique ou manuel, il faut ajouter un libellé de zone (voir Les libellés de zone) au script (script.arrosage_declenchement_auto_voie_X) X représentant le numéro de la voie à inclure dans la zone.
 
 Cette opération se fait par l'UI de Home Assistant.
+<br><br>
 
-ajouter ou supprimer une voie
 
-vous pouvez vous servir des outils présents en bas de la page paramètres documentation de l'intégration 
-les outils permettent de générer les fichiers d'entités les scripts et les automatisations nécessaires au fonctionnement des voies et des zones. 
+#### - Ajouter une nouvelle voie d'arrosage
 
- pour ajouter une voix
+Pour ajouter une voie d'arrosage un outil est présent dans la page paramètres de "l'intégration". Il permet de générer les fichiers d'entités, les automatisations et les scripts nécessaires au fonctionnement d'une voie d'arrosage. 
+
+Une fois les fichiers générés, il faudra redémarrer Home Assistant pour que la nouvelle voie puisse être utilisée. Vous pouvez ajouter plusieurs voies avant le redémarrage de Home assistant.
+
+Suite à ça vous n'avez plus qu'à ajouter une carte 'custom:streamline-card avec le template arrosage_voie' pour cette nouvelle voie sur le dashboard.
+<br><br>
+
+
+#### - Supprimer une voie d'arrosage
+
+Pour supprimer une voie d'arrosage un bouton est présent dans la page paramètres de "l'intégration". Il permet de supprimer les fichiers d'entités, les automatisations et les scripts nécessaires au fonctionnement d'une voie d'arrosage.
+
+Après suppression des fichiers, il faudra redémarrer Home Assistant. On supprime ensuite la carte de la voix sur le dashboard.
+<br><br>
+
+
+#### - Ajouter une zone d'arrosage
+
+Par défaut l'intégration vient 3 zones actives et 6 autres zones qui n'attendent que leurs entités.
+
+Pour ajouter une zone d'arrosage un outil est présent dans la page paramètres de "l'intégration". Il permet de générer les fichiers d'entités et les automatisations nécessaires au fonctionnement d'une zone d'arrosage.
+
+Une fois les fichiers générés, il faudra activer la ou les nouvelles zones (Voir Activer/Désactiver une zone d'arrosage) et comme vu précédemment ajouter un libellé pour les nouvelles zones (Voir Les libellés de zone) avant d'enfin redémarrer Home Assistant pour leur prise en compte.
+
+Suite à ça vous n'avez plus qu'à ajouter une carte 'custom:streamline-card avec le template arrosage_zone' pour cette nouvelle zone sur le dashboard.
+<br><br>
+
+
+#### - Si vous avez besoin de plus de 9 zones.
+
+Il faudra en plus des étapes précédentes modifier certains scripts et automatisations pour en tenir compte.
+
+Le script à modifier est :
+- script.arrosage_arret
+
+Les automatisations à modifier sont :
+- automation.arrosage_zone_x (x représentant le numéro de la nouvelle zone)
+- automation.arrosage_calendrier
+- automation.arrosage_nombre_electrovannes_incluses_par_zone
+- automation.arrosage_affichage_notifications_temporaires
+- automation.arrosage_alerte
+
+Les modifications à effectuées sont dans le descriptif du script et des automatisations.
+
+Il faudra également ajouter au dashboard les cartes notifications correspondantes à ces nouvelles zones en dupliquant celles existantes et en modifiant le numéro de zone à l'intérieure de celles-ci.
+<br><br>
+
+
+#### - Pour supprimer une zone 
+
+ Pour supprimer une zone les étapes sont les mêmes que pour supprimer une voie.
  
-en se servant des outils générer les fichiers nécessaires et faites un redémarrage de votre assistant pour que les entités créaient soit pris en compte 
-suite à ça vous n'avez plus qu'à ajouter une carte streamline card arrosage voie sur le dashboard 
+ Il faudra en plus supprimer le libellé de la zone (Voir Les libellés de zone) et désactiver cette zone.
+ 
+ Vous pouvez également supprimer les cartes de notification pour la zone supprimée (mais ce n'est pas obligatoire).
+<br><br>
 
-pour supprimer une voix
+#### - Note sur les outils de suppression de voie et de zone.
 
-on supprime la carte de la voix sur le dashboard
-en se servant des outils vous pouvez supprimer les fichiers d'entités pour une voix.
-l'outil supprimera automatiquement la dernière fois connue
-par exemple l'intégration par défaut à 9 voies si je décide d'en supprimer une l'outil supprimera la voie numéro 9.
-suite à la suppression des entités orphelines seront générés. une carte du dasboard
-dans la partie outil vous indiquera lesquels. vous pouvez alors passer par paramètres appareil service entité pour les supprimer complètement de la base de données 
-c'est là qu'il est pratique d'avoir défini un libellé ou une catégorie pour les entités de l'intégration à l'installation de celle-ci 
+L'outil de suppression de voie ou de zone, permet de supprimmer les fichiers d'entités, les automatisations et les scripts nécessaires au fonctionnement d'une voie ou d'une zone d'arrosage.
 
-ajouter ou supprimer une zone 
+Il supprime les fichiers de la dernière voie ou zone existante. Ex. Si j'ai 9 voies d'arrosage il supprimera les fichiers de la voie 9.
 
-par défaut l'intégration vient avec 9 zones pré configuré dont 3 sont activés 
+L'outil de suppression ne sera en mesure d'effacer les automatisations et scripts, que si ceci n'ont pas été migrés dans l'UI de Home Assistant. Dans ce cas, il faudra les supprimer manuellement par l'interface utilisateur de Home Assistant.
 
-pour ajouter une zone 
-
-servez-vous des outils présents sur la page paramètres documentation du dashboard pour générer les fichiers nécessaires à la création des entités pour une zone. 
-modifier dans le fichier zones.yaml
-ajouter un libellé pour cette nouvelle zone 
-faites un redémarrage de home assistant
-
-si vous désirez avoir plus de 9 zones.
-
-il faudra en plus des étapes précédentes modifier certaines scripts et automatisation pour les prendre en compte 
-faire la liste des automatisations et script ainsi que décrire les manipulations à faire
-
-pour supprimer une zone 
-
- pour supprimer une zone les étapes sont les mêmes que pour supprimer une voix. 
- il faudra en plus supprimer le libellé de la zone et modifier le fichier zones.yaml pour modifier son nom.
- vous pouvez également supprimer les cartes de notification pour la zone supprimée mais ce n'est pas obligatoire.
+Suite à la suppression des fichiers par l'outil, des entités orphelines peuvent apparaitre. Une carte du dasboard, sur la page paramètres donne une liste de celles-ci le cas échéant. Vous pouvez alors passer par Paramètres/Appareils et services/Entités pour les supprimer complètement de Home Assistant. C'est là qu'il est pratique d'avoir défini un libellé ou une catégorie pour toutes les entités de l'intégration à l'installation de celle-ci, pour les retrouver plus rapidement.
+<br><br>
 
 
-note sur l'outil de suppression 
+#### - Activer/Désactiver une zone
 
-l'outil de suppression ne sera en mesure d'effacer les automatisations et scripts que si ceci n'ont pas été migrés dans l'interface de mon assistant. 
-dans ce cas il faudra les supprimer manuellement par l'interface utilisateur de homme assistant
+
+
+
+
+
+
