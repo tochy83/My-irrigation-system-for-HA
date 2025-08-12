@@ -1,13 +1,41 @@
-les libellés de zone
 
-c'est grâce au libellé que les cycles d'arrosage qu'il soit programmé ou manuel fonctionne. 
-c'est pour ça qu'il est important que chaque zone ai son libellé et que se libellé se supprimer si on supprime une zone 
-le nom des libellé a également son importance ils doivent être de la forme Zone 1, Zone 2 et ainsi de suite. 
-je n'ai malheureusement pas trouvé comment les créer ou les supprimer automatiquement. 
 
-inclure une voix à une zone 
 
-pour inclure une fois à une zone d'envers il faut ajouter un libellé de zone (voir libellé de zone) au script déclenchement auto voie x x représentant le numéro de la voie
+### Lexique
+
+Parce que chaque culture/plantation a son propre besoin en eau, il faut bien comprendre le rôle du calendrier,  des voies d'arrosage, des zones d'arrosage et des cycles d'arrosage pour appéhender le fonctionnement de l'ensemble.
+- Calendrier : Le calendrier contient les jours et heures de départ d'arrosage ainsi que le nom de la zone concernée (les événements). C'est lui qui définit **la fréquence d'arrosage** d'une zone.
+
+- Voie d'arrosage : Une voie d'arrosage correspond à un ensemble électrovanne (ou autre système de commande) + tuyau + goutteurs (asperseurs, buses...) permettant l'arrosage d'une culture/plantation.
+C'est sur la voie d'arrosage qu'on définit **la durée** d'ouverture de l'électrovanne et par conséquence **la quantité d'eau délivrée à chaque culture/plantation** présente sur cette voie.
+
+- Zone d'arrosage : Une zone d'arrosage correspond à un groupe d'une ou plusieurs voies d'arrosage. Chaque voie d'arrosage incluse dans une même zone aura donc la même fréquence d'arrosage.
+
+- Cycle d'arrosage de zone : Un cycle d'arrosage de zone pilote le déclenchement successif de chaque voie comprise dans la zone.
+
+Pour résumé :
+- On définit dans le calendrier les jours et heures de départ d'arrosage ainsi que le nom de la zone concernée (les événements).
+- Lorsque la date présente correspond à un événement du calendrier, un ordre est envoyé pour declencher un arrosage de la zone renseignée dans l'événement du calendrier.
+- Cet ordre déclenchera un cycle d'arrosage de la zone concernée.
+- Le déclenchement du cycle ouvrira chaque éléctrovanne correspondante aux voies incluses dans la zone concernée, pour la durée définie pour chaque voie.
+- L'ouverture de chaque éléctrovanne se fait en cascade, d'abord la première pour la durée que l'on aura choisi avant de passer à la seconde et ce jusqu'à la dernière incluse dans la zone.
+
+On garde bien sûr la possibilité de déclencher un cycle ou une voie de façon manuelle.
+
+
+### Les libellés de zone
+
+C'est grâce au libellés (labels) que les cycles d'arrosage qu'ils soient programmés ou manuels fonctionnent. Pour cela il est important que chaque zone ait son libellé et que ce libellé soit supprimer si on supprime une zone.
+
+Le nom des libellés a également son importance. Ils doivent être de la forme Zone 1, Zone 2 et ainsi de suite. 
+
+Je n'ai malheureusement pas trouvé comment les créer ou les supprimer automatiquement. 
+
+### Inclure une voie à une zone 
+
+Pour inclure une voie à une zone d'arrosage et ainsi permettre son déclenchement lors d'un cycle d'arrosage, automatique ou manuel, il faut ajouter un libellé de zone (voir Les libellés de zone) au script (script.arrosage_declenchement_auto_voie_X) X représentant le numéro de la voie à inclure dans la zone.
+
+Cette opération se fait par l'UI de Home Assistant.
 
 ajouter ou supprimer une voie
 
