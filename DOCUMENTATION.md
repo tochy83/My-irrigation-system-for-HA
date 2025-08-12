@@ -124,6 +124,12 @@ Pour activer un zone d'arrosage, il faut modifier son nom, par le nom que vous v
 Les zones inactives ont un nom de la forme 'Nom_de_la_zone_x' (x représentant le numéro de la zone).
 
 Pour désactiver une zone, il faudra faire l'opération inverse à savoir remettre le nom par defaut pour la zone et supprimer son libellé. La désactivation sera effective après redémmarage de Home Assistant.
+<br><br>
+
+
+#### - Capteur de pluie ou d'humidité du sol
+
+Je n'ai pas ajouté de prise en compte de ce type de capteurs dans "l'intégration" car je n'en dispose pas. Cependant si l'on souhaite en tenir compte il suffit simplement de les rajouter en conditions de l'automatisation 'automation.arrosage_calendrier'.
 
 
 
