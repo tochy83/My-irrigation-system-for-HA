@@ -30,7 +30,7 @@ Pour résumé, les fonctions de base de tout programmateur d'arrosage, auquel j'
 - Laisser la possibilité à tout le monde de tester le dashboard avec un mode simulation.
 - Avoir la possibilité d'interagir avec tout matériel susceptible de piloter un arrosage depuis home assistant.
 - Avoir une façon relativement simple de passer du mode simulation au mode production.
-- Essayer de nouvelles choses que je ne connaissais pas ou maitrisais pas sur Home Assistant.
+- Essayer de nouvelles choses que je ne connaissais pas ou maîtrisais pas sur Home Assistant.
 
 <br><br>
 **Installation :**
