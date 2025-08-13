@@ -165,6 +165,26 @@ A partir de ce moment "l'intégration" ne sera plus en mode simulation mais pilo
 <br><br>
 
 
+#### - Ajouter son compteur d'eau
+
+Pour prendre en compte son propre compteur d'eau il faut :
+- Modifier le template sensor 'sensor.arrosage_compteur_eau' dans les fichiers 'config_autres_sensors.yaml' situé dans le dossier 'packages/arrosage/' comme indiqué dans les commentaires de ce fichier.
+- Redémarrer Home Assistant pour la prise en compte des changements.
+
+Si vous n'en avez pas vous pouvez laisser tel quel et simplement supprimer sa carte du dashboard. Ne supprimer pas le sensor, il est utilisé dans certaines carte du dashboard pour des calculs.
+<br><br>
+
+
+#### - Modifier le binary_sensor de connectivité des electrovannes
+
+Pour prendre en compte son propre sensor de connectivité des électrovannes il faut :
+- Modifier le template_binary sensor 'binary_sensor.arrosage_electrovannes_connected' dans les fichiers 'config_autres_sensors.yaml' situé dans le dossier 'packages/arrosage/' comme indiqué dans les commentaires de ce fichier.
+- Redémarrer Home Assistant pour la prise en compte des changements.
+
+Si vous n'en avez pas vous pouvez laisser tel quel et simplement supprimer sa carte du dashboard. Ne supprimer pas le binary_sensor, il est utilisé dans certaines automatisations.
+<br><br>
+
+
 #### - Supprimer l'intégration
 
 Pour supprimer totalement "l'integration", il faut :
