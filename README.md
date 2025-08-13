@@ -39,7 +39,7 @@ J'ai du reprendre pas mal de choses que j'avais faites sur mon installation pour
 <br><br>
 **Installation :**
 
-C'est par là que ça se passe avec les explications détaillées, étape par étape. *[Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/INSTALLATION.md)*
+C'est par là que ça se passe avec les explications détaillées, étape par étape. *[Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/INSTALLATION.md#installation)*
 
 <br>
 
