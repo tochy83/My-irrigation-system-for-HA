@@ -69,6 +69,7 @@ Entrées : {{ helpers }}
 Automatisations : {{ automation | count }}
 Scripts : {{ script | count }}
 Script de notification app_mobile: {{ script_notification | count }}
+Total : {{helpers + automation|count + script|count + script_notification|count}}
 {% if (helpers + automation|count + script|count + script_notification|count) == 0 %}
 Pas de soucis pour procéder à l'installation
 {% else %}
