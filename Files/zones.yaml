@@ -20,7 +20,7 @@ template:
           zone_9: "Nom_de_la_zone_9"
 
 # Les zones dont le nom n'est pas 'Nom_de_la_zone_x' (x étant le numéro de la zone) sont "semi-actives".
-# Pour les activer complétement, il faut ajouter un nouveau libellé correspondant à la zone désirée et ajouter ce libellé aux scripts d'activation des électrovannes.
+# Pour les activer complétement, il faut ajouter un nouveau libellé correspondant à la zone désirée et ajouter ce libellé aux scripts d'activation des électrovannes ('script_arrosage_declenchement_auto_voie_x').
 # Celà se fait dans l'interface de home assistant. Voir la documentation.
 
 # Une zone d'arrosage correspond à un lieu géographique de votre jardin et comprend une ou plusieurs électrovannes.
@@ -42,7 +42,7 @@ template:
 #        zone_9: "Nom_de_la_zone_9"
 
 # Si vous avez 4 zones il faudra à la ligne zone_4, remplacer le nom de zone (Nom_de_la_zone_4) par le nom que vous voulez (ex: Haie).
-# Et ainsi de suite si vous avez plus de 4 zones. Si vous avez plus de 9 zones, reporter vous à la documentation de "l'intégration".
+# Et ainsi de suite si vous avez plus de 4 zones.
 #       attributes:
 #        zone_1: "Potager"
 #        zone_2: "Fruitiers"
@@ -53,6 +53,15 @@ template:
 #        zone_7: "Nom_de_la_zone_7"
 #        zone_8: "Nom_de_la_zone_8"
 #        zone_9: "Nom_de_la_zone_9"
+
+# Si vous avez plus de 9 zones, il faudra ajouter autant de nouvels attributs que de nouvelles zones.
+#       attributes:
+#        zone_1: "Potager"
+#        ...
+#        zone_10: "Nom_de_la_zone_10"
+#        zone_11: "Nom_de_la_zone_11"
+#        zone_12: "Nom_de_la_zone_12"
+#        etc...
 
 # En cas d'ajout ou de suppression de zone, n'oubliez pas d'ajouter ou de supprimer un label (libellé) correspondant à la zone désirée
 # Celà se fait dans l'interface de home assistant. Voir la documentation.

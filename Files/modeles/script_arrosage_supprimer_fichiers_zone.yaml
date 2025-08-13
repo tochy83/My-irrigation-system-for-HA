@@ -1,0 +1,39 @@
+
+script:
+  arrosage_supprimer_fichiers_zone:
+    alias: Arrosage - Supprimer les fichiers pour la dernière zone existante
+    description: >-
+      Script qui permet de supprimer les fichiers (entrées, automatisations et scripts) pour la dernière zone existante.
+
+
+      Stocke également le nombre de zone.
+    sequence:
+      - action: shell_command.arrosage_supprimer_fichiers_zone
+        response_variable: result
+      - variables:
+          nouveau_nombre: "{{ result.stdout | int }}"
+      - action: input_number.set_value
+        data:
+          entity_id: input_number.nb_file_zones
+          value: "{{ nouveau_nombre }}"
+      - action: logbook.log
+        data:
+          name: "Suppression des entités pour la dernière zone existante"
+          message: "Fichier zone_{{ nouveau_nombre }}.yaml supprimé"
+          entity_id: input_number.arrosage_nb_file_zones
+      - action: logbook.log
+        data:
+          name: "Suppression de l'automatisation pour la dernière zone existante"
+          message: "Fichier automatisation_arrosage_zone_{{ nouveau_nombre }}.yaml supprimé"
+          entity_id: input_number.arrosage_nb_file_zones 
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 1
+          milliseconds: 0
+      - action: input_number.decrement
+        metadata: {}
+        data: {}
+        target:
+          entity_id: input_number.arrosage_nb_file_zones  
+    mode: single

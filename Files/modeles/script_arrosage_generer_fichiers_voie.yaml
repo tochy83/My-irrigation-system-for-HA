@@ -1,0 +1,44 @@
+
+script:
+  arrosage_generer_fichiers_voie:
+    alias: Arrosage - Générer les fichiers pour une voie
+    description: >-
+      Script qui permet de générér les fichiers (entrées, automatisations et scripts) pour l'ajout d'une nouvelle voie, en plus de celles existantes.
+
+
+      Stocke également le nombre de voie.
+    sequence:
+      - action: shell_command.arrosage_generer_fichiers_voie
+        response_variable: result
+      - variables:
+          nouveau_nombre: "{{ result.stdout | int }}"
+      - action: input_number.set_value
+        data:
+          entity_id: input_number.nb_file_voies
+          value: "{{ nouveau_nombre }}"
+      - action: logbook.log
+        data:
+          name: "Génération des entités pour une nouvelle voie"
+          message: "Fichier voie_{{ nouveau_nombre }}.yaml créé"
+          entity_id: input_number.arrosage_nb_file_voies
+      - action: logbook.log
+        data:
+          name: "Génération du script pour une nouvelle voie"
+          message: "Fichier script_arrosage_declenchement_auto_voie_{{ nouveau_nombre }}.yaml créé"
+          entity_id: input_number.arrosage_nb_file_voies
+      - action: logbook.log
+        data:
+          name: "Génération de l'automatisation pour une nouvelle voie"
+          message: "Fichier automatisation_arrosage_voie_{{ nouveau_nombre }}.yaml créé"
+          entity_id: input_number.arrosage_nb_file_voies 
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 1
+          milliseconds: 0
+      - action: input_number.increment
+        metadata: {}
+        data: {}
+        target:
+          entity_id: input_number.arrosage_nb_file_voies  
+    mode: single

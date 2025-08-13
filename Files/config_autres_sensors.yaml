@@ -37,7 +37,7 @@ template:
         variables:
           my_entity: sensor.d1mini_verger_compteur_eau_jour
 
-# Si vous n'avez pas de moyen de comptabliser votre consommation d'eau, laissez le sensor ci-dessus tel quel.
+# Si vous n'avez pas de moyen de comptabliser votre consommation d'eau, laissez le sensor ci-dessus tel quel il affichera juste 0.
 # Si vous en avez un, remplacer 'sensor.d1mini_verger_compteur_eau_jour' dans la ligne 'my_entity:'
 # par votre entité qui comptabilise votre consommation d'eau.
 
@@ -61,3 +61,46 @@ input_boolean:
 
   arrosage_enable_telegram_notifications:  # Définit si les notifications doivent être envoyées vers Télégram
     name: Arrosage - Enable telegram notifications
+
+input_number:
+  arrosage_nb_file_voies: # Stocke le numéro de la dernière voie (dont les entités existent) pour la génération automatique des fichiers
+    name: Arrosage - Nombre de voies avec entités
+    min: 0
+    max: 50
+    step: 1
+
+  arrosage_nb_file_zones: # Stocke le numéro de la dernière zone (dont les entités existent) pour la génération automatique des fichiers
+    name: Arrosage - Nombre de zones avec entités
+    min: 0
+    max: 50
+    step: 1
+
+  arrosage_nb_entites_orphelines: # Stocke le nombre d'entités orphelines suite à la suppression de fichiers du package arrosage
+    name: Arrosage - Nombre d'entités orphelines
+    min: 0
+    max: 500
+    step: 1    
+
+command_line:
+  - sensor:
+      name: Arrosage - Correspondance matériel # Stocke une liste d'entity_id du materiel controlant les voies en mode production
+      unique_id: arrosage_correspondance_materiel
+      command: "cat /config/packages/arrosage/Modeles/arrosage_correspondance_materiel.json"
+      value_template: >
+        {% set data = value_json.json_data %}
+        {% if data | length == 0 %}
+          0
+        {% else %}
+          Liste générée au démarrage
+        {% endif %}
+      json_attributes:
+        - json_data
+
+# La liste est stockée dans un attribut (json_data) du sensor pour accepter plus de 255 caractères (Limite max pour le state des sensors dans HA).
+
+shell_command:
+  arrosage_generer_fichiers_voie: "python3 /config/packages/arrosage/Modeles/arrosage_generer_fichiers_voie.py" # Génération automatique des fichiers pour les voies d'arrosage
+  arrosage_generer_fichiers_zone: "python3 /config/packages/arrosage/Modeles/arrosage_generer_fichiers_zone.py" # Génération automatique des fichiers pour les zones d'arrosage
+  arrosage_supprimer_fichiers_voie: "python3 /config/packages/arrosage/Modeles/arrosage_supprimer_fichiers_voie.py" # Supression des fichiers pour la dernière voie d'arrosage existante
+  arrosage_supprimer_fichiers_zone: "python3 /config/packages/arrosage/Modeles/arrosage_supprimer_fichiers_zone.py" # Supression des fichiers pour la dernière zone d'arrosage existante
+  arrosage_correspondance_materiel: "python3 /config/packages/arrosage/Modeles/arrosage_correspondance_materiel.py" # Génère une liste d'entity_id du materiel controlant les voies
