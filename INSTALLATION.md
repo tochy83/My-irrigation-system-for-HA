@@ -1,4 +1,4 @@
-# Installation du dashboard
+# Installation
 
 Vous trouverez sur cette page toutes les explications nécessaires à la mise en place du Dashboard arrosage ainsi que de toutes les automatisations, scripts, entrées utiles à son bon fonctionnement.
 <br><br>
