@@ -130,7 +130,7 @@ Pour en savoir plus sur les packages et découvrir leur intérêt, vous pouvez l
 <br>
 
 #### - ***Etape 3*** :
-Depuis [la page d'accueil de ce 'repository'](https://github.com/tochy83/My-irrigation-system-for-HA) télécharger le fichier zip contenant toutes les fichiers de "l'intégration".
+Depuis [la page d'accueil](https://github.com/tochy83/My-irrigation-system-for-HA) de ce 'repository' télécharger le fichier zip contenant tous les fichiers de "l'intégration".
 <p align="center"><img src="Medias/Install/download_from_github.gif"></p>
 
 Une fois téléchargé, on les extrait dans le dossier de son choix.
