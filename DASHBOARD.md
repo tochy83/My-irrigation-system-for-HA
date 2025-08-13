@@ -163,7 +163,7 @@ Il n'y a pas grand chose à ajouter sur cette page, elle se contente d'afficher 
 
 
 
-### La page paramètres/documentation<br><br>
+### La page paramètres<br><br>
 <p align="center"><img src="Medias/parameters_page.jpg" width=75%></p>
 <p align="center">Une vue d'ensemble de la page arrosage.</p>
 <br>
