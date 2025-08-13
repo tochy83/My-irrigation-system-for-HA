@@ -24,12 +24,6 @@ On garde bien sûr la possibilité de déclencher un cycle ou une voie de façon
 <br><br>
 
 
-#### - Stucture des fichiers de "l'intégration"
-
-
-<br><br>
-
-
 #### - Les libellés de zone
 
 C'est grâce au libellés (labels) que les cycles d'arrosage qu'ils soient programmés ou manuels fonctionnent. Pour cela il est important que chaque zone ait son libellé et que ce libellé soit supprimer si on supprime une zone.
@@ -188,6 +182,12 @@ Pour prendre en compte son propre sensor de connectivité des électrovannes il 
 - Redémarrer Home Assistant pour la prise en compte des changements.
 
 Si vous n'en avez pas vous pouvez laisser tel quel et simplement supprimer sa carte du dashboard. Ne supprimer pas le binary_sensor, il est utilisé dans certaines automatisations.
+<br><br>
+
+
+#### - Stucture des fichiers de "l'intégration"
+
+voici
 <br><br>
 
 
