@@ -5,7 +5,7 @@ Vous trouverez sur cette page toutes les explications nécessaires à la mise en
 
 #### Les modules complémentaires nécessaires pour installer le dashboard :
 * 'File Editor' ou 'Studio Code Server'
-* Si vous avez en plus 'Samba share' c'est un plus pour la copie des fichiers (C'est bien plus rapide qu'avec File Editor)
+* Je vous conseille fortement d'installer aussi 'Samba share' pour la copie des fichiers. Cela sera bien plus rapide qu'avec File Editor, quand il y'a une bonne quarantaine de fichiers à copier. De plus ce module complémentaire permettra d'accéder au fichier 'configuration.yaml' si jamais un jour vous faites une erreur dedans qui bloque votre Home Assistant.
 <br><br>
 
 #### Integrations nécessaires au fonctionnment du dashboard arrosage :
@@ -142,15 +142,16 @@ A l'aide de File Editor, créer dans le dossier 'config' de Home Assistant, un d
 <br>
 
 Dans ce dossier 'packages' créer un dossier 'arrosage'.
+Dans ce dossier 'arrosage' créer un dossier 'modeles'.
 <p align="center"><img src="Medias/Install/add_folder.gif"></p>
 <br>
 
 
 #### - ***Etape 5*** :
-A l'aide de File Editor, copier tous les fichier '.yaml' qui se trouvent dans le dossier 'Files' du zip décompressé précedemment (ainsi que les fichiers zone_4.txt à zone_9.txt), dans le dossier 'arrosage' que l'on vient de créer.
+A l'aide de File Editor, copier tous les fichiers se trouvent dans le dossier 'Files' et dans le dossier 'Files/modeles' du zip décompressé précedemment, dans les dossiers 'arrosage' et 'modeles' que l'on vient de créer. Les fichiers présents dans le dossier 'Files' allant dans le dossier 'arrosage' et ceux présents dans le dossier 'Files/modeles' allant dans le dossier 'modeles'.
 <p align="center"><img src="Medias/Install/add_files.gif"></p>
 
-Sur l'animation je montre comment faire pour 2 fichiers, mais il faut bien répéter la manipulation pour tous '.yaml' présent dans le dossier. C'est à cette étape qu'avoir le module complémentaire Samba share rend bien service.
+Sur l'animation je montre comment faire pour 2 fichiers, mais il faut bien répéter la manipulation pour tous les fichiers présent dans les dossiers 'arrosage' et 'modeles'. C'est à cette étape qu'avoir le module complémentaire Samba share rend bien service.
 <br>
 
 Une fois ceci fait on va dans Outils de développement, on vérifie la configuration pour être sur qu'il n'ya pas d'erreurs et on redémarre Home Assistant.
