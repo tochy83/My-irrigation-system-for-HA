@@ -24,6 +24,12 @@ On garde bien sûr la possibilité de déclencher un cycle ou une voie de façon
 <br><br>
 
 
+#### - Stucture des fichiers de "l'intégration"
+
+
+<br><br>
+
+
 #### - Les libellés de zone
 
 C'est grâce au libellés (labels) que les cycles d'arrosage qu'ils soient programmés ou manuels fonctionnent. Pour cela il est important que chaque zone ait son libellé et que ce libellé soit supprimer si on supprime une zone.
