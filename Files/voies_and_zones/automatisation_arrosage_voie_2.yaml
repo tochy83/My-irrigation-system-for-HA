@@ -1,0 +1,89 @@
+automation:
+  - id: 'arrosage_voie_2'
+    alias: Arrosage - Voie 2
+    description: >-
+      Permet de démarrer/arrêter le minuteur de la voie 2 et le stockage des données
+      propre à cette voie.
+
+
+      Si vous avez moins de 2 voies d'arrosage vous pouvez supprimer cette
+      automatisation.
+    triggers:
+      - entity_id:
+          - switch.arrosage_electrovanne_2
+        from: "off"
+        to: "on"
+        id: marche
+        trigger: state
+      - entity_id:
+          - switch.arrosage_electrovanne_2
+        from: "on"
+        to: "off"
+        id: arret
+        trigger: state
+      - event_type: timer.finished
+        event_data:
+          entity_id: timer.arrosage_voie_2
+        id: arret timer
+        trigger: event
+    conditions:
+      - condition: state
+        entity_id: binary_sensor.arrosage_electrovannes_connected
+        state: "on"
+        alias: >-
+          Vérifier si les électrovannes sont connectées avant de lancer les actions.
+          Si vous ne voulez pas faire cette vérification (qui n'est pas obligatoire)
+          vous pouvez désactiver cette condition.
+    actions:
+      - choose:
+          - conditions:
+              - condition: trigger
+                id:
+                  - marche
+            sequence:
+              - data:
+                  value: "{{ states('sensor.arrosage_compteur_eau') }}"
+                action: input_text.set_value
+                target:
+                  entity_id:
+                    - input_text.arrosage_volume_depart
+              - target:
+                  entity_id: timer.arrosage_voie_2
+                data:
+                  duration: "{{ states('input_number.arrosage_duree_voie_2') }}"
+                action: timer.start
+          - conditions:
+              - condition: trigger
+                id:
+                  - arret
+            sequence:
+              - metadata: {}
+                data: {}
+                target:
+                  entity_id:
+                    - timer.arrosage_voie_2
+                action: timer.finish
+          - conditions:
+              - condition: trigger
+                id:
+                  - arret timer
+            sequence:
+              - metadata: {}
+                data: {}
+                target:
+                  entity_id:
+                    - switch.arrosage_electrovanne_2
+                action: switch.turn_off
+              - data:
+                  value: "{{ as_local(now()) }}"
+                target:
+                  entity_id: input_text.arrosage_dernier_declenchement_voie_2
+                action: input_text.set_value
+              - data:
+                  value: >-
+                    {{ states('sensor.arrosage_compteur_eau')|int -
+                    states('input_text.arrosage_volume_depart')|int }}
+                action: input_text.set_value
+                target:
+                  entity_id: input_text.arrosage_volume_voie_2
+    mode: single

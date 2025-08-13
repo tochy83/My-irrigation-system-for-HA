@@ -1,0 +1,24 @@
+# Name : zone_2.yaml
+# Dans ce fichier, se trouve les entités utiles pour une zone d'arrosage.
+
+
+input_boolean:
+  arrosage_auto_zone_2: # Déclenche la séquence d'arrosage de la zone 2
+    name: Arrosage - Auto zone 2
+    icon: mdi:sprinkler-variant
+
+  arrosage_programmation_zone_2: # Définit si la zone 2 doit être déclenchée par le calendrier d'arrosage
+    name: Arrosage - Programmation zone 2
+    icon: mdi:calendar-clock-outline
+
+input_datetime:
+  arrosage_duree_cycle_zone_2: # Stocke la durée du dernier du cycle de la zone 2
+    name: Arrosage - Durée cycle zone 2
+    has_date: true
+    has_time: true
+
+input_number:
+  arrosage_electrovannes_incluses_zone_2:  # Stocke le nombre d'éléctrovannes incluse dans le cycle d'arrosage de la zone 2
+    name: Arrosage - Electrovannes incluses zone 2
+    min: 0
+    max: 100

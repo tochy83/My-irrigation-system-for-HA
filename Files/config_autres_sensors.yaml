@@ -85,7 +85,7 @@ command_line:
   - sensor:
       name: Arrosage - Correspondance matériel # Stocke une liste d'entity_id du materiel controlant les voies en mode production
       unique_id: arrosage_correspondance_materiel
-      command: "cat /config/packages/arrosage/Modeles/arrosage_correspondance_materiel.json"
+      command: "cat /config/packages/arrosage/generate_voies_and_zones/arrosage_correspondance_materiel.json"
       value_template: >
         {% set data = value_json.json_data %}
         {% if data | length == 0 %}
@@ -99,8 +99,8 @@ command_line:
 # La liste est stockée dans un attribut (json_data) du sensor pour accepter plus de 255 caractères (Limite max pour le state des sensors dans HA).
 
 shell_command:
-  arrosage_generer_fichiers_voie: "python3 /config/packages/arrosage/Modeles/arrosage_generer_fichiers_voie.py" # Génération automatique des fichiers pour les voies d'arrosage
-  arrosage_generer_fichiers_zone: "python3 /config/packages/arrosage/Modeles/arrosage_generer_fichiers_zone.py" # Génération automatique des fichiers pour les zones d'arrosage
-  arrosage_supprimer_fichiers_voie: "python3 /config/packages/arrosage/Modeles/arrosage_supprimer_fichiers_voie.py" # Supression des fichiers pour la dernière voie d'arrosage existante
-  arrosage_supprimer_fichiers_zone: "python3 /config/packages/arrosage/Modeles/arrosage_supprimer_fichiers_zone.py" # Supression des fichiers pour la dernière zone d'arrosage existante
-  arrosage_correspondance_materiel: "python3 /config/packages/arrosage/Modeles/arrosage_correspondance_materiel.py" # Génère une liste d'entity_id du materiel controlant les voies
+  arrosage_generer_fichiers_voie: "python3 /config/packages/arrosage/generate_voies_and_zones/arrosage_generer_fichiers_voie.py" # Génération automatique des fichiers pour les voies d'arrosage
+  arrosage_generer_fichiers_zone: "python3 /config/packages/arrosage/generate_voies_and_zones/arrosage_generer_fichiers_zone.py" # Génération automatique des fichiers pour les zones d'arrosage
+  arrosage_supprimer_fichiers_voie: "python3 /config/packages/arrosage/generate_voies_and_zones/arrosage_supprimer_fichiers_voie.py" # Supression des fichiers pour la dernière voie d'arrosage existante
+  arrosage_supprimer_fichiers_zone: "python3 /config/packages/arrosage/generate_voies_and_zones/arrosage_supprimer_fichiers_zone.py" # Supression des fichiers pour la dernière zone d'arrosage existante
+  arrosage_correspondance_materiel: "python3 /config/packages/arrosage/generate_voies_and_zones/arrosage_correspondance_materiel.py" # Génère une liste d'entity_id du materiel controlant les voies
