@@ -17,7 +17,7 @@ Vous trouverez sur cette page toutes les explications nécessaires à la mise en
 * [Timer bar card](https://github.com/rianadon/timer-bar-card?tab=readme-ov-file#timer-bar-card) disponible sur HACS
 * [Calendar merge](https://github.com/kgn3400/calendar_merge?tab=readme-ov-file#calendar-merge-helper) disponible sur HACS
 * [Streamline card](https://github.com/brunosabot/streamline-card) disponible sur HACS
-* Et bien sur HACS pour pouvoir installer tout ce que je viens de lister ci-dessus
+* Et bien sur HACS pour pouvoir installer tout ce que je viens de lister ci-dessus mais vous devriez déjà l'avoir, n'est ce pas ?
 <br><br>
 
 > **Pour bénéficier de la réception des notifications** envoyées par "l'intégration", il faut avoir installé également **l'application sur son smartphone ou une tablette**.
