@@ -50,7 +50,7 @@ Pour ajouter une voie d'arrosage il faut :
 - Redémarrer Home Assistant. Vous pouvez ajouter plusieurs voies avant le redémarrage de Home assistant.
 - Ajouter une carte 'custom:streamline-card avec le template arrosage_voie' pour cette nouvelle voie sur le dashboard.
 
-Nb: Si vous utilisez "l'intégration" en production avant de redémarrer Home Assistant, modifiez le fichier 'voie_x.yaml' (x représentant le numéro de la nouvelle voie) situé dans le dosssier 'packages/' pour faire la correspondance avec votre matériel (Voir Faire correspondre les commandes d'électrovannes avec son matériel).
+Nb: Si vous utilisez "l'intégration" en production avant de redémarrer Home Assistant, modifiez le fichier 'voie_x.yaml' (x représentant le numéro de la nouvelle voie) situé dans le dosssier 'packages/arrosage/' pour faire la correspondance avec votre matériel (Voir Faire correspondre les commandes d'électrovannes avec son matériel).
 <br><br>
 
 
@@ -153,7 +153,7 @@ Sinon, si vous utiliser plus de 9 zones, vous pouvez également migrer le script
 #### - Faire correspondre les commandes d'électrovannes avec son matériel
 
 Pour lier votre propre matériel commandant votre arrosage à l'intégration il faut :
-- Modifier le template_switch 'switch.arrosage_electrovanne_x' (x représentant le numéro de l'éléctrovanne) présent dans les fichiers voie_x situé dans le dossier 'packages/arrosage/' comme indiqué dans les commentaires de ces fichiers.
+- Modifier le template_switch 'switch.arrosage_electrovanne_x' (x représentant le numéro de l'éléctrovanne) dans les fichiers 'voie_x.yaml' situé dans le dossier 'packages/arrosage/' comme indiqué dans les commentaires de ces fichiers.
 - Redémarrer Home Assistant pour la prise en compte des changements.
 
 A partir de ce moment "l'intégration" ne sera plus en mode simulation mais pilotera vbraiment votre matériel.
