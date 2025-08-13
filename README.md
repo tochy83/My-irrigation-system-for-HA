@@ -24,6 +24,8 @@ Pour résumé, les fonctions de base de tout programmateur d'arrosage, auquel j'
 - L'envoi de notifications vers l'application mobile (désactivables) et/ou Télégram pour avoir un retour sur l'état du système.
 > Je n'ai pas ajouté de prise en compte de capteur de pluie ou d'humidité du sol car je n'en dispose pas mais il est possible d'en tenir compte. J'aborde ce sujet ce point dans la documentation.
 
+Ça c'était la partie simple puisque ça tourne chez moi comme ça depuis 2 ans.
+
 <br><br>
 **L'objectif que je me suis fixé :**
 
@@ -31,6 +33,8 @@ Pour résumé, les fonctions de base de tout programmateur d'arrosage, auquel j'
 - Avoir la possibilité d'interagir avec tout matériel susceptible de piloter un arrosage depuis home assistant.
 - Avoir une façon relativement simple de passer du mode simulation au mode production.
 - Essayer de nouvelles choses que je ne connaissais pas ou maîtrisais pas sur Home Assistant.
+
+J'ai du reprendre pas mal de choses que j'avais faites sur mon installation pour que ce soit au final plus simple à deployer et modifier.
 
 <br><br>
 **Installation :**
