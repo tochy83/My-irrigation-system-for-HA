@@ -79,7 +79,10 @@ Pour ajouter une zone il faut :
 
 #### - Si vous avez besoin de plus de 9 zones.
 
-Il faudra en plus des étapes précédentes modifier certains scripts et automatisations pour en tenir compte.
+Il faudra en plus des étapes précédentes modifier certains sensors, scripts et automatisations pour en tenir compte.
+
+Le sensor à modifier est :
+- sensor.arrosage_noms_des_zones
 
 Le script à modifier est :
 - script.arrosage_arret
