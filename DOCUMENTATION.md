@@ -84,7 +84,7 @@ Il faudra en plus des étapes précédentes modifier certains sensors, scripts e
 Le sensor à modifier est :
 - sensor.arrosage_noms_des_zones
 
-Les modifications à effectuer sont dans les commentaires du fichier.
+Les modifications à effectuer sont indiquées dans les commentaires du fichier.
 
 Le script à modifier est :
 - script.arrosage_arret
@@ -95,7 +95,7 @@ Les automatisations à modifier sont :
 - automation.arrosage_affichage_notifications_temporaires
 - automation.arrosage_alerte
 
-Les modifications à effectuer sont dans le descriptif du script et des automatisations.
+Les modifications à effectuer sont indiquées dans le descriptif du script et des automatisations.
 
 Il faudra également ajouter au dashboard les cartes notifications correspondantes à ces nouvelles zones en dupliquant celles existantes et en modifiant le numéro de zone à l'intérieure de celles-ci.
 <br><br>
