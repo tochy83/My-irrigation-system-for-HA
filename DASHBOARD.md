@@ -39,7 +39,7 @@
 
 #### - ***La carte navigation*** :
 <p align="center"><img src="Medias/navigation_card.jpg"></p>
-Une carte qui affiche simplement le nom de la page en affichée et 2 boutons de navigation.<br>
+Une carte qui affiche simplement le nom de la page et 2 boutons de navigation.<br>
 <br>
 <span><img src="Medias/Icons/arrow-left.svg" width="18"></span> Permet de revenir à la page précedente.
 <br>
