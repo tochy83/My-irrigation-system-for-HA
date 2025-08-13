@@ -160,7 +160,7 @@ Une fois ceci fait on va dans Outils de développement, on vérifie la configura
 Après redémarrage on doit retrouver 15 nouvelles automatisations, 11 nouveaux scripts et les 72 entrées nécessaires à "l'intégration".
 <br>
 
-Je vous conseille d'ajouter un libellé 'Arrosage' ainsi qu'une catégorie à tout ce petit monde, cela sera plus simple pour les retrouver par la suite au milieu de toutes les entités Home Assistant.
+Je vous conseille d'ajouter un libellé 'Arrosage' (ou autre si vous avez déjà un libellé 'Arrosage') ainsi qu'une catégorie à tout ce petit monde, cela sera plus simple pour les retrouver par la suite au milieu de toutes les entités Home Assistant.
 <p align="center"><img src="Medias/Install/add_categorie.gif"></p>
 <br>
 
