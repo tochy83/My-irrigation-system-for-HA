@@ -156,7 +156,7 @@ Pour désactiver une zone, il faudra faire l'opération inverse à savoir :
 - La désactivation sera effective après redémarrage de Home Assistant.
 
 Les modifications à effectuer sont indiquées dans les commentaires du fichier.'zones.yaml'.
-<p align="center"><img src="Medias/Documentation/noms_des_zones.gif" width=75%></p>
+<p align="center"><img src="Medias/Documentation/nom_des_zones.gif" width=75%></p>
 <br>
 
 
