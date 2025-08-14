@@ -9,7 +9,7 @@ sections:
         chips:
           - type: back
           - type: template
-            content: PARAMETRES/DOCUMENTATION
+            content: PARAMETRES
             double_tap_action:
               action: none
             tap_action:
@@ -32,7 +32,7 @@ sections:
         card:
           type: custom:mushroom-title-card
           title: ""
-          subtitle: Notifications
+          subtitle: Paramètres
         card_mod:
           style:
             mushroom-title-card$: |
@@ -48,6 +48,9 @@ sections:
           rows: auto
       - type: markdown
         content: >-
+          **<font color=orange size=2>Notifications</font>**
+
+
           Activer/Désactiver les deux commandes ci-dessous autorise ou pas,
           l'envoi de notifications vers l'application mobile ou Télégram.
         grid_options:
@@ -63,7 +66,6 @@ sections:
         name: Notifications de l'application mobile
         grid_options:
           columns: 12
-          rows: 1
       - type: custom:mushroom-entity-card
         entity: input_boolean.arrosage_enable_telegram_notifications
         icon_color: light-green
@@ -73,7 +75,6 @@ sections:
           action: none
         grid_options:
           columns: 12
-          rows: 1
         name: Notifications Télégram
       - type: custom:mushroom-chips-card
         chips:
@@ -93,7 +94,7 @@ sections:
         card:
           type: custom:mushroom-title-card
           title: ""
-          subtitle: Documentation rapide
+          subtitle: Informations
         card_mod:
           style:
             mushroom-title-card$: |
@@ -108,60 +109,79 @@ sections:
           columns: full
           rows: auto
       - type: markdown
-        content: >-
-          **<font color=orange>Fonctionnement</font>**
+        content: >
+          {%- set switch = (states['switch'] |
+          selectattr('entity_id','match','switch.arrosage_electrovanne_') |
+          selectattr('state', 'in', ['unavailable']) |
+          map(attribute='entity_id') | list) %}
+
+          {%- set boolean = (states['input_boolean'] |
+          selectattr('entity_id','match','input_boolean.arrosage_') |
+          selectattr('state', 'in', ['unavailable']) |
+          map(attribute='entity_id') | list ) %}
+
+          {%- set text = (states['input_text'] |
+          selectattr('entity_id','match','input_text.arrosage_') |
+          selectattr('state', 'in', ['unavailable']) |
+          map(attribute='entity_id') | list ) %}
+
+          {%- set number = (states['input_number'] |
+          selectattr('entity_id','match','input_number.arrosage_') |
+          selectattr('state', 'in', ['unavailable']) |
+          map(attribute='entity_id') | list ) %}
+
+          {%- set datetime = (states['input_datetime'] |
+          selectattr('entity_id','match','input_datetime.arrosage_') |
+          selectattr('state', 'in', ['unavailable']) |
+          map(attribute='entity_id') | list ) %}
+
+          {%- set timer = (states['timer'] |
+          selectattr('entity_id','match','timer.arrosage_') |
+          selectattr('state', 'in', ['unavailable']) |
+          map(attribute='entity_id') | list ) %}
+
+          {%- set automation = (states['automation'] |
+          selectattr('entity_id','match','automation.arrosage_') |
+          selectattr('state', 'in', ['unavailable']) |
+          map(attribute='entity_id') | list ) %}
+
+          {%- set script = (states['script'] |
+          selectattr('entity_id','match','script.arrosage_') |
+          selectattr('state', 'in', ['unavailable']) |
+          map(attribute='entity_id') | list ) %}
+
+          {%- set entites = boolean + text + number + datetime + timer + switch
+          + automation + script %}
+
+          {%- set nb_entites_orphelines = boolean|count + text|count +
+          number|count + datetime|count + timer|count + switch|count +
+          automation|count + script|count %}
+
+          {% if (nb_entites_orphelines) != 0 %}
+
+          {%- set entites_orphelines = entites|join(', ') %}
+
+          {%- else %}
+
+          {%- set entites_orphelines = "" %}
+
+          {%- endif %}
 
 
-          Parce que chaque culture/plantation a son propre besoin en eau, il
-          faut bien comprendre le rôle du calendrier,  des voies d'arrosage, des
-          zones d'arrosage et des cycles d'arrosage pour appéhender le
-          fonctionnement de l'ensemble.
-
-          - Calendrier : Le calendrier contient les jours et heures de départ
-          d'arrosage ainsi que le nom de la zone concernée (les événements).
-          C'est lui qui définit **la fréquence d'arrosage** d'une zone.
+          **<font color=orange size=2>Entités orphelines détectées</font>**
 
 
-          - Voie d'arrosage : Une voie d'arrosage correspond à un ensemble
-          électrovanne (ou autre système de commande) + tuyau + goutteurs
-          (asperseurs, buses...) permettant l'arrosage d'une culture/plantation.
-
-          C'est sur la voie d'arrosage qu'on définit **la durée** d'ouverture de
-          l'électrovanne et par conséquence **la quantité d'eau délivrée à
-          chaque culture/plantation** présente sur cette voie.
+          Des fichiers nécessaires aux voies ou aux zones d'arrosage ont été
+          effacés mais les entités existent toujours.
 
 
-          - Zone d'arrosage : Une zone d'arrosage correspond à un groupe d'une
-          ou plusieurs voies d'arrosage. Chaque voie d'arrosage incluse dans une
-          même zone aura donc la même fréquence d'arrosage.
+          > ***<font size=2>Listes des entités orphelines :*** {{
+          entites_orphelines }}</font>
 
 
-          - Cycle d'arrosage de zone : Un cycle d'arrosage de zone pilote le
-          déclenchement successif de chaque voie comprise dans la zone.
-
-
-          Pour résumé :
-
-          - On définit dans le calendrier les jours et heures de départ
-          d'arrosage ainsi que le nom de la zone concernée (les événements).
-
-          - Lorsque la date présente correspond à un événement du calendrier, un
-          ordre est envoyé pour declencher un arrosage de la zone renseignée
-          dans l'événement du calendrier.
-
-          - Cet ordre déclenchera un cycle d'arrosage de la zone concernée.
-
-          - Le déclenchement du cycle ouvrira chaque éléctrovanne correspondante
-          aux voies incluses dans la zone concernée, pour la durée définie pour
-          chaque voie.
-
-          - L'ouverture de chaque éléctrovanne se fait en cascade, d'abord la
-          première pour la durée que l'on aura choisi avant de passer à la
-          seconde et ce jusqu'à la dernière incluse dans la zone.
-
-
-          On garde bien sûr la possibilité de déclencher un cycle ou une voie de
-          façon manuelle.
+          > *Vous pouvez les supprimer en vous rendant Paramètres/Appareils et
+          services/entités.* [<ha-icon
+          icon="mdi:information-outline"></ha-icon>](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/DOCUMENTATION.md#--les-entit%C3%A9s-orphelines)
         grid_options:
           columns: full
         text_only: true
@@ -176,194 +196,419 @@ sections:
             ha-card {
               padding-bottom: 10px;
             }
+    column_span: 2
+    visibility:
+      - condition: numeric_state
+        entity: input_number.arrosage_nb_entites_orphelines
+        below: 1
+  - type: grid
+    cards:
+      - type: custom:mod-card
+        card:
+          type: custom:mushroom-title-card
+          title: ""
+          subtitle: Outils
+        card_mod:
+          style:
+            mushroom-title-card$: |
+              .subtitle {
+                border-bottom: 1px solid var(--ha-card-border-color,var(--divider-color,#e0e0e0));
+                padding-bottom: 0px;
+              }
+              .header {
+                margin-bottom: -7px;
+              }
+        grid_options:
+          columns: full
+          rows: auto
+    column_span: 2
+  - type: grid
+    cards:
       - type: markdown
-        content: >-
-          **<font color=orange>Ajouter une voie d'arrosage</font>**
+        content: >+
+          **<font color=orange size=2>Ajouter une voie d'arrosage</font>**
 
 
-          Par défaut 9 voies d'arrosage sont déjà pré-configurés. Pour en
-          activer une qui ne le serait pas déjà il faut :
+          {{states('input_number.arrosage_nb_file_voies') | int(0) }} voies
+          d'arrosage sont déjà présentes. Pour en ajouter une supplémentaire
+          cliquer sur le bouton *'Générer les entités pour une nouvelle voie
+          d'arrosage'*.
 
-          - Ajouter un libellé de zone au script
-          'script.arrosage_declenchement_auto_voie_x' (x représentant le numéro
-          de la voie) correspondant à la zone dans laquelle la voie doit être
-          rattachée.
-
-          - Ajouter une carte (Streamline-card - arrosage_electrovanne)
-          correspondant à cette voie sur le dashboard.
-
-
-          Pour utiliser plus de 9 voies, il faudra au préalable :
-
-          - Créer un fichier 'electrovanne_x.yaml' (x représentant le numéro de
-          la nouvelle électrovanne) dans le dossier 'packages/arrosage/'.
-
-          - Redémarrer Home Assistant.
-
-          - Créer un script 'script.arrosage_declenchement_auto_voie_x' (x
-          représentant le numéro de la nouvelle voie).
-
-          - Créer une automatisation 'automation.arrosage_voie_x' (x
-          représentant le numéro de la nouvelle voie).
         grid_options:
           columns: full
         text_only: true
+      - type: custom:mushroom-entity-card
+        icon_color: light-green
+        tap_action:
+          action: toggle
+        hold_action:
+          action: none
+        name: Générer les entités pour une nouvelle voie d'arrosage
+        grid_options:
+          columns: 18
+          rows: 1
+        entity: script.arrosage_generer_fichiers_voie
+        icon: mdi:file-multiple
+        secondary_info: none
+      - type: custom:mushroom-template-card
+        primary: Redémarrer Home assistant
+        icon: mdi:restart
+        icon_color: ""
+        secondary: ""
+        tap_action:
+          action: perform-action
+          perform_action: homeassistant.restart
+          target: {}
+        hold_action:
+          action: none
+        double_tap_action:
+          action: none
       - type: markdown
-        content: >-
-          **<font color=orange>Supprimer une voie d'arrosage</font>**
+        content: >
+          Vous pouvez ajouter autant de voies que vous le souhaitez. Ensuite il
+          faudra redémarrer Home Assistant pour qu'elles soient prise en compte.
 
 
-          - Enlever le libellé de zone au script
-          'script.arrosage_declenchement_auto_voie_x' (x représentant le numéro
-          de la voie).
-
-          - Supprimer la carte correspondante sur le dashboard.
-
-
-          Normalement le reste peux rester tel quel et ne devrait pas avoir
-          d'incidence. Si toutefois vous voulez aller jusqu'au bout du nettoyage
-          il faudra aussi :
-
-          - Supprimer le fichier 'electrovanne_x.yaml' (x représentant le numéro
-          de la voie à supprimer) dans le dossier 'packages/arrosage/' ou le
-          renommer en 'electrovanne_x.txt'.
-
-          - Redémarrer Home Assistant.
-
-          - Supprimer le 'script.arrosage_declenchement_auto_voie_x' (x
-          représentant le numéro de la voie à supprimer).
-
-          - Supprimer l'automatisation 'automation.arrosage_voie_x' (x
-          représentant le numéro de la voie à supprimer).
+          >*Après redémarrage, penser à inclure la nouvelle voie à une zone
+          d'arrosage.* [<ha-icon
+          icon="mdi:information-outline"></ha-icon>](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/DOCUMENTATION.md#--inclure-une-voie-%C3%A0-une-zone-darrosage)
         grid_options:
           columns: full
         text_only: true
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: spacer
+        grid_options:
+          columns: full
+          rows: auto
+        card_mod:
+          style: |
+            ha-card {
+              padding-bottom: 10px;
+            }
+    column_span: 2
+  - type: grid
+    cards:
       - type: markdown
         content: >-
-          **<font color=orange>Ajouter une zone d'arrosage</font>**
+          {%- set ns = namespace(nb_zones_actives = 0) %}
+
+          {%- for item in states.sensor.arrosage_noms_des_zones.attributes |
+          select('match', 'zone_') %}
+
+          {%- if not is_state_attr('sensor.arrosage_noms_des_zones' , item,
+          'Nom_de_la_'~item ) %}
+
+          {%- set ns.nb_zones_actives = ns.nb_zones_actives + 1 %}
+
+          {%- endif %}
+
+          {%- endfor %}
+
+          {%- set diff = "" %}
+
+          {%- if states('input_number.arrosage_nb_file_zones')|int(0)  !=
+          ns.nb_zones_actives %}
+
+          {%- set diff = " dont "+(ns.nb_zones_actives|string)+" actives" %}
+
+          {%- endif %}
 
 
-          Par défaut 9 zones d'arrosage sont déjà pré-configurés mais seulement
-          3 sont activées. Pour en activer une qui ne le serait pas déjà il faut
-          :
-
-          - Modifier son nom, par le nom que l'on souhaite lui donner dans le
-          fichier 'zones.yaml' situé dans le dossier 'packages/arrosage/'.
-
-          - Renommer le fichier 'zone_x.txt' en 'zone_x.yaml' (x représentant le
-          numéro de la nouvelle zone) présent dans le dossier
-          'packages/arrosage'.
-
-          - Redémarrer Home Assistant.
-
-          - Ajouter un nouveau libellé de zone correspondant à cette zone.
-
-          - Ajouter ce libellé aux scripts
-          'script.arrosage_declenchement_auto_voie_x' (x représentant le numéro
-          de la voie) correspondant aux voies que l'on veut inclure dans cette
-          zone.
-
-          - Ajouter une carte (Streamline-card - arrosage-zone) correspondant à
-          cette zone sur le dashboard.
+          **<font color=orange size=2>Ajouter une zone d'arrosage</font>**
 
 
-          Pour utiliser plus de 9 zones, il faudra au préalable :
-
-          - Modifier le fichier 'zones.yaml' dans le dossier
-          'packages/arrosage/' pour ajouter une zone supplémentaire.
-
-          - Créer un fichier 'zone_x.yaml' (x représentant le numéro de la
-          nouvelle zone) dans le dossier 'packages/arrosage'.
-
-          - Redémarrer Home Assistant.
-
-          - Créer une automatisation 'automation.arrosage_zone_x' (x
-          représentant le numéro de la nouvelle zone).
-
-          - Modifier l'automatisation 'automation.arrosage_calendrier'.
-
-          - Modifier l'automatisation
-          'automation.arrosage_nombre_electrovannes_incluses_par_zone'.
-
-          - Modifier l'automatisation
-          'automation.arrosage_affichage_notifications_temporaires'.
-
-          - Modifier l'automatisation 'automation.arrosage_alerte'.
-
-          - Modifier le script 'script.arrosage_arret'.
-
-          - Créer les cartes notifications correspondantes à cette nouvelle zone
-          et les ajouter au dashboard.
+          {{states('input_number.arrosage_nb_file_zones') | int(0) }} zones
+          d'arrosage sont déjà présentes{{diff}}. Pour en ajouter une
+          supplémentaire cliquer sur le bouton *'Générer les entités pour une
+          nouvelle zone d'arrosage'*.
         grid_options:
           columns: full
         text_only: true
+      - type: custom:mushroom-entity-card
+        icon_color: light-green
+        tap_action:
+          action: toggle
+        hold_action:
+          action: none
+        name: Générer les entités pour une nouvelle zone d'arrosage
+        grid_options:
+          columns: 18
+          rows: 1
+        icon: mdi:file-multiple
+        secondary_info: none
+        entity: script.arrosage_generer_fichiers_zone
+      - type: custom:mushroom-template-card
+        primary: Redémarrer Home assistant
+        icon: mdi:restart
+        icon_color: ""
+        secondary: ""
+        tap_action:
+          action: perform-action
+          perform_action: homeassistant.restart
+          target: {}
+        hold_action:
+          action: none
+        double_tap_action:
+          action: none
       - type: markdown
         content: >-
-          **<font color=orange>Désactiver une zone d'arrosage</font>**
+          Vous pouvez ajouter autant de zones que vous le souhaitez. Ensuite il
+          faudra redémarrer Home Assistant pour qu'elles soient prise en compte.
 
 
-          - Supprimer le libellé de zone correspondant à cette zone.
+          >*Avant redémarrage, penser à activer la nouvelle zone.* [<ha-icon
+          icon="mdi:information-outline"></ha-icon>](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/DOCUMENTATION.md#--activerd%C3%A9sactiver-une-zone)
 
-          - Modifier son nom, par 'Nom_de_la_zone_x' dans le fichier
-          'zones.yaml' situé dans le dossier 'packages/arrosage/'.
 
-          - Supprimer la carte de cette zone du dashboard.
+          >*Si vous voulez plus de 9 zones, voir la documentation.* [<ha-icon
+          icon="mdi:information-outline"></ha-icon>](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/DOCUMENTATION.md#--si-vous-avez-besoin-de-plus-de-9-zones)
         grid_options:
           columns: full
         text_only: true
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: spacer
+        grid_options:
+          columns: full
+          rows: auto
+        card_mod:
+          style: |
+            ha-card {
+              padding-bottom: 10px;
+            }
+    column_span: 2
+  - type: grid
+    cards:
       - type: markdown
-        content: >-
-          **<font color=orange>Supprimer une zone d'arrosage</font>**
+        content: >+
+          **<font color=orange size=2>Supprimer une voie d'arrosage</font>**
 
 
-          Pour supprimer complétement une zone (toutes les entités qui y sont
-          rattachées) il faut, après l'avoir déjà désactivée :
+          {{states('input_number.arrosage_nb_file_voies') | int(0) }} voies
+          d'arrosage sont présentes. Pour supprimer la voie numéro
+          {{states('input_number.arrosage_nb_file_voies') | int(0) }} cliquer
+          sur le bouton *'Supprimer les entités pour la dernière voie
+          d'arrosage'*.
 
-          - Supprimer le fichier 'zone_x.yaml' (x représentant le numéro de la
-          zone à supprimer) situé dans le dossier 'packages/arrosage/' ou le
-          renommer en (zone_x.txt).
-
-          - Redémarrer Home Assistant.
-
-          - Supprimer l'automatisation 'automation.arrosage_zone_x' (x
-          représentant le numéro de la zone à supprimer).
-
-
-          Normalement le reste peux rester tel quel et ne devrait pas avoir
-          d'incidence. Si toutefois vous voulez aller jusqu'au bout du nettoyage
-          il faudra aussi :
-
-          - Modifier l'automatisation 'automation.arrosage_calendrier' pour
-          retirer toutes les réfrences à cette zone.
-
-          - Modifier l'automatisation
-          'automation.arrosage_nombre_electrovannes_incluses_par_zone' pour
-          retirer toutes les réfrences à cette zone.
-
-          - Modifier l'automatisation
-          'automation.arrosage_affichage_notifications_temporaires' pour retirer
-          toutes les réfrences à cette zone.
-
-          - Modifier l'automatisation 'automation.arrosage_alerte' pour retirer
-          toutes les réfrences à cette zone.
-
-          - Supprimer du dashboard toutes les cartes notifications pour cette
-          zone.
         grid_options:
           columns: full
         text_only: true
+        visibility:
+          - condition: numeric_state
+            entity: input_number.arrosage_nb_file_voies
+            above: 1
       - type: markdown
-        content: >-
-          **<font color=orange>Capteur de pluie ou d'humidité du sol</font>**
+        content: >+
+          **<font color=orange size=2>Supprimer une voie d'arrosage</font>**
 
 
-          Je n'ai pas ajouté de prise en compte de ce type de capteurs dans
-          "l'intégration" car je n'en dispose pas. Cependant si l'on souhaite en
-          tenir compte il suffit simplement de les rajouter en conditions de
-          l'automatistion 'automation.arrosage_calendrier'.
+          Une seule voie d'arrosage est présente. Vous ne pouvez pas la
+          supprimer.
+
         grid_options:
           columns: full
         text_only: true
+        visibility:
+          - condition: numeric_state
+            entity: input_number.arrosage_nb_file_voies
+            below: 2
+      - type: custom:mushroom-entity-card
+        icon_color: light-green
+        tap_action:
+          action: toggle
+        hold_action:
+          action: none
+        name: Supprimer les entités pour la dernière voie d'arrosage
+        grid_options:
+          columns: 18
+          rows: 1
+        entity: script.arrosage_supprimer_fichiers_voie
+        icon: mdi:file-multiple
+        secondary_info: none
+      - type: custom:mushroom-template-card
+        primary: Redémarrer Home assistant
+        icon: mdi:restart
+        icon_color: ""
+        secondary: ""
+        tap_action:
+          action: perform-action
+          perform_action: homeassistant.restart
+          target: {}
+        hold_action:
+          action: none
+        double_tap_action:
+          action: none
+      - type: markdown
+        content: >-
+          Vous pouvez supprimer toutes les voies l'exception de la première.
+          Ensuite il faudra redémarrer Home Assistant pour que la suppression
+          soit prise en compte.
+        grid_options:
+          columns: full
+        text_only: true
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: spacer
+        grid_options:
+          columns: full
+          rows: auto
+        card_mod:
+          style: |
+            ha-card {
+              padding-bottom: 10px;
+            }
+    column_span: 2
+  - type: grid
+    cards:
+      - type: markdown
+        content: >+
+          **<font color=orange size=2>Supprimer une zone d'arrosage</font>**
+
+
+          {{states('input_number.arrosage_nb_file_zones') | int(0) }} zones
+          d'arrosage sont présentes. Pour supprimer la zone numéro
+          {{states('input_number.arrosage_nb_file_zones') | int(0) }} cliquer
+          sur le bouton *'Supprimer les entités pour la dernière zone
+          d'arrosage'*.
+
+        grid_options:
+          columns: full
+        text_only: true
+        visibility:
+          - condition: numeric_state
+            entity: input_number.arrosage_nb_file_zones
+            above: 1
+      - type: markdown
+        content: >+
+          **<font color=orange size=2>Supprimer une zone d'arrosage</font>**
+
+
+          Une seule zone d'arrosage est présente. Vous ne pouvez pas la
+          supprimer.
+
+        grid_options:
+          columns: full
+        text_only: true
+        visibility:
+          - condition: numeric_state
+            entity: input_number.arrosage_nb_file_zones
+            below: 2
+      - type: custom:mushroom-entity-card
+        icon_color: light-green
+        tap_action:
+          action: toggle
+        hold_action:
+          action: none
+        name: Supprimer les entités pour la dernière voie d'arrosage
+        grid_options:
+          columns: 18
+          rows: 1
+        entity: script.arrosage_supprimer_fichiers_zone
+        icon: mdi:file-multiple
+        secondary_info: none
+      - type: custom:mushroom-template-card
+        primary: Redémarrer Home assistant
+        icon: mdi:restart
+        icon_color: ""
+        secondary: ""
+        tap_action:
+          action: perform-action
+          perform_action: homeassistant.restart
+          target: {}
+        hold_action:
+          action: none
+        double_tap_action:
+          action: none
+      - type: markdown
+        content: >-
+          Vous pouvez supprimer toutes les zones à l'exception de la première.
+          Ensuite il faudra redémarrer Home Assistant pour que la suppression
+          soit prise en compte.
+
+
+          >*Avant redémarrage, penser à désactiver la zone supprimée.* 
+          [<ha-icon
+          icon="mdi:information-outline"></ha-icon>](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/DOCUMENTATION.md#--activerd%C3%A9sactiver-une-zone)
+        grid_options:
+          columns: full
+        text_only: true
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: spacer
+        grid_options:
+          columns: full
+          rows: auto
+        card_mod:
+          style: |
+            ha-card {
+              padding-bottom: 10px;
+            }
+    column_span: 2
+  - type: grid
+    cards:
+      - type: custom:mod-card
+        card:
+          type: custom:mushroom-title-card
+          title: ""
+          subtitle: Mode de fonctionnement
+        card_mod:
+          style:
+            mushroom-title-card$: |
+              .subtitle {
+                border-bottom: 1px solid var(--ha-card-border-color,var(--divider-color,#e0e0e0));
+                padding-bottom: 0px;
+              }
+              .header {
+                margin-bottom: -7px;
+              }
+        grid_options:
+          columns: full
+          rows: auto
+      - type: markdown
+        content: |-
+          **<font color=orange size=2>Simulation</font>**
+
+            Aucune correspondance matérielle à afficher dans le mode simulation. Les actions sur le dashboard n'ont aucune incidence sur votre équipement.
+        grid_options:
+          columns: full
+        text_only: true
+        visibility:
+          - condition: state
+            entity: sensor.arrosage_correspondance_materiel
+            state: "0"
+      - type: markdown
+        content: >-
+
+          {% set data = state_attr('sensor.arrosage_correspondance_materiel',
+          'json_data') %}
+
+          **<font color=orange size=2>Production</font>**
+
+
+          Correspondance des voies avec votre matériel :
+
+          {% for item in data %}
+            - Voie {{ item.voie }} : {{ item.entity_id }}
+          {% endfor %}
+        grid_options:
+          columns: full
+        text_only: true
+        visibility:
+          - condition: state
+            entity: sensor.arrosage_correspondance_materiel
+            state_not: "0"
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: spacer
+        grid_options:
+          columns: full
+          rows: auto
+        card_mod:
+          style: |
+            ha-card {
+              padding-bottom: 10px;
+            }
     column_span: 2
 cards: []
 icon: mdi:tune
