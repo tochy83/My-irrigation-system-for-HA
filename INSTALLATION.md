@@ -150,10 +150,10 @@ A l'aide de File Editor, créer dans le dossier 'config' de Home Assistant, un d
 
 
 #### - ***Etape 5*** :
-A l'aide de File Editor, copier tous les fichiers se trouvent dans le dossier 'Files' du zip décompressé précedemment, dans le dossier 'arrosage' que l'on vient de créer. Les fichiers présents dans les sous dossiers de 'Files' doivent être copiés dans leurs sous dossiers respectifs (créés à l'étape précedente) du dossier 'arrosage'.
+A l'aide de File Editor, copier tous les fichiers se trouvent dans le dossier 'Files' du zip décompressé précedemment, dans le dossier 'arrosage' que l'on vient de créer. Les fichiers présents dans les sous-dossiers de 'Files' doivent être copiés dans leurs sous-dossiers respectifs (créés à l'étape précedente) du dossier 'arrosage'.
 <p align="center"><img src="Medias/Install/add_files.gif"></p>
 
-Sur l'animation je montre comment faire pour 2 fichiers, mais il faut bien répéter la manipulation pour tous les fichiers présent dans les dossiers 'arrosage' et 'modeles'. C'est à cette étape qu'avoir le module complémentaire Samba share rend bien service.
+Sur l'animation je montre comment faire pour 2 fichiers, mais il faut bien répéter la manipulation pour tous les fichiers présent dans les dossiers 'Files' et ses sous-dossiers. C'est à cette étape qu'avoir le module complémentaire Samba share rend bien service.
 
 La structure finale du dossier 'arrosage' doit être celle-ci :
 <p align="center"><img src="Medias/Install/structure_dossier_packages.jpg"></p>
