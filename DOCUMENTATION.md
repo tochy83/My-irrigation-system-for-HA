@@ -151,7 +151,7 @@ Pour désactiver une zone, il faudra faire l'opération inverse à savoir :
 <br><br>
 
 
-#### - Migrer
+#### - Migrer les automatisions et les script
 
 Vous pouvez migrer certaines automatisations dans Home Assistant afin de les modifier depuis l'UI. Pour cela il faut :
 - Aller à Paramètres/Automatisations et scènes/Automatisation.
