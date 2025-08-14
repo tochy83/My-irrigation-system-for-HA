@@ -202,7 +202,35 @@ Si vous n'en avez pas vous pouvez laisser tel quel et simplement supprimer sa ca
 
 #### - Stucture des fichiers de "l'intégration"
 
-voici
+Voici comment sont structurés les fichiers de "l'intégration" une fois installée.
+
+Le dossier racine 'arrosage' contient 4 fichiers et 2 dossiers :
+- 'automatisation.yaml' regroupe les automatisations relatives aux notifications, calendrier et demise à jour de sensors.
+- 'script.yaml' regroupe les scripts d'arrêt de cycle d'arrosage et d'envoi de notification vers l'application_mobile
+- 'config_autres_sensors.yaml' regroupe les entités et commandes qui ne sont pas liés à une zone ou voie. 
+- 'zones.yaml' regroupe les entités de configuration générale pour les zones.
+
+Le sous-dossier 'voies_and_zones' contient les fichiers relatifs aux voies et aux zones. Il contient aussi bien des fichiers de déclaration d'entités que des automatisations ou scripts.
+- 'voie_x.yaml' regroupe les entités pour une voie (comme d'habitude x représentant un numéro).
+- 'zone_x.yaml'regroupe les entités pour une zone.
+- 'automatisation_arrosage_voie_x.yaml' les automatisations qui gèrent le déclenchement manuel ou programmé d'une voie.
+- 'automatisation_arrosage_zone_x.yaml' les automatisation qui gèrent le déclenchement d'un cycle d'arrosage de zone.
+- 'script_arrosage_declenchement_auto_voie_x.yaml' les scripts permettant le declenchement en cascade des voies lors des cycles d'arrosage de zone.
+
+Le sous-dossier 'generate_voies_and_zones' contient les fichiers les fichiers relatifs à la créations de nouvelles voies ou zones et un dossier.
+- 'automatisation_init_at_start.yaml' permet de calculer et mettre à jour certaines entités pour les rendre disponible pour "l'intégration".
+- 'scripts_arrosage_fichiers.yaml' regroupe les commandes permettant la création ou suppression des fichiers pour les voies et zones.
+- 4 scripts python 'arrosage_generer_fichiers_voie.py', 'arrosage_generer_fichiers_zone.py', 'arrosage_supprimer_fichiers_voie.py' et 'arrosage_supprimer_fichiers_zone.py' qui générent les fichiers pour les voies et zones à partir d'un modéle.
+- un script python 'arrosage_correspondance_materiel.py' qui stocke dans un fichier json la correspondance entre les voies "logicielles" de "l'intégration" et votre matériel déclenchant réellement votre arrosage (en mode production sinon il reste vide).
+- 'arrosage_correspondance_materiel.json' le dit fichier json. En mode simulation il ne contient aucune données. Il se mettra à jour chaque fois que vous ferez correspondre une voie à votre propre matériel. (Voir)
+
+Le sous-dossier 'modeles' contient les modèles de fichiers pour les outils de création/suppression de voies et zones.
+- 'automatisation_arrosage_voie_x.txt'
+- 'automatisation_arrosage_zone_x.txt'
+- 'script_arrosage_declenchement_auto_voie_x.txt'
+- 'voie_x.txt'
+- 'zones.txt'
+
 <br><br>
 
 
