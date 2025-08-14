@@ -50,7 +50,7 @@ Pour ajouter une voie d'arrosage il faut :
 - Redémarrer Home Assistant. Vous pouvez ajouter plusieurs voies avant le redémarrage de Home assistant.
 - Ajouter une carte 'custom:streamline-card avec le template arrosage_voie' pour cette nouvelle voie sur le dashboard.
 
-Nb: Si vous utilisez "l'intégration" en production avant de redémarrer Home Assistant, modifiez le fichier 'voie_x.yaml' (x représentant le numéro de la nouvelle voie) situé dans le dosssier 'packages/arrosage/' pour faire la correspondance avec votre matériel (Voir Faire correspondre les commandes d'électrovannes avec son matériel).
+Nb: Si vous utilisez "l'intégration" en production avant de redémarrer Home Assistant, modifiez le fichier 'voie_x.yaml' (x représentant le numéro de la nouvelle voie) situé dans le dosssier 'packages/arrosage/' pour faire la correspondance avec votre matériel ([Voir](DOCUMENTATION.md#--faire-correspondre-les-commandes-d%C3%A9lectrovannes-avec-son-mat%C3%A9riel)).
 <br><br>
 
 
@@ -71,7 +71,7 @@ Par défaut l'intégration vient 3 zones actives et 6 autres zones qui n'attende
 
 Pour ajouter une zone il faut :
 - Générer les fichiers
-- Activer la ou les nouvelles zones (Voir Activer/Désactiver une zone d'arrosage)
+- Activer la ou les nouvelles zones ([Voir](DOCUMENTATION.md#--activerd%C3%A9sactiver-une-zone))
 - Redémarrer Home Assistant pour leur prise en compte.
 - Ajouter une carte 'custom:streamline-card avec le template arrosage_zone' pour cette nouvelle zone sur le dashboard.
 <br><br>
@@ -103,7 +103,7 @@ Il faudra également ajouter au dashboard les cartes notifications correspondant
 
 #### - Pour supprimer une zone 
 
- Pour supprimer une zone les étapes sont les mêmes que pour supprimer une voie. Il faudra en plus désactiver cette zone (Voir Activer/Désactiver une zone d'arrosage).
+ Pour supprimer une zone les étapes sont les mêmes que pour supprimer une voie. Il faudra en plus désactiver cette zone ([Voir](DOCUMENTATION.md#--activerd%C3%A9sactiver-une-zone)).
  
  Vous pouvez également supprimer les cartes de notification pour la zone supprimée (mais ce n'est pas obligatoire).
 <br><br>
@@ -117,7 +117,7 @@ Il supprime les fichiers de la dernière voie ou zone existante. Ex. Si j'ai 9 v
 
 L'outil de suppression ne sera en mesure d'effacer les automatisations et scripts, que si ceci n'ont pas été migrés dans l'UI de Home Assistant. Dans ce cas, il faudra les supprimer manuellement par l'interface utilisateur de Home Assistant.
 
-Suite à la suppression des fichiers par l'outil, des entités orphelines peuvent apparaitre. (Voir Les entités orphelines)
+Suite à la suppression des fichiers par l'outil, des entités orphelines peuvent apparaitre. ([Voir](DOCUMENTATION.md#--les-entit%C3%A9s-orphelines))
 <br><br>
 
 
