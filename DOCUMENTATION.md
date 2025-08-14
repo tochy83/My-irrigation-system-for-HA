@@ -118,7 +118,7 @@ Il faudra également ajouter au dashboard les cartes notifications correspondant
 
 L'outil de suppression de voie ou de zone, permet de supprimer les fichiers d'entités, les automatisations et les scripts nécessaires au fonctionnement d'une voie ou d'une zone d'arrosage.
 
-Il supprime les fichiers de la dernière voie ou zone existante. Ex. Si j'ai 9 voies d'arrosage il supprimera les fichiers de la voie 9.
+Il supprime les fichiers de la dernière voie ou zone existante. Par exemple si j'ai 9 voies d'arrosage il supprimera les fichiers de la voie 9.
 
 L'outil de suppression ne sera en mesure d'effacer les automatisations et scripts, que si ceci n'ont pas été migrés dans l'UI de Home Assistant. Dans ce cas, il faudra les supprimer manuellement par l'interface utilisateur de Home Assistant.
 
