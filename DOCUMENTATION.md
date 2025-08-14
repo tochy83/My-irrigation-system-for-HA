@@ -102,7 +102,8 @@ Les automatisations à modifier sont :
 Les modifications à effectuer sont indiquées dans le descriptif du script et des automatisations.
 
 Il faudra également ajouter au dashboard les cartes notifications correspondantes à ces nouvelles zones en dupliquant celles existantes et en modifiant le numéro de zone à l'intérieure de celles-ci.
-<br><br>
+<p align="center"><img src="Medias/Documentation/9_zones_plus.jpg" width=75%></p>
+<br>
 
 
 #### - Pour supprimer une zone 
@@ -155,7 +156,8 @@ Pour désactiver une zone, il faudra faire l'opération inverse à savoir :
 - La désactivation sera effective après redémarrage de Home Assistant.
 
 Les modifications à effectuer sont indiquées dans les commentaires du fichier.'zones.yaml'.
-<br><br>
+<p align="center"><img src="Medias/Documentation/noms_des_zones.gif" width=75%></p>
+<br>
 
 
 #### - Migrer les automatisions et les script
