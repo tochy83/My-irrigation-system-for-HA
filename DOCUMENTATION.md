@@ -43,7 +43,10 @@ Pour inclure une voie à une zone d'arrosage et ainsi permettre son déclencheme
 
 #### - Ajouter une nouvelle voie d'arrosage
 
-Un outil est présent dans la page paramètres de "l'intégration". Il permet de générer les fichiers d'entités, les automatisations et les scripts nécessaires au fonctionnement d'une voie d'arrosage. 
+Un outil est présent dans la page paramètres de "l'intégration". Il permet de générer les fichiers d'entités, les automatisations et les scripts nécessaires au fonctionnement d'une voie d'arrosage.
+
+<p align="center"><img src="Medias/Documentation/ajout_suppression_fichiers.gif" width=75%></p>
+<p align="center"><i>Les outils d'ajout et suppression de nouvelles voies et zones d'arrosage.</i></p>
 
 Pour ajouter une voie d'arrosage il faut :
 - Générer les fichiers.
@@ -130,7 +133,8 @@ Une carte du dasboard, sur la page paramètres donne une liste de celles-ci. Cet
 Pour les supprimer, il faut:
 - Aller à Paramètres/Appareils et services/Entités, les rechercher et les supprimer.
 - La suppression sera effective au prochain redémarrage de Home Assistant.
-
+<p align="center"><img src="Medias/Documentation/entités_orphelines.jpg" width=75%></p>
+<p align="center"><img src="Medias/Documentation/entités_orphelines.gif" width=75%></p>
 C'est là qu'il est pratique d'avoir défini un libellé ou une catégorie pour toutes les entités de l'intégration à l'installation de celle-ci, pour les retrouver plus rapidement.
 <br><br>
 
