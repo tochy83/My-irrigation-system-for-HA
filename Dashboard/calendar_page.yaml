@@ -158,13 +158,13 @@ sections:
 
           - Pour rappel, les noms de vos zones sont :
 
-          {% for item in states.sensor.arrosage_noms_des_zones.attributes |
-          select('match', 'zone_') -%}
+          {%- for item in states.sensor.arrosage_noms_des_zones.attributes |
+          select('match', 'zone_') %}
 
-          Pour la {{ item | replace('_',' ') }} : **<font color =orange>{{
-          state_attr('sensor.arrosage_noms_des_zones' , item) }}</font>**
-
-          {% endfor %}
+          {% if not is_state_attr('sensor.arrosage_noms_des_zones' , item,
+          'Nom_de_la_'~item ) %} Pour la {{ item | replace('_',' ') }} : **<font
+          color =orange>{{ state_attr('sensor.arrosage_noms_des_zones' , item)
+          }}</font>** {% endif %} {% endfor %}
         card_mod:
           style: |
             ha-card {
