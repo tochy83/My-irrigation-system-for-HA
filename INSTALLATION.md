@@ -142,18 +142,21 @@ Une fois téléchargé, on les extrait dans le dossier de son choix.
 A l'aide de File Editor, créer dans le dossier 'config' de Home Assistant, un dossier nommé 'packages'. Pour rappel le dossier 'config' se nomme pour File Editor 'homeassistant' et c'est le dossier où l'on se trouve par défaut quand on ouvre File Editor.
 <br>
 
-Dans ce dossier 'packages' créer un dossier 'arrosage'.
-Dans ce dossier 'arrosage' créer un dossier 'modeles'.
+- Dans ce dossier 'packages' créer un dossier 'arrosage'.
+- Dans ce dossier 'arrosage' créer deux dossiers 'generate_voies_and_zones' et 'voies_and_zones'.
+- Dans le dossier 'generate_voies_and_zones' créer un dossier 'modeles'.
 <p align="center"><img src="Medias/Install/add_folder.gif"></p>
 <br>
 
 
 #### - ***Etape 5*** :
-A l'aide de File Editor, copier tous les fichiers se trouvent dans le dossier 'Files' et dans le dossier 'Files/modeles' du zip décompressé précedemment, dans les dossiers 'arrosage' et 'modeles' que l'on vient de créer. Les fichiers présents dans le dossier 'Files' allant dans le dossier 'arrosage' et ceux présents dans le dossier 'Files/modeles' allant dans le dossier 'modeles'.
+A l'aide de File Editor, copier tous les fichiers se trouvent dans le dossier 'Files' du zip décompressé précedemment, dans le dossier 'arrosage' que l'on vient de créer. Les fichiers présents dans les sous dossiers de 'Files' doivent être copiés dans leurs sous dossiers respectifs (créés à l'étape précedente) du dossier 'arrosage'.
 <p align="center"><img src="Medias/Install/add_files.gif"></p>
 
 Sur l'animation je montre comment faire pour 2 fichiers, mais il faut bien répéter la manipulation pour tous les fichiers présent dans les dossiers 'arrosage' et 'modeles'. C'est à cette étape qu'avoir le module complémentaire Samba share rend bien service.
-<br>
+
+La structure finale du dossier 'arrosage' doit être celle-ci :
+<p align="center"><img src="Medias/Install/structure_dossier_packages.jpg"></p>
 
 Une fois ceci fait on va dans Outils de développement, on vérifie la configuration pour être sur qu'il n'ya pas d'erreurs et on redémarre Home Assistant.
 <br>
