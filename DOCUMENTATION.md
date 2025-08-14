@@ -123,12 +123,13 @@ Suite à la suppression des fichiers par l'outil, des entités orphelines peuven
 
 #### - Les entités orphelines.
 
-Suite à la suppression des fichiers de définition d'une voie ou d'une zone, Home Assistant fera apparaitre des entités orphelines.
+Suite à la suppression des fichiers de définition d'une voie ou d'une zone, Home Assistant fera apparaitre des entités orphelines après redémarrage.
 
 Une carte du dasboard, sur la page paramètres donne une liste de celles-ci. Cette carte n'est pas visible s'il n'y à pas d'entités orphelines liées à "l'intégration".
 
 Pour les supprimer, il faut:
 - Aller à Paramètres/Appareils et services/Entités, les rechercher et les supprimer.
+- La suppression sera effective au prochain redémarrage de Home Assistant.
 
 C'est là qu'il est pratique d'avoir défini un libellé ou une catégorie pour toutes les entités de l'intégration à l'installation de celle-ci, pour les retrouver plus rapidement.
 <br><br>
