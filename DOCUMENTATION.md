@@ -54,7 +54,7 @@ Pour ajouter une voie d'arrosage il faut :
 - Redémarrer Home Assistant. Vous pouvez ajouter plusieurs voies avant le redémarrage de Home assistant.
 - Ajouter une carte 'custom:streamline-card avec le template arrosage_voie' pour cette nouvelle voie sur le dashboard.
 
-Nb: Si vous utilisez "l'intégration" en production avant de redémarrer Home Assistant, modifiez le fichier 'voie_x.yaml' (x représentant le numéro de la nouvelle voie) situé dans le dosssier 'packages/arrosage/' pour faire la correspondance avec votre matériel ([Voir](DOCUMENTATION.md#--faire-correspondre-les-commandes-d%C3%A9lectrovannes-avec-son-mat%C3%A9riel)).
+Nb: Si vous utilisez "l'intégration" en production avant de redémarrer Home Assistant, modifiez le fichier 'voie_x.yaml' (x représentant le numéro de la nouvelle voie) situé dans le dosssier 'packages/arrosage/' pour faire la correspondance avec votre matériel cela vous evitera un redémarrage supplémentaire ([Voir](DOCUMENTATION.md#--faire-correspondre-les-commandes-d%C3%A9lectrovannes-avec-son-mat%C3%A9riel)).
 <br><br>
 
 
@@ -71,7 +71,7 @@ Pour supprimer une voie d'arrosage il faut :
 
 #### - Ajouter une zone d'arrosage
 
-Par défaut l'intégration vient 3 zones actives et 6 autres zones qui n'attendent que leurs entités. Un outil est présent dans la page paramètres de "l'intégration". Il permet de générer les fichiers d'entités et les automatisations nécessaires au fonctionnement d'une zone d'arrosage.
+Par défaut l'intégration vient avec 3 zones actives et 6 autres zones qui n'attendent que leurs entités. Un outil est présent dans la page paramètres de "l'intégration". Il permet de générer les fichiers d'entités et les automatisations nécessaires au fonctionnement d'une zone d'arrosage.
 
 Pour ajouter une zone il faut :
 - Générer les fichiers.
