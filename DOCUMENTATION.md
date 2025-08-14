@@ -29,6 +29,7 @@ On garde bien sûr la possibilité de déclencher un cycle ou une voie de façon
 C'est grâce au libellés (labels) que les cycles d'arrosage qu'ils soient programmés ou manuels fonctionnent. Pour cela il est important que chaque zone ait son libellé et que ce libellé soit supprimer si on supprime une zone.
 
 Le nom des libellés a également son importance. Ils doivent être de la forme Zone 1, Zone 2 et ainsi de suite. 
+<p align="center"><img src="Medias/Install/add_labels.gif" width=75%></p>
 
 Je n'ai malheureusement pas trouvé comment les créer ou les supprimer automatiquement. 
 <br><br>
@@ -37,7 +38,7 @@ Je n'ai malheureusement pas trouvé comment les créer ou les supprimer automati
 #### - Inclure une voie à une zone d'arrosage
 
 Pour inclure une voie à une zone d'arrosage et ainsi permettre son déclenchement lors d'un cycle d'arrosage, automatique ou manuel, il faut :
-- Ajouter un libellé de zone ([Voir](DOCUMENTATION.md#--les-libell%C3%A9s-de-zone)) au script 'script.arrosage_declenchement_auto_voie_x' (x représentant le numéro de la voie à inclure dans la zone). Cette opération se fait par l'UI de Home Assistant.
+- Ajouter un libellé de zone au script 'script.arrosage_declenchement_auto_voie_x' (x représentant le numéro de la voie à inclure dans la zone). Cette opération se fait par l'UI de Home Assistant ([Voir](DOCUMENTATION.md#--les-libell%C3%A9s-de-zone)).
 <br><br>
 
 
@@ -73,8 +74,8 @@ Pour supprimer une voie d'arrosage il faut :
 Par défaut l'intégration vient 3 zones actives et 6 autres zones qui n'attendent que leurs entités. Un outil est présent dans la page paramètres de "l'intégration". Il permet de générer les fichiers d'entités et les automatisations nécessaires au fonctionnement d'une zone d'arrosage.
 
 Pour ajouter une zone il faut :
-- Générer les fichiers
-- Activer la ou les nouvelles zones ([Voir](DOCUMENTATION.md#--activerd%C3%A9sactiver-une-zone))
+- Générer les fichiers.
+- Activer la ou les nouvelles zones ([Voir](DOCUMENTATION.md#--activerd%C3%A9sactiver-une-zone)).
 - Redémarrer Home Assistant pour leur prise en compte.
 - Ajouter une carte 'custom:streamline-card avec le template arrosage_zone' pour cette nouvelle zone sur le dashboard.
 <br><br>
@@ -85,18 +86,18 @@ Pour ajouter une zone il faut :
 Il faudra en plus des étapes précédentes modifier certains sensors, scripts et automatisations pour en tenir compte.
 
 Le sensor à modifier est :
-- sensor.arrosage_noms_des_zones
+- 'sensor.arrosage_noms_des_zones'.
 
 Les modifications à effectuer sont indiquées dans les commentaires du fichier.
 
 Le script à modifier est :
-- script.arrosage_arret
+- 'script.arrosage_arret'.
 
 Les automatisations à modifier sont :
-- automation.arrosage_calendrier
-- automation.arrosage_nombre_electrovannes_incluses_par_zone
-- automation.arrosage_affichage_notifications_temporaires
-- automation.arrosage_alerte
+- 'automation.arrosage_calendrier'.
+- 'automation.arrosage_nombre_electrovannes_incluses_par_zone'.
+- 'automation.arrosage_affichage_notifications_temporaires'.
+- 'automation.arrosage_alerte'.
 
 Les modifications à effectuer sont indiquées dans le descriptif du script et des automatisations.
 
@@ -120,7 +121,7 @@ Il supprime les fichiers de la dernière voie ou zone existante. Ex. Si j'ai 9 v
 
 L'outil de suppression ne sera en mesure d'effacer les automatisations et scripts, que si ceci n'ont pas été migrés dans l'UI de Home Assistant. Dans ce cas, il faudra les supprimer manuellement par l'interface utilisateur de Home Assistant.
 
-Suite à la suppression des fichiers par l'outil, des entités orphelines peuvent apparaitre. ([Voir](DOCUMENTATION.md#--les-entit%C3%A9s-orphelines))
+Suite à la suppression des fichiers par l'outil, des entités orphelines peuvent apparaitre ([Voir](DOCUMENTATION.md#--les-entit%C3%A9s-orphelines)).
 <br><br>
 
 
@@ -143,7 +144,7 @@ C'est là qu'il est pratique d'avoir défini un libellé ou une catégorie pour 
 
 Pour activer un zone d'arrosage, il faut :
 - Modifier son nom, par le nom que vous voulez dans le fichier 'zones.yaml', présent dans le dossier 'packages/arrosage/'.
-- Avoir ajouter un libellé pour cette zone (Voir Les libellés de zone).
+- Avoir ajouter un libellé pour cette zone ([Voir](DOCUMENTATION.md#--les-libell%C3%A9s-de-zone)).
 - L'activation sera effective après redémarrage de Home Assistant.
 
 Les zones inactives ont un nom de la forme 'Nom_de_la_zone_x' (x représentant le numéro de la zone).
@@ -152,6 +153,8 @@ Pour désactiver une zone, il faudra faire l'opération inverse à savoir :
 - Remettre le nom par defaut pour la zone dans le fichier 'zones.yaml'.
 - Supprimer son libellé.
 - La désactivation sera effective après redémarrage de Home Assistant.
+
+Les modifications à effectuer sont indiquées dans les commentaires du fichier.'zones.yaml'.
 <br><br>
 
 
