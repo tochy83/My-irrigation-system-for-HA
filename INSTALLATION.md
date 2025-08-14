@@ -69,6 +69,7 @@ Entrées : {{ helpers }}
 Automatisations : {{ automation | count }}
 Scripts : {{ script | count }}
 Script de notification app_mobile: {{ script_notification | count }}
+Total : {{helpers + automation|count + script|count + script_notification|count}}
 {% if (helpers + automation|count + script|count + script_notification|count) == 0 %}
 Pas de soucis pour procéder à l'installation
 {% else %}
@@ -157,7 +158,7 @@ Sur l'animation je montre comment faire pour 2 fichiers, mais il faut bien rép�
 Une fois ceci fait on va dans Outils de développement, on vérifie la configuration pour être sur qu'il n'ya pas d'erreurs et on redémarre Home Assistant.
 <br>
 
-Après redémarrage on doit retrouver 15 nouvelles automatisations, 11 nouveaux scripts et les 72 entrées nécessaires à "l'intégration".
+Après redémarrage on doit retrouver 17 nouvelles automatisations, 15 nouveaux scripts et les 79 entrées nécessaires à "l'intégration".
 <br>
 
 Je vous conseille d'ajouter un libellé 'Arrosage' (ou autre si vous avez déjà un libellé 'Arrosage') ainsi qu'une catégorie à tout ce petit monde, cela sera plus simple pour les retrouver par la suite au milieu de toutes les entités Home Assistant.
