@@ -183,7 +183,7 @@ Pour pouvoir recevoir les notifications, même en mode simulation, il est néces
 Si vous ne souhaitez pas tester les notifications passer directement à l'étape 8.
 <br>
 
-A l'aide de File Editor, ouvrir le fichier '/packages/arrosage/scripts.yaml'. Aller à la ligne 533
+A l'aide de File Editor, ouvrir le fichier '/packages/arrosage/scripts.yaml'. Aller à la ligne 394
 ```yml
         action: notify.mobile_app_pixel
 ```
@@ -208,9 +208,9 @@ Il faut maintenant attribuer des libellés aux différents scripts 'script.arros
 <br>
 
 Par defaut, puisque c'est comme ça que le Dashboard se présente il faut attribuer aux scripts :
-* Pour les 'script.arrosage_declenchement_auto_voie_[x] 1,2,3,4 et 8 le libellé 'Zone 1'
-* Pour les 'script.arrosage_declenchement_auto_voie_[x] 7 et 9 le libellé 'Zone 2'
-* Pour les 'script.arrosage_declenchement_auto_voie_[x] 5 et 6 le libellé 'Zone 3'
+- Pour les 'script.arrosage_declenchement_auto_voie_[x] 1,2,3,4 et 5 le libellé 'Zone 1'
+- Pour les 'script.arrosage_declenchement_auto_voie_[x] 8 et 9 le libellé 'Zone 2'
+- Pour les 'script.arrosage_declenchement_auto_voie_[x] 6 et 7 le libellé 'Zone 3'
 <p align="center"><img src="Medias/Install/add_labels.gif"></p>
 <br>
 
