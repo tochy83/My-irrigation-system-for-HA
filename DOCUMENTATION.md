@@ -171,7 +171,7 @@ Je ne conseille pas de migrer toute les automatisations, notamment celles dédi�
 
 La seule qui peut avoir un intêret de migrer est l'automatisation 'automation.arrosage_calendrier' sur laquelle on peut vouloir ajouter des conditions pour tenir compte de la météo ou de capteur de pluie, hygrométrie.
 
-Sinon, si vous utiliser plus de 9 zones, vous pouvez également migrer le script 'script.arrosage_arret' et les automatisations 'automation.arrosage_nombre_electrovannes_incluses_par_zone', 'automation.arrosage_affichage_notifications_temporaires', 'automation.arrosage_alerte' qu'il faudra également modifiés et qu'il sera plus pratique à faire depuis l'UI.
+Sinon, si vous utiliser plus de 9 zones, vous pouvez également migrer le script 'script.arrosage_arret' et les automatisations 'automation.arrosage_nombre_electrovannes_incluses_par_zone', 'automation.arrosage_affichage_notifications_temporaires', 'automation.arrosage_alerte' qu'il faudra également modifiés, ce qu'il sera plus pratique à faire depuis l'UI.
 <br><br>
 
 
@@ -181,7 +181,7 @@ Pour lier votre propre matériel commandant votre arrosage à l'intégration il 
 - Modifier le template_switch 'switch.arrosage_electrovanne_x' (x représentant le numéro de l'éléctrovanne) dans les fichiers 'voie_x.yaml' situé dans le dossier 'packages/arrosage/' comme indiqué dans les commentaires de ces fichiers.
 - Redémarrer Home Assistant pour la prise en compte des changements.
 
-A partir de ce moment "l'intégration" ne sera plus en mode simulation mais pilotera vbraiment votre matériel.
+A partir de ce moment "l'intégration" ne sera plus en mode simulation mais pilotera vraiment votre matériel.
 
 Par exemple 'switch.d1mini_potager_arrosage_voie_1' correspondant à ma commande réelle :
 <p align="center"><img src="Medias/Documentation/correspondance_voie.gif" width=75%></p>
