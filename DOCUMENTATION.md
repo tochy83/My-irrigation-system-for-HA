@@ -129,7 +129,7 @@ C'est là qu'il est pratique d'avoir défini un libellé ou une catégorie pour 
 Pour activer un zone d'arrosage, il faut :
 - Modifier son nom, par le nom que vous voulez dans le fichier 'zones.yaml', présent dans le dossier 'packages/arrosage/'.
 - Avoir ajouter un libellé pour cette zone (Voir Les libellés de zone).
-- L'activation sera effective après redémmarage de Home Assistant.
+- L'activation sera effective après redémarrage de Home Assistant.
 
 Les zones inactives ont un nom de la forme 'Nom_de_la_zone_x' (x représentant le numéro de la zone).
 
