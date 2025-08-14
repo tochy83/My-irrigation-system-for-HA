@@ -231,7 +231,10 @@ Le sous-dossier 'modeles' contient les modèles de fichiers pour les outils de c
 - 'voie_x.txt'
 - 'zones.txt'
 
-<br><br>
+<p align="center">
+
+[Un visuel de la stucture complète](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Medias/Install/structure_dossier_packages.jpg)</p>
+<br>
 
 
 #### - Supprimer l'intégration
