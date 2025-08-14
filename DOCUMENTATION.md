@@ -37,7 +37,7 @@ Je n'ai malheureusement pas trouvé comment les créer ou les supprimer automati
 #### - Inclure une voie à une zone d'arrosage
 
 Pour inclure une voie à une zone d'arrosage et ainsi permettre son déclenchement lors d'un cycle d'arrosage, automatique ou manuel, il faut :
-- Ajouter un libellé de zone (voir Les libellés de zone) au script 'script.arrosage_declenchement_auto_voie_x' (x représentant le numéro de la voie à inclure dans la zone). Cette opération se fait par l'UI de Home Assistant.
+- Ajouter un libellé de zone ([Voir](DOCUMENTATION.md#--les-libell%C3%A9s-de-zone)) au script 'script.arrosage_declenchement_auto_voie_x' (x représentant le numéro de la voie à inclure dans la zone). Cette opération se fait par l'UI de Home Assistant.
 <br><br>
 
 
