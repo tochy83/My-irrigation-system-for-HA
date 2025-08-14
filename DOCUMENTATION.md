@@ -181,41 +181,9 @@ Pour lier votre propre matériel commandant votre arrosage à l'intégration il 
 
 A partir de ce moment "l'intégration" ne sera plus en mode simulation mais pilotera vbraiment votre matériel.
 
-Modifier (par exemple pour la voie 1) :
-```yml
-template:
-  - switch: # Fait la correspondance avec le matériel pilotant l'arrosage (A modifier pour passer en production)
-      - name: Arrosage - Electrovanne 1
-        unique_id: arrosage_electrovanne_1
-        icon: mdi:sprinkler-variant
-        #state: "{{ states(switch.arrosage_electrovanne_1) }}"
-        turn_on:
-          action: switch.turn_on
-          target:
-            entity_id: switch.arrosage_electrovanne_1
-        turn_off:
-          action: switch.turn_off
-          target:
-            entity_id: switch.arrosage_electrovanne_1
-```
-Par ('switch.d1mini_potager_arrosage_voie_1' correspondant à ma commande réelle) :
-```yml
-template:
-  - switch: # Fait la correspondance avec le matériel pilotant l'arrosage (A modifier pour passer en production)
-      - name: Arrosage - Electrovanne 1
-        unique_id: arrosage_electrovanne_1
-        icon: mdi:sprinkler-variant
-        state: "{{ states('switch.d1mini_potager_arrosage_voie_1') }}" 
-        turn_on:
-          action: switch.turn_on
-          target:
-            entity_id: switch.d1mini_potager_arrosage_voie_1
-        turn_off:
-          action: switch.turn_off
-          target:
-            entity_id: switch.d1mini_potager_arrosage_voie_1
-```
-<br><br>
+Par exemple 'switch.d1mini_potager_arrosage_voie_1' correspondant à ma commande réelle :
+<p align="center"><img src="Medias/Documentation/correspondance_voie.gif" width=75%></p>
+<br>
 
 
 #### - Ajouter son compteur d'eau
@@ -251,32 +219,9 @@ Pour prendre en compte son propre sensor de connectivité des électrovannes il 
 
 Si vous n'en avez pas vous pouvez laisser tel quel et simplement supprimer sa carte du dashboard. Ne supprimer pas le binary_sensor, il est utilisé dans certaines automatisations.
 
-```yml
-template:
-  - binary_sensor:
-      - name: Arrosage - Electrovannes connected  # Définit si toutes electrovannes sont connectées
-        unique_id: arrosage_electrovannes_connected
-        state: "{{ states(my_entity) }}"
-        device_class: connectivity
-        variables:
-          my_entity: sensor.home_assistant_operating_system_version
-
-# Pour avoir un vrai retour de la connectivité de vos électrovannes en production (si vous le souhaitez)
-# il faudra remplacer 'sensor.home_assistant_operating_system_version' dans la ligne 'my_entity:'
-# par votre votre entité remontant la connectivité de vos électrovannes, sinon laisser tel quel.
-```
-Mon sensor de connectivité est 'binary_sensor.arrosage_esp_status' qui est un group de binary_sensor définit ailleurs dans Home Assistant, donc le 'binary_sensor.arrosage_electrovannes_connected' devra être modifié comme ceci (pour mon cas) :
-```yml
-template:
-  - binary_sensor:
-      - name: Arrosage - Electrovannes connected  # Définit si toutes electrovannes sont connectées
-        unique_id: arrosage_electrovannes_connected
-        state: "{{ states(my_entity) }}"
-        device_class: connectivity
-        variables:
-          my_entity: binary_sensor.arrosage_esp_status
-```
-<br><br>
+Par exemple mon sensor de connectivité est 'binary_sensor.arrosage_esp_status' qui est un group de binary :
+<p align="center"><img src="Medias/Documentation/connectivity_sensor.gif" width=75%></p>
+<br>
 
 
 #### - Stucture des fichiers de "l'intégration"
