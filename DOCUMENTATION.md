@@ -283,7 +283,7 @@ Nb: Si vous avez migré des automatisations ou script sous l'UI de Home Assistan
 
 Je n'ai pas ajouté de prise en compte de ce type de capteurs dans "l'intégration" car je n'en dispose pas. Cependant si l'on souhaite en tenir compte il suffit simplement de les rajouter en conditions de l'automatisation 'automation.arrosage_calendrier'.
 
-
+<br><br>
 
 
 
