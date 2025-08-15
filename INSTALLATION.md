@@ -161,7 +161,7 @@ La structure finale du dossier 'arrosage' doit être celle-ci :
 Une fois ceci fait on va dans Outils de développement, on vérifie la configuration pour être sur qu'il n'ya pas d'erreurs et on redémarre Home Assistant.
 <br>
 
-Après redémarrage on doit retrouver 17 nouvelles automatisations, 15 nouveaux scripts et les 79 entrées nécessaires à "l'intégration".
+Après redémarrage on doit retrouver 18 nouvelles automatisations, 16 nouveaux scripts et les 79 nouvelles entrées nécessaires à "l'intégration". Si vous voulez la liste complète vous pouvez refaire la vérifcation de l'étape 1. Bien sur elle vous dira "Installation déconseillée en l'état. Vous avez ces entités en commun avec l'intégration :" puisqu'on vient de l'installer.
 <br>
 
 Je vous conseille d'ajouter un libellé 'Arrosage' (ou autre si vous avez déjà un libellé 'Arrosage') ainsi qu'une catégorie à tout ce petit monde, cela sera plus simple pour les retrouver par la suite au milieu de toutes les entités Home Assistant.
