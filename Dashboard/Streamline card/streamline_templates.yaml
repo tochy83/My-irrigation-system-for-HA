@@ -6,19 +6,15 @@ arrosage_voie:
         entity: switch.arrosage_electrovanne_[[numero_de_la_voie]]
         primary: '[[nom_de_la_voie]]'
         secondary: >-
-          {% if
-          has_value('input_text.arrosage_volume_voie_[[numero_de_la_voie]]')%}
-          {% if not
-          states('input_text.arrosage_volume_voie_[[numero_de_la_voie]]') in
-          ['unknown','0']%}
-            {% set volume = states('input_text.arrosage_volume_voie_[[numero_de_la_voie]]')+" L, " %}
-          {% else %}
-            {% set volume = "" %}
-          {% endif %}  {% if not
-          is_state('input_text.arrosage_dernier_declenchement_voie_[[numero_de_la_voie]]',
-          'unknown')%}
-            Dernier arrosage {{ volume }}le {{ as_timestamp(states('input_text.arrosage_dernier_declenchement_voie_[[numero_de_la_voie]]'),none) | timestamp_custom('%d/%m/%Y à %-H:%M') }}
-          {% endif %} {% endif %}
+          {% set volume = "" %} {% if
+          has_value('input_text.arrosage_volume_voie_[[numero_de_la_voie]]')
+          and
+          has_value('input_text.arrosage_dernier_declenchement_voie_[[numero_de_la_voie]]')%}
+            {% if not states('input_text.arrosage_volume_voie_[[numero_de_la_voie]]') in ['0']%}
+              {% set volume = states('input_text.arrosage_volume_voie_[[numero_de_la_voie]]')+" L, " %}
+            {% endif %}
+            Dernier arrosage {{ volume }}le {{ as_timestamp(states('input_text.arrosage_dernier_declenchement_voie_[[numero_de_la_voie]]')) | timestamp_custom('%d/%m/%Y à %-H:%M') }}
+          {% endif %}  
         icon: mdi:sprinkler-variant
         icon_color: |-
           {% if is_state(entity, 'on') %}
