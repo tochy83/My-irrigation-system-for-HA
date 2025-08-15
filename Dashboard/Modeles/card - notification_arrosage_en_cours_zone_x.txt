@@ -11,7 +11,7 @@ cards:
 
           Arrêt prévu à
           {{state_attr('input_datetime.arrosage_duree_cycle_zone_[X]',
-          'timestamp')| timestamp_custom("%Hh%M", true)}}
+          'timestamp')| timestamp_custom("%Hh%M", true, now())}}
         icon: mdi:sprinkler-variant
         icon_color: light-green
         tap_action:
