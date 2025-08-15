@@ -50,16 +50,18 @@ template:
 # La config de base permet de tester le dashboard arrosage sans action physique sur vos electrovannes.
 # Pour passer en production il faudra la remplacer par une config avec une entité réelle (Voir des ma config réelle ci-dessous)
 
-# Ma config réelle en exemple
+# Ma config réelle pourrait être
 #      - name: Arrosage - Electrovanne 7
 #        unique_id: arrosage_electrovanne_7
 #        icon: mdi:sprinkler-variant
-#        state: "{{ states('switch.d1mini_verger_arrosage_voie_7') }}" 
+#        state: "{{ states('switch.d1mini_potager_arrosage_voie_7') }}" 
 #        turn_on:
 #          action: switch.turn_on
 #          target:
-#            entity_id: switch.d1mini_verger_arrosage_voie_7
+#            entity_id: switch.d1mini_potager_arrosage_voie_7
 #        turn_off:
 #          action: switch.turn_off
 #          target:
-#            entity_id: switch.d1mini_verger_arrosage_voie_7
+#            entity_id: switch.d1mini_potager_arrosage_voie_7
+
+

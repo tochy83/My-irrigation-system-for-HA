@@ -7,7 +7,7 @@ automation:
   - id: 'arrosage_alerte'
     alias: Arrosage - Alerte
     description: >-
-      Envoi une notification sur le téléphone si l'heure prévue de fin du cycle
+      Envoi une notification sur le téléphone ou/et télégram si l'heure prévue de fin du cycle
       d'arrosage est passée et que l'arrosage est encore marche.
 
 
@@ -828,4 +828,25 @@ automation:
         target:
           entity_id: input_boolean.arrosage_display_notifications
     mode: restart
+
+  - id: 'arrosage_init_coeff'
+    alias: Arrosage - Réinitialise le coefficient temps d'arrosage
+    description: >-
+      Tous les jours à minuit, remet le coefficent de temps d'arrosage à sa valeur initiale '1'
+
+
+      Vous pouvez exploiter ce coeffcient en créant une automatisation qui modifierai sa valeur en fonction de la temperature de la journée par exemple.
+      Bien sur pour que ça fonctionne, cette automatisation devra se lancer avant un cycle d'arrosage programmé. Libre à vous de trouver vos idées.
+    mode: single
+    triggers:
+      - trigger: time
+        at: "00:00:00"
+    conditions: []
+    actions:
+      - action: input_number.set_value
+        metadata: {}
+        data:
+          value: 1
+        target:
+          entity_id: input_number.arrosage_coefficient_temps
 

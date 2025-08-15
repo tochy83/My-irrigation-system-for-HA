@@ -98,7 +98,7 @@ automation:
                     {% set ns = namespace(duree = as_timestamp(now()) + 60) %} {%
                     for item in label_entities("Zone [X]") | select('match',
                     'script.arrosage_declenchement_auto_voie') | sort %}
-                      {% set ns.duree = ns.duree + states('input_number.arrosage_duree_voie_' ~ item[-1]) | float if is_state('input_boolean.arrosage_enable_voie_' ~ item[-1], 'on') else ns.duree %}
+                      {% set ns.duree = ns.duree + (states('input_number.arrosage_duree_voie_' ~ item[-1]) | float) * (states('input_number.arrosage_coefficient_temps')|float) if is_state('input_boolean.arrosage_enable_voie_' ~ item[-1], 'on') else ns.duree %}
                     {% endfor %} {{ns.duree}}
               - repeat:
                   for_each: >-

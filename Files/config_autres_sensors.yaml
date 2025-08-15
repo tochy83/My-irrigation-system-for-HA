@@ -63,6 +63,15 @@ input_boolean:
     name: Arrosage - Enable telegram notifications
 
 input_number:
+  arrosage_coefficient_temps: # Coefficent pouvant être definit par automatisation pour augmenter ou diminuer le temps d'arrosage de chaque voie(Ex. Si 0.5 alors temps divisé par 2).
+                              # Il est remis à sa valeur initiale (1) tous les jours à minuit par une l'automatisation 'automation.arrosage_init_coeff' ou au redémarrage de Home Assistant.
+                              # Vous pouvez l'exploiter par une automatisation (à créer) qui modifierai sa valeur, par exemple avant que le calendrier déclenche un cycle d'arrosage.
+    name: Arrosage - Coefficient temps d'arrosage
+    initial: 1
+    min: 0
+    max: 5
+    step: 0.1
+
   arrosage_nb_file_voies: # Stocke le numéro de la dernière voie (dont les entités existent) pour la génération automatique des fichiers
     name: Arrosage - Nombre de voies avec entités
     min: 0

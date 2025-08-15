@@ -31,7 +31,7 @@ script:
         timeout:
           hours: 0
           minutes: 0
-          seconds: "{{ states('input_number.arrosage_duree_voie_4') }}"
+          seconds: "{{ states('input_number.arrosage_duree_voie_1')|float * states('input_number.arrosage_coefficient_temps')|float }}"
           milliseconds: 0
         alias: Attendre la fin du timer de cette électrovanne.
       - delay:
@@ -39,3 +39,5 @@ script:
           minutes: 0
           seconds: 1
           milliseconds: 0
+
+
