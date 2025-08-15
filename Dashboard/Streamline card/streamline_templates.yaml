@@ -43,7 +43,7 @@ arrosage_voie:
             - type: template
               entity: input_number.arrosage_duree_voie_[[numero_de_la_voie]]
               content: >-
-                {{ states(entity) |int | timestamp_custom('%M min %S s',
+                {{ states(entity) |int(0) | timestamp_custom('%M min %S s',
                 false) }}
               tap_action:
                 action: more-info
@@ -177,4 +177,3 @@ arrosage_zone:
             ha-card {
               padding-right: 8px;
             }
-
