@@ -180,7 +180,7 @@ Avant d'autoriser l'envoi de notifications, assurez vous d'avoir l'application m
 <span><img src="Medias/Icons/close-circle-outline.svg" width="18"></span> / <span><img src="Medias/Icons/check-circle-outline.svg" width="18"></span> Permettent d'autoriser ou non l'envoi des notifications vers l'application mobile/Télégram. Lorsque le bouton <span><img src="Medias/Icons/close-circle-outline.svg" width="18"></span> est affiché en gris, les notifications ne seront pas envoyées vers l'application mobile/Télégram. Quand le bouton <span><img src="Medias/Icons/check-circle-outline.svg" width="18"></span> est affiché en vert, les notifications seront envoyées vers l'application mobile/Télégram. Cliquer dessus bascule d'un état à l'autre.
 <br><br>
 
-*Le code de la section notifications : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/enable_notifications_cards_section.yaml)*
+*Le code de la section autorisation d'envoi de notifications : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/enable_notifications_cards_section.yaml)*
 <br><br>
 
 
@@ -189,7 +189,7 @@ Avant d'autoriser l'envoi de notifications, assurez vous d'avoir l'application m
 Les 4 cartes pemettant de génerer ou supprimer les fichiers d'entités pour les voies et les zones d'arrosage.
 <br><br>
 <span><img src="Medias/Icons/information-outline.svg" width="18"></span> Renvoi vers les explications détaillées de leur fonctionnement dans la documentation.
-<br>
+<br><br>
 
 *Le code de la section outils : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/outils_card.yaml)*
 <br><br>
@@ -198,7 +198,7 @@ Les 4 cartes pemettant de génerer ou supprimer les fichiers d'entités pour les
 #### - ***La carte mode fonctionnement*** :
 <p align="center"><img src="Medias/mode_card.jpg"></p>
 Une carte qui affiche le mode de fonctionnement de l'intégration. En mode production elle affiche en plus la correspondance entre les entités logicielles de "l'intégration" et le matériel de commande des voies d'arrosage.
-<br>
+<br><br>
 
 *Le code de la section mode de fonctionnement : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/mode_card.yaml)*
 <br><br><br><br>
