@@ -165,12 +165,12 @@ Il n'y a pas grand chose à ajouter sur cette page, elle se contente d'afficher 
 
 ### La page paramètres<br><br>
 <p align="center"><img src="Medias/parameters_page.jpg" width=75%></p>
-<p align="center">Une vue d'ensemble de la page arrosage.</p>
+<p align="center">Une vue d'ensemble de la page paramètres.</p>
 <br>
 
 Le code de la page : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/parameters_page.yaml)
 <br><br>
-Une page en 2 parties. Une première partie avec des paramètres à ajuster pour "l'intégration" et une seconde avec une documentation simplifiée.
+
 
 #### - ***Les cartes autorisation d'envoi de notifications*** :
 <p align="center"><img src="Medias/enable_mobile_notifications.jpg"></p>
@@ -181,6 +181,22 @@ Avant d'autoriser l'envoi de notifications, assurez vous d'avoir l'application m
 <br><br>
 
 *Le code de la section notifications : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/enable_notifications_cards_section.yaml)*
-
-
 <br><br>
+
+
+#### - ***Les cartes outils*** :
+<p align="center"><img src="Medias/outils_card.jpg"></p>
+Les 4 cartes pemettant de génerer ou supprimer les fichiers d'entités pour les voies et les zones d'arrosage.
+<br><br>
+<span><img src="Medias/Icons/information-outline.svg" width="18"></span> Renvoi vers les explications détaillées de leur fonctionnement dans la documentation.
+<br><br>
+
+
+#### - ***La carte mode fonctionnement*** :
+<p align="center"><img src="Medias/mode_card.jpg"></p>
+Une carte qui affiche le mode de fonctionnement de l'intégration. En mode production elle affiche en plus la correspondance entre les entités logicielles de "l'intégration" et le matériel de commande des voies d'arrosage.
+
+
+
+
+
