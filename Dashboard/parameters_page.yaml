@@ -221,9 +221,6 @@ sections:
         grid_options:
           columns: full
           rows: auto
-    column_span: 2
-  - type: grid
-    cards:
       - type: markdown
         content: >+
           {% set message = "voies d'arrosage sont présentes" %}
@@ -291,9 +288,6 @@ sections:
             ha-card {
               padding-bottom: 10px;
             }
-    column_span: 2
-  - type: grid
-    cards:
       - type: markdown
         content: >-
           {% set message_zone = "zones d'arrosage sont présentes" %}
@@ -390,9 +384,6 @@ sections:
             ha-card {
               padding-bottom: 10px;
             }
-    column_span: 2
-  - type: grid
-    cards:
       - type: markdown
         content: >+
           **<font color=orange size=2>Supprimer une voie d'arrosage</font>**
@@ -471,9 +462,6 @@ sections:
             ha-card {
               padding-bottom: 10px;
             }
-    column_span: 2
-  - type: grid
-    cards:
       - type: markdown
         content: >+
           **<font color=orange size=2>Supprimer une zone d'arrosage</font>**
