@@ -1,0 +1,338 @@
+type: grid
+cards:
+  - type: custom:mod-card
+    card:
+      type: custom:mushroom-title-card
+      title: ""
+      subtitle: Outils
+    card_mod:
+      style:
+        mushroom-title-card$: |
+          .subtitle {
+            border-bottom: 1px solid var(--ha-card-border-color,var(--divider-color,#e0e0e0));
+            padding-bottom: 0px;
+          }
+          .header {
+            margin-bottom: -7px;
+          }
+    grid_options:
+      columns: full
+      rows: auto
+  - type: markdown
+    content: >+
+      {% set message = "voies d'arrosage sont présentes" %}
+
+      {% if states('input_number.arrosage_nb_file_voies') | int(0) == 1 %}
+        {% set message = "voie d'arrosage est présente" %}
+      {% endif %}
+
+      **<font color=orange size=2>Ajouter une voie d'arrosage</font>**
+
+
+      {{states('input_number.arrosage_nb_file_voies') | int(0) }} {{message}}.
+      Pour en ajouter une supplémentaire cliquer sur le bouton *'Générer les
+      entités pour une nouvelle voie d'arrosage'*.
+
+    grid_options:
+      columns: full
+    text_only: true
+  - type: custom:mushroom-entity-card
+    icon_color: light-green
+    tap_action:
+      action: toggle
+    hold_action:
+      action: none
+    name: Générer les entités pour une nouvelle voie d'arrosage
+    grid_options:
+      columns: 18
+      rows: 1
+    entity: script.arrosage_generer_fichiers_voie
+    icon: mdi:file-multiple
+    secondary_info: none
+  - type: custom:mushroom-entity-card
+    icon_color: light-green
+    tap_action:
+      action: toggle
+    hold_action:
+      action: none
+    name: Redémarrer Home Assistant
+    grid_options:
+      columns: 6
+      rows: 1
+    entity: script.arrosage_redemarrer_ha
+    icon: mdi:restart
+    secondary_info: none
+  - type: markdown
+    content: >
+      Vous pouvez ajouter autant de voies que vous le souhaitez. Ensuite il
+      faudra redémarrer Home Assistant pour qu'elles soient prise en compte.
+
+
+      >*Après redémarrage, penser à inclure la nouvelle voie à une zone
+      d'arrosage.* [<ha-icon
+      icon="mdi:information-outline"></ha-icon>](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/DOCUMENTATION.md#--inclure-une-voie-%C3%A0-une-zone-darrosage)
+    grid_options:
+      columns: full
+    text_only: true
+  - type: custom:mushroom-chips-card
+    chips:
+      - type: spacer
+    grid_options:
+      columns: full
+      rows: auto
+    card_mod:
+      style: |
+        ha-card {
+          padding-bottom: 10px;
+        }
+  - type: markdown
+    content: >-
+      {% set message_zone = "zones d'arrosage sont présentes" %}
+
+      {% if states('input_number.arrosage_nb_file_zones') | int(0) == 1 %}
+        {% set message_zone = "zone d'arrosage est présente" %}
+      {% endif %}
+
+      {%- set ns = namespace(nb_zones_actives = 0) %}
+
+      {%- for item in states.sensor.arrosage_noms_des_zones.attributes |
+      select('match', 'zone_') %}
+        {%- if not is_state_attr('sensor.arrosage_noms_des_zones' , item, 'Nom_de_la_'~item ) %}
+          {%- set ns.nb_zones_actives = ns.nb_zones_actives + 1 %}
+        {%- endif %}
+      {%- endfor %}
+
+      {%- set message_diff = " (et "+(ns.nb_zones_actives|string)+" activées)"
+      %}
+
+      {%- if states('input_number.arrosage_nb_file_zones')|int(0)  == 1 %}
+        {%- set message_diff = " (et "+(ns.nb_zones_actives|string)+" activée)" %}
+      {%- endif %}
+
+      {%- if states('input_number.arrosage_nb_file_zones')|int(0)  !=
+      ns.nb_zones_actives %}
+        {%- if ns.nb_zones_actives < states('input_number.arrosage_nb_file_zones')|int(0) %}
+          {%- set message_diff = " (dont "+(ns.nb_zones_actives|string)+" actives, pensez à activer les nouvelles zones)" %}
+        {%- elif ns.nb_zones_actives > states('input_number.arrosage_nb_file_zones')|int(0) %}
+          {%- set message_diff = " ("+(ns.nb_zones_actives|string)+" sont activées, pensez à désactiver les zones en trop)" %}
+        {%- endif %}
+      {%- endif %}
+
+
+      **<font color=orange size=2>Ajouter une zone d'arrosage</font>**
+
+
+      {{states('input_number.arrosage_nb_file_zones') | int(0) }}
+      {{message_zone}}{{message_diff}}. Pour en ajouter une supplémentaire
+      cliquer sur le bouton *'Générer les entités pour une nouvelle zone
+      d'arrosage'*.
+    grid_options:
+      columns: full
+    text_only: true
+  - type: custom:mushroom-entity-card
+    icon_color: light-green
+    tap_action:
+      action: toggle
+    hold_action:
+      action: none
+    name: Générer les entités pour une nouvelle zone d'arrosage
+    grid_options:
+      columns: 18
+      rows: 1
+    icon: mdi:file-multiple
+    secondary_info: none
+    entity: script.arrosage_generer_fichiers_zone
+  - type: custom:mushroom-entity-card
+    icon_color: light-green
+    tap_action:
+      action: toggle
+    hold_action:
+      action: none
+    name: Redémarrer Home Assistant
+    grid_options:
+      columns: 6
+      rows: 1
+    entity: script.arrosage_redemarrer_ha
+    icon: mdi:restart
+    secondary_info: none
+  - type: markdown
+    content: >-
+      Vous pouvez ajouter autant de zones que vous le souhaitez. Ensuite il
+      faudra redémarrer Home Assistant pour qu'elles soient prise en compte.
+
+
+      >*Avant redémarrage, penser à activer la nouvelle zone.* [<ha-icon
+      icon="mdi:information-outline"></ha-icon>](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/DOCUMENTATION.md#--activerd%C3%A9sactiver-une-zone)
+
+
+      >*Si vous voulez plus de 9 zones, voir la documentation.* [<ha-icon
+      icon="mdi:information-outline"></ha-icon>](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/DOCUMENTATION.md#--si-vous-avez-besoin-de-plus-de-9-zones)
+    grid_options:
+      columns: full
+    text_only: true
+  - type: custom:mushroom-chips-card
+    chips:
+      - type: spacer
+    grid_options:
+      columns: full
+      rows: auto
+    card_mod:
+      style: |
+        ha-card {
+          padding-bottom: 10px;
+        }
+  - type: markdown
+    content: >+
+      **<font color=orange size=2>Supprimer une voie d'arrosage</font>**
+
+
+      {{states('input_number.arrosage_nb_file_voies') | int(0) }} voies
+      d'arrosage sont présentes. Pour supprimer la voie numéro
+      {{states('input_number.arrosage_nb_file_voies') | int(0) }} cliquer sur le
+      bouton *'Supprimer les entités pour la dernière voie d'arrosage'*.
+
+    grid_options:
+      columns: full
+    text_only: true
+    visibility:
+      - condition: numeric_state
+        entity: input_number.arrosage_nb_file_voies
+        above: 1
+  - type: markdown
+    content: |+
+      **<font color=orange size=2>Supprimer une voie d'arrosage</font>**
+
+      Une seule voie d'arrosage est présente. Vous ne pouvez pas la supprimer.
+
+    grid_options:
+      columns: full
+    text_only: true
+    visibility:
+      - condition: numeric_state
+        entity: input_number.arrosage_nb_file_voies
+        below: 2
+  - type: custom:mushroom-entity-card
+    icon_color: light-green
+    tap_action:
+      action: toggle
+    hold_action:
+      action: none
+    name: Supprimer les entités pour la dernière voie d'arrosage
+    grid_options:
+      columns: 18
+      rows: 1
+    entity: script.arrosage_supprimer_fichiers_voie
+    icon: mdi:file-multiple
+    secondary_info: none
+  - type: custom:mushroom-entity-card
+    icon_color: light-green
+    tap_action:
+      action: toggle
+    hold_action:
+      action: none
+    name: Redémarrer Home Assistant
+    grid_options:
+      columns: 6
+      rows: 1
+    entity: script.arrosage_redemarrer_ha
+    icon: mdi:restart
+    secondary_info: none
+  - type: markdown
+    content: >-
+      Vous pouvez supprimer toutes les voies l'exception de la première. Ensuite
+      il faudra redémarrer Home Assistant pour que la suppression soit prise en
+      compte.
+    grid_options:
+      columns: full
+    text_only: true
+  - type: custom:mushroom-chips-card
+    chips:
+      - type: spacer
+    grid_options:
+      columns: full
+      rows: auto
+    card_mod:
+      style: |
+        ha-card {
+          padding-bottom: 10px;
+        }
+  - type: markdown
+    content: >+
+      **<font color=orange size=2>Supprimer une zone d'arrosage</font>**
+
+
+      {{states('input_number.arrosage_nb_file_zones') | int(0) }} zones
+      d'arrosage sont présentes. Pour supprimer la zone numéro
+      {{states('input_number.arrosage_nb_file_zones') | int(0) }} cliquer sur le
+      bouton *'Supprimer les entités pour la dernière zone d'arrosage'*.
+
+    grid_options:
+      columns: full
+    text_only: true
+    visibility:
+      - condition: numeric_state
+        entity: input_number.arrosage_nb_file_zones
+        above: 1
+  - type: markdown
+    content: |+
+      **<font color=orange size=2>Supprimer une zone d'arrosage</font>**
+
+      Une seule zone d'arrosage est présente. Vous ne pouvez pas la supprimer.
+
+    grid_options:
+      columns: full
+    text_only: true
+    visibility:
+      - condition: numeric_state
+        entity: input_number.arrosage_nb_file_zones
+        below: 2
+  - type: custom:mushroom-entity-card
+    icon_color: light-green
+    tap_action:
+      action: toggle
+    hold_action:
+      action: none
+    name: Supprimer les entités pour la dernière voie d'arrosage
+    grid_options:
+      columns: 18
+      rows: 1
+    entity: script.arrosage_supprimer_fichiers_zone
+    icon: mdi:file-multiple
+    secondary_info: none
+  - type: custom:mushroom-entity-card
+    icon_color: light-green
+    tap_action:
+      action: toggle
+    hold_action:
+      action: none
+    name: Redémarrer Home Assistant
+    grid_options:
+      columns: 6
+      rows: 1
+    entity: script.arrosage_redemarrer_ha
+    icon: mdi:restart
+    secondary_info: none
+  - type: markdown
+    content: >-
+      Vous pouvez supprimer toutes les zones à l'exception de la première.
+      Ensuite il faudra redémarrer Home Assistant pour que la suppression soit
+      prise en compte.
+
+
+      >*Avant redémarrage, penser à désactiver la zone supprimée.*  [<ha-icon
+      icon="mdi:information-outline"></ha-icon>](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/DOCUMENTATION.md#--activerd%C3%A9sactiver-une-zone)
+    grid_options:
+      columns: full
+    text_only: true
+  - type: custom:mushroom-chips-card
+    chips:
+      - type: spacer
+    grid_options:
+      columns: full
+      rows: auto
+    card_mod:
+      style: |
+        ha-card {
+          padding-bottom: 10px;
+        }
+column_span: 2
