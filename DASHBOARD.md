@@ -185,7 +185,7 @@ Avant d'autoriser l'envoi de notifications, assurez vous d'avoir l'application m
 
 
 #### - ***La carte informations*** :
-<p align="center"><img src="Medias/entités_orphelines.jpg"></p>
+<p align="center"><img src="Medias/entités_orphelines_card.jpg"></p>
 Une carte qui affiche les entités orphelines liées à "l'intégration", si il y'en a, sinon elle ne s'affiche simplement pas.
 <br><br>
 
