@@ -156,7 +156,7 @@ Si vous avez un sensor qui comptabilise votre consommation d'eau, cette carte af
 <p align="center">Une vue d'ensemble de la page arrosage.</p>
 <br>
 
-Le code de la page : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/parameters_page.yaml)
+*Le code de la page : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/parameters_page.yaml)*
 <br><br>
 Il n'y a pas grand chose à ajouter sur cette page, elle se contente d'afficher les infos du calendrier d'arrosage ainsi que comment ajouter une programmation de zone dans le calendrier.
 <br><br><br>
@@ -168,7 +168,7 @@ Il n'y a pas grand chose à ajouter sur cette page, elle se contente d'afficher 
 <p align="center">Une vue d'ensemble de la page paramètres.</p>
 <br>
 
-Le code de la page : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/parameters_page.yaml)
+*Le code de la page : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/parameters_page.yaml)*
 <br><br>
 
 
@@ -189,14 +189,19 @@ Avant d'autoriser l'envoi de notifications, assurez vous d'avoir l'application m
 Les 4 cartes pemettant de génerer ou supprimer les fichiers d'entités pour les voies et les zones d'arrosage.
 <br><br>
 <span><img src="Medias/Icons/information-outline.svg" width="18"></span> Renvoi vers les explications détaillées de leur fonctionnement dans la documentation.
+<br>
+
+*Le code de la section outils : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/outils_card.yaml)*
 <br><br>
-*Le code de la section notifications :
+
 
 #### - ***La carte mode fonctionnement*** :
 <p align="center"><img src="Medias/mode_card.jpg"></p>
 Une carte qui affiche le mode de fonctionnement de l'intégration. En mode production elle affiche en plus la correspondance entre les entités logicielles de "l'intégration" et le matériel de commande des voies d'arrosage.
+<br>
 
-
+*Le code de la section mode de fonctionnement : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/mode_card.yaml)*
+<br><br><br><br>
 
 
 
