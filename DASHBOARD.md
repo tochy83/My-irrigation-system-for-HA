@@ -190,7 +190,7 @@ Les 4 cartes pemettant de génerer ou supprimer les fichiers d'entités pour les
 <br><br>
 <span><img src="Medias/Icons/information-outline.svg" width="18"></span> Renvoi vers les explications détaillées de leur fonctionnement dans la documentation.
 <br><br>
-
+*Le code de la section notifications :
 
 #### - ***La carte mode fonctionnement*** :
 <p align="center"><img src="Medias/mode_card.jpg"></p>
