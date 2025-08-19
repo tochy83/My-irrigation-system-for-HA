@@ -184,6 +184,15 @@ Avant d'autoriser l'envoi de notifications, assurez vous d'avoir l'application m
 <br><br>
 
 
+#### - ***La carte informations*** :
+<p align="center"><img src="Medias/Documentation/entités_orphelines.jpg"></p>
+Une carte qui affiche les entités orphelines liées à "l'intégration", si il y'en a, sinon elle ne s'affiche simplement pas.
+<br><br>
+
+*Le code de la section informations : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/entites_orphelines_card.yaml)*
+<br><br>
+
+
 #### - ***Les cartes outils*** :
 <p align="center"><img src="Medias/outils_card.jpg"></p>
 Les 4 cartes pemettant de génerer ou supprimer les fichiers d'entités pour les voies et les zones d'arrosage.
