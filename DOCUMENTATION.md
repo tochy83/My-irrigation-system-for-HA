@@ -23,6 +23,11 @@ Pour résumé :
 On garde bien sûr la possibilité de déclencher un cycle ou une voie de façon manuelle.
 <br><br>
 
+> Certains screenshots ou vidéos, présents ci-dessous peuvent ne pas être à jour car j'ai ajouté de nouvelles fonctionnalités depuis que j'ai rédigé cette page.
+> Cela ne modifie en rien la procédure d'installation.
+
+<br>
+
 
 #### - Les libellés de zone
 
