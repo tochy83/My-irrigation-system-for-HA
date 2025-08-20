@@ -22,7 +22,7 @@ Pour résumé, les fonctions de base de tout programmateur d'arrosage, auquel j'
 
 - Un dashboard pour piloter tout ça de manière simple et intuitive.
 - L'envoi de notifications vers l'application mobile (désactivables) et/ou Télégram pour avoir un retour sur l'état du système.
-> Je n'ai pas ajouté de prise en compte de capteur de pluie ou d'humidité du sol car je n'en dispose pas mais il est possible d'en tenir compte. J'aborde ce sujet ce point dans la documentation.
+> Je n'ai pas ajouté de prise en compte de capteur de pluie ou d'humidité du sol car je n'en dispose pas mais il est possible d'en tenir compte. J'aborde rapidement ce point dans la documentation.
 
 Ça c'était la partie simple puisque ça tourne chez moi comme ça depuis 2 ans.
 
