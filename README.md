@@ -4,7 +4,7 @@ Dashboard, automations and scripts of my irrigation system for Home Assistant.
 ***<p align="center">Still a work in progress... it's not completely ready.</p>***
 
  <br><br>
-Un dashboard pour Home Assistant, conçu pour 9 électrovannes réparties sur 3 zones d'arrosage. On peut bien sur ajouter ou enlever des d'électrovannes ou des zones.
+Un dashboard pour Home Assistant, conçu, par défaut, pour 9 électrovannes réparties sur 3 zones d'arrosage. On peut bien sur ajouter ou enlever des d'électrovannes ou des zones.
 
 <br><br>
 **L'objectif de départ :**
