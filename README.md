@@ -64,3 +64,5 @@ Adopter le Dashboard arrosage à son sytème d'arrosage. Laisser vous guider pas
 **Comment le supprimer :**
 
 Vous vouliez juste tester, faire le curieux et souhaitez maintenant supprimer le Dashboard arrosage, c'est par là que cela se passe : *[Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/DOCUMENTATION.md#--supprimer-lint%C3%A9gration)*
+
+<br><br><br>
