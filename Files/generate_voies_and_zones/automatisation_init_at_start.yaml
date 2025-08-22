@@ -2,7 +2,10 @@ automation:
 
   - id: 'arrosage_init_at_restart'
     alias: Arrosage - Initialisation au redemarrage
-    description: "Initialise le nombre de zones et de voies au démarrage de Home Assistant"
+    description: >-
+      Initialise le nombre de zones et de voies au démarrage de Home Assistant.
+
+      Verifie également si un cycle d'arrosage était en cours lors du redémarrage sur serveur et dans ce cas envoie une notification vers l'app mobile et/ou Télégram.
     triggers:
       - trigger: homeassistant
         event: start
@@ -45,4 +48,56 @@ automation:
             {{ nb_entites_orphelines }}
         target:
           entity_id: input_number.arrosage_nb_entites_orphelines
+      - sequence:
+        - variables:
+            liste_zones: >-
+              {{ states['input_boolean']
+              |selectattr('entity_id','match','input_boolean.arrosage_auto_zone')
+              |selectattr('state', 'eq', 'on') |map(attribute='entity_id') |list }}
+            zones_count: "{{ liste_zones|count }}"
+            liste_zones_nom: >-
+              {%- set ns = namespace(nom_zones_en_cours = "") %} {%- for item in
+              liste_zones %}
+                {%- set attr = item | replace('input_boolean.arrosage_auto_','') %}
+                {%- set ns.nom_zones_en_cours = ns.nom_zones_en_cours + state_attr('sensor.arrosage_noms_des_zones', attr) + ", " %}
+              {%- endfor %} {{ns.nom_zones_en_cours[:-2]}}
+            message: >-
+              {%- set pluriel_zones = "zone (" + liste_zones_nom + ") était" %} {%- if
+              zones_count > 1 %}
+                {%- set pluriel_zones = "zones (" + liste_zones_nom + ") étaient" %}
+              {%- endif %} Le serveur a redémarré alors que {{zones_count }}
+              {{pluriel_zones}} en cours d'arrosage.
+        - condition: template
+          value_template: "{{ zones_count > 0 }}"
+        - repeat:
+            for_each: "{{ liste_zones }} "
+            sequence:
+              - action: input_boolean.turn_off
+                target:
+                  entity_id: "{{repeat.item}}"
+                data: {}
+        - alias: Notification application mobile
+          sequence:
+            - condition: state
+              entity_id: input_boolean.arrosage_enable_mobileapp_notifications
+              state: "on"
+            - action: script.envoi_notification_vers_mon_telephone
+              data:
+                message: "{{ message }}"
+                color: red
+                tag: arrosage
+                icon: mdi:sprinkler-variant
+                persistent: "true"
+                title: Arrosage interrompu
+        - alias: Notification Télégram
+          sequence:
+            - condition: state
+              entity_id: input_boolean.arrosage_enable_telegram_notifications
+              state: "on"
+            - action: telegram_bot.send_message
+              metadata: {}
+              data:
+                title: Arrosage interrompu
+                message: "{{ message }}"
+
     mode: single
