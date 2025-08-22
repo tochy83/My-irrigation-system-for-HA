@@ -4,8 +4,9 @@ automation:
     alias: Arrosage - Initialisation au redemarrage
     description: >-
       Initialise le nombre de zones et de voies au démarrage de Home Assistant.
+      
 
-      Verifie également si un cycle d'arrosage était en cours lors du redémarrage sur serveur et dans ce cas envoie une notification vers l'app mobile et/ou Télégram.
+      Vérifie également si un cycle d'arrosage était en cours lors du redémarrage sur serveur et dans ce cas envoie une notification vers l'app mobile et/ou Télégram.
     triggers:
       - trigger: homeassistant
         event: start
