@@ -49,6 +49,18 @@ automation:
             {{ nb_entites_orphelines }}
         target:
           entity_id: input_number.arrosage_nb_entites_orphelines
+      - repeat:
+          sequence:
+            - condition: template
+              value_template: >-
+                {{ is_state('switch.arrosage_electrovanne_'~repeat.index, 'on') and
+                is_state('timer.arrosage_voie_'~repeat.index, 'idle') }}
+            - action: switch.turn_off
+              metadata: {}
+              data: {}
+              target:
+                entity_id: switch.arrosage_electrovanne_{{ repeat.index }}
+          count: "{{ states('input_number.arrosage_nb_file_voies')|int(0) }}"      
       - sequence:
         - variables:
             liste_zones: >-
