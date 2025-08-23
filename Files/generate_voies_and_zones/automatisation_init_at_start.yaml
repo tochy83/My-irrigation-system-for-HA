@@ -134,5 +134,5 @@ automation:
                 data:
                   title: Arrosage interrompu
                   message: "{{ message }}"
-        alias: Vérifier si redémmarge HA pendant un cycle d'arrosage
+        alias: Vérifier si un redémarrage de HA a eu lieu pendant un cycle d'arrosage
     mode: single
