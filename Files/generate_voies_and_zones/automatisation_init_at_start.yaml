@@ -4,23 +4,26 @@ automation:
     alias: Arrosage - Initialisation au redemarrage
     description: >-
       Initialise le nombre de zones et de voies au démarrage de Home Assistant.
-      
 
-      Vérifie également si un cycle d'arrosage était en cours lors du redémarrage sur serveur et dans ce cas envoie une notification vers l'app mobile et/ou Télégram.
+
+      Vérifie également si un cycle d'arrosage était en cours lors du redémarrage
+      sur serveur et dans ce cas envoie une notification vers l'app mobile et/ou
+      Télégram.
     triggers:
       - trigger: homeassistant
         event: start
     conditions: []
     actions:
       - action: shell_command.arrosage_correspondance_materiel
+        data: {}
       - action: input_number.set_value
         metadata: {}
         data:
           value: >-
             {{ (states['switch'] |
             selectattr('entity_id','match','switch.arrosage_electrovanne_')
-            |selectattr('state', 'in', ['on', 'off'])
-            |map(attribute='entity_id') | list | count) }}
+            |selectattr('state', 'in', ['on', 'off']) |map(attribute='entity_id') |
+            list | count) }}
         target:
           entity_id: input_number.arrosage_nb_file_voies
       - action: input_number.set_value
@@ -29,24 +32,41 @@ automation:
           value: >-
             {{ (states['input_boolean'] |
             selectattr('entity_id','match','input_boolean.arrosage_auto_zone_')
-            |selectattr('state', 'in', ['on', 'off'])
-            |map(attribute='entity_id') | list | count) }}
+            |selectattr('state', 'in', ['on', 'off']) |map(attribute='entity_id') |
+            list | count) }}
         target:
           entity_id: input_number.arrosage_nb_file_zones
       - action: input_number.set_value
         metadata: {}
         data:
           value: >-
-            {%- set switch = (states['switch'] | selectattr('entity_id','match','switch.arrosage_electrovanne_') | selectattr('state', 'in', ['unavailable']) | map(attribute='entity_id') | list) %}
-            {%- set boolean = (states['input_boolean'] | selectattr('entity_id','match','input_boolean.arrosage_') | selectattr('state', 'in', ['unavailable']) | map(attribute='entity_id') | list ) %}
-            {%- set text = (states['input_text'] | selectattr('entity_id','match','input_text.arrosage_') | selectattr('state', 'in', ['unavailable']) | map(attribute='entity_id') | list ) %}
-            {%- set number = (states['input_number'] | selectattr('entity_id','match','input_number.arrosage_') | selectattr('state', 'in', ['unavailable']) | map(attribute='entity_id') | list ) %}
-            {%- set datetime = (states['input_datetime'] | selectattr('entity_id','match','input_datetime.arrosage_') | selectattr('state', 'in', ['unavailable']) | map(attribute='entity_id') | list ) %}
-            {%- set timer = (states['timer'] | selectattr('entity_id','match','timer.arrosage_') | selectattr('state', 'in', ['unavailable']) | map(attribute='entity_id') | list ) %}
-            {%- set automation = (states['automation'] | selectattr('entity_id','match','automation.arrosage_') | selectattr('state', 'in', ['unavailable']) | map(attribute='entity_id') | list ) %}
-            {%- set script = (states['script'] | selectattr('entity_id','match','script.arrosage_') | selectattr('state', 'in', ['unavailable']) | map(attribute='entity_id') | list ) %}
-            {%- set nb_entites_orphelines = boolean|count + text|count + number|count + datetime|count + timer|count + switch|count + automation|count + script|count %}
-            {{ nb_entites_orphelines }}
+            {%- set switch = (states['switch'] |
+            selectattr('entity_id','match','switch.arrosage_electrovanne_') |
+            selectattr('state', 'in', ['unavailable']) | map(attribute='entity_id')
+            | list) %} {%- set boolean = (states['input_boolean'] |
+            selectattr('entity_id','match','input_boolean.arrosage_') |
+            selectattr('state', 'in', ['unavailable']) | map(attribute='entity_id')
+            | list ) %} {%- set text = (states['input_text'] |
+            selectattr('entity_id','match','input_text.arrosage_') |
+            selectattr('state', 'in', ['unavailable']) | map(attribute='entity_id')
+            | list ) %} {%- set number = (states['input_number'] |
+            selectattr('entity_id','match','input_number.arrosage_') |
+            selectattr('state', 'in', ['unavailable']) | map(attribute='entity_id')
+            | list ) %} {%- set datetime = (states['input_datetime'] |
+            selectattr('entity_id','match','input_datetime.arrosage_') |
+            selectattr('state', 'in', ['unavailable']) | map(attribute='entity_id')
+            | list ) %} {%- set timer = (states['timer'] |
+            selectattr('entity_id','match','timer.arrosage_') | selectattr('state',
+            'in', ['unavailable']) | map(attribute='entity_id') | list ) %} {%- set
+            automation = (states['automation'] |
+            selectattr('entity_id','match','automation.arrosage_') |
+            selectattr('state', 'in', ['unavailable']) | map(attribute='entity_id')
+            | list ) %} {%- set script = (states['script'] |
+            selectattr('entity_id','match','script.arrosage_') | selectattr('state',
+            'in', ['unavailable']) | map(attribute='entity_id') | list ) %} {%- set
+            nb_entites_orphelines = boolean|count + text|count + number|count +
+            datetime|count + timer|count + switch|count + automation|count +
+            script|count %} {{ nb_entites_orphelines }}
         target:
           entity_id: input_number.arrosage_nb_entites_orphelines
       - repeat:
@@ -60,57 +80,59 @@ automation:
               data: {}
               target:
                 entity_id: switch.arrosage_electrovanne_{{ repeat.index }}
-          count: "{{ states('input_number.arrosage_nb_file_voies')|int(0) }}"      
+          count: "{{ states('input_number.arrosage_nb_file_voies')|int(0) }}"
+        alias: Eteindre les électrovannes actives dont le timer est inactif
       - sequence:
-        - variables:
-            liste_zones: >-
-              {{ states['input_boolean']
-              |selectattr('entity_id','match','input_boolean.arrosage_auto_zone')
-              |selectattr('state', 'eq', 'on') |map(attribute='entity_id') |list }}
-            zones_count: "{{ liste_zones|count }}"
-            liste_zones_nom: >-
-              {%- set ns = namespace(nom_zones_en_cours = "") %} {%- for item in
-              liste_zones %}
-                {%- set attr = item | replace('input_boolean.arrosage_auto_','') %}
-                {%- set ns.nom_zones_en_cours = ns.nom_zones_en_cours + state_attr('sensor.arrosage_noms_des_zones', attr) + ", " %}
-              {%- endfor %} {{ns.nom_zones_en_cours[:-2]}}
-            message: >-
-              {%- set pluriel_zones = "zone (" + liste_zones_nom + ") était" %} {%- if
-              zones_count > 1 %}
-                {%- set pluriel_zones = "zones (" + liste_zones_nom + ") étaient" %}
-              {%- endif %} Le serveur a redémarré alors que {{zones_count }}
-              {{pluriel_zones}} en cours d'arrosage.
-        - condition: template
-          value_template: "{{ zones_count > 0 }}"
-        - repeat:
-            for_each: "{{ liste_zones }} "
+          - variables:
+              liste_zones: >-
+                {{ states['input_boolean']
+                |selectattr('entity_id','match','input_boolean.arrosage_auto_zone')
+                |selectattr('state', 'eq', 'on') |map(attribute='entity_id') |list
+                }}
+              zones_count: "{{ liste_zones|count }}"
+              liste_zones_nom: >-
+                {%- set ns = namespace(nom_zones_en_cours = "") %} {%- for item in
+                liste_zones %}
+                  {%- set attr = item | replace('input_boolean.arrosage_auto_','') %}
+                  {%- set ns.nom_zones_en_cours = ns.nom_zones_en_cours + state_attr('sensor.arrosage_noms_des_zones', attr) + ", " %}
+                {%- endfor %} {{ns.nom_zones_en_cours[:-2]}}
+              message: >-
+                {%- set pluriel_zones = "zone (" + liste_zones_nom + ") était" %}
+                {%- if zones_count > 1 %}
+                  {%- set pluriel_zones = "zones (" + liste_zones_nom + ") étaient" %}
+                {%- endif %} Le serveur a redémarré alors que {{zones_count }}
+                {{pluriel_zones}} en cours d'arrosage.
+          - condition: template
+            value_template: "{{ zones_count > 0 }}"
+          - repeat:
+              for_each: "{{ liste_zones }} "
+              sequence:
+                - action: input_boolean.turn_off
+                  target:
+                    entity_id: "{{repeat.item}}"
+                  data: {}
+          - alias: Notification application mobile
             sequence:
-              - action: input_boolean.turn_off
-                target:
-                  entity_id: "{{repeat.item}}"
-                data: {}
-        - alias: Notification application mobile
-          sequence:
-            - condition: state
-              entity_id: input_boolean.arrosage_enable_mobileapp_notifications
-              state: "on"
-            - action: script.envoi_notification_vers_mon_telephone
-              data:
-                message: "{{ message }}"
-                color: red
-                tag: arrosage
-                icon: mdi:sprinkler-variant
-                persistent: "true"
-                title: Arrosage interrompu
-        - alias: Notification Télégram
-          sequence:
-            - condition: state
-              entity_id: input_boolean.arrosage_enable_telegram_notifications
-              state: "on"
-            - action: telegram_bot.send_message
-              metadata: {}
-              data:
-                title: Arrosage interrompu
-                message: "{{ message }}"
-
+              - condition: state
+                entity_id: input_boolean.arrosage_enable_mobileapp_notifications
+                state: "on"
+              - action: script.envoi_notification_vers_mon_telephone
+                data:
+                  message: "{{ message }}"
+                  color: red
+                  tag: arrosage
+                  icon: mdi:sprinkler-variant
+                  persistent: "true"
+                  title: Arrosage interrompu
+          - alias: Notification Télégram
+            sequence:
+              - condition: state
+                entity_id: input_boolean.arrosage_enable_telegram_notifications
+                state: "on"
+              - action: telegram_bot.send_message
+                metadata: {}
+                data:
+                  title: Arrosage interrompu
+                  message: "{{ message }}"
+        alias: Vérifier si redémmarge HA pendant un cycle d'arrosage
     mode: single
