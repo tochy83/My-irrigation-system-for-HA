@@ -207,10 +207,10 @@ Une fois la modification effectuée, on va dans Outils de développement, on vé
 Il faut maintenant attribuer des libellés aux différents scripts 'script.arrosage_declenchement_auto_voie_[x]' pour indiquer à "l'intégration" quelle électrovannes se trouve dans quelle zone.
 <br>
 
-Par defaut, puisque c'est comme ça que le Dashboard se présente il faut attribuer aux scripts :
-- Pour les 'script.arrosage_declenchement_auto_voie_[x] 1,2,3,4 et 5 le libellé 'Zone 1'
-- Pour les 'script.arrosage_declenchement_auto_voie_[x] 8 et 9 le libellé 'Zone 2'
-- Pour les 'script.arrosage_declenchement_auto_voie_[x] 6 et 7 le libellé 'Zone 3'
+Par defaut, puisque c'est comme ça que le Dashboard se présente il faut attribuer :
+- Pour les 'script.arrosage_declenchement_auto_voie_[x] 1,2,3,4 et 8 le libellé 'Zone 1'
+- Pour les 'script.arrosage_declenchement_auto_voie_[x] 7 et 9 le libellé 'Zone 2'
+- Pour les 'script.arrosage_declenchement_auto_voie_[x] 5 et 6 le libellé 'Zone 3'
 <p align="center"><img src="Medias/Install/add_labels.gif"></p>
 <br>
 
