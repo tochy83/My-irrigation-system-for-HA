@@ -1,7 +1,7 @@
 # Documentation
 
 
-#### - Lexique
+### - Lexique
 
 Parce que chaque culture/plantation a son propre besoin en eau, il faut bien comprendre le rôle du calendrier,  des voies d'arrosage, des zones d'arrosage et des cycles d'arrosage pour appéhender le fonctionnement de l'ensemble.
 - Calendrier : Le calendrier contient les jours et heures de départ d'arrosage ainsi que le nom de la zone concernée (les événements). C'est lui qui définit **la fréquence d'arrosage** d'une zone.
@@ -29,7 +29,7 @@ On garde bien sûr la possibilité de déclencher un cycle ou une voie de façon
 <br>
 
 
-#### - Les libellés de zone
+### - Les libellés de zone
 
 C'est grâce au libellés (labels) que les cycles d'arrosage qu'ils soient programmés ou manuels fonctionnent. Pour cela il est important que chaque zone ait son libellé et que ce libellé soit supprimer si on supprime une zone.
 
@@ -40,14 +40,14 @@ Je n'ai malheureusement pas trouvé comment les créer ou les supprimer automati
 <br><br>
 
 
-#### - Inclure une voie à une zone d'arrosage
+### - Inclure une voie à une zone d'arrosage
 
 Pour inclure une voie à une zone d'arrosage et ainsi permettre son déclenchement lors d'un cycle d'arrosage, automatique ou manuel, il faut :
 - Ajouter un libellé de zone au script 'script.arrosage_declenchement_auto_voie_x' (x représentant le numéro de la voie à inclure dans la zone). Cette opération se fait par l'UI de Home Assistant ([Voir](DOCUMENTATION.md#--les-libell%C3%A9s-de-zone)).
 <br><br>
 
 
-#### - Ajouter une nouvelle voie d'arrosage
+### - Ajouter une nouvelle voie d'arrosage
 
 Un outil est présent dans la page paramètres de "l'intégration". Il permet de générer les fichiers d'entités, les automatisations et les scripts nécessaires au fonctionnement d'une voie d'arrosage.
 
@@ -63,7 +63,7 @@ Nb: Si vous utilisez "l'intégration" en production avant de redémarrer Home As
 <br><br>
 
 
-#### - Supprimer une voie d'arrosage
+### - Supprimer une voie d'arrosage
 
 Un outil est présent dans la page paramètres de "l'intégration". Il permet de supprimer les fichiers d'entités, les automatisations et les scripts nécessaires au fonctionnement d'une voie d'arrosage.
 
@@ -74,7 +74,7 @@ Pour supprimer une voie d'arrosage il faut :
 <br><br>
 
 
-#### - Ajouter une zone d'arrosage
+### - Ajouter une zone d'arrosage
 
 Par défaut l'intégration vient avec 3 zones actives et 6 autres zones qui n'attendent que leurs entités. Un outil est présent dans la page paramètres de "l'intégration". Il permet de générer les fichiers d'entités et les automatisations nécessaires au fonctionnement d'une zone d'arrosage.
 
@@ -86,7 +86,7 @@ Pour ajouter une zone il faut :
 <br><br>
 
 
-#### - Si vous avez besoin de plus de 9 zones.
+### - Si vous avez besoin de plus de 9 zones.
 
 Il faudra en plus des étapes précédentes modifier certains sensors, scripts et automatisations pour en tenir compte.
 
@@ -111,7 +111,7 @@ Il faudra également ajouter au dashboard les cartes notifications correspondant
 <br>
 
 
-#### - Pour supprimer une zone 
+### - Pour supprimer une zone 
 
  Pour supprimer une zone les étapes sont les mêmes que pour supprimer une voie. Il faudra en plus désactiver cette zone ([Voir](DOCUMENTATION.md#--activerd%C3%A9sactiver-une-zone)).
  
@@ -119,7 +119,7 @@ Il faudra également ajouter au dashboard les cartes notifications correspondant
 <br><br>
 
 
-#### - Note sur les outils de suppression de voie et de zone.
+### - Note sur les outils de suppression de voie et de zone.
 
 L'outil de suppression de voie ou de zone, permet de supprimer les fichiers d'entités, les automatisations et les scripts nécessaires au fonctionnement d'une voie ou d'une zone d'arrosage.
 
@@ -131,7 +131,7 @@ Suite à la suppression des fichiers par l'outil, des entités orphelines peuven
 <br><br>
 
 
-#### - Les entités orphelines.
+### - Les entités orphelines.
 
 Suite à la suppression des fichiers de définition d'une voie ou d'une zone, Home Assistant fera apparaitre des entités orphelines après redémarrage.
 
@@ -146,7 +146,7 @@ C'est là qu'il est pratique d'avoir défini un libellé ou une catégorie pour 
 <br><br>
 
 
-#### - Activer/Désactiver une zone
+### - Activer/Désactiver une zone
 
 Pour activer une zone d'arrosage, il faut :
 - Modifier son nom, par le nom que vous voulez dans le fichier 'zones.yaml', présent dans le dossier 'packages/arrosage/'.
@@ -165,7 +165,7 @@ Les modifications à effectuer sont indiquées dans les commentaires du fichier.
 <br>
 
 
-#### - Migrer les automatisions et les script
+### - Migrer les automatisions et les script
 
 Vous pouvez migrer certaines automatisations dans Home Assistant afin de les modifier depuis l'UI. Pour cela il faut :
 - Aller à Paramètres/Automatisations et scènes/Automatisation.
@@ -180,7 +180,7 @@ Sinon, si vous utiliser plus de 9 zones, vous pouvez également migrer le script
 <br><br>
 
 
-#### - Faire correspondre les commandes d'électrovannes avec son matériel
+### - Faire correspondre les commandes d'électrovannes avec son matériel
 
 Pour lier votre propre matériel commandant votre arrosage à l'intégration il faut :
 - Modifier le template_switch 'switch.arrosage_electrovanne_x' (x représentant le numéro de l'éléctrovanne) dans les fichiers 'voie_x.yaml' situé dans le dossier 'packages/arrosage/' comme indiqué dans les commentaires de ces fichiers.
@@ -193,7 +193,7 @@ Par exemple 'switch.d1mini_potager_arrosage_voie_1' correspondant à ma commande
 <br>
 
 
-#### - Ajouter son compteur d'eau
+### - Ajouter son compteur d'eau
 
 Pour prendre en compte son propre compteur d'eau il faut :
 - Modifier le template sensor 'sensor.arrosage_compteur_eau' dans les fichiers 'config_autres_sensors.yaml' situé dans le dossier 'packages/arrosage/' comme indiqué dans les commentaires de ce fichier.
@@ -218,7 +218,7 @@ Si vous n'en avez pas vous pouvez laisser tel quel et simplement supprimer sa ca
 <br><br>
 
 
-#### - Modifier le binary_sensor de connectivité des electrovannes
+### - Modifier le binary_sensor de connectivité des electrovannes
 
 Pour prendre en compte son propre sensor de connectivité des électrovannes il faut :
 - Modifier le template_binary sensor 'binary_sensor.arrosage_electrovannes_connected' dans les fichiers 'config_autres_sensors.yaml' situé dans le dossier 'packages/arrosage/' comme indiqué dans les commentaires de ce fichier.
@@ -231,7 +231,7 @@ Par exemple mon sensor de connectivité est 'binary_sensor.arrosage_esp_status' 
 <br>
 
 
-#### - Stucture des fichiers de "l'intégration"
+### - Stucture des fichiers de "l'intégration"
 
 Voici comment sont structurés les fichiers de "l'intégration" une fois installée.
 
@@ -270,7 +270,7 @@ Le sous-dossier 'modeles' contient les modèles de fichiers pour les outils de c
 <br>
 
 
-#### - Supprimer l'intégration
+### - Supprimer l'intégration
 
 Pour supprimer totalement "l'integration", il faut :
 - Supprimer le dossier 'arrosage' situé dans les dossier 'packages/'.
@@ -284,7 +284,7 @@ Nb: Si vous avez migré des automatisations ou script sous l'UI de Home Assistan
 <br><br>
 
 
-#### - Capteur de pluie ou d'humidité du sol
+### - Capteur de pluie ou d'humidité du sol
 
 Je n'ai pas ajouté de prise en compte de ce type de capteurs dans "l'intégration" car je n'en dispose pas. Cependant si l'on souhaite en tenir compte il suffit simplement de les rajouter en conditions de l'automatisation 'automation.arrosage_calendrier'.
 
