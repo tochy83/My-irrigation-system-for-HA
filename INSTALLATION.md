@@ -279,7 +279,7 @@ Je rappelle qu'à ce stade "l'intégration" tourne en mode simulation afin que v
 
 <div align="center">
 
-  [![Lancer la vidéo](https://img.youtube.com/vi/XecQMBDLVuI/0.jpg)](https://www.youtube.com/watch?v=XecQMBDLVuI "Lancer la vidéo")
+  [![Lancer la vidéo](https://img.youtube.com/vi/Ewms74Tb5es/0.jpg)](https://www.youtube.com/watch?v=Ewms74Tb5es "Lancer la vidéo")
 
 </div>
 
