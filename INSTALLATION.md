@@ -149,8 +149,6 @@ A l'aide de 'Studio Code Server', créer dans le dossier 'config' de Home Assist
 A l'aide de 'Studio Code Server', copier tous les fichiers et dossiers se trouvant dans le dossier 'Files' du zip décompressé précedemment, dans le dossier 'arrosage' que l'on vient de créer.
 <p align="center"><img src="Medias/Install/studio_code_server.gif"></p>
 
-[Voir la même manipulation avec 'Samba share'](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Medias/Install/shamba_share.gif)
-
 La structure finale du dossier 'arrosage' doit être celle-ci :
 <p align="center"><img src="Medias/Install/structure_dossier_packages.jpg"></p>
 
