@@ -4,8 +4,7 @@ Vous trouverez sur cette page toutes les explications nécessaires à la mise en
 <br><br>
 
 #### Les modules complémentaires nécessaires pour installer le dashboard :
-* 'File Editor' ou 'Studio Code Server'
-* Je vous conseille fortement d'installer aussi 'Samba share' pour la copie des fichiers. Cela sera bien plus rapide qu'avec File Editor, quand il y'a une bonne quarantaine de fichiers à copier. De plus ce module complémentaire permettra d'accéder au fichier 'configuration.yaml' si jamais un jour vous faites une erreur dedans qui bloque votre Home Assistant.
+* 'Studio Code Server' ou 'Samba share' pour la copie des fichiers. Cela est possible avec seulement 'File Editor' mais il y'a une cinquantaine de fichiers à copier, donc à vous de voir.
 <br><br>
 
 #### Integrations nécessaires au fonctionnment du dashboard arrosage :
@@ -30,16 +29,15 @@ Ce n'est pas une obligation mais dans ce cas là vous n'aurez simplement pas de 
 > Je l'ai également adapté "l'intégration" pour avoir la possibilité de recevoir les notifications sur Télégram. Pour ça, il faut bien sur avoir l'intégration Télégram d'installée au préalable. Comme pour les notifications
 > vers l'application mobile elles sont désactivées par défaut.
 
-<br>
-
-**Pour coller au plus grand nombre, toutes les étapes de l'installation que je vais décrire seront réalisées avec File Editor.**
 <br><br>
+
+### Les différentes étapes de l'installation :
+
+<br>
 
 > Certains screenshots ou vidéos, présents ci-dessous peuvent ne pas être à jour car j'ai ajouté de nouvelles fonctionnalités depuis que j'ai rédigé cette page.
 > Cela ne modifie en rien la procédure d'installation.
 <br>
-
-### Les différentes étapes de l'installation :
 
 #### - ***Etape 1*** :
 Vérifier que tous les modules complémentaires et les intégrations nécessaires (voir le listing ci-dessus) sont installés sur votre serveur de Home Assitant.
@@ -99,7 +97,7 @@ Sinon le résultat ressemblera plus à ça, avec une liste de toutes les entité
 
 #### - ***Etape 2*** :
 Vérifier dans le fichier 'configuration.yaml' si les packages sont actifs. Si vous ne voyez pas de quoi je parle c'est que probablement vous ne les avez jamais utlisé et que du coup ils ne sont pas actifs.
-A l'aide de File Editor, ouvrer le fichier 'configuration.yaml' et rechercher si il contient la ligne suivante :
+A l'aide de 'File Editor' ou 'Studio Code Server', ouvrez le fichier 'configuration.yaml' et rechercher si il contient la ligne suivante :
 ```yml
   packages: !include_dir_named packages
 ```
@@ -139,21 +137,19 @@ Une fois téléchargé, on les extrait dans le dossier de son choix.
 
 
 #### - ***Etape 4*** :
-A l'aide de File Editor, créer dans le dossier 'config' de Home Assistant, un dossier nommé 'packages'. Pour rappel le dossier 'config' se nomme pour File Editor 'homeassistant' et c'est le dossier où l'on se trouve par défaut quand on ouvre File Editor.
+A l'aide de 'Studio Code Server', créer dans le dossier 'config' de Home Assistant, un dossier nommé 'packages'.
 <br>
 
 - Dans ce dossier 'packages' créer un dossier 'arrosage'.
-- Dans ce dossier 'arrosage' créer deux dossiers 'generate_voies_and_zones' et 'voies_and_zones'.
-- Dans le dossier 'generate_voies_and_zones' créer un dossier 'modeles'.
-<p align="center"><img src="Medias/Install/add_folder.gif"></p>
+<p align="center"><img src="Medias/Install/studio_code_server_add_folder.gif"></p>
 <br>
 
 
 #### - ***Etape 5*** :
-A l'aide de File Editor, copier tous les fichiers se trouvent dans le dossier 'Files' du zip décompressé précedemment, dans le dossier 'arrosage' que l'on vient de créer. Les fichiers présents dans les sous-dossiers de 'Files' doivent être copiés dans leurs sous-dossiers respectifs (créés à l'étape précedente) du dossier 'arrosage'.
-<p align="center"><img src="Medias/Install/add_files.gif"></p>
+A l'aide de 'Studio Code Server', copier tous les fichiers et dossiers se trouvant dans le dossier 'Files' du zip décompressé précedemment, dans le dossier 'arrosage' que l'on vient de créer.
+<p align="center"><img src="Medias/Install/studio_code_server.gif"></p>
 
-Sur l'animation je montre comment faire pour 2 fichiers, mais il faut bien répéter la manipulation pour tous les fichiers présent dans le dossier 'Files' et ses sous-dossiers. C'est à cette étape qu'avoir le module complémentaire 'Samba share' rend bien service, les etapes 4 et 5 pouvant se faire par un simple copier/coller du contenu du dossier 'Files', une fois le dossier 'packages' créé. [Voir une animation avec 'Samba share'](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Medias/Install/shamba_share.gif)
+[Voir la même manipulation avec 'Samba share'](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Medias/Install/shamba_share.gif)
 
 La structure finale du dossier 'arrosage' doit être celle-ci :
 <p align="center"><img src="Medias/Install/structure_dossier_packages.jpg"></p>
@@ -183,7 +179,7 @@ Pour pouvoir recevoir les notifications, même en mode simulation, il est néces
 Si vous ne souhaitez pas tester les notifications passer directement à l'étape 8.
 <br>
 
-A l'aide de File Editor, ouvrir le fichier '/packages/arrosage/scripts.yaml'. Aller à la ligne 394
+A l'aide de 'File Editor' ou 'Studio Code Server', ouvrir le fichier '/packages/arrosage/scripts.yaml'. Aller à la ligne 394
 ```yml
         action: notify.mobile_app_pixel
 ```
