@@ -63,6 +63,12 @@ Nb: Si vous utilisez "l'intégration" en production avant de redémarrer Home As
 <br><br>
 
 
+### - Si vous avez besoin de plus de 9 voies.
+
+Il faudra en plus des étapes précédentes modifier l'automatisation 'automation.arrosage_nombre_electrovannes_incluses_par_zone' pour en tenir compte. Les modifications à effectuer sont indiquées dans le descriptif des automatisations.
+<br><br>
+
+
 ### - Supprimer une voie d'arrosage
 
 Un outil est présent dans la page paramètres de "l'intégration". Il permet de supprimer les fichiers d'entités, les automatisations et les scripts nécessaires au fonctionnement d'une voie d'arrosage.
