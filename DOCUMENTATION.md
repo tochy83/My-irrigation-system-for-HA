@@ -88,15 +88,12 @@ Pour ajouter une zone il faut :
 
 ### - Si vous avez besoin de plus de 9 zones.
 
-Il faudra en plus des étapes précédentes modifier certains sensors, scripts et automatisations pour en tenir compte.
+Il faudra en plus des étapes précédentes modifier certains sensors et automatisations pour en tenir compte.
 
 Le sensor à modifier est :
 - 'sensor.arrosage_noms_des_zones' situé dans le fichier 'zones.yaml' pour déclarer les zones supplémentaires.
 
 Les modifications à effectuer sont indiquées dans les commentaires du fichier.
-
-Le script à modifier est :
-- 'script.arrosage_arret'.
 
 Les automatisations à modifier sont :
 - 'automation.arrosage_calendrier'.
@@ -104,7 +101,7 @@ Les automatisations à modifier sont :
 - 'automation.arrosage_affichage_notifications_temporaires'.
 - 'automation.arrosage_alerte'.
 
-Les modifications à effectuer sont indiquées dans le descriptif du script et des automatisations.
+Les modifications à effectuer sont indiquées dans le descriptif des automatisations.
 
 Il faudra également ajouter au dashboard les cartes notifications correspondantes à ces nouvelles zones en dupliquant celles existantes et en modifiant le numéro de zone à l'intérieure de celles-ci.
 <p align="center"><img src="Medias/Documentation/9_zones_plus.jpg" width=75%></p>
