@@ -177,7 +177,7 @@ Pour pouvoir recevoir les notifications, même en mode simulation, il est néces
 Si vous ne souhaitez pas tester les notifications passer directement à l'étape 8.
 <br>
 
-A l'aide de 'File Editor' ou 'Studio Code Server', ouvrir le fichier '/packages/arrosage/scripts.yaml'. Aller à la ligne 394
+A l'aide de 'File Editor' ou 'Studio Code Server', ouvrir le fichier '/packages/arrosage/scripts.yaml'. Aller à la ligne 84
 ```yml
         action: notify.mobile_app_pixel
 ```
