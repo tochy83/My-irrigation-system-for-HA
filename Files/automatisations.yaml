@@ -557,7 +557,7 @@ automation:
 
       Cette automatisation est déja pré-configurée pour prendre en compte jusqu'à 9 zones et 9 voies d'arrosage.
       Si vous avez besoin de plus de 9 voies, il faudra ajouter autant de triggers que de nouvelles voies
-      (Dupliquer le dernier trigger et modifier dans le trigger dupliqué le numero de zone.
+      (Dupliquer le dernier trigger et modifier dans le trigger dupliqué, le numero de zone.
       Si vous avez besoin de plus de 9 zones, il faudra ajouter autant de nouvelles actions que de nouvelles zones
       (Dupliquer la dernière action et modifier dans l'action dupliquée le numero de zone, partout ou il apparait dans l'action).
     triggers:
