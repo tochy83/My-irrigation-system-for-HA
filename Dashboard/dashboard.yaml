@@ -25,11 +25,11 @@ streamline_templates:
             action: toggle
           card_mod:
             style:
-              mushroom-state-info$: |
-                .primary::after {
+              ha-tile-info$: |
+                .primary::slotted(span)::after {
                   content: " - Voie [[numero_de_la_voie]]";
-                  font-size: var(--card-secondary-font-size);
-                  font-weight: 400;
+                  font-size: var(--tile-info-secondary-font-size);
+                  font-weight: var(--tile-info-secondary-font-weight);
                 }
         - type: conditional
           conditions:
@@ -127,8 +127,8 @@ streamline_templates:
         - type: custom:mushroom-title-card
           title: ''
           subtitle: >-
-            {{ state_attr('sensor.arrosage_noms_des_zones',
-            'zone_[[numero_de_la_zone]]') }}
+            {{ states('input_text.arrosage_nom_de_zone_[[numero_de_la_zone]]')
+            }}
           card_mod:
             style: |
               .subtitle {
@@ -162,8 +162,9 @@ streamline_templates:
                 primary: ''
                 secondary: >-
                   Aucune électrovanne n'est incluse dans le cycle d'arrosage de
-                  la zone {{ state_attr('sensor.arrosage_noms_des_zones',
-                  'zone_[[numero_de_la_zone]]') }}.
+                  la zone {{
+                  states('input_text.arrosage_nom_de_zone_[[numero_de_la_zone]]')
+                  }}.
                 icon: mdi:alert
                 tap_action:
                   action: none
@@ -222,8 +223,8 @@ streamline_templates:
             primary: ''
             secondary: >-
               Programmation activée pour la zone {{
-              state_attr('sensor.arrosage_noms_des_zones',
-              'zone_[[numero_de_la_zone]]') }}.
+              states('input_text.arrosage_nom_de_zone_[[numero_de_la_zone]]')
+              }}.
             icon: mdi:calendar-clock-outline
             tap_action:
               action: none
@@ -256,8 +257,8 @@ streamline_templates:
             primary: ''
             secondary: >-
               Programmation désactivée pour la zone {{
-              state_attr('sensor.arrosage_noms_des_zones',
-              'zone_[[numero_de_la_zone]]') }}.
+              states('input_text.arrosage_nom_de_zone_[[numero_de_la_zone]]')
+              }}.
             icon: mdi:calendar-clock-outline
             tap_action:
               action: none
@@ -308,6 +309,79 @@ streamline_templates:
               }
   arrosage_notification_arrosage_en_cours:
     card:
+      type: horizontal-stack
+      cards:
+        - type: conditional
+          conditions:
+            - condition: state
+              entity: input_boolean.arrosage_auto_zone_[[numero_de_la_zone]]
+              state: 'on'
+            - condition: numeric_state
+              entity: >-
+                input_number.arrosage_electrovannes_incluses_zone_[[numero_de_la_zone]]
+              above: 0
+          card:
+            type: custom:vertical-stack-in-card
+            cards:
+              - type: custom:mushroom-template-card
+                multiline_secondary: true
+                primary: ''
+                secondary: >-
+                  L arrosage de la zone
+                  {{states('input_text.arrosage_nom_de_zone_[[numero_de_la_zone]]')}}
+                  est en cours. Arrêt prévu à
+                  {{state_attr('input_datetime.arrosage_duree_cycle_zone_[[numero_de_la_zone]]',
+                  'timestamp')| timestamp_custom("%Hh%M", true, now())}}
+                icon: mdi:sprinkler-variant
+                tap_action:
+                  action: none
+                hold_action:
+                  action: none
+                double_tap_action:
+                  action: none
+                color: light-green
+                features_position: bottom
+                card_mod:
+                  style: |
+                    ha-card {
+                      background-color: #e8f3db;
+                    }
+              - type: custom:mushroom-chips-card
+                chips:
+                  - type: template
+                    icon: mdi:stop
+                    tap_action:
+                      action: perform-action
+                      perform_action: script.arrosage_arret
+                      data:
+                        zone: zone [[numero_de_la_zone]]
+                    card_mod:
+                      style: |
+                        ha-card {
+                          border:none; 
+                          --chip-border-radius: 12px;
+                          --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                        }
+                alignment: end
+                card_mod:
+                  style: |
+                    ha-card {
+                      margin-top: -46px;
+                      margin-left: 50%;
+                      padding-bottom: 8px;
+                      padding-left: 8px;
+                      padding-right: 8px;
+                    }
+      visibility:
+        - condition: state
+          entity: input_boolean.arrosage_auto_zone_[[numero_de_la_zone]]
+          state: 'on'
+        - condition: numeric_state
+          entity: >-
+            input_number.arrosage_electrovannes_incluses_zone_[[numero_de_la_zone]]
+          above: 0
+  arrosage_notification_arrosage_en_cours_old:
+    card:
       type: conditional
       conditions:
         - condition: state
@@ -325,8 +399,8 @@ streamline_templates:
             primary: ''
             secondary: >-
               L arrosage de la zone
-              {{state_attr('sensor.arrosage_noms_des_zones',
-              'zone_[[numero_de_la_zone]]')}} est en cours.
+              {{states('input_text.arrosage_nom_de_zone_[[numero_de_la_zone]]')}}
+              est en cours.
 
               Arrêt prévu à
               {{state_attr('input_datetime.arrosage_duree_cycle_zone_[[numero_de_la_zone]]',
@@ -614,8 +688,10 @@ views:
 
                   {% for i in range(0, states('sensor.arrosage_a_venir')|int(0))
                   %}
-                   {{states('sensor.arrosage_a_venir_event_' ~ i)}}
-                  {% endfor %}
+
+                  {{states('sensor.arrosage_a_venir_event_' ~ i)}}
+
+                  {%- endfor %}
 
 
                   {% else %}
@@ -845,7 +921,7 @@ views:
                     margin-bottom: -7px;
                   }
           - type: markdown
-            content: >-
+            content: >
               - Pour ajouter une programmation cliquez sur l'icone <font color
               ="#0cacf4"><ha-icon icon="mdi:plus-circle"></ha-icon></font> sous
               le calendrier.<br><br>
@@ -864,14 +940,15 @@ views:
 
               - Pour rappel, les noms de vos zones sont :
 
-              {%- for item in states.sensor.arrosage_noms_des_zones.attributes |
-              select('match', 'zone_') %}
+              {%- for item in states['input_text'] |
+              selectattr('entity_id','match','input_text.arrosage_nom_de_zone_')
+              |map(attribute='entity_id') %}
 
-              {% if not is_state_attr('sensor.arrosage_noms_des_zones' , item,
-              'Nom_de_la_'~item ) %} Pour la {{ item | replace('_',' ') }} :
-              **<font color =orange>{{
-              state_attr('sensor.arrosage_noms_des_zones' , item) }}</font>** {%
-              endif %} {% endfor %}
+              Pour la {{ item | replace('input_text.arrosage_nom_de_',' ') |
+              replace('_',' ') }} : **<font color =orange>{{ states(item)
+              }}</font>**
+
+              {%- endfor %}
             card_mod:
               style: |
                 ha-card {
@@ -1085,7 +1162,7 @@ views:
         visibility:
           - condition: numeric_state
             entity: input_number.arrosage_nb_entites_orphelines
-            above: 1
+            above: 0
       - type: grid
         cards:
           - type: custom:mod-card
@@ -1505,3 +1582,60 @@ views:
         column_span: 2
     cards: []
     icon: mdi:tune
+  - type: sections
+    max_columns: 4
+    title: test
+    path: test
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: Nom des zones
+            heading_style: title
+          - type: custom:auto-entities
+            card: null
+            filter:
+              include:
+                - options: {}
+                  entity_id: input_text.arrosage_nom_de_zone_*
+          - type: custom:vertical-stack-in-card
+            cards:
+              - type: custom:mushroom-template-card
+                entity: switch.arrosage_electrovanne_1
+                primary: toto
+                secondary: >-
+                  {% set volume = "" %} {% if
+                  has_value('input_text.arrosage_volume_voie_1') and
+                  has_value('input_text.arrosage_dernier_declenchement_voie_1')%}
+                    {% if not states('input_text.arrosage_volume_voie_1') in ['0']%}
+                      {% set volume = states('input_text.arrosage_volume_voie_1')+" L, " %}
+                    {% endif %}
+                    Dernier arrosage {{ volume }}le {{ as_timestamp(states('input_text.arrosage_dernier_declenchement_voie_1')) | timestamp_custom('%d/%m/%Y à %-H:%M') }}
+                  {% endif %}  
+                icon: mdi:sprinkler-variant
+                tap_action:
+                  action: toggle
+                color: |-
+                  {% if is_state(entity, 'on') %}
+                    cyan
+                  {% endif %} 
+                features_position: bottom
+                card_mod:
+                  style:
+                    ha-tile-info$: |
+                      .primary::slotted(span)::after {
+                        content: " - Voie 1";
+                        font-size: var(--tile-info-secondary-font-size);
+                        font-weight: var(--tile-info-secondary-font-weight);
+                      }
+      - type: grid
+        cards:
+          - type: heading
+            heading: Label
+            heading_style: title
+          - type: custom:auto-entities
+            card: null
+            filter:
+              include:
+                - options: {}
+                  entity_id: script.arrosage_declenchement_auto_voie_*
