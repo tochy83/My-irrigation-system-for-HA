@@ -10,12 +10,13 @@ Vous trouverez sur cette page toutes les explications nécessaires à la mise en
 #### Integrations nécessaires au fonctionnment du dashboard arrosage :
 
 * Calendrier local disponible dans les intégrations de base de HA
-* Les [mushrooms card](https://github.com/piitaya/lovelace-mushroom?tab=readme-ov-file#-mushroom) disponibles sur HACS
-* [Card mod 3](https://github.com/thomasloven/lovelace-card-mod?tab=readme-ov-file#card-mod-3) disponible sur HACS
-* [Vertical stack in card](https://github.com/ofekashery/vertical-stack-in-card?tab=readme-ov-file#vertical-stack-in-card) disponible sur HACS
-* [Timer bar card](https://github.com/rianadon/timer-bar-card?tab=readme-ov-file#timer-bar-card) disponible sur HACS
-* [Calendar merge](https://github.com/kgn3400/calendar_merge?tab=readme-ov-file#calendar-merge-helper) disponible sur HACS
+* Les [mushrooms card](https://github.com/piitaya/lovelace-mushroom) disponibles sur HACS
+* [Card mod 3](https://github.com/thomasloven/lovelace-card-mod) disponible sur HACS
+* [Vertical stack in card](https://github.com/ofekashery/vertical-stack-in-card) disponible sur HACS
+* [Timer bar card](https://github.com/rianadon/timer-bar-card?tab=readme-ov-file) disponible sur HACS
+* [Calendar merge](https://github.com/kgn3400/calendar_merge?tab=readme-ov-file) disponible sur HACS
 * [Streamline card](https://github.com/brunosabot/streamline-card) disponible sur HACS
+* [Spook](https://github.com/frenck/spook) disponible sur HACS
 * Et bien sur HACS pour pouvoir installer tout ce que je viens de lister ci-dessus mais vous devriez déjà l'avoir, n'est ce pas ?
 <br><br>
 
@@ -132,64 +133,8 @@ La structure finale du dossier 'arrosage' doit être celle-ci :
 Une fois ceci fait on va dans Outils de développement, on vérifie la configuration pour être sur qu'il n'ya pas d'erreurs et on redémarre Home Assistant.
 <br>
 
-Après redémarrage on doit retrouver 18 nouvelles automatisations, 16 nouveaux scripts et les 79 nouvelles entrées nécessaires à "l'intégration". Si vous voulez la liste complète vous pouvez refaire la vérifcation de l'étape 1. Bien sur elle vous dira "Installation déconseillée en l'état. Vous avez ces entités en commun avec l'intégration :" puisqu'on vient de l'installer.
-<br>
-
-Je vous conseille d'ajouter un libellé 'Arrosage' (ou autre si vous avez déjà un libellé 'Arrosage') ainsi qu'une catégorie à tout ce petit monde, cela sera plus simple pour les retrouver par la suite au milieu de toutes les entités Home Assistant.
-<p align="center"><img src="Medias/Install/add_categorie.gif"></p>
-<br>
-
 
 #### - ***Etape 6*** :
-Si il n'est pas déja actif, activer le 'sensor.home_assistant_operating_system_version'. C'est le sensor qui me sert à simuler la connectivité des électrovannes pour le mode simulation de "l'intégration".
-
-<p align="center"><img src="Medias/Install/enable_sensor_haos_version.gif"></p>
-<br>
-
-
-#### - ***Etape 7*** :
-Pour pouvoir recevoir les notifications, même en mode simulation, il est nécessaire de modifier le fichier '/packages/arrosage/scripts.yaml' afin d'y mettre l'id de votre téléphone ou tablette où est installée l'application mobile de Home Assistant.
-<br>
-
-Si vous ne souhaitez pas tester les notifications passer directement à l'étape 8.
-<br>
-
-A l'aide de 'File Editor' ou 'Studio Code Server', ouvrir le fichier '/packages/arrosage/scripts.yaml'. Aller à la ligne 84
-```yml
-        action: notify.mobile_app_pixel
-```
-Remplacer 'notify.mobile_app_pixel' par l'id de votre téléphone ou tablette.
-<br>
-
-Pour retrouver l'id de votre appareil aller à Outils de développement/Actions et chercher dans les actions 'notify.mobile', vous devriez voir la liste de tous vos appareils sur lesquels l'application mobile est installée. Dans mon cas :
-<p align="center"><img src="Medias/Install/notify.jpg"></p>
-Si je voulais recevoir les notifications sur ma tablette plutôt que sur mon téléphone il faudrait que je remplace 'notify.mobile_app_pixel' par :
-
-```yml
-        action: notify.mobile_app_mipad_5
-```
-<br>
-
-Une fois la modification effectuée, on va dans Outils de développement, on vérifie la configuration pour être sur qu'il n'ya pas d'erreurs et on redémarre Home Assistant.
-<br><br>
-
-
-#### - ***Etape 8*** :
-Il faut maintenant attribuer des libellés aux différents scripts 'script.arrosage_declenchement_auto_voie_[x]' pour indiquer à "l'intégration" quelle électrovannes se trouve dans quelle zone.
-<br>
-
-Par defaut, puisque c'est comme ça que le Dashboard se présente il faut attribuer :
-- Pour les 'script.arrosage_declenchement_auto_voie_[x] 1,2,3,4 et 8 le libellé 'Zone 1'
-- Pour les 'script.arrosage_declenchement_auto_voie_[x] 7 et 9 le libellé 'Zone 2'
-- Pour les 'script.arrosage_declenchement_auto_voie_[x] 5 et 6 le libellé 'Zone 3'
-<p align="center"><img src="Medias/Install/add_labels.gif"></p>
-<br>
-
-**Attention à bien respecter le noms des libellés** que j'ai donné. Autant les libellés à l'étape 5 étaient purement dans un but d'organisation, ici au contraire ils sont obligatoires au bon fonctionnement de "l'intégration".
-<br><br>
-
-
-#### - ***Etape 9*** :
 Vient enfin la mise en place du Dashboard en lui même.
 <br>
 
@@ -209,7 +154,7 @@ Maintenant "l'intégration" est opérationnelle, il ne reste plus qu'à configur
 <br><br>
 
 
-#### - ***Etape 10*** :
+#### - ***Etape 7*** :
 Ajouter l'intégration 'Calendrier local si elle n'est pas déjà présente sur votre serveur de Home Assistant.
 <p align="center"><img src="Medias/Install/add_local_calendar_int.gif"></p>
 
@@ -220,7 +165,7 @@ Si vous avez déjà un calendrier nommé 'Arrosage', pas de soucis ça fonctionn
 <br>
 
 
-#### - ***Etape 11*** :
+#### - ***Etape 8*** :
 Si ce n'est pas dejà fait, ajouter l'intégration 'Calendar merge'. Normalement vous auriez du le faire à l'étape 1.
 <p align="center"><img src="Medias/Install/add_calendar_merge_int.gif"></p>
 <br>
@@ -235,7 +180,7 @@ Dans la configuration nommer le capteur 'Arrosage a venir', il est **important d
 <br><br>
 
 
-#### - ***Etape 12*** :
+#### - ***Etape 9*** :
 **[Voilà c'est fini](https://www.youtube.com/watch?v=EVDlleOUQXY)**
 <br>
 
