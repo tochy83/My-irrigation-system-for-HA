@@ -21,15 +21,15 @@ Avant de commencer, assurez-vous d'avoir les outils et intégrations suivants in
 > [!IMPORTANT]
 > **Notifications :** Pour recevoir les alertes, l'application officielle doit être installée sur votre mobile/tablette. 
 > * **Android :** Entièrement supporté par défaut.
-> * **iOS :** La syntaxe des notifications peut varier, une adaptation du script sera nécessaire de votre côté.
-> * **Telegram :** Une option est intégrée (nécessite l'installation préalable de l'intégration Telegram).
+> * **iOS :** La syntaxe des notifications peut varier, une adaptation du script sera peut être nécessaire.
+> * **Telegram :** Entièrement supporté par défaut (nécessite l'installation préalable de l'intégration Telegram).
 
 ---
 
 ### 🚀 Étapes de l'installation
 
 > [!NOTE]
-> Certains screenshots ou vidéos peuvent présenter de légères différences esthétiques suite aux mises à jour, mais la procédure reste strictement identique.
+> Certains screenshots ou vidéos peuvent présenter de légères différences suite aux mises à jour de l'intégration, mais la procédure reste strictement identique.
 
 #### **1️⃣ Vérification des entités**
 Pour éviter tout conflit, vérifiez qu'aucune entité existante n'utilise déjà les ID du projet.
@@ -84,8 +84,8 @@ Téléchargez le fichier ZIP contenant l'intégration depuis la [page d'accueil 
 
 #### **4️⃣ Transfert des fichiers**
 
-1. À l'aide de **Studio Code Server**, créez un dossier `packages` dans `/config/`, puis un sous-dossier `arrosage`.
-2. Copiez l'intégralité des fichiers du dossier `Files` du ZIP vers ce dossier `arrosage`.
+1. À l'aide de **Studio Code Server**, créez un dossier `packages` dans `/config/`.
+2. Copiez l'intégralité des fichiers du dossier `Package` du ZIP vers ce dossier `arrosage`.
 
 <p align="center">
 <img src="Medias/Install/studio_code_server_add_folder.gif" width="45%">
