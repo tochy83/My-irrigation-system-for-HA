@@ -83,7 +83,7 @@ Si oui c'est tout bon et vous pouvez passer directement à l'étape 3, sinon il 
 homeassistant:
   packages: !include_dir_named packages
 ```
-Si il y a déjà d'autres lignes sous la "clé" 'homeassistant:' on les laisse bien sur et on rajoute simplement :
+Si il y a déjà d'autres lignes sous la clé 'homeassistant:' on les laisse bien sur et on rajoute simplement :
 ```yml
   packages: !include_dir_named packages
 ```
