@@ -70,7 +70,7 @@ Si c'est tout bon, vous devriez voir un message comme celui-ci :
 
 Sinon le résultat ressemblera plus à ça, avec une liste de toutes les entités ayant un 'entity_id' en commun avec "l'intégration" :
 <p align="center"><img src="Medias/Install/verify_not_ok.jpg"></p>
-<br><br>
+<br>
 
 
 #### - ***Etape 2*** :
@@ -120,7 +120,7 @@ A l'aide de 'Studio Code Server', créer dans le dossier 'config' de Home Assist
 
 - Dans ce dossier 'packages' créer un dossier 'arrosage'.
 <p align="center"><img src="Medias/Install/studio_code_server_add_folder.gif"></p>
-<br><br>
+<br>
 
 
 #### - ***Etape 5*** :
