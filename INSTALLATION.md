@@ -10,8 +10,8 @@ Vous trouverez sur cette page toutes les explications nécessaires à la mise en
 #### Integrations nécessaires au fonctionnment du dashboard arrosage :
 
 * Calendrier local disponible dans les intégrations de base de HA
-* Les [mushrooms card](https://github.com/piitaya/lovelace-mushroom) disponibles sur HACS
-* [Card mod 3](https://github.com/thomasloven/lovelace-card-mod) disponible sur HACS
+* [mushrooms card](https://github.com/piitaya/lovelace-mushroom) disponibles sur HACS
+* [Card mod](https://github.com/thomasloven/lovelace-card-mod) disponible sur HACS
 * [Vertical stack in card](https://github.com/ofekashery/vertical-stack-in-card) disponible sur HACS
 * [Timer bar card](https://github.com/rianadon/timer-bar-card?tab=readme-ov-file) disponible sur HACS
 * [Calendar merge](https://github.com/kgn3400/calendar_merge?tab=readme-ov-file) disponible sur HACS
