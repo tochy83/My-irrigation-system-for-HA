@@ -50,40 +50,17 @@ S'assurer que vous n'avez pas d'entités sur votre serveur Home Assistant ayant 
 
 Pour ça, on se rend dans Outils de développement/Modèle et on copie dans l'éditeur de modèle tous le bloc de code ci-dessous :
 ```yml
-Entités en commun avec Arrosage :
-{%- set boolean = (states['input_boolean'] | selectattr('entity_id','match','input_boolean.arrosage_') |map(attribute='entity_id') | list ) %}
-{%- set text = (states['input_text'] | selectattr('entity_id','match','input_text.arrosage_') |map(attribute='entity_id') | list ) %}
-{%- set number = (states['input_number'] | selectattr('entity_id','match','input_number.arrosage_') |map(attribute='entity_id') | list ) %}
-{%- set datetime = (states['input_datetime'] | selectattr('entity_id','match','input_datetime.arrosage_') |map(attribute='entity_id') | list ) %}
-{%- set sensor = (states['sensor'] | selectattr('entity_id','match','sensor.arrosage_') |map(attribute='entity_id') | list ) %}
-{%- set binary_sensor = (states['binary_sensor'] | selectattr('entity_id','match','binary_sensor.arrosage_') |map(attribute='entity_id') | list ) %}
-{%- set timer = (states['timer'] | selectattr('entity_id','match','timer.arrosage_') |map(attribute='entity_id') | list ) %}
-{%- set switch = (states['switch'] | selectattr('entity_id','match','switch.arrosage_') |map(attribute='entity_id') | list ) %}
-{%- set automation = (states['automation'] | selectattr('entity_id','match','automation.arrosage_') |map(attribute='entity_id') | list ) %}
-{%- set script = (states['script'] | selectattr('entity_id','match','script.arrosage_') |map(attribute='entity_id') | list ) %}
-{%- set script_notification = (states['script'] | selectattr('entity_id','match','script.envoi_notification_vers_mon_telephone') |map(attribute='entity_id') | list ) %}
-{%- set helpers = boolean|count + text|count + number|count + datetime|count + sensor|count + binary_sensor|count + timer|count + switch|count %}
-Entrées : {{ helpers }}
-Automatisations : {{ automation | count }}
-Scripts : {{ script | count }}
-Script de notification app_mobile: {{ script_notification | count }}
-Total : {{helpers + automation|count + script|count + script_notification|count}}
-{% if (helpers + automation|count + script|count + script_notification|count) == 0 %}
+{%- set entites = states 
+   | selectattr('entity_id', 'search', 'misha_arrosage_')
+   | map(attribute='entity_id')
+   | list -%}
+Entités en commun avec Arrosage : {{entites|count}}
+{%- if (entites|count) == 0 %}
 Pas de soucis pour procéder à l'installation
-{% else %}
+{%- else %}
 Installation déconseillée en l'état. Vous avez ces entités en commun avec l'intégration :
-- input_boolean : {{ iif (boolean|count > 0, boolean|join(', '), boolean|count)}}
-- input_text : {{ iif (text|count > 0, text|join(', '), text|count)}}
-- input_number : {{ iif (number|count > 0, number|join(', '), number|count)}}
-- input_datetime : {{ iif (datetime|count > 0, datetime|join(', '), datetime|count)}}
-- sensor : {{ iif (sensor|count > 0, sensor|join(', '), sensor|count)}}
-- binary_sensor : {{ iif (binary_sensor|count > 0, binary_sensor|join(', '), boolean|count)}}
-- timer : {{ iif (timer|count > 0, timer|join(', '), binary_sensor|count)}}
-- switch : {{ iif (switch|count > 0, switch|join(', '), boolean|count)}}
-- automation : {{ iif (automation|count > 0, automation|join(', '), boolean|count)}}
-- script : {{ iif (script|count > 0, script|join(', '), boolean|count)}}
-- script de notification app_mobile: {{ iif (script_notification|count > 0, script_notification|join(', '), boolean|count)}}
-{% endif %}
+ - {{ entites|join('\n - ')}}
+{%- endif %}
 ```
 <br>
 
