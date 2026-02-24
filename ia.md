@@ -42,12 +42,11 @@ Allez dans **Outils de développement > Modèle** et collez le code suivant :
    | list -%}
 Entités en commun avec Arrosage : {{entites|count}}
 {%- if (entites|count) == 0 %}
-✅ Pas de soucis pour procéder à l'installation
+Pas de soucis pour procéder à l'installation
 {%- else %}
-❌ Installation déconseillée en l'état. Vous avez ces entités en commun :
+Installation déconseillée en l'état. Vous avez ces entités en commun avec l'intégration :
  - {{ entites|join('\n - ')}}
 {%- endif %}
-
 ```
 
 <p align="center">
@@ -72,6 +71,16 @@ homeassistant:
 > [!TIP]
 > Pour en savoir plus sur l'intérêt des packages, consultez cet [article sur Domo-blog.fr](https://www.domo-blog.fr/packages-home-assistant-organiser-configuration-code-yaml-domotique/).
 
+
+> Il est possible, si vous utilisez déjà les packages que vous ayez la ligne
+> ```
+>packages: !include_dir_merge_named packages/
+> ```
+> Au lieu de
+> ```
+> packages: !include_dir_named packages
+> ```
+> Dans ce cas il y a quelques modifications à faire pour rendre "l'intégration" instalable.
 ---
 
 #### **3️⃣ Téléchargement**
