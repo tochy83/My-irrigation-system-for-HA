@@ -155,7 +155,7 @@ Maintenant "l'intégration" est opérationnelle, il ne reste plus qu'à configur
 
 
 #### - ***Etape 7*** :
-Ajouter l'intégration 'Calendrier local si elle n'est pas déjà présente sur votre serveur de Home Assistant.
+Ajouter l'intégration 'Calendrier local' si elle n'est pas déjà présente sur votre serveur de Home Assistant.
 <p align="center"><img src="Medias/Install/add_local_calendar_int.gif"></p>
 
 Ajouter un calendrier nommé 'Arrosage', à l'intégration 'Calendrier local'. **Ici aussi le nom du calendrier** à son importance pour un fonctionnement "Out of the box" de "l'intégration".
@@ -180,10 +180,7 @@ Dans la configuration nommer le capteur 'Arrosage a venir', il est **important d
 <br><br>
 
 
-#### - ***Etape 9*** :
-**[Voilà c'est fini](https://www.youtube.com/watch?v=EVDlleOUQXY)**
-<br>
-
+#### - ***C'est fini...*** :
 Il n'y a plus rien à faire si ce n'est de pouvoir enfin **tester toutes les fonctionnalités** de "l'intégration" 'My-irrigation-sytem-for-HA'.
 <br>
 
