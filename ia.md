@@ -144,12 +144,9 @@ Il ne vous reste plus qu'à tester toutes les fonctionnalités. Pour la partie p
 
 <div align="center">
 
-*Vidéo complète de l'installation pas à pas (méthode via explorateur Windows).*
+  [![Lancer la vidéo](https://img.youtube.com/vi/Ewms74Tb5es/0.jpg)](https://www.youtube.com/watch?v=Ewms74Tb5es "Lancer la vidéo")
 
 </div>
 
-```
-
-Souhaitez-vous que je peaufine encore un élément, comme la taille des images ou le style des avertissements ?
-
-```
+*<p align="center">Une vidéo complète de l'installation pas à pas en partant d'un Home Assistant vierge ou j'ai juste installé tous les modules complémentaires et intégrations nécessaires à l'installation et au fonctionnement du Dashboard. La seule différence avec les étapes décrites ci-dessus est que je passerai par l'explorateur de fichiers windows pour créer les différents dossiers nécessaires au packages et copier les fichiers car c'est plus rapide pour la vidéo.</p>*
+<br><br><br><br><br>
