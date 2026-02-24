@@ -81,7 +81,7 @@ homeassistant:
 > ```
 > packages: !include_dir_named packages
 > ```
-> Dans ce cas il y a quelques modifications à faire pour rendre "l'intégration" instalable.
+> Dans ce cas il y a quelques modifications à faire pour rendre l'intégration instalable.
 ---
 
 #### **3️⃣ Téléchargement**
