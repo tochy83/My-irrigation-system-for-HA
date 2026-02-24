@@ -72,7 +72,8 @@ homeassistant:
 > Pour en savoir plus sur l'intérêt des packages, consultez cet [article sur Domo-blog.fr](https://www.domo-blog.fr/packages-home-assistant-organiser-configuration-code-yaml-domotique/).
 
 
-> [!WARNING] Il est possible, si vous utilisez déjà les packages que vous ayez la ligne
+> [!NOTE] 
+> Il est possible, si vous utilisez déjà les packages que vous ayez la ligne
 > ```
 >packages: !include_dir_merge_named packages/
 > ```
