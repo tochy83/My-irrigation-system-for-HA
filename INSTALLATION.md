@@ -70,7 +70,7 @@ Si c'est tout bon, vous devriez voir un message comme celui-ci :
 
 Sinon le résultat ressemblera plus à ça, avec une liste de toutes les entités ayant un 'entity_id' en commun avec "l'intégration" :
 <p align="center"><img src="Medias/Install/verify_not_ok.jpg"></p>
-<br>
+<br><br>
 
 
 #### - ***Etape 2*** :
@@ -120,7 +120,7 @@ A l'aide de 'Studio Code Server', créer dans le dossier 'config' de Home Assist
 
 - Dans ce dossier 'packages' créer un dossier 'arrosage'.
 <p align="center"><img src="Medias/Install/studio_code_server_add_folder.gif"></p>
-<br>
+<br><br>
 
 
 #### - ***Etape 5*** :
@@ -131,7 +131,7 @@ La structure finale du dossier 'arrosage' doit être celle-ci :
 <p align="center"><img src="Medias/Install/structure_dossier_packages.jpg"></p>
 
 Une fois ceci fait on va dans Outils de développement, on vérifie la configuration pour être sur qu'il n'ya pas d'erreurs et on redémarre Home Assistant.
-<br>
+<br><br>
 
 
 #### - ***Etape 6*** :
@@ -162,7 +162,7 @@ Ajouter un calendrier nommé 'Arrosage', à l'intégration 'Calendrier local'. *
 
 Si vous avez déjà un calendrier nommé 'Arrosage', pas de soucis ça fonctionnera également.
 <p align="center"><img src="Medias/Install/add_calendar.gif"></p>
-<br>
+<br><br>
 
 
 #### - ***Etape 8*** :
