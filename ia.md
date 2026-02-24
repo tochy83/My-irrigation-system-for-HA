@@ -15,8 +15,7 @@ Avant de commencer, assurez-vous d'avoir les outils et intégrations suivants in
 #### **Intégrations nécessaires au fonctionnement**
 | Type | Nom & Lien |
 | :--- | :--- |
-| **UI / Cartes** | [Mushroom card](https://github.com/piitaya/lovelace-mushroom) • [Card mod](https://github.com/thomasloven/lovelace-card-mod) • [Vertical stack in card](https://github.com/ofekashery/vertical-stack-in-card) |
-| **Widgets** | [Timer bar card](https://github.com/rianadon/timer-bar-card) • [Streamline card](https://github.com/brunosabot/streamline-card) |
+| **UI / Cartes** | [Mushroom card](https://github.com/piitaya/lovelace-mushroom) • [Card mod](https://github.com/thomasloven/lovelace-card-mod) • [Vertical stack in card](https://github.com/ofekashery/vertical-stack-in-card) • [Timer bar card](https://github.com/rianadon/timer-bar-card) • [Streamline card](https://github.com/brunosabot/streamline-card) |
 | **Système** | [Calendar merge](https://github.com/kgn3400/calendar_merge) • [Spook](https://github.com/frenck/spook) • `Calendrier local` (natif HA) |
 
 > [!IMPORTANT]
@@ -32,7 +31,7 @@ Avant de commencer, assurez-vous d'avoir les outils et intégrations suivants in
 > [!NOTE]
 > Certains screenshots ou vidéos peuvent présenter de légères différences esthétiques suite aux mises à jour, mais la procédure reste strictement identique.
 
-#### **1️⃣ Étape 1 : Vérification des entités**
+#### **1️⃣ Vérification des entités**
 Pour éviter tout conflit, vérifiez qu'aucune entité existante n'utilise déjà les ID du projet.
 Allez dans **Outils de développement > Modèle** et collez le code suivant :
 
@@ -58,7 +57,7 @@ Entités en commun avec Arrosage : {{entites|count}}
 
 ---
 
-#### **2️⃣ Étape 2 : Activation des Packages**
+#### **2️⃣ Activation des Packages**
 
 Vérifiez si les packages sont actifs dans votre `configuration.yaml`. Recherchez la ligne suivante sous la clé `homeassistant:` :
 
@@ -75,7 +74,7 @@ homeassistant:
 
 ---
 
-#### **3️⃣ Étape 3 : Téléchargement**
+#### **3️⃣ Téléchargement**
 
 Téléchargez le fichier ZIP contenant l'intégration depuis la [page d'accueil du repository](https://github.com/tochy83/My-irrigation-system-for-HA).
 
@@ -83,7 +82,7 @@ Téléchargez le fichier ZIP contenant l'intégration depuis la [page d'accueil 
 
 ---
 
-#### **4️⃣ Étape 4 & 5 : Transfert des fichiers**
+#### **4️⃣ Transfert des fichiers**
 
 1. À l'aide de **Studio Code Server**, créez un dossier `packages` dans `/config/`, puis un sous-dossier `arrosage`.
 2. Copiez l'intégralité des fichiers du dossier `Files` du ZIP vers ce dossier `arrosage`.
@@ -99,7 +98,7 @@ Téléchargez le fichier ZIP contenant l'intégration depuis la [page d'accueil 
 
 ---
 
-#### **5️⃣ Étape 6 : Mise en place du Dashboard**
+#### **5️⃣ Mise en place du Dashboard**
 
 1. Créez un nouveau Dashboard nommé **Arrosage** (respectez la casse, des liens internes l'utilisent).
 2. Ouvrez le fichier `dashboard.yaml` (présent dans le ZIP), copiez tout son contenu et collez-le dans l'éditeur de configuration de votre nouveau dashboard.
@@ -108,7 +107,7 @@ Téléchargez le fichier ZIP contenant l'intégration depuis la [page d'accueil 
 
 ---
 
-#### **6️⃣ Étape 7 : Configuration du Calendrier**
+#### **6️⃣ Configuration du Calendrier**
 
 Ajoutez l'intégration **Calendrier local** et créez un calendrier nommé exactement `Arrosage`.
 
@@ -119,7 +118,7 @@ Ajoutez l'intégration **Calendrier local** et créez un calendrier nommé exact
 
 ---
 
-#### **7️⃣ Étape 8 : Liaison avec Calendar Merge**
+#### **7️⃣ Liaison avec Calendar Merge**
 
 Configurez une entrée pour l'intégration **Calendar Merge**.
 **C'est cette étape qui permet l'affichage des arrosages à venir.**
