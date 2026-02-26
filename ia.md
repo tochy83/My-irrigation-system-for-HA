@@ -1,4 +1,4 @@
-# 💧 Installation du Dashboard Arrosage
+# Installation du Dashboard Arrosage
 
 Bienvenue sur la page d'installation. Vous trouverez ici toutes les explications nécessaires pour mettre en place le **Dashboard Arrosage**, ainsi que les automatisations, scripts et entrées utiles.
 
@@ -73,13 +73,9 @@ homeassistant:
 
 
 > [!NOTE] 
-> Il est possible, si vous utilisez déjà les packages que vous ayez la ligne
+> Il est possible, si vous utilisez déjà les packages mais de manière différente et que vous ayez la ligne :
 > ```
 >packages: !include_dir_merge_named packages/
-> ```
-> Au lieu de
-> ```
-> packages: !include_dir_named packages
 > ```
 > Dans ce cas il y a quelques modifications à faire pour rendre l'intégration instalable.
 ---
