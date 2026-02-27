@@ -31,7 +31,7 @@ Avant de commencer, assurez-vous d'avoir les outils et intégrations suivants in
 > [!NOTE]
 > Certains screenshots ou vidéos peuvent présenter de légères différences suite aux mises à jour de l'intégration, mais la procédure reste strictement identique.
 
-#### **1️⃣ Vérification des entités**
+#### **1️⃣ Vérification préalable**
 Pour éviter tout conflit, vérifiez qu'aucune entité existante n'utilise déjà les ID du projet.
 Allez dans **Outils de développement > Modèle** et collez le code suivant :
 
@@ -91,7 +91,7 @@ Téléchargez le fichier ZIP contenant l'intégration depuis la [page d'accueil 
 #### **4️⃣ Transfert des fichiers**
 
 1. À l'aide de **Studio Code Server**, créez un dossier `packages` dans `/config/`.
-2. Copiez l'intégralité des fichiers du dossier `Package` du ZIP vers ce dossier `arrosage`.
+2. Copiez le dossier `misha_arrosage` du ZIP dans le dossier `packages` que vous venez de créer.
 
 <p align="center">
 <img src="Medias/Install/studio_code_server_add_folder.gif" width="45%">
