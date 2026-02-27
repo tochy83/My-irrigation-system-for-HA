@@ -1,0 +1,64 @@
+# Name : script_arret.yaml
+
+
+script:
+
+  misha_arrosage_arret:
+    alias: Misha Arrosage - Arret
+    icon: mdi:stop-circle-outline
+    description: >-
+      Script permettant l'arrêt d'un cycle d'arrosage depuis les notifications apparaissant sur le dashboard.
+ 
+    fields: # Les champs passés en paramètres au script
+      zone_id:
+        selector:
+          text: null
+        name: Numero de zone
+        required: true
+
+    sequence:
+      - variables: # Récupération des éventuelles voies en erreur (déconnectées, sans durée) pour les notifications
+          data_zones: "{{ state_attr('sensor.misha_arrosage_data_zones', 'data_zones') | from_json }}"
+          infos: "{{ data_zones['zone_' ~ zone_id] }}"
+          liste_voies_disconnected: "{{ infos.voies_hors_ligne }}"
+          liste_voies_sans_duree: "{{ infos.voies_sans_duree }}"
+          voies_en_erreur: >
+            {%- set voies_hors_ligne = infos.voies_hors_ligne %}
+            {%- set voies_sans_duree = infos.voies_sans_duree %}
+            {%- set hors_ligne = voies_hors_ligne | select('in', infos.voies_enable) | list %}
+            {%- set sans_duree = voies_sans_duree | select('in', infos.voies_enable) | reject('in', hors_ligne) | list %}
+            {{ {"liste": hors_ligne + sans_duree,"hors_ligne": hors_ligne,"sans_duree": sans_duree} }}     
+
+      - alias: "Couper les voies de la zone"
+        repeat:
+          for_each: >-
+            {{ label_entities('misha_zone_' ~ zone_id) 
+               | select('match', 'switch.misha_arrosage_electrovanne_') 
+               | list }}
+          sequence:
+            - alias: "Couper la voie"
+              action: switch.turn_off
+              target:
+                entity_id: "{{ repeat.item }}"
+
+      - alias: "Remettre la zone en attente"
+        action: input_boolean.turn_off
+        target:
+          entity_id: "input_boolean.misha_arrosage_cycle_zone_{{zone_id}}"
+      - alias: "Arrêter l'automatisation de cycle de zone"
+        action: automation.turn_off
+        data:
+          stop_actions: true
+        target:
+          entity_id: "automation.misha_arrosage_zone_{{zone_id}}"
+      - alias: "Remettre l'automatisation de cycle de zone en attente"
+        action: automation.turn_on
+        target:
+          entity_id: "automation.misha_arrosage_zone_{{zone_id}}"
+      - alias: "Notification arrêt manuel"
+        action: script.misha_arrosage_envoi_notifications
+        data:
+          message_id: "cycle_stopped_manually"
+          zone_id: "{{ zone_id }}"
+          heure: "{{ as_timestamp(now()) | timestamp_custom('à %-H:%M') }}"
+          json_error: "{{ voies_en_erreur }}"

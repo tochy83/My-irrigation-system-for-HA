@@ -1,0 +1,183 @@
+# Name : automatisation_init_at_restart.yaml
+
+
+automation:
+
+  - id: 'misha_arrosage_init_at_restart'
+    alias: Misha Arrosage - Initialisation au redémarrage
+    description: >-
+      Initialise le nombre de zones et de voies au démarrage de Home Assistant,
+      définit un nom par défaut pour les nouvelles zones ajoutées et crée le label
+      Zone 1 si celui ci n'existe pas.
+
+
+      Vérifie également si un cycle d'arrosage était en cours lors du redémarrage
+      sur serveur et dans ce cas envoie une notification vers l'app mobile et/ou
+      Télégram.
+    triggers:
+      - trigger: homeassistant
+        event: start
+    conditions: []
+    actions:
+      - alias: "Mise à jour du nombre de voies d'arrosage"
+        action: input_number.set_value
+        metadata: {}
+        data:
+          value: >-
+            {{ states.input_boolean
+               | selectattr('entity_id', 'match', 'input_boolean.misha_arrosage_electrovanne_virtuelle_') 
+               | selectattr('state', '!=', 'unavailable')
+               | list | count }}
+        target:
+          entity_id: input_number.misha_arrosage_nb_file_voies
+      - alias: "Mise à jour du nombre de zones d'arrosage"
+        action: input_number.set_value
+        metadata: {}
+        data:
+          value: >-
+            {{ states.input_boolean 
+               | selectattr('entity_id', 'match', 'input_boolean.misha_arrosage_cycle_zone_') 
+               | selectattr('state', '!=', 'unavailable')
+               | list | count }}
+        target:
+          entity_id: input_number.misha_arrosage_nb_file_zones
+      - alias: "Mise à jour des listes d'appareils mobiles et des utilisateurs télégram pour les notifications ainsi que leur sauvegarde dans un fichier JSON"
+        action: script.misha_arrosage_listes_appareils_pour_notifications
+
+      - alias: "Définir un nom par defaut pour chaque zone ci celui ci n'existe pas"
+        repeat:
+          for_each: >- 
+            {{ states['input_text'] |
+            selectattr('entity_id','match','input_text.misha_arrosage_nom_de_zone_') |
+            map(attribute='entity_id') | list }}
+          sequence:
+            - alias: "Le nom est à 'unknown' (non defini)"
+              condition: template
+              value_template: "{{ is_state(repeat.item, 'unknown')}}"
+            - action: input_text.set_value
+              alias: Définir un nom par défaut pour les zones ajoutées
+              metadata: {}
+              data:
+                value: "{{ repeat.item | replace('input_text.misha_arrosage_',' ') | replace('_',' ') | trim | capitalize }}"
+              target:
+                entity_id: "{{ repeat.item }}"
+
+      - alias: "Eteindre toutes les voies actives dont le timer est inactif"
+        repeat:
+          count: "{{ states('input_number.misha_arrosage_nb_file_voies')|int(0) }}"
+          sequence:
+            - alias: "Des voies sont 'On' avec un timer à 'idle'"
+              condition: template
+              value_template: >-
+                {{ is_state('switch.misha_arrosage_electrovanne_'~repeat.index, 'on') and
+                is_state('timer.misha_arrosage_voie_'~repeat.index, 'idle') }}
+            - action: switch.turn_off
+              alias: Eteindre les électrovannes actives dont le timer est inactif
+              metadata: {}
+              data: {}
+              target:
+                entity_id: switch.misha_arrosage_electrovanne_{{ repeat.index }}
+
+      - alias: "Créer tous les labels de zone si il n'existent pas"
+        repeat:
+          count: "{{ states('input_number.misha_arrosage_nb_file_zones')|int(0) }}"
+          sequence:
+            - alias: "Le label n'existe pas"
+              condition: template
+              value_template: "{{ label_id('Misha Zone ' ~ repeat.index) is none }}"
+            - alias: "Créer le label (with Spook)"
+              action: homeassistant.create_label
+              data:
+                name: "Misha Zone {{ repeat.index }}"
+                color: cyan
+                description: "Label de liaison pour la zone {{ repeat.index }}"
+
+      - alias: "Créer tous les labels de voie si il n'existent pas"
+        repeat:
+          count: "{{ states('input_number.misha_arrosage_nb_file_voies')|int(0) }}"
+          sequence:
+            - alias: "Le label n'existe pas"
+              condition: template
+              value_template: "{{ label_id('Misha Voie ' ~ repeat.index) is none }}"
+            - alias: "Créer le label (with Spook)"
+              action: homeassistant.create_label
+              data:
+                name: "Misha Voie {{ repeat.index }}"
+                color: cyan
+                description: "Label de liaison pour la voie {{ repeat.index }}"
+
+      - alias: "Couper les cycles d'arrosage en cours"
+        sequence: # Couper les zones en cours d'arrosage si le server redémarre, les voies encore actives finiront leur cycle
+          - variables: # Récupération des zones en cours de cycle
+              liste_zones: >
+                {{ states['input_boolean']
+                |selectattr('entity_id','match','input_boolean.misha_arrosage_cycle_zone_')
+                |selectattr('state', 'eq', 'on') |map(attribute='entity_id') |list
+                }}
+              zones_count: "{{ liste_zones|count }}"
+              liste_zones_nom: >
+                {%- set ns = namespace(zones_en_cours = []) %}
+                {%- for item in liste_zones %}
+                  {%- set zone = item | replace('input_boolean.misha_arrosage_cycle_','') %}
+                  {%- set ns.zones_en_cours = ns.zones_en_cours + [ states('input_text.misha_arrosage_nom_de_'~zone) ] %}
+                {%- endfor %}
+                {{ ns.zones_en_cours | join(', ') }}
+              pluriel_zones: >-
+                {{ "zones (" ~ liste_zones_nom ~ ") étaient" if zones_count | int > 1 else "zone (" ~ liste_zones_nom ~ ") était" }}
+
+          - alias: "Des zones sont en cours d'arrosage'"
+            condition: template
+            value_template: "{{ zones_count | int(0) > 0 }}"
+
+          - alias: "Arreter les cycles des zones correspondantes"
+            repeat:
+              for_each: "{{ liste_zones }} "
+              sequence:
+                - action: input_boolean.turn_off
+                  target:
+                    entity_id: "{{repeat.item}}"
+                  data: {}
+
+          - alias: "Notification pour prévenir du restart en cours de cycle"
+            action: script.misha_arrosage_envoi_notifications
+            data:
+              message_id: "server_restarted"
+              zones_count: "{{ zones_count }}"
+              pluriel_zones: "{{ pluriel_zones }}"
+
+      - alias: "Réinitialiser l'indicateur de redémarrage"
+        action: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.misha_arrosage_restart_needed
+
+      - variables: # Liste des entités orphelines
+          entités_orphelines: >
+            {{ states 
+              | selectattr('entity_id', 'search', 'misha_arrosage_')
+              | selectattr('state', 'eq', 'unavailable')
+              | map(attribute='entity_id')
+              | list }}
+
+      - alias: "Mise à jour du nombre d'entités orphelines en cas de suppression de voies ou de zones"
+        action: input_number.set_value
+        metadata: {}
+        data:
+          value: "{{ entités_orphelines | count }}"
+        target:
+          entity_id: input_number.misha_arrosage_nb_entites_orphelines
+
+      - choose:
+          - conditions:
+              - alias: "Des entités orpheline existent"
+                condition: numeric_state
+                entity_id: input_number.misha_arrosage_nb_entites_orphelines
+                above: 0
+            sequence:
+              - alias: "Purge du recorder si nécessaire"
+                action: recorder.purge_entities
+                metadata: {}
+                data:
+                  keep_days: 0
+                  entity_id: "{{ entités_orphelines }}"
+
+    mode: single

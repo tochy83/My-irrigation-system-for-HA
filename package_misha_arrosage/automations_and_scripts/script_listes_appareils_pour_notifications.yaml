@@ -1,0 +1,89 @@
+# Name : script_listes_appareils_pour_notification.yaml
+
+
+script:
+
+  misha_arrosage_listes_appareils_pour_notifications:
+    alias: Misha Arrosage - Listes appareils pour notification
+
+    sequence:
+      - alias: "Arrêter l'automatisation qui sauvegarde les choix pour les notifications"
+        action: automation.turn_off # Désactiver l'automatisation de sauvegarde des choix d'app_mobile et télégram
+        target:
+          entity_id: automation.misha_arrosage_sauvegarde_choix_notifications_json
+        data:
+          stop_actions: true
+      - alias: "Définir les choix possibles pour les notifications vers app_mobile"
+        action: input_select.set_options
+        target:
+          entity_id: input_select.misha_arrosage_mobileapp_notifications
+        data:
+          options: >
+            {% set ns = namespace(devices=['pas de notifications']) %}
+            {% for s in states.device_tracker %}
+              {% set d_id = device_id(s.entity_id) %}
+              {% if d_id is not none and 'mobile_app' in device_attr(d_id, 'identifiers') | string %}
+                
+                {# Nettoyage : minuscules, accents, espaces et tirets #}
+                {% set name = device_attr(d_id, 'name').lower()
+                  | replace(' ', '_') | replace('-', '_')
+                  | replace('é', 'e') | replace('è', 'e') | replace('ê', 'e') | replace('ë', 'e')
+                  | replace('à', 'a') | replace('â', 'a')
+                  | replace('î', 'i') | replace('ï', 'i')
+                  | replace('ô', 'o')
+                  | replace('û', 'u') | replace('ù', 'u')
+                  | replace('ç', 'c') %} 
+                
+                {% set ns.devices = ns.devices + [name] %}
+              {% endif %}
+            {% endfor %}
+            {{ ns.devices | unique | list }}
+      - alias: "Définir les choix possibles pour les notifications vers télégram"
+        action: input_select.set_options
+        target:
+          entity_id: input_select.misha_arrosage_telegram_notifications
+        data:
+          options: >
+            {% set ns = namespace(items=['pas de notifications']) %}
+            {% for s in states.notify %}
+              {% if s.entity_id.startswith('notify.telegram_') or s.entity_id.startswith('notify.home_assistant_') %}
+                {% if s.attributes.friendly_name is defined %}
+                  {% set name = s.attributes.friendly_name.lower()
+                    | replace('home assistant', '') | trim %}
+                  {% set ns.items = ns.items + [name] %}
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+            {{ ns.items | unique | list }}
+      - alias: "Appel du script python mettant à jour le fichier json de sauvegarde des préférences de notification"
+        action: shell_command.misha_arrosage_data_preferences_notifications
+        data:
+          mobile_app: ""
+          telegram: ""
+        response_variable: last_saved_raw
+
+      - variables: # On vérifie si stdout (retour du script python) n'est pas vide avant de split
+          raw: "{{ last_saved_raw['stdout'] if last_saved_raw['stdout'] is defined else 'pas de notifications|pas de notifications' }}"
+          saved_mobile: "{{ raw.split('|')[0] | trim }}"
+          saved_telegram: "{{ raw.split('|')[1] | trim if '|' in raw else 'pas de notifications' }}"
+
+      - alias: "Activer l'automatisation de sauvegarde des choix d'app_mobile et télégram"
+        action: automation.turn_on
+        target:
+          entity_id: automation.misha_arrosage_sauvegarde_choix_notifications_json
+      - alias: "Sélection du choix sauvegardé pour l'app_mobile"
+        action: input_select.select_option
+        target:
+          entity_id: input_select.misha_arrosage_mobileapp_notifications
+        data:
+          option: >
+            {% set options = state_attr('input_select.misha_arrosage_mobileapp_notifications', 'options') %}
+            {{ saved_mobile if saved_mobile in options else 'pas de notifications' }}
+      - alias: "Sélection du choix sauvegardé pour télégram"
+        action: input_select.select_option
+        target:
+          entity_id: input_select.misha_arrosage_telegram_notifications
+        data:
+          option: >
+            {% set options = state_attr('input_select.misha_arrosage_telegram_notifications', 'options') %}
+            {{ saved_telegram if saved_telegram in options else 'pas de notifications' }}

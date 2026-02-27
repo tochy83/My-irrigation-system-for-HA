@@ -1,0 +1,63 @@
+# Name : zone_[X].yaml
+
+
+input_text:
+  misha_arrosage_nom_de_zone_[X]:  # Stocke le nom de la zone d'arrosage [X]
+    name: Misha arrosage - Nom de la zone [X]
+    min: 0
+    max: 40
+
+input_boolean:
+  misha_arrosage_cycle_zone_[X]: # Déclenche la séquence d'arrosage de la zone [X]
+    name: Misha arrosage - Cycle zone [X]
+    icon: mdi:sprinkler-variant
+
+  misha_arrosage_programmation_zone_[X]: # Définit si la zone [X] doit être déclenchée par le calendrier d'arrosage
+    name: Misha arrosage - Programmation zone [X]
+    icon: mdi:calendar-clock-outline
+
+input_datetime:
+  misha_arrosage_duree_cycle_zone_[X]: # Stocke la durée du dernier du cycle de la zone [X]
+    name: Misha arrosage - Durée cycle zone [X]
+    has_date: true
+    has_time: true
+
+input_number:
+  misha_arrosage_electrovannes_incluses_zone_[X]:  # Stocke le nombre d'éléctrovannes incluse dans le cycle d'arrosage de la zone [X] (utile juste pour cartes conditionnelles et la visibility)
+    name: Misha arrosage - Electrovannes incluses zone [X]
+    min: 0
+    max: 100
+
+template:
+  - trigger:
+      - platform: time_pattern
+        hours: "/12"
+      - platform: homeassistant
+        event: start
+      - platform: state
+        entity_id: 
+          - input_boolean.misha_arrosage_programmation_zone_[X]
+          - input_text.misha_arrosage_nom_de_zone_[X]
+    action:
+      - action: calendar.get_events
+        target:
+          entity_id: calendar.arrosage
+        data:
+          duration:
+            days: 30
+        response_variable: agenda
+    binary_sensor:
+      - name: "Misha arrosage - Evenements xday zone [X]"
+        unique_id: misha_arrosage_evenements_xday_zone_[X]
+        icon: mdi:calendar-clock
+        state: >
+          {% set zone_nom = states('input_text.misha_arrosage_nom_de_zone_[X]') %}
+          {% if zone_nom in ['unknown', 'unavailable', ''] %}
+            false
+          {% elif agenda is defined and agenda['calendar.arrosage'] is defined %}
+            {{ agenda['calendar.arrosage'].events 
+               | selectattr('summary', 'search', zone_nom, ignorecase=true) 
+               | list | count > 0 }}
+          {% else %}
+            false
+          {% endif %}

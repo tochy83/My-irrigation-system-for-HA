@@ -1,0 +1,211 @@
+# Name : script_nombre_electrovannes_par_zone.yaml
+
+
+script:
+
+  misha_arrosage_nombre_electrovannes_par_zone:
+    alias: Misha Arrosage - Nombre électrovannes par zone
+    description: "Bascule et valide l'état d'une voie avec feedback visuel."
+    mode: restart
+
+    fields: # Les champs passés en paramètres au script
+      voie:
+        name: Voie
+        required: false
+        selector:
+          text: null
+      update_label:
+        name: Update_label
+        required: false
+        selector:
+          text: null
+
+    sequence:
+      - variables: # Récupération de l'état de sélection de la voie et du update label (true/false)
+          last_state_off: "{{ is_state('input_boolean.misha_arrosage_enable_voie_'~voie, 'off') }}"
+          update_label: "{{ update_label | default('false') == 'true' }}"
+
+      - alias: "On a cliquer sur l'icone de sélection de voie"
+        choose:
+          - conditions:
+              - alias: "Le numéro de voie est défini"
+                condition: template
+                value_template: "{{ voie != null }}"
+              - alias: "update_label est à false"
+                condition: template
+                value_template: "{{ not update_label }}"
+            sequence:
+              - alias: "Permuter la selection de la voie"
+                action: input_boolean.toggle
+                target:
+                  entity_id: "input_boolean.misha_arrosage_enable_voie_{{ voie }}"
+
+      - alias: "Délai pour permettre aux sensors de datas des voies et zones de se recalculer"
+        delay:
+          milliseconds: 200
+      - alias: "Forcer la mise à jour des sensors datas voies et zones"
+        action: homeassistant.update_entity # Forcer une mise à jour du sensor.misha_arrosage_data_zones
+        target:
+          entity_id: 
+            - sensor.misha_arrosage_data_zones
+            - sensor.misha_arrosage_data_voies
+
+# --- NETTOYAGE GLOBAL (TES VARIABLES) ---
+      - alias: "Regarder si on est en passé mode production"
+        variables:
+          data_voies: "{{ state_attr('sensor.misha_arrosage_data_voies', 'data_voies') | from_json }}"
+          mode_production_actif: > # On vérifie si n'importe quelle voie du système est liée à un device réel
+            {% set ns = namespace(production=false) %}
+            {% for key_id, voie_data in data_voies.items() %}
+              {% if voie_data.has_link %}
+                {% set ns.production = true %}
+              {% endif %}
+            {% endfor %}
+            {{ ns.production }}
+          voies_virtuelles_a_eteindre: > # On liste toutes les voies virtuelles enable
+            {% set ns = namespace(voies_to_disable=[]) %}
+            {% for key_id, voie_data in data_voies.items() %}
+              {% if not voie_data.has_link and voie_data.is_enabled %}
+                {% set ns.voies_to_disable = ns.voies_to_disable + ["input_boolean.misha_arrosage_enable_voie_" ~ voie_data.voie_id] %}
+              {% endif %}
+            {% endfor %}
+            {{ ns.voies_to_disable }}
+
+      - alias: "Désactivation des voies virtuelles si mode production"
+        choose:
+          - conditions:
+              - alias: "Mode production actif et voies virtuelles enable"
+                condition: template
+                value_template: "{{ mode_production_actif == true and voies_virtuelles_a_eteindre | count > 0 }}"
+            sequence:
+              - alias: "Désactiver les voies virtuelles"
+                action: input_boolean.turn_off
+                target:
+                  entity_id: "{{ voies_virtuelles_a_eteindre }}"
+              - alias: "Forcer la mise à jour des sensors datas voies et zones"
+                action: homeassistant.update_entity
+                target:
+                  entity_id: 
+                    - sensor.misha_arrosage_data_zones
+                    - sensor.misha_arrosage_data_voies
+# --- FIN DU NETTOYAGE ---
+
+      - variables: # Récupération des données de la voie depuis les attributs de sensor.misha_arrosage_data_zones
+          data_zones: "{{ state_attr('sensor.misha_arrosage_data_zones', 'data_zones') | from_json }}"
+          voie_incluse: >
+            {% set liste_incluses = data_zones.values() | map(attribute='voies_incluses') | sum(start=[]) %}
+            {{ voie | int in liste_incluses }}
+          voie_deconnectee: >
+            {% set liste_deco = data_zones.values() | map(attribute='voies_hors_ligne') | sum(start=[]) %}
+            {{ voie | int in liste_deco }}
+
+      - alias: "On a forcé un update (après changement de label de la voie ou de l'électrovanne)"
+        choose:
+          - conditions:
+              - alias: "Le numéro de voie est défini"
+                condition: template
+                value_template: "{{ voie != null }}"
+              - alias: "update_label est à true"
+                condition: template
+                value_template: "{{ update_label }}"
+              - alias: "La voie n'a pas de label de zone"
+                condition: template
+                value_template: "{{ not voie_incluse }}"
+              - alias: "La voie était sélectionnée"
+                condition: template
+                value_template: "{{ not last_state_off }}"
+            sequence:
+              - alias: "Déselectionner la voie"
+                action: input_boolean.turn_off
+                target:
+                  entity_id: "input_boolean.misha_arrosage_enable_voie_{{ voie }}"
+              - alias: "Forcer la mise à jour des sensors datas voies et zones"
+                action: homeassistant.update_entity
+                target:
+                  entity_id: 
+                    - sensor.misha_arrosage_data_zones
+                    - sensor.misha_arrosage_data_voies
+
+      - alias: " On a cliquer sur l'icone de sélection de voie"
+        choose: # Si on sélectionne une voie invalide, on la déselectionne
+          - conditions:
+              - alias: "Le numéro de voie est défini"
+                condition: template
+                value_template: "{{ voie != null }}"
+              - alias: "La voie est sélectionnée"
+                condition: template
+                value_template: "{{ is_state('input_boolean.misha_arrosage_enable_voie_' ~ voie, 'on') }}"
+              - alias: "La voie n'a pas de label de zone ou est hors ligne (hors update_label)"
+                condition: template
+                value_template: "{{ not voie_incluse or ( voie_deconnectee and not update_label ) }}"
+            sequence:
+              - alias: "Déselectionner la voie"
+                action: input_boolean.turn_off
+                target:
+                  entity_id: "input_boolean.misha_arrosage_enable_voie_{{ voie }}"
+              - alias: "Forcer la mise à jour des sensors datas voies et zones"
+                action: homeassistant.update_entity
+                target:
+                  entity_id:
+                    - sensor.misha_arrosage_data_zones
+                    - sensor.misha_arrosage_data_voies
+
+      - variables: # Rafraîchir les données de la zone
+          data_zones: "{{ state_attr('sensor.misha_arrosage_data_zones', 'data_zones') | from_json }}"
+
+      - alias: "Choix des notifications à afficher sur le dashboard si la voie est déselectionnée et n'est pas sélectionnable"
+        choose:
+          - conditions:
+              - alias: "La voie n'a pas de label, n'était pas selectionnée et hors update_label"
+                condition: template
+                value_template: "{{ not voie_incluse and not update_label and last_state_off }}"
+            sequence:
+              - alias: "Afficher la notification temporaire du dashboard"
+                action: script.misha_arrosage_notifications_temporaires
+                data:
+                  notifs: "voie_label_{{ voie }}"
+                  duree: "3"
+# début nouvelle notif
+          - conditions:
+              - alias: "Priorité réel détectée"
+                condition: template
+                value_template: >
+                  {% set data_voies = state_attr('sensor.misha_arrosage_data_voies', 'data_voies') | from_json %}
+                  {% set voie_data = data_voies['voie_' ~ voie] if 'voie_' ~ voie in data_voies else {} %}
+                  {# La voie cliquée est virtuelle et le système contient du réel #}
+                  {{ not voie_data.has_link and data_voies.values() | selectattr('has_link', 'eq', true) | list | count > 0 }}
+              - alias: "La n'était pas selectionnée et hors update_label"
+                condition: template
+                value_template: "{{ not update_label and last_state_off }}"
+            sequence:
+              - action: script.misha_arrosage_notifications_temporaires
+                data:
+                  notifs: "mode_production_{{ voie }}"
+                  duree: "3"
+# fin nouvelle notif
+          - conditions:
+              - alias: "La voie est hors ligne, n'était pas selectionnée et hors update_label"
+                condition: template
+                value_template: "{{ voie_deconnectee and not update_label and last_state_off }}"
+            sequence:
+              - alias: "Afficher la notification temporaire du dashboard"
+                action: script.misha_arrosage_notifications_temporaires
+                data:
+                  notifs: "voie_connect_{{ voie }}"
+                  duree: "3"
+
+      - alias: "Pour chaque zone récupérer les voies avec label"
+        repeat:
+          count: "{{ states('input_number.misha_arrosage_nb_file_zones') | int(0) }}"
+          sequence:
+            - variables:
+                zone_id: "{{ repeat.index }}"
+                zone_info: "{{ data_zones['zone_' ~ zone_id] if 'zone_' ~ zone_id in data_zones else none }}"
+                nb_voies_incluses: "{{ zone_info.voies_incluses | count if zone_info else 0 }}"
+
+            - alias: "Stocker le nombre de voies avec label de la zone"
+              action: input_number.set_value
+              target:
+                entity_id: "input_number.misha_arrosage_electrovannes_incluses_zone_{{ zone_id }}"
+              data:
+                value: "{{ nb_voies_incluses }}"

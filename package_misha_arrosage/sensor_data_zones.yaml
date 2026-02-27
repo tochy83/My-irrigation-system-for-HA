@@ -1,0 +1,71 @@
+# Name : sensor_data_zones.yaml
+
+
+template:
+  - sensor:
+      - name: "Misha arrosage - Data zones"
+        unique_id: misha_arrosage_data_zones
+        icon: mdi:sprinkler-variant
+        state: "{{ states('input_number.misha_arrosage_nb_file_zones') | int(0) }} zones"
+        attributes:
+          data_zones: >-
+            {%- set nb_zones = states('input_number.misha_arrosage_nb_file_zones') | int(0) -%}
+            {%- set coef = states('input_number.misha_arrosage_coefficient_meteo') | float(1) -%}
+            {%- set ns_global = namespace(zones={}) -%}
+            
+            {%- for i in range(1, nb_zones + 1) -%}
+              {%- set zone_key = "zone_" ~ i -%}
+              {%- set label_id = "misha_zone_" ~ i -%}
+              {%- set ns_zone = namespace(duree = 0, deco = [], enable = [], incluses = [], no_time = []) -%}
+              
+              {# Récupération des voies de la zone #}
+              {%- set voies_ids = label_entities(label_id) 
+                | select('match', 'switch.misha_arrosage_electrovanne_') 
+                | map('replace', 'switch.misha_arrosage_electrovanne_', '') 
+                | map('int') | list | sort -%}
+              {%- set ns_zone.incluses = voies_ids -%}
+
+              {# État de déconnexion globale de la zone #}
+              {%- set zone_disconnected = false -%}
+
+              {# Analyse individuelle par voie #}
+              {%- for item in voies_ids -%}
+                {%- set switch_entity = 'switch.misha_arrosage_electrovanne_' ~ item -%}
+                {%- set voie_connected = not is_state(switch_entity, 'unavailable') -%}
+                {%- set voie_duree = states('input_number.misha_arrosage_duree_voie_' ~ item) | float(0) -%}
+                {%- set is_enabled = is_state('input_boolean.misha_arrosage_enable_voie_' ~ item, 'on') -%}
+                
+                {# Liste des voies sélectionnées #}
+                {%- if is_enabled -%}
+                  {%- set ns_zone.enable = ns_zone.enable + [item | int] -%}
+                {%- endif -%}
+
+                {# Liste des voies hors-ligne #}
+                {%- if not voie_connected -%}
+                  {%- set ns_zone.deco = ns_zone.deco + [item | int] -%}
+                {%- endif -%}
+
+                {# Calcul de la durée #}
+                {%- if is_enabled and voie_connected -%}
+                  {%- if voie_duree <= 0 -%}
+                    {%- set ns_zone.no_time = ns_zone.no_time + [item | int] -%}
+                  {%- else -%}
+                    {%- set ns_zone.duree = ns_zone.duree + (voie_duree * coef) -%}
+                  {%- endif -%}
+                {%- endif -%}
+              {%- endfor -%}
+
+              {# Zone déconnectée #}
+              {%- set zone_disconnected = (ns_zone.deco | count == voies_ids | count and voies_ids | count > 0) -%}
+
+              {%- set zone_data = {
+                "voies_incluses": ns_zone.incluses,
+                "voies_enable": ns_zone.enable,
+                "voies_hors_ligne": ns_zone.deco,
+                "voies_sans_duree": ns_zone.no_time,
+                "duree_cycle": ns_zone.duree | round(1), 
+                "zone_disconnected": zone_disconnected
+              } -%}
+              {%- set ns_global.zones = dict(ns_global.zones, **{zone_key: zone_data}) -%}
+            {%- endfor -%}
+            {{ ns_global.zones | to_json }}

@@ -1,0 +1,32 @@
+# Name : automatisation_reset_nb_entites_orphelines.yaml
+
+
+automation:
+
+  - id: 'misha_arrosage_reset_nb_entites_orphelines'
+    alias: Misha Arrosage - Reset nb entites orphelines
+    description: >
+      Synchronise le compteur des entités orphelines dès qu'un écart est détecté
+      avec la  réalité des entités indisponibles (misha_arrosage_) pendant 2
+      secondes, pour l'affichage de la carte du dashboard.
+    triggers:
+      - trigger: template
+        value_template: |-
+          {{ states.input_boolean 
+            | selectattr('entity_id', 'search', 'misha_arrosage_') 
+            | selectattr('state', 'eq', 'unavailable') 
+            | list | count == 0 }}
+        for:
+          seconds: 2
+    actions:
+      - alias: Mise à jour du compteur d'entités orphelines
+        action: input_number.set_value
+        data:
+          value: |-
+            {{ states 
+              | selectattr('entity_id', 'search', 'misha_arrosage_') 
+              | selectattr('state', 'eq', 'unavailable') 
+              | list | count }}
+        target:
+          entity_id: input_number.misha_arrosage_nb_entites_orphelines
+    mode: restart

@@ -1,0 +1,63 @@
+# Name : automatisation_alerte.yaml
+
+
+automation:
+
+  - id: 'misha_arrosage_alerte'
+    alias: Misha Arrosage - Alerte
+    description: >-
+      Envoi une notification sur le téléphone ou/et télégram si l'heure prévue de fin du cycle
+      d'arrosage est passée et que l'arrosage est encore marche. Par sécurité, arrête le cycle de la zone
+      et coupe toutes les voies de la zone.
+
+
+      Cette automatisation ne se lancera que si l'automatisation d'arrosage d'une zone venait à planter ou que le serveur
+      venait à redémarrer pendant un cycle de zone.
+    triggers:
+      - alias: "L'heure est égale à l'heure de fin d'un cycle de zone + 3 minutes environ"
+        trigger: template
+        value_template: >-
+          {% set heure_alerte = (now() + timedelta(minutes=-3)).strftime('%Y-%m-%d
+          %H:%M') %} {% set zones = states.input_datetime 
+              | selectattr('entity_id', 'search', 'misha_arrosage_duree_cycle_zone_') 
+              | map(attribute='state') | list %}
+          {{ zones | select('search', heure_alerte) | list | count > 0 }}
+    conditions:
+      - alias: "Des cycles de zone sont en cours"
+        condition: state
+        entity_id: binary_sensor.misha_arrosage_zone_status
+        state: "on"
+    actions:
+      - variables: # Récupération de la liste des zones dont l'heure de fin est passée depuis 3 minutes environ (Ne tient pas compte des secondes)
+          heure_alerte: "{{ (now() + timedelta(minutes=-3)).strftime('%Y-%m-%d %H:%M') }}"
+          liste_zones: |-
+            {% set toutes_les_zones = states.input_datetime 
+                | selectattr('entity_id', 'search', 'misha_arrosage_duree_cycle_zone_') 
+                | list %}
+            {% set ns = namespace(found=[]) %} {% for zone in toutes_les_zones %}
+              {% if heure_alerte in zone.state %}
+                {% set ns.found = ns.found + [zone.entity_id.split('_')[-1]] %}
+              {% endif %}
+            {% endfor %} {{ ns.found }}
+
+      - alias: "Couper les cycles de zone toujours en cours"
+        repeat:
+          for_each: "{{ liste_zones }}"
+          sequence:
+            - alias: "Le cycle de la zone est en cours"
+              condition: template
+              value_template: >-
+                {{ is_state('input_boolean.misha_arrosage_cycle_zone_' ~ repeat.item,
+                'on') }}
+            - alias: "Arrêter le cycle"
+              action: script.misha_arrosage_arret
+              data:
+                zone_id: "{{ repeat.item }}"
+            - alias: "Notification arrosage alerte dépassement de temps"
+              action: script.misha_arrosage_envoi_notifications
+              data:
+                message_id: arrosage_alert
+                zone_id: "{{ repeat.item }}"
+
+    mode: parallel
+    max: 20

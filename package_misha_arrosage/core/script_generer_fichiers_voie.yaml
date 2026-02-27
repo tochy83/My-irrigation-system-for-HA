@@ -1,0 +1,63 @@
+# Name : script_genrer_fichiers_voie.yaml
+
+
+script:
+
+  misha_arrosage_generer_fichiers_voie:
+    alias: Misha Arrosage - Générer fichiers voie
+    description: >-
+      Script qui permet de générér les fichiers (entrées, automatisations et scripts) pour l'ajout d'une nouvelle voie, en plus de celles existantes.
+
+
+      Stocke également le numéro de la dernière voie créée et crée le label de la voie.
+    sequence:
+      - alias: "Lancer le script python de generation des fichiers de la voie"
+        action: shell_command.misha_arrosage_generer_fichiers_voie
+        response_variable: result
+      - variables: # Récupération du numéro de la voie créer depuis le retour du script python
+          nouveau_nombre: "{{ result.stdout | int }}"
+
+      - alias: "Mettre à jour le nombre de voies"
+        action: input_number.set_value
+        data:
+          entity_id: input_number.misha_arrosage_nb_file_voies
+          value: "{{ nouveau_nombre }}"
+
+      - action: logbook.log # Ecriture des événements dans les logs (Est ce vraiment nécessaire)
+        data:
+          name: "Génération des entités pour une nouvelle voie"
+          message: "Fichier voie_{{ nouveau_nombre }}.yaml créé"
+          entity_id: input_number.misha_arrosage_nb_file_voies
+      - action: logbook.log
+        data:
+          name: "Génération du script pour une nouvelle voie"
+          message: "Fichier script_arrosage_declenchement_auto_voie_{{ nouveau_nombre }}.yaml créé"
+          entity_id: input_number.misha_arrosage_nb_file_voies
+      - action: logbook.log
+        data:
+          name: "Génération de l'automatisation pour une nouvelle voie"
+          message: "Fichier automatisation_arrosage_voie_{{ nouveau_nombre }}.yaml créé"
+          entity_id: input_number.misha_arrosage_nb_file_voies 
+
+      - alias: "Création du label de voie si il n'existe pas"
+        choose:
+          - conditions:
+              - alias: "Le label n'existe pas"
+                condition: template
+                value_template: "{{ label_id('Misha Voie ' ~ nouveau_nombre) is none }}"
+            sequence:
+              - alias: "Créer le label de la voie (with Spook)"
+                action: homeassistant.create_label
+                data:
+                  name: "Misha Voie {{ nouveau_nombre }}"
+                  color: cyan
+                  description: "Label de liaison pour la voie {{ nouveau_nombre }}"
+
+      - alias: "Définir qu'un redémarrage est nécessaire"
+        action: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.misha_arrosage_restart_needed
+
+      - delay:
+          milliseconds: 200
+    mode: single

@@ -1,0 +1,172 @@
+# Name : automatisation_arrosage_zone_1.yaml
+# Dans ce fichier, se trouve l'automatisation qui gère le cycle d'arrosage de la zone 1
+
+
+automation:
+  - id: 'misha_arrosage_zone_1'
+    alias: Misha Arrosage - Zone 1
+    description: >-
+      Lance un cycle d'arrosage de la zone 1.
+    mode: restart
+
+    triggers:
+      - entity_id:
+          - input_boolean.misha_arrosage_cycle_zone_1
+        from: "off"
+        to: "on"
+        trigger: state
+        id: auto_zone_1
+    conditions: []
+    actions:
+      - variables: # Récupération des données de la zone depuis les attributs de sensor.misha_arrosage_data_zones
+            data_zones: "{{ state_attr('sensor.misha_arrosage_data_zones', 'data_zones') | from_json }}"
+            infos: "{{ data_zones.zone_1 }}"
+            voies_not_labeled: "{{ infos.voies_incluses | count == 0 }}"
+            zone_disabled: "{{ infos.voies_enable | count == 0 }}"
+            duree_cycle: "{{ infos.duree_cycle }}"
+            zone_disconnected: "{{ infos.zone_disconnected }}"
+            liste_voies_disconnected: "{{ infos.voies_hors_ligne }}"
+            liste_voies_sans_duree: "{{ infos.voies_sans_duree }}"
+
+      - choose: # Les différents choix possibles et leurs actions
+          - conditions:
+              - alias: "La zone n'a pas de voies avec le label de la zone"
+                condition: template
+                value_template: "{{ voies_not_labeled }}"
+            sequence:
+              - alias: "Remettre la zone en attente d'un prochain cycle"
+                action: input_boolean.turn_off
+                target:
+                  entity_id:
+                    - input_boolean.misha_arrosage_cycle_zone_1
+              - alias: "Définir la notification temporaire à afficher sur le dashboard"
+                action: script.misha_arrosage_notifications_temporaires
+                data:
+                  notifs: voies_not_labeled_zone_1
+                  duree: "3"
+          - conditions:
+              - alias: "Toutes les voies incluses à la zone sont déconnectées"
+                condition: template
+                value_template: "{{ zone_disconnected }}"
+            sequence:
+              - alias: "Remettre la zone en attente d'un prochain cycle"
+                action: input_boolean.turn_off
+                target:
+                  entity_id:
+                    - input_boolean.misha_arrosage_cycle_zone_1
+              - alias: "Définir la notification temporaire à afficher sur le dashboard"
+                action: script.misha_arrosage_notifications_temporaires
+                data:
+                  notifs: disconnected_zone_1
+                  duree: "3"
+              - alias: "Notification zone déconnectée"
+                action: script.misha_arrosage_envoi_notifications
+                data:
+                  message_id: "zone_disconnected"
+                  zone_id: "1"
+
+          - conditions:
+              - alias: "La zone n'a pas de voies sélectionnées"
+                condition: template
+                value_template: "{{ zone_disabled }}"
+            sequence:
+              - alias: "Remettre la zone en attente d'un prochain cycle"
+                action: input_boolean.turn_off
+                target:
+                  entity_id:
+                    - input_boolean.misha_arrosage_cycle_zone_1
+              - alias: "Définir la notification temporaire à afficher sur le dashboard"
+                action: script.misha_arrosage_notifications_temporaires
+                data:
+                  notifs: voies_disabled_zone_1
+                  duree: "3"
+
+          - conditions:
+              - alias: "Le coefficient météo est à 0"
+                condition: template
+                value_template: "{{states('input_number.misha_arrosage_coefficient_meteo')|float(1) == 0 }}"
+            sequence:
+              - alias: "Remettre la zone en attente d'un prochain cycle"
+                action: input_boolean.turn_off
+                target:
+                  entity_id:
+                    - input_boolean.misha_arrosage_cycle_zone_1
+              - alias: "Définir la notification temporaire à afficher sur le dashboard"
+                action: script.misha_arrosage_notifications_temporaires
+                data:
+                  notifs: coef_meteo_zone_1
+                  duree: "3"
+              - alias: "Notification pas d'arrosage nécessaire"
+                action: script.misha_arrosage_envoi_notifications
+                data:
+                  message_id: "coef_meteo"
+                  zone_id: "1"
+
+          - conditions:
+              - alias: "La durée du cycle est à 0 et le coefficient météo est > 0"
+                condition: template
+                value_template: "{{duree_cycle == 0 and states('input_number.misha_arrosage_coefficient_meteo')|float(1) >0 }}"
+            sequence:
+              - alias: "Remettre la zone en attente d'un prochain cycle"
+                action: input_boolean.turn_off
+                target:
+                  entity_id:
+                    - input_boolean.misha_arrosage_cycle_zone_1
+              - alias: "Définir la notification temporaire à afficher sur le dashboard"
+                action: script.misha_arrosage_notifications_temporaires
+                data:
+                  notifs: voies_duree_zone_1
+                  duree: "3"
+
+        default: # Aucun des choix précédents n'est satisfait, on lance l'arrosage de la zone pour les voies valides
+          - variables: # Récupération des eventuelles voies en erreur (déconnectées, sans durée) pour ne pas les déclencher
+              voies_en_erreur: >
+                {%- set voies_hors_ligne = infos.voies_hors_ligne %}
+                {%- set voies_sans_duree = infos.voies_sans_duree %}
+                {%- set hors_ligne = voies_hors_ligne | select('in', infos.voies_enable) | list %}
+                {%- set sans_duree = voies_sans_duree | select('in', infos.voies_enable) | reject('in', hors_ligne) | list %}
+                {{ {"liste": hors_ligne + sans_duree,"hors_ligne": hors_ligne,"sans_duree": sans_duree} }}
+
+          - alias: "Notification arrosage zone démarré"
+            action: script.misha_arrosage_envoi_notifications
+            data:
+              message_id: "cycle_started"
+              zone_id: "1"
+              heure: "{{ as_timestamp(now()) | timestamp_custom('à %-H:%M') }}"
+          - alias: "Enregistrer l'heure de fin du cycle + 60secondes (pour les alertes)"
+            action: input_datetime.set_datetime
+            target:
+              entity_id: input_datetime.misha_arrosage_duree_cycle_zone_1
+            data:
+              timestamp: "{{ as_timestamp(now()) + duree_cycle + 60 }}"
+
+          - alias: "Déclencher les voies (valides) de la zone" 
+            repeat:
+              for_each: "{{ infos.voies_enable }}"
+              sequence:
+                - choose:
+                    - conditions:
+                        - alias: "La voie est pas valide"
+                          condition: template
+                          value_template: "{{ repeat.item not in voies_en_erreur.liste }}"
+                      sequence:
+                        - alias: "Declencher la voie"
+                          action: script.misha_arrosage_declenchement_auto_voies
+                          data:
+                            voie_id: "{{ repeat.item }}"
+
+          - alias: "Délai pour eviter une double notification en cas d'arrêt manuel du cycle, le temps que le sccript d'arrêt fasse son travail"
+            delay:
+              milliseconds: 500
+          - alias: "Remettre la zone en attente d'un prochain cycle"
+            action: input_boolean.turn_off
+            target:
+              entity_id:
+                - input_boolean.misha_arrosage_cycle_zone_1
+          - alias: "Notification arrosage zone terminé"
+            action: script.misha_arrosage_envoi_notifications
+            data:
+              message_id: "{{ 'cycle_ended' if (voies_en_erreur.liste | count) == 0 else 'cycle_ended_error' }}"
+              zone_id: "1"
+              heure: "{{ as_timestamp(now()) | timestamp_custom('à %-H:%M') }}"
+              json_error: "{{ voies_en_erreur }}"

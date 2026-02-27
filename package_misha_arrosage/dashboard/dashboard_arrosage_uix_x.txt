@@ -1,0 +1,4076 @@
+streamline_templates:
+  misha_arrosage_zone_conectivity:
+    card:
+      type: custom:mushroom-template-card
+      entity: sensor.misha_arrosage_data_zones
+      primary: >-
+        {{ states('input_text.misha_arrosage_nom_de_zone_[[numero_de_la_zone]]')
+        }}
+      secondary: >
+        {%- set zone_id = [[numero_de_la_zone]] %}
+
+        {%- set data_zones = state_attr(entity, 'data_zones') | from_json %}
+
+        {{ 'Connecté' if not data_zones['zone_' ~ zone_id].zone_disconnected
+        else 'Déconnecté' }}
+      icon: >
+        {%- set zone_id = [[numero_de_la_zone]] %}
+
+        {%- set data_zones = state_attr(entity, 'data_zones') | from_json %}
+
+        {{ 'mdi:check-network-outline' if not data_zones['zone_' ~
+        zone_id].zone_disconnected else 'mdi:network-off-outline' }}
+      color: >
+        {%- set zone_id = [[numero_de_la_zone]] %}
+
+        {%- set data_zones = state_attr(entity, 'data_zones') | from_json %}
+
+        {{ 'light-blue' if not data_zones['zone_' ~ zone_id].zone_disconnected
+        else 'red' }}
+      features_position: bottom
+  misha_arrosage_voie:
+    card:
+      type: vertical-stack
+      cards:
+        - type: conditional
+          conditions:
+            - condition: state
+              entity: input_text.misha_arrosage_display_notifications_choix
+              state_not: mode_production_[[numero_de_la_voie]]
+            - condition: state
+              entity: input_text.misha_arrosage_display_notifications_choix
+              state_not: voie_label_[[numero_de_la_voie]]
+            - condition: state
+              entity: input_text.misha_arrosage_display_notifications_choix
+              state_not: voie_connect_[[numero_de_la_voie]]
+          card:
+            type: custom:vertical-stack-in-card
+            cards:
+              - type: custom:mushroom-template-card
+                entity: switch.misha_arrosage_electrovanne_[[numero_de_la_voie]]
+                multiline_secondary: true
+                primary: '[[nom_de_la_voie]]'
+                secondary: >-
+                  {% set volume = "" %} {% if
+                  has_value('input_text.misha_arrosage_volume_voie_[[numero_de_la_voie]]')
+                  and
+                  has_value('input_text.misha_arrosage_dernier_declenchement_voie_[[numero_de_la_voie]]')%}
+                    {% if not states('input_text.misha_arrosage_volume_voie_[[numero_de_la_voie]]') in ['0']%}
+                      {% set volume = states('input_text.misha_arrosage_volume_voie_[[numero_de_la_voie]]')+" L, " %}
+                    {% endif %}
+                    Dernier arrosage {{ volume }}le {{ states('input_text.misha_arrosage_dernier_declenchement_voie_[[numero_de_la_voie]]') }}
+                  {% endif %}  
+                icon: mdi:sprinkler-variant
+                tap_action:
+                  action: perform-action
+                  perform_action: script.misha_arrosage_nombre_electrovannes_par_zone
+                  data:
+                    voie: '[[numero_de_la_voie]]'
+                    update_label: 'true'
+                double_tap_action:
+                  action: more-info
+                hold_action:
+                  action: more-info
+                color: |-
+                  {% if is_state(entity, 'on') %}
+                    cyan
+                  {% endif %} 
+                features_position: bottom
+                uix:
+                  style:
+                    ha-tile-info$: |
+                      .primary::slotted(span)::after {
+                        content: " - Voie [[numero_de_la_voie]]";
+                        font-size: var(--tile-info-secondary-font-size);
+                        font-weight: var(--tile-info-secondary-font-weight);
+                      }
+              - type: conditional
+                conditions:
+                  - condition: state
+                    entity: timer.misha_arrosage_voie_[[numero_de_la_voie]]
+                    state: idle
+                card:
+                  type: custom:mushroom-chips-card
+                  chips:
+                    - type: template
+                      entity: switch.misha_arrosage_electrovanne_[[numero_de_la_voie]]
+                      tap_action:
+                        action: more-info
+                      double_tap_action:
+                        action: perform-action
+                        perform_action: script.misha_arrosage_nombre_electrovannes_par_zone
+                        data:
+                          voie: '[[numero_de_la_voie]]'
+                          update_label: 'true'
+                      hold_action:
+                        action: perform-action
+                        perform_action: script.misha_arrosage_nombre_electrovannes_par_zone
+                        data:
+                          voie: '[[numero_de_la_voie]]'
+                          update_label: 'true'
+                      icon: mdi:dots-horizontal
+                      icon_color: >
+                        {% set data =
+                        (state_attr('sensor.misha_arrosage_data_voies',
+                        'data_voies') |
+                        from_json).get('voie_[[numero_de_la_voie]]', {}) %}
+
+                        {{ data.color_link }}
+                      uix:
+                        style: |
+                          ha-card {
+                            border: none; 
+                            background: none !important;
+                            --chip-icon-size: 12px;
+                            margin-right: -16px;
+                            padding-top: 18px;
+                            margin-bottom: -18px;
+                          }
+                    - type: template
+                      tap_action:
+                        action: none
+                      icon: mdi:check-network-outline
+                      icon_color: >
+                        {%- set data =
+                        (state_attr('sensor.misha_arrosage_data_voies',
+                        'data_voies') |
+                        from_json).get('voie_[[numero_de_la_voie]]', {}) %}
+
+                        {{ data.color_network }}
+                      uix:
+                        style: |
+                          ha-card {
+                            border: none; 
+                            background: none !important;
+                            --chip-icon-size: 14px;
+                            margin-right: -16px;
+                            margin-left: -8px;
+                            padding-top: 13px;
+                            margin-bottom: -13px;
+                          }
+                    - type: template
+                      entity: >-
+                        input_number.misha_arrosage_duree_voie_[[numero_de_la_voie]]
+                      content: >-
+                        {{ states(entity) |int(0) | timestamp_custom('%M min %S
+                        s') }}
+                      tap_action:
+                        action: more-info
+                      uix:
+                        style: |
+                          ha-card {
+                            --chip-border-radius: 12px;
+                          }
+                    - type: template
+                      entity: >-
+                        input_boolean.misha_arrosage_enable_voie_[[numero_de_la_voie]]
+                      icon: >
+                        {{ 'mdi:check-circle' if is_state(entity, 'on') else
+                        'mdi:close-circle-outline' }}
+                      icon_color: >
+                        {%- set data =
+                        (state_attr('sensor.misha_arrosage_data_voies',
+                        'data_voies') |
+                        from_json).get('voie_[[numero_de_la_voie]]', {}) %}
+
+                        {{ data.color_enabled }}
+                      tap_action:
+                        action: perform-action
+                        perform_action: script.misha_arrosage_nombre_electrovannes_par_zone
+                        data:
+                          voie: '[[numero_de_la_voie]]'
+                      uix:
+                        style: |
+                          ha-card {
+                            --chip-border-radius: 12px;
+                          }
+                  alignment: end
+                  uix:
+                    style: |
+                      ha-card {
+                        padding-top: 2px;
+                        margin-top: -14px;
+                        margin-left: 0px;
+                        padding-bottom: 4px;
+                        padding-left: 8px;
+                        padding-right: 8px;
+                      }
+              - type: conditional
+                conditions:
+                  - condition: state
+                    entity: timer.misha_arrosage_voie_[[numero_de_la_voie]]
+                    state: active
+                card:
+                  type: custom:timer-bar-card
+                  entity: timer.misha_arrosage_voie_[[numero_de_la_voie]]
+                  sync_issues: fix
+                  invert: true
+                  bar_direction: ltr
+                  bar_radius: 5px
+                  mushroom:
+                    primary_info: none
+                    icon_type: none
+                  uix:
+                    style: |
+                      ha-card {
+                        transition: none !important;
+                        padding: 0px !important;
+                        --spacing: var(--mush-spacing, 10px) !important;
+                        --icon-size: var(--mush-icon-size, 36px) !important;
+                        background: none;
+                        border: none;
+                        margin-top: -4px;
+                      }
+            uix:
+              style: |
+                ha-card {
+                  {% if is_state('switch.misha_arrosage_electrovanne_[[numero_de_la_voie]]', 'on') %}
+                    background: linear-gradient(180deg, rgba(204,242,247,1) 70%, rgba(255,255,255,1) 100%) !important;
+                    border-color: #DCDCDC;
+                  {% else %}
+                    background: linear-gradient(180deg, rgba(171,171,171,1) 20%, rgba(255,255,255,1) 100%) !important;
+                    border-color: #DCDCDC;
+                  {% endif %}
+                }
+        - type: conditional
+          conditions:
+            - condition: state
+              entity: input_boolean.misha_arrosage_display_notifications
+              state: 'on'
+            - condition: state
+              entity: input_text.misha_arrosage_display_notifications_choix
+              state: mode_production_[[numero_de_la_voie]]
+          card:
+            type: custom:vertical-stack-in-card
+            cards:
+              - type: custom:mushroom-template-card
+                entity: switch.misha_arrosage_electrovanne_[[numero_de_la_voie]]
+                multiline_secondary: true
+                secondary: >-
+                  Mode production. Cette voie n'est pas encore liée à une
+                  électrovanne réelle. Elle ne peut par conséquent pas être
+                  incluse dans un cycle d'arrosage.
+                tap_action:
+                  action: none
+                features_position: bottom
+                icon: mdi:alert
+                color: deep-orange
+                uix:
+                  style: |
+                    ha-card {
+                      background-color: #fff4e0;
+                    }
+              - type: custom:mushroom-chips-card
+                chips:
+                  - type: template
+                    entity: switch.misha_arrosage_electrovanne_[[numero_de_la_voie]]
+                    tap_action:
+                      action: more-info
+                    icon: mdi:dots-horizontal
+                    icon_color: >
+                      {% set data =
+                      (state_attr('sensor.misha_arrosage_data_voies',
+                      'data_voies') |
+                      from_json).get('voie_[[numero_de_la_voie]]', {}) %}
+
+                      {{ data.color_link }}
+                    uix:
+                      style: |
+                        ha-card {
+                          border: none; 
+                          background: none !important;
+                          --chip-icon-size: 12px;
+                          margin-right: -16px;
+                          padding-top: 18px;
+                          margin-bottom: -18px;
+                        }
+                  - type: template
+                    tap_action:
+                      action: none
+                    icon: mdi:check-network-outline
+                    icon_color: >
+                      {%- set data =
+                      (state_attr('sensor.misha_arrosage_data_voies',
+                      'data_voies') |
+                      from_json).get('voie_[[numero_de_la_voie]]', {}) %}
+
+                      {{ data.color_network }}
+                    uix:
+                      style: |
+                        ha-card {
+                          border: none; 
+                          background: none !important;
+                          --chip-icon-size: 14px;
+                          margin-right: -16px;
+                          margin-left: -8px;
+                          padding-top: 13px;
+                          margin-bottom: -13px;
+                        }
+                  - type: template
+                    entity: >-
+                      input_number.misha_arrosage_duree_voie_[[numero_de_la_voie]]
+                    content: >-
+                      {{ states(entity) |int(0) | timestamp_custom('%M min %S
+                      s') }}
+                    tap_action:
+                      action: more-info
+                    uix:
+                      style: |
+                        ha-card {
+                          --chip-border-radius: 12px;
+                        }
+                  - type: template
+                    entity: >-
+                      input_boolean.misha_arrosage_enable_voie_[[numero_de_la_voie]]
+                    icon: >
+                      {{ 'mdi:check-circle' if is_state(entity, 'on') else
+                      'mdi:close-circle-outline' }}
+                    icon_color: >
+                      {%- set data =
+                      (state_attr('sensor.misha_arrosage_data_voies',
+                      'data_voies') |
+                      from_json).get('voie_[[numero_de_la_voie]]', {}) %} {%-
+                      set is_on = is_state(entity, 'on') %}
+
+                      {{ data.color_enabled }}
+                    tap_action:
+                      action: perform-action
+                      perform_action: script.misha_arrosage_nombre_electrovannes_par_zone
+                      data:
+                        voie: '[[numero_de_la_voie]]'
+                    uix:
+                      style: |
+                        ha-card {
+                          --chip-border-radius: 12px;
+                        }
+                alignment: end
+                uix:
+                  style: |
+                    ha-card {
+                      padding-top: 2px;
+                      margin-top: -14px;
+                      margin-left: 0px;
+                      padding-bottom: 4px;
+                      padding-left: 8px;
+                      padding-right: 8px;
+                    }
+            uix:
+              style: |
+                ha-card {
+                    background: #fff4e0;
+                }
+        - type: conditional
+          conditions:
+            - condition: state
+              entity: input_boolean.misha_arrosage_display_notifications
+              state: 'on'
+            - condition: state
+              entity: input_text.misha_arrosage_display_notifications_choix
+              state: voie_label_[[numero_de_la_voie]]
+          card:
+            type: custom:vertical-stack-in-card
+            cards:
+              - type: custom:mushroom-template-card
+                entity: switch.misha_arrosage_electrovanne_[[numero_de_la_voie]]
+                multiline_secondary: true
+                secondary: >-
+                  Cette voie n'est pas liée à une zone. Elle ne peut par
+                  conséquent pas être incluse dans un cycle d'arrosage.
+                tap_action:
+                  action: none
+                features_position: bottom
+                icon: mdi:alert
+                color: deep-orange
+                uix:
+                  style: |
+                    ha-card {
+                      background-color: #fff4e0;
+                    }
+              - type: custom:mushroom-chips-card
+                chips:
+                  - type: template
+                    entity: switch.misha_arrosage_electrovanne_[[numero_de_la_voie]]
+                    tap_action:
+                      action: more-info
+                    icon: mdi:dots-horizontal
+                    icon_color: >
+                      {% set data =
+                      (state_attr('sensor.misha_arrosage_data_voies',
+                      'data_voies') |
+                      from_json).get('voie_[[numero_de_la_voie]]', {}) %}
+
+                      {{ data.color_link }}
+                    uix:
+                      style: |
+                        ha-card {
+                          border: none; 
+                          background: none !important;
+                          --chip-icon-size: 12px;
+                          margin-right: -16px;
+                          padding-top: 18px;
+                          margin-bottom: -18px;
+                        }
+                  - type: template
+                    tap_action:
+                      action: none
+                    icon: mdi:check-network-outline
+                    icon_color: >
+                      {%- set data =
+                      (state_attr('sensor.misha_arrosage_data_voies',
+                      'data_voies') |
+                      from_json).get('voie_[[numero_de_la_voie]]', {}) %}
+
+                      {{ data.color_network }}
+                    uix:
+                      style: |
+                        ha-card {
+                          border: none; 
+                          background: none !important;
+                          --chip-icon-size: 14px;
+                          margin-right: -16px;
+                          margin-left: -8px;
+                          padding-top: 13px;
+                          margin-bottom: -13px;
+                        }
+                  - type: template
+                    entity: >-
+                      input_number.misha_arrosage_duree_voie_[[numero_de_la_voie]]
+                    content: >-
+                      {{ states(entity) |int(0) | timestamp_custom('%M min %S
+                      s') }}
+                    tap_action:
+                      action: more-info
+                    uix:
+                      style: |
+                        ha-card {
+                          --chip-border-radius: 12px;
+                        }
+                  - type: template
+                    entity: >-
+                      input_boolean.misha_arrosage_enable_voie_[[numero_de_la_voie]]
+                    icon: >
+                      {{ 'mdi:check-circle' if is_state(entity, 'on') else
+                      'mdi:close-circle-outline' }}
+                    icon_color: >
+                      {%- set data =
+                      (state_attr('sensor.misha_arrosage_data_voies',
+                      'data_voies') |
+                      from_json).get('voie_[[numero_de_la_voie]]', {}) %} {%-
+                      set is_on = is_state(entity, 'on') %}
+
+                      {{ data.color_enabled }}
+                    tap_action:
+                      action: perform-action
+                      perform_action: script.misha_arrosage_nombre_electrovannes_par_zone
+                      data:
+                        voie: '[[numero_de_la_voie]]'
+                    uix:
+                      style: |
+                        ha-card {
+                          --chip-border-radius: 12px;
+                        }
+                alignment: end
+                uix:
+                  style: |
+                    ha-card {
+                      padding-top: 2px;
+                      margin-top: -14px;
+                      margin-left: 0px;
+                      padding-bottom: 4px;
+                      padding-left: 8px;
+                      padding-right: 8px;
+                    }
+            uix:
+              style: |
+                ha-card {
+                    background: #fff4e0;
+                }
+        - type: conditional
+          conditions:
+            - condition: state
+              entity: input_boolean.misha_arrosage_display_notifications
+              state: 'on'
+            - condition: state
+              entity: input_text.misha_arrosage_display_notifications_choix
+              state: voie_connect_[[numero_de_la_voie]]
+          card:
+            type: custom:vertical-stack-in-card
+            cards:
+              - type: custom:mushroom-template-card
+                entity: switch.misha_arrosage_electrovanne_[[numero_de_la_voie]]
+                multiline_secondary: true
+                secondary: >-
+                  Cette voie présente actuellement un problème de connexion.
+                  Elle ne peut par conséquent pas être incluse dans un cycle
+                  d'arrosage.
+                tap_action:
+                  action: none
+                features_position: bottom
+                icon: mdi:alert
+                color: deep-orange
+                uix:
+                  style: |
+                    ha-card {
+                      background-color: #fff4e0;
+                    }
+              - type: custom:mushroom-chips-card
+                chips:
+                  - type: template
+                    entity: switch.misha_arrosage_electrovanne_[[numero_de_la_voie]]
+                    tap_action:
+                      action: more-info
+                    icon: mdi:dots-horizontal
+                    icon_color: >
+                      {% set data =
+                      (state_attr('sensor.misha_arrosage_data_voies',
+                      'data_voies') |
+                      from_json).get('voie_[[numero_de_la_voie]]', {}) %}
+
+                      {{ data.color_link }}
+                    uix:
+                      style: |
+                        ha-card {
+                          border: none; 
+                          background: none !important;
+                          --chip-icon-size: 12px;
+                          margin-right: -16px;
+                          padding-top: 18px;
+                          margin-bottom: -18px;
+                        }
+                  - type: template
+                    tap_action:
+                      action: none
+                    icon: mdi:check-network-outline
+                    icon_color: >
+                      {%- set data =
+                      (state_attr('sensor.misha_arrosage_data_voies',
+                      'data_voies') |
+                      from_json).get('voie_[[numero_de_la_voie]]', {}) %}
+
+                      {{ data.color_network }}
+                    uix:
+                      style: |
+                        ha-card {
+                          border: none; 
+                          background: none !important;
+                          --chip-icon-size: 14px;
+                          margin-right: -16px;
+                          margin-left: -8px;
+                          padding-top: 13px;
+                          margin-bottom: -13px;
+                        }
+                  - type: template
+                    entity: >-
+                      input_number.misha_arrosage_duree_voie_[[numero_de_la_voie]]
+                    content: >-
+                      {{ states(entity) |int(0) | timestamp_custom('%M min %S
+                      s') }}
+                    tap_action:
+                      action: more-info
+                    uix:
+                      style: |
+                        ha-card {
+                          --chip-border-radius: 12px;
+                        }
+                  - type: template
+                    entity: >-
+                      input_boolean.misha_arrosage_enable_voie_[[numero_de_la_voie]]
+                    icon: >
+                      {{ 'mdi:check-circle' if is_state(entity, 'on') else
+                      'mdi:close-circle-outline' }}
+                    icon_color: >
+                      {%- set data =
+                      (state_attr('sensor.misha_arrosage_data_voies',
+                      'data_voies') |
+                      from_json).get('voie_[[numero_de_la_voie]]', {}) %} {%-
+                      set is_on = is_state(entity, 'on') %}
+
+                      {{ data.color_enabled }}
+                    tap_action:
+                      action: perform-action
+                      perform_action: script.misha_arrosage_nombre_electrovannes_par_zone
+                      data:
+                        voie: '[[numero_de_la_voie]]'
+                    uix:
+                      style: |
+                        ha-card {
+                          --chip-border-radius: 12px;
+                        }
+                alignment: end
+                uix:
+                  style: |
+                    ha-card {
+                      padding-top: 2px;
+                      margin-top: -14px;
+                      margin-left: 0px;
+                      padding-bottom: 4px;
+                      padding-left: 8px;
+                      padding-right: 8px;
+                    }
+            uix:
+              style: |
+                ha-card {
+                    background: #fff4e0;
+                }
+  misha_arrosage_zone:
+    card:
+      type: vertical-stack
+      cards:
+        - type: vertical-stack
+          cards:
+            - type: custom:mushroom-title-card
+              subtitle: >-
+                {{
+                states('input_text.misha_arrosage_nom_de_zone_[[numero_de_la_zone]]')
+                }}
+              uix:
+                style: |
+                  .subtitle {
+                    border-bottom: 1px solid var(--ha-card-border-color,var(--divider-color,#e0e0e0));
+                  }
+                  .subtitle::after {
+                    content: "- Zone [[numero_de_la_zone]]";
+                    font-size: var(--card-secondary-font-size);
+                  }
+            - type: custom:mushroom-chips-card
+              chips:
+                - type: entity
+                  entity: input_text.misha_arrosage_nom_de_zone_[[numero_de_la_zone]]
+                  content_info: none
+                  icon_color: light-grey
+                  uix:
+                    style: |
+                      ha-card {
+                        border: none; 
+                        background: none !important;
+                        --chip-icon-size: 12px;
+                      }
+              alignment: end
+              uix:
+                style: |
+                  ha-card {
+                    margin-top: -36px;
+                    margin-left: 90%;
+                  }
+          uix:
+            style: |
+              hui-card {
+                border: none !important;
+                background: none !important;
+                margin-bottom: -8px;
+              }   
+        - type: conditional
+          conditions:
+            - condition: state
+              entity: input_boolean.misha_arrosage_display_notifications
+              state: 'on'
+            - condition: state
+              entity: input_text.misha_arrosage_display_notifications_choix
+              state: disconnected_zone_[[numero_de_la_zone]]
+          card:
+            type: custom:mushroom-template-card
+            multiline_secondary: true
+            primary: ''
+            secondary: >-
+              Le cycle d'arrosage de la zone {{
+              states('input_text.misha_arrosage_nom_de_zone_[[numero_de_la_zone]]')
+              }} ne peut pas démarrer. Toutes les voies d'arrosage de la zone
+              sont déconnectées.
+            icon: mdi:alert
+            tap_action:
+              action: none
+            color: deep-orange
+            features_position: bottom
+            uix:
+              style: |
+                ha-card {
+                  background-color: #fff4e0;
+                }
+        - type: conditional
+          conditions:
+            - condition: state
+              entity: input_boolean.misha_arrosage_display_notifications
+              state: 'on'
+            - condition: state
+              entity: input_text.misha_arrosage_display_notifications_choix
+              state: voies_not_labeled_zone_[[numero_de_la_zone]]
+          card:
+            type: custom:vertical-stack-in-card
+            cards:
+              - type: custom:mushroom-template-card
+                multiline_secondary: true
+                primary: ''
+                secondary: >-
+                  Il n'y a pas de voie incluse dans le cycle d'arrosage de la
+                  zone {{
+                  states('input_text.misha_arrosage_nom_de_zone_[[numero_de_la_zone]]')
+                  }}.
+                icon: mdi:alert
+                tap_action:
+                  action: none
+                color: deep-orange
+                features_position: bottom
+                uix:
+                  style: |
+                    ha-card {
+                      background-color: #fff4e0;
+                      padding-right: 50px;
+                    }
+              - type: custom:mushroom-chips-card
+                chips:
+                  - type: template
+                    tap_action:
+                      action: url
+                      url_path: >-
+                        https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/DASHBOARD.md#--la-carte-%C3%A9lectrovanne-
+                    icon: mdi:help-circle-outline
+                    icon_color: light-blue
+                    uix:
+                      style: |
+                        ha-card {
+                          border:none; 
+                          --chip-border-radius: 12px;
+                          --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                        }
+                alignment: end
+                uix:
+                  style: |
+                    ha-card {
+                      margin-top: -46px;
+                      margin-left: 50%;
+                      padding-bottom: 8px;
+                      padding-left: 8px;
+                      padding-right: 8px;
+                    }
+        - type: conditional
+          conditions:
+            - condition: state
+              entity: input_boolean.misha_arrosage_display_notifications
+              state: 'on'
+            - condition: state
+              entity: input_text.misha_arrosage_display_notifications_choix
+              state: voies_disabled_zone_[[numero_de_la_zone]]
+          card:
+            type: custom:mushroom-template-card
+            multiline_secondary: true
+            primary: ''
+            secondary: >-
+              Il n'y a pas de voie sélectionnée dans le cycle d'arrosage de la
+              zone {{
+              states('input_text.misha_arrosage_nom_de_zone_[[numero_de_la_zone]]')
+              }}.
+            icon: mdi:alert
+            tap_action:
+              action: none
+            color: deep-orange
+            features_position: bottom
+            uix:
+              style: |
+                ha-card {
+                  background-color: #fff4e0;
+                }
+        - type: conditional
+          conditions:
+            - condition: state
+              entity: input_boolean.misha_arrosage_display_notifications
+              state: 'on'
+            - condition: state
+              entity: input_text.misha_arrosage_display_notifications_choix
+              state: voies_duree_zone_[[numero_de_la_zone]]
+          card:
+            type: custom:mushroom-template-card
+            multiline_secondary: true
+            primary: ''
+            secondary: >-
+              La durée d'arrosage des voies sélectionnées pour la zone {{
+              states('input_text.misha_arrosage_nom_de_zone_[[numero_de_la_zone]]')
+              }} n'est pas définie.
+            icon: mdi:alert
+            tap_action:
+              action: none
+            color: deep-orange
+            features_position: bottom
+            uix:
+              style: |
+                ha-card {
+                  background-color: #fff4e0;
+                }
+        - type: conditional
+          conditions:
+            - condition: state
+              entity: input_boolean.misha_arrosage_display_notifications
+              state: 'on'
+            - condition: state
+              entity: input_text.misha_arrosage_display_notifications_choix
+              state: no_calendar_[[numero_de_la_zone]]
+          card:
+            type: custom:mushroom-template-card
+            multiline_secondary: true
+            primary: ''
+            secondary: >-
+              Impossibble d'activer la programmation pour la zone {{
+              states('input_text.misha_arrosage_nom_de_zone_[[numero_de_la_zone]]')
+              }}, il n'y a pas de calendrier Arrosage créé.
+            icon: mdi:calendar-clock-outline
+            tap_action:
+              action: none
+            color: deep-orange
+            features_position: bottom
+            uix:
+              style: |
+                ha-card {
+                  background-color: #fff4e0;
+                }
+        - type: conditional
+          conditions:
+            - condition: state
+              entity: input_boolean.misha_arrosage_display_notifications
+              state: 'on'
+            - condition: state
+              entity: input_text.misha_arrosage_display_notifications_choix
+              state: programmation_no_evenements_zone_[[numero_de_la_zone]]
+          card:
+            type: custom:mushroom-template-card
+            multiline_secondary: true
+            primary: ''
+            secondary: >-
+              Programmation activée pour la zone {{
+              states('input_text.misha_arrosage_nom_de_zone_[[numero_de_la_zone]]')
+              }}, mais il n'y pas d'évènements prévus pour les 30 prochains
+              jours.
+            icon: mdi:calendar-clock-outline
+            tap_action:
+              action: none
+            color: deep-orange
+            features_position: bottom
+            uix:
+              style: |
+                ha-card {
+                  background-color: #fff4e0;
+                }                
+        - type: conditional
+          conditions:
+            - condition: state
+              entity: input_boolean.misha_arrosage_display_notifications
+              state: 'on'
+            - condition: state
+              entity: >-
+                input_boolean.misha_arrosage_programmation_zone_[[numero_de_la_zone]]
+              state: 'on'
+            - condition: state
+              entity: input_text.misha_arrosage_display_notifications_choix
+              state: programmation_on_zone_[[numero_de_la_zone]]
+          card:
+            type: custom:mushroom-template-card
+            multiline_secondary: true
+            primary: ''
+            secondary: >-
+              Programmation activée pour la zone {{
+              states('input_text.misha_arrosage_nom_de_zone_[[numero_de_la_zone]]')
+              }}.
+            icon: mdi:calendar-clock-outline
+            tap_action:
+              action: none
+            color: light-green
+            features_position: bottom
+            uix:
+              style: |
+                ha-card {
+                  background-color: #e8f3db;
+                }
+        - type: conditional
+          conditions:
+            - condition: state
+              entity: input_boolean.misha_arrosage_display_notifications
+              state: 'on'
+            - condition: state
+              entity: >-
+                input_boolean.misha_arrosage_programmation_zone_[[numero_de_la_zone]]
+              state: 'off'
+            - condition: state
+              entity: input_text.misha_arrosage_display_notifications_choix
+              state: programmation_off_zone_[[numero_de_la_zone]]
+          card:
+            type: custom:mushroom-template-card
+            multiline_secondary: true
+            primary: ''
+            secondary: >-
+              Programmation désactivée pour la zone {{
+              states('input_text.misha_arrosage_nom_de_zone_[[numero_de_la_zone]]')
+              }}.
+            icon: mdi:calendar-clock-outline
+            tap_action:
+              action: none
+            color: light-green
+            features_position: bottom
+            uix:
+              style: |
+                ha-card {
+                  background-color: #e8f3db;
+                }
+        - type: conditional
+          conditions:
+            - condition: state
+              entity: input_boolean.misha_arrosage_display_notifications
+              state: 'on'
+            - condition: state
+              entity: input_text.misha_arrosage_display_notifications_choix
+              state: coef_meteo_zone_[[numero_de_la_zone]]
+          card:
+            type: custom:mushroom-template-card
+            multiline_secondary: true
+            primary: ''
+            secondary: >-
+              Pas d'arrosage nécessaire pour la zone {{
+              states('input_text.misha_arrosage_nom_de_zone_[[numero_de_la_zone]]')
+              }}.
+            icon: mdi:sprinkler-variant
+            tap_action:
+              action: none
+            color: light-green
+            features_position: bottom
+            uix:
+              style: |
+                ha-card {
+                  background-color: #e8f3db;
+                }
+        - type: custom:mushroom-chips-card
+          chips:
+            - type: template
+              content: >-
+                {{states('input_number.misha_arrosage_electrovannes_incluses_zone_[[numero_de_la_zone]]')}}
+              uix:
+                style: |
+                  ha-card {
+                    border: none;
+                    --chip-background: none! important;
+                    box-shadow: none !important;
+                    padding-top: 14px;
+                    margin-bottom: -14px;
+                    margin-right: -10px;
+                    --text-color: lightgrey;
+                  }
+                  ha-card ::slotted(span) {
+                    width: 18px;
+                    text-align: right;
+                  }
+            - type: template
+              entity: >-
+                input_boolean.misha_arrosage_programmation_zone_[[numero_de_la_zone]]
+              tap_action:
+                action: perform-action
+                perform_action: script.misha_arrosage_programmation_zone_permuter_on_off
+                data:
+                  zone_id: '[[numero_de_la_zone]]'
+              content_info: none
+              icon: mdi:calendar-clock-outline
+              icon_color: >
+                {%- set color = '' -%}
+
+                {%- set color = 'light-green' if is_state(entity, 'on') and
+                is_state('binary_sensor.misha_arrosage_evenements_xday_zone_[[numero_de_la_zone]]',
+                'on') else color -%}
+
+                {%- set color = 'orange' if is_state(entity, 'on') and
+                is_state('binary_sensor.misha_arrosage_evenements_xday_zone_[[numero_de_la_zone]]',
+                'off') else color -%}
+
+                {{ color }}
+              uix:
+                style: |
+                  ha-card {
+                    --chip-border-radius: 12px;
+                  }
+            - type: entity
+              entity: input_boolean.misha_arrosage_cycle_zone_[[numero_de_la_zone]]
+              tap_action:
+                action: perform-action
+                perform_action: input_boolean.turn_on
+                target:
+                  entity_id: >-
+                    input_boolean.misha_arrosage_cycle_zone_[[numero_de_la_zone]]
+              content_info: none
+              icon_color: light-green
+              uix:
+                style: |
+                  ha-card {
+                    --chip-border-radius: 12px;
+                  }
+          alignment: end
+          uix:
+            style: |
+              ha-card {
+                padding-right: 8px;
+              }
+  misha_arrosage_notification_arrosage_en_cours:
+    card:
+      type: conditional
+      conditions:
+        - condition: state
+          entity: input_boolean.misha_arrosage_cycle_zone_[[numero_de_la_zone]]
+          state: 'on'
+      card:
+        type: custom:mod-card
+        uix:
+          style: |
+            ha-card {
+              background: #e8f3db;
+              --grid-card-gap: 0x;
+              border: 1px solid #dbdbdb;
+            }
+        card:
+          type: grid
+          square: false
+          cards:
+            - type: custom:mushroom-template-card
+              multiline_secondary: true
+              primary: ''
+              secondary: >-
+                L arrosage de la zone
+                {{states('input_text.misha_arrosage_nom_de_zone_[[numero_de_la_zone]]')}}
+                est en cours. Arrêt prévu à
+                {{state_attr('input_datetime.misha_arrosage_duree_cycle_zone_[[numero_de_la_zone]]',
+                'timestamp')| timestamp_custom("%Hh%M", true, now())}}
+              icon: mdi:sprinkler-variant
+              tap_action:
+                action: none
+              color: light-green
+              features_position: bottom
+              uix:
+                style: |
+                  ha-card {
+                    border: none;
+                    background: none;
+                    margin-right: -100%;
+                    padding-right: 100px;
+                  }
+            - type: custom:mushroom-chips-card
+              chips:
+                - type: template
+                  icon: mdi:stop
+                  tap_action:
+                    action: perform-action
+                    perform_action: script.misha_arrosage_arret
+                    data:
+                      zone_id: '[[numero_de_la_zone]]'
+                  uix:
+                    style: |
+                      ha-card {
+                        border:none; 
+                        --chip-border-radius: 12px;
+                        --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                      }
+              alignment: end
+              uix:
+                style: |
+                  ha-card {
+                    background: none;
+                    padding-right: 8px;
+                    padding-top: 9px;
+                  }
+          columns: 2
+      grid_options:
+        columns: full
+      visibility:
+        - condition: state
+          entity: input_boolean.misha_arrosage_cycle_zone_[[numero_de_la_zone]]
+          state: 'on'
+  misha_arrosage_notification_arrosage_en_cours_2:
+    card:
+      type: custom:mod-card
+      uix:
+        style: |
+          ha-card {
+            background: #e8f3db;
+            --grid-card-gap: 0x;
+            border: 1px solid #dbdbdb;
+          }
+      card:
+        type: grid
+        square: false
+        cards:
+          - type: custom:mushroom-template-card
+            multiline_secondary: true
+            primary: ''
+            secondary: >-
+              L arrosage de la zone
+              {{states('input_text.misha_arrosage_nom_de_zone_[[numero_de_la_zone]]')}}
+              est en cours. Arrêt prévu à
+              {{state_attr('input_datetime.misha_arrosage_duree_cycle_zone_[[numero_de_la_zone]]',
+              'timestamp')| timestamp_custom("%Hh%M", true, now())}}
+            icon: mdi:sprinkler-variant
+            tap_action:
+              action: none
+            color: light-green
+            features_position: bottom
+            uix:
+              style: |
+                ha-card {
+                  border: none;
+                  background: none;
+                  margin-right: -100%;
+                  padding-right: 100px;
+                }
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: template
+                icon: mdi:stop
+                tap_action:
+                  action: perform-action
+                  perform_action: script.misha_arrosage_arret
+                  data:
+                    zone_id: '[[numero_de_la_zone]]'
+                uix:
+                  style: |
+                    ha-card {
+                      border:none; 
+                      --chip-border-radius: 12px;
+                      --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                    }
+            alignment: end
+            uix:
+              style: |
+                ha-card {
+                  background: none;
+                  padding-right: 8px;
+                  padding-top: 9px;
+                }
+        columns: 2
+      grid_options:
+        columns: full
+      visibility:
+        - condition: state
+          entity: input_boolean.misha_arrosage_cycle_zone_[[numero_de_la_zone]]
+          state: 'on'
+  misha_arrosage_notification_arrosage_en_cours_old:
+    card:
+      type: conditional
+      conditions:
+        - condition: state
+          entity: input_boolean.misha_arrosage_cycle_zone_[[numero_de_la_zone]]
+          state: 'on'
+      card:
+        type: custom:vertical-stack-in-card
+        cards:
+          - type: custom:mushroom-template-card
+            multiline_secondary: true
+            primary: ''
+            secondary: >-
+              L arrosage de la zone
+              {{states('input_text.misha_arrosage_nom_de_zone_[[numero_de_la_zone]]')}}
+              est en cours. Arrêt prévu à
+              {{state_attr('input_datetime.misha_arrosage_duree_cycle_zone_[[numero_de_la_zone]]',
+              'timestamp')| timestamp_custom("%Hh%M", true, now())}}
+            icon: mdi:sprinkler-variant
+            tap_action:
+              action: none
+            color: light-green
+            features_position: bottom
+            uix:
+              style: |
+                ha-card {
+                  background-color: #e8f3db;
+                }
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: template
+                icon: mdi:stop
+                tap_action:
+                  action: perform-action
+                  perform_action: script.misha_arrosage_arret
+                  data:
+                    zone_id: '[[numero_de_la_zone]]'
+                uix:
+                  style: |
+                    ha-card {
+                      border:none; 
+                      --chip-border-radius: 12px;
+                      --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                    }
+            alignment: end
+            uix:
+              style: |
+                ha-card {
+                  margin-top: -46px;
+                  margin-left: 50%;
+                  padding-bottom: 8px;
+                  padding-left: 8px;
+                  padding-right: 8px;
+                }
+      grid_options:
+        columns: full
+      visibility:
+        - condition: state
+          entity: input_boolean.misha_arrosage_cycle_zone_[[numero_de_la_zone]]
+          state: 'on'
+views:
+  - type: sections
+    max_columns: 2
+    path: arrosage
+    sections:
+      - type: grid
+        cards:
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: back
+              - type: template
+                content: ARROSAGE
+                uix:
+                  style: |
+                    ha-card {
+                      border: none;
+                      background: none !important;
+                    }
+              - type: spacer
+              - type: template
+                icon: mdi:calendar-clock
+                icon_color: >-
+                  {{ 'deep-orange' if is_state('calendar.arrosage', 'unknown')
+                  else 'light-green' }}
+                tap_action:
+                  action: navigate
+                  navigation_path: planning-arrosage
+              - type: template
+                icon: mdi:tune
+                icon_color: deep-orange
+                tap_action:
+                  action: navigate
+                  navigation_path: parametres-dashboard-arrosage
+            grid_options:
+              columns: full
+              rows: auto
+          - type: tile
+            entity: input_boolean.test_vanne
+            vertical: false
+            features_position: bottom
+          - type: tile
+            entity: input_boolean.misha_arrosage_electrovanne_virtuelle_1
+            vertical: false
+            features_position: bottom
+        column_span: 2
+      - type: grid
+        cards:
+          - type: vertical-stack
+            cards:
+              - type: custom:streamline-card
+                template: misha_arrosage_notification_arrosage_en_cours
+                variables:
+                  numero_de_la_zone: '1'
+                grid_options:
+                  columns: full
+              - type: custom:streamline-card
+                template: misha_arrosage_notification_arrosage_en_cours
+                variables:
+                  numero_de_la_zone: '2'
+                grid_options:
+                  columns: full
+              - type: custom:streamline-card
+                template: misha_arrosage_notification_arrosage_en_cours
+                variables:
+                  numero_de_la_zone: '3'
+                grid_options:
+                  columns: full
+            grid_options:
+              columns: full
+        column_span: 2
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: misha_arrosage_zone
+            variables:
+              numero_de_la_zone: '1'
+          - type: custom:streamline-card
+            template: misha_arrosage_voie
+            variables:
+              numero_de_la_voie: '1'
+              nom_de_la_voie: Fraisiers
+          - type: custom:streamline-card
+            template: misha_arrosage_voie
+            variables:
+              numero_de_la_voie: '2'
+              nom_de_la_voie: Tomates
+          - type: custom:streamline-card
+            template: misha_arrosage_voie
+            variables:
+              numero_de_la_voie: '3'
+              nom_de_la_voie: Melons
+          - type: custom:streamline-card
+            template: misha_arrosage_voie
+            variables:
+              numero_de_la_voie: '4'
+              nom_de_la_voie: Salades
+          - type: custom:streamline-card
+            template: misha_arrosage_voie
+            variables:
+              numero_de_la_voie: '8'
+              nom_de_la_voie: Courgettes
+          - type: custom:streamline-card
+            template: misha_arrosage_zone
+            variables:
+              numero_de_la_zone: '2'
+          - type: custom:streamline-card
+            template: misha_arrosage_voie
+            variables:
+              numero_de_la_voie: '7'
+              nom_de_la_voie: Abricotier/Poirier/Prunier
+          - type: custom:streamline-card
+            template: misha_arrosage_voie
+            variables:
+              numero_de_la_voie: '9'
+              nom_de_la_voie: Pêcher/Figuier
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: misha_arrosage_zone
+            variables:
+              numero_de_la_zone: '3'
+          - type: custom:streamline-card
+            template: misha_arrosage_voie
+            variables:
+              numero_de_la_voie: '5'
+              nom_de_la_voie: Oranger
+          - type: custom:streamline-card
+            template: misha_arrosage_voie
+            variables:
+              numero_de_la_voie: '6'
+              nom_de_la_voie: Citronnier
+          - type: custom:mushroom-title-card
+            title: ''
+            subtitle: Infos complémentaires
+            uix:
+              style: |
+                .subtitle {
+                  border-bottom: 1px solid var(--ha-card-border-color,var(--divider-color,#e0e0e0));
+                  padding-bottom: 0px;
+                }
+                .header {
+                  margin-bottom: -7px;
+                }
+          - type: vertical-stack
+            cards:
+              - type: custom:mod-card
+                uix:
+                  style: |
+                    ha-card {
+                      background: #fff4e0;
+                      --grid-card-gap: 0x;
+                      border: 1px solid #dbdbdb;
+                    }
+                card:
+                  type: grid
+                  square: false
+                  columns: 2
+                  cards:
+                    - type: custom:mushroom-template-card
+                      multiline_secondary: true
+                      primary: ''
+                      secondary: >-
+                        Vous n'avez pas encore installé l'intégration Calendrier
+                        local.
+                      icon: mdi:calendar-clock
+                      tap_action:
+                        action: none
+                      color: deep-orange
+                      features_position: bottom
+                      uix:
+                        style: |
+                          ha-card {
+                            border: none;
+                            background: none;
+                            margin-right: -100%;
+                            padding-right: 100px;
+                          }
+                    - type: custom:mushroom-chips-card
+                      chips:
+                        - type: template
+                          icon: mdi:devices
+                          tap_action:
+                            action: navigate
+                            navigation_path: /config/integrations/dashboard
+                          uix:
+                            style: |
+                              ha-card {
+                                border:none;
+                                --chip-border-radius: 12px;
+                                --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                              }
+                        - type: template
+                          tap_action:
+                            action: url
+                            url_path: >-
+                              https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/INSTALLATION.md#--etape-10-
+                          icon: mdi:help-circle-outline
+                          icon_color: light-blue
+                          uix:
+                            style: |
+                              ha-card {
+                                border:none;
+                                --chip-border-radius: 12px;
+                                --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                              }
+                      alignment: end
+                      uix:
+                        style: |
+                          ha-card {
+                            background: none;
+                            padding-right: 8px;
+                            padding-top: 9px;
+                          }
+                grid_options:
+                  columns: full
+                visibility:
+                  - condition: state
+                    entity: sensor.calendars
+                    state: '0'
+              - type: custom:mod-card
+                uix:
+                  style: |
+                    ha-card {
+                      background: #fff4e0;
+                      --grid-card-gap: 0x;
+                      border: 1px solid #dbdbdb;
+                    }
+                card:
+                  type: grid
+                  square: false
+                  columns: 2
+                  cards:
+                    - type: custom:mushroom-template-card
+                      multiline_secondary: true
+                      primary: ''
+                      secondary: >-
+                        Vous n'avez pas encore créé de calendrier nommé
+                        Arrosage.
+                      icon: mdi:calendar-clock
+                      tap_action:
+                        action: none
+                      color: deep-orange
+                      features_position: bottom
+                      uix:
+                        style: |
+                          ha-card {
+                            border: none;
+                            background: none;
+                            margin-right: -100%;
+                            padding-right: 100px;
+                          }
+                    - type: custom:mushroom-chips-card
+                      chips:
+                        - type: template
+                          icon: mdi:calendar-edit-outline
+                          tap_action:
+                            action: navigate
+                            navigation_path: /calendar
+                          uix:
+                            style: |
+                              ha-card {
+                                border:none; 
+                                --chip-border-radius: 12px;
+                                --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                              }
+                        - type: template
+                          tap_action:
+                            action: url
+                            url_path: >-
+                              https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/INSTALLATION.md#--etape-10-
+                          icon: mdi:help-circle-outline
+                          icon_color: light-blue
+                          uix:
+                            style: |
+                              ha-card {
+                                border:none; 
+                                --chip-border-radius: 12px;
+                                --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                              }
+                      alignment: end
+                      uix:
+                        style: |
+                          ha-card {
+                            background: none;
+                            padding-right: 8px;
+                            padding-top: 9px;
+                          }
+                grid_options:
+                  columns: full
+                visibility:
+                  - condition: state
+                    entity: calendar.arrosage
+                    state: unknown
+                  - condition: numeric_state
+                    entity: sensor.calendars
+                    above: 0
+              - type: custom:mod-card
+                uix:
+                  style: |
+                    ha-card {
+                      background: #fff4e0;
+                      --grid-card-gap: 0x;
+                      border: 1px solid #dbdbdb;
+                    }
+                card:
+                  type: grid
+                  square: false
+                  columns: 2
+                  cards:
+                    - type: custom:mushroom-template-card
+                      multiline_secondary: true
+                      primary: Prochains arrosages
+                      secondary: Vous n'avez pas installé l'intégration Calendar Merge
+                      icon: mdi:calendar-clock
+                      tap_action:
+                        action: navigate
+                        navigation_path: /hacs
+                      color: deep-orange
+                      features_position: bottom
+                      uix:
+                        style: |
+                          ha-card {
+                            border: none;
+                            background: none;
+                            margin-right: -100%;
+                            padding-right: 100px;
+                          }
+                    - type: custom:mushroom-chips-card
+                      chips:
+                        - type: template
+                          icon: mdi:store-plus-outline
+                          tap_action:
+                            action: navigate
+                            navigation_path: /hacs
+                          uix:
+                            style: |
+                              ha-card {
+                                border:none; 
+                                --chip-border-radius: 12px;
+                                --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                              }
+                      alignment: end
+                      uix:
+                        style: |
+                          ha-card {
+                            background: none;
+                            padding-right: 8px;
+                            padding-top: 9px;
+                          }
+                grid_options:
+                  columns: full
+                visibility:
+                  - condition: state
+                    entity: update.calendar_merge_update
+                    state: unknown
+                  - condition: state
+                    entity: calendar.arrosage
+                    state_not: unknown
+              - type: custom:mod-card
+                uix:
+                  style: |
+                    ha-card {
+                      background: #fff4e0;
+                      --grid-card-gap: 0x;
+                      border: 1px solid #dbdbdb;
+                    }
+                card:
+                  type: grid
+                  square: false
+                  columns: 2
+                  cards:
+                    - type: custom:mushroom-template-card
+                      multiline_secondary: true
+                      primary: Prochains arrosages
+                      secondary: Vous n'avez pas configuré l'entrée Calendar Merge
+                      icon: mdi:calendar-clock
+                      color: deep-orange
+                      features_position: bottom
+                      tap_action:
+                        action: navigate
+                        navigation_path: /config/helpers
+                      uix:
+                        style: |
+                          ha-card {
+                            border: none;
+                            background: none;
+                            margin-right: -100%;
+                            padding-right: 100px;
+                          }
+                    - type: custom:mushroom-chips-card
+                      chips:
+                        - type: template
+                          icon: mdi:devices
+                          tap_action:
+                            action: navigate
+                            navigation_path: /config/helpers
+                          uix:
+                            style: |
+                              ha-card {
+                                border:none; 
+                                --chip-border-radius: 12px;
+                                --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                              }
+                        - type: template
+                          tap_action:
+                            action: url
+                            url_path: >-
+                              https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/INSTALLATION.md#--etape-10-
+                          icon: mdi:help-circle-outline
+                          icon_color: light-blue
+                          uix:
+                            style: |
+                              ha-card {
+                                border:none; 
+                                --chip-border-radius: 12px;
+                                --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                              }
+                      alignment: end
+                      uix:
+                        style: |
+                          ha-card {
+                            background: none;
+                            padding-right: 8px;
+                            padding-top: 9px;
+                          }
+                grid_options:
+                  columns: full
+                visibility:
+                  - condition: state
+                    entity: calendar.misha_arrosage_a_venir
+                    state: unknown
+                  - condition: state
+                    entity: calendar.arrosage
+                    state_not: unknown
+              - type: custom:mushroom-template-card
+                multiline_secondary: true
+                primary: Prochains arrosages
+                secondary: >-
+                  {% if states('sensor.misha_arrosage_a_venir')|int(0) > 0 %}  
+
+
+                  {% for i in range(0,
+                  states('sensor.misha_arrosage_a_venir')|int(0)) %}
+
+                  {{states('sensor.misha_arrosage_a_venir_event_' ~ i)}}
+
+                  {%- endfor %}
+
+
+                  {% else %}
+                    Aucune programmation d'arrosage prévue
+                  {% endif %}
+                icon: mdi:calendar-clock
+                color: light-green
+                features_position: bottom
+                tap_action:
+                  action: navigate
+                  navigation_path: planning-arrosage
+                grid_options:
+                  columns: full
+                visibility:
+                  - condition: state
+                    entity: calendar.misha_arrosage_a_venir
+                    state_not: unknown
+                  - condition: state
+                    entity: calendar.arrosage
+                    state_not: unknown
+              - type: custom:mushroom-template-card
+                primary: Programmation arrosage
+                secondary: Voir/Modifier les horaires d'arrosage
+                icon: mdi:calendar-clock
+                color: light-green
+                tap_action:
+                  action: navigate
+                  navigation_path: /dashboard-arrosage/planning-arrosage
+                grid_options:
+                  columns: full
+                visibility:
+                  - condition: state
+                    entity: calendar.arrosage
+                    state_not: unknown
+                features_position: bottom
+            grid_options:
+              columns: full
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: spacer
+            grid_options:
+              columns: full
+              rows: auto
+            uix:
+              style: |
+                ha-card {
+                  padding-bottom: 10px;
+                }
+          - square: false
+            type: grid
+            cards:
+              - type: custom:streamline-card
+                template: misha_arrosage_zone_conectivity
+                variables:
+                  numero_de_la_zone: '1'
+              - type: custom:streamline-card
+                template: misha_arrosage_zone_conectivity
+                variables:
+                  numero_de_la_zone: '2'
+              - type: custom:streamline-card
+                template: misha_arrosage_zone_conectivity
+                variables:
+                  numero_de_la_zone: '3'
+            columns: 2
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: spacer
+            grid_options:
+              columns: full
+              rows: auto
+            uix:
+              style: |
+                ha-card {
+                  padding-bottom: 10px;
+                }
+          - type: custom:mushroom-template-card
+            entity: sensor.misha_arrosage_compteur_eau
+            primary: Compteur d'eau
+            secondary: '{{states(entity)}} {{state_attr(entity, ''unit_of_measurement'')}}'
+            multiline_secondary: true
+            icon: mdi:water
+            color: blue
+            features_position: bottom
+            grid_options:
+              columns: full
+    title: Arrosage
+    icon: mdi:sprinkler-variant
+    cards: []
+  - type: sections
+    max_columns: 2
+    title: Planning arrosage
+    path: planning-arrosage
+    icon: mdi:calendar-clock
+    sections:
+      - type: grid
+        cards:
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: back
+              - type: template
+                content: PROGRAMMATION ARROSAGE
+                tap_action:
+                  action: none
+                uix:
+                  style: |
+                    ha-card {
+                      border: none;
+                      background: none !important;
+                    }
+            grid_options:
+              columns: full
+              rows: auto
+        column_span: 2
+      - type: grid
+        cards:
+          - type: custom:mushroom-title-card
+            title: ''
+            subtitle: Calendrier d'arrosage
+            uix:
+              style: |
+                .subtitle {
+                  border-bottom: 1px solid var(--ha-card-border-color,var(--divider-color,#e0e0e0));
+                  padding-bottom: 0px;
+                }
+                .header {
+                  margin-bottom: -7px;
+                }
+          - type: vertical-stack
+            cards:
+              - type: custom:mod-card
+                uix:
+                  style: |
+                    ha-card {
+                      background: #fff4e0;
+                      --grid-card-gap: 0x;
+                      border: 1px solid #dbdbdb;
+                    }
+                card:
+                  type: grid
+                  square: false
+                  cards:
+                    - type: custom:mushroom-template-card
+                      multiline_secondary: true
+                      primary: ''
+                      secondary: >-
+                        Vous n'avez pas encore installé l'intégration Calendrier
+                        local.
+                      icon: mdi:calendar-clock
+                      tap_action:
+                        action: none
+                      color: deep-orange
+                      features_position: bottom
+                      uix:
+                        style: |
+                          ha-card {
+                            border: none;
+                            background: none;
+                            margin-right: -100%;
+                            padding-right: 100px;
+                          }
+                    - type: custom:mushroom-chips-card
+                      chips:
+                        - type: template
+                          icon: mdi:devices
+                          tap_action:
+                            action: navigate
+                            navigation_path: /config/integrations/dashboard
+                          uix:
+                            style: |
+                              ha-card {
+                                border:none;
+                                --chip-border-radius: 12px;
+                                --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                              }
+                        - type: template
+                          tap_action:
+                            action: url
+                            url_path: >-
+                              https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/INSTALLATION.md#--etape-10-
+                          icon: mdi:help-circle-outline
+                          icon_color: light-blue
+                          uix:
+                            style: |
+                              ha-card {
+                                border:none;
+                                --chip-border-radius: 12px;
+                                --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                              }
+                      alignment: end
+                      uix:
+                        style: |
+                          ha-card {
+                            background: none;
+                            padding-right: 8px;
+                            padding-top: 9px;
+                          }
+                  columns: 2
+                grid_options:
+                  columns: full
+                visibility:
+                  - condition: state
+                    entity: sensor.calendars
+                    state: '0'
+              - type: custom:mod-card
+                uix:
+                  style: |
+                    ha-card {
+                      background: #fff4e0;
+                      --grid-card-gap: 0x;
+                      border: 1px solid #dbdbdb;
+                    }
+                card:
+                  type: grid
+                  square: false
+                  cards:
+                    - type: custom:mushroom-template-card
+                      multiline_secondary: true
+                      primary: ''
+                      secondary: >-
+                        Vous n'avez pas encore créé de calendrier nommé
+                        Arrosage.
+                      icon: mdi:calendar-clock
+                      tap_action:
+                        action: none
+                      color: deep-orange
+                      features_position: bottom
+                      uix:
+                        style: |
+                          ha-card {
+                            border: none;
+                            background: none;
+                            margin-right: -100%;
+                            padding-right: 100px;
+                          }
+                    - type: custom:mushroom-chips-card
+                      chips:
+                        - type: template
+                          icon: mdi:calendar-edit-outline
+                          tap_action:
+                            action: navigate
+                            navigation_path: /calendar
+                          uix:
+                            style: |
+                              ha-card {
+                                border:none; 
+                                --chip-border-radius: 12px;
+                                --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                              }
+                        - type: template
+                          tap_action:
+                            action: url
+                            url_path: >-
+                              https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/INSTALLATION.md#--etape-10-
+                          icon: mdi:help-circle-outline
+                          icon_color: light-blue
+                          uix:
+                            style: |
+                              ha-card {
+                                border:none; 
+                                --chip-border-radius: 12px;
+                                --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                              }
+                      alignment: end
+                      uix:
+                        style: |
+                          ha-card {
+                            background: none;
+                            padding-right: 8px;
+                            padding-top: 9px;
+                          }
+                  columns: 2
+                grid_options:
+                  columns: full
+                visibility:
+                  - condition: state
+                    entity: calendar.arrosage
+                    state: unknown
+                  - condition: numeric_state
+                    entity: sensor.calendars
+                    above: 0
+            grid_options:
+              columns: full
+          - type: calendar
+            entities:
+              - calendar.arrosage
+      - type: grid
+        cards:
+          - type: custom:mushroom-title-card
+            title: ''
+            subtitle: Infos complémentaires
+            uix:
+              style: |
+                .subtitle {
+                  border-bottom: 1px solid var(--ha-card-border-color,var(--divider-color,#e0e0e0));
+                  padding-bottom: 0px;
+                }
+                .header {
+                  margin-bottom: -7px;
+                }
+          - type: markdown
+            content: >
+              - Pour ajouter une programmation cliquez sur le bouton <font color
+              ="#03a9f4">**Ajouter un évènement**</font> sur le
+              calendrier.<br><br>
+
+              - Pour modifier/supprimer une programmation vous pouvez cliquez
+              directement dessus dans le calendrier ci-contre/ci-dessus.<br><br>
+
+              - **<font color =orange>Attention</font>**, tout ajout ou
+              modification à un délai de 15 minutes avant d'être pris en
+              compte.<br><br>
+
+              - **<font color =orange>Attention</font>**, pour une prise en
+              compte de la programmation, bien penser à mettre **<font color
+              =orange>le nom </font>** de la zone d'arrosage concernée comme
+              résumé du calendrier.<br><br>
+
+              - Pour rappel, les noms de vos zones ainsi que la durée de leur
+              cycle sont :
+
+              {%- set coeff =
+              states('input_number.misha_arrosage_coefficient_meteo') | float(1)
+              %}
+
+              {%- set data_zones =
+              state_attr('sensor.misha_arrosage_data_zones', 'data_zones') |
+              from_json %}
+
+              {%- for item in states['input_text'] 
+
+              |
+              selectattr('entity_id','match','input_text.misha_arrosage_nom_de_zone_') 
+
+              |map(attribute='entity_id') %}
+
+              {%- set zone_id = item |
+              replace('input_text.misha_arrosage_nom_de_zone_','') |
+              replace('_',' ')%}
+
+              {%- set duree = data_zones['zone_' ~ zone_id].duree_cycle%}
+
+              {%- set duree = duree if coeff == 1 else duree/coeff %}
+
+              Pour la zone {{ zone_id }} : **<font color =orange>{{ states(item)
+              }}</font>** ({{duree| timestamp_custom('%M min %S s')}})
+
+              {%- endfor %}
+            uix:
+              style: |
+                ha-card {
+                  color: var(--secondary-text-color);
+                  background: none;
+                  border: 0;
+                }
+                  ha-markdown.no-header {
+                  padding-bottom: 0px !important;
+                }      
+    cards: []
+  - type: sections
+    max_columns: 2
+    title: Paramètres Dashboard arrosage
+    path: parametres-dashboard-arrosage
+    sections:
+      - type: grid
+        cards:
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: back
+              - type: template
+                content: PARAMETRES
+                tap_action:
+                  action: none
+                uix:
+                  style: |
+                    ha-card {
+                      border: none;
+                      background: none !important;
+                    }
+              - type: spacer
+              - type: template
+                icon: mdi:help-circle-outline
+                icon_color: light-blue
+                tap_action:
+                  action: url
+                  url_path: >-
+                    https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/DOCUMENTATION.md
+            grid_options:
+              columns: full
+              rows: auto
+        column_span: 2
+      - type: grid
+        cards:
+          - type: custom:mushroom-title-card
+            title: ''
+            subtitle: Informations
+            uix:
+              style: |
+                .subtitle {
+                  border-bottom: 1px solid var(--ha-card-border-color,var(--divider-color,#e0e0e0));
+                  padding-bottom: 0px;
+                }
+                .header {
+                  margin-bottom: -7px;
+                }
+            grid_options:
+              columns: full
+              rows: auto
+          - type: markdown
+            content: >-
+              {%- set entites_orphelines = states 
+                 | selectattr('entity_id', 'search', 'misha_arrosage_')
+                 | selectattr('state', 'eq', 'unavailable')
+                 | map(attribute='entity_id')
+                 | list -%}
+
+              **<font color=orange size=2>Entités orphelines détectées</font>**
+
+
+              Des fichiers nécessaires aux voies ou aux zones d'arrosage ont été
+              effacés mais les entités existent toujours.
+
+
+              > ***<font size=2>Listes des entités orphelines :***</font>
+
+              > - {{ entites_orphelines | join('\n> - ') }}
+
+              > 
+
+              > *Vous pouvez les supprimer en vous rendant sur la page
+              [Paramètres > Entités](/config/entities)* &nbsp;&nbsp;[<ha-icon
+              icon="mdi:help-circle-outline"></ha-icon>](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/DOCUMENTATION.md#--les-entit%C3%A9s-orphelines)
+
+              >
+
+              > *Si cette liste reste vide, faire **F5** pour rafraîchir
+              l'affichage. Si après ça la liste est toujours vide, redémarrer le
+              serveur.*
+            grid_options:
+              columns: full
+            text_only: true
+        column_span: 2
+        visibility:
+          - condition: numeric_state
+            entity: input_number.misha_arrosage_nb_entites_orphelines
+            above: 0
+      - type: grid
+        cards:
+          - type: custom:mushroom-title-card
+            title: ''
+            subtitle: Paramètres
+            uix:
+              style: |
+                .subtitle {
+                  border-bottom: 1px solid var(--ha-card-border-color,var(--divider-color,#e0e0e0));
+                  padding-bottom: 0px;
+                }
+                .header {
+                  margin-bottom: -7px;
+                }
+            grid_options:
+              columns: full
+              rows: auto
+          - type: markdown
+            content: |-
+              **<font color=orange size=2>Notifications</font>**
+
+              Choisir ou envoyer les notifications.
+            grid_options:
+              columns: full
+            text_only: true
+          - type: tile
+            entity: input_select.misha_arrosage_mobileapp_notifications
+            name: Vers téléphone
+            color: light-blue
+            hide_state: true
+            vertical: false
+            features:
+              - type: select-options
+            features_position: inline
+          - type: tile
+            entity: input_select.misha_arrosage_telegram_notifications
+            name: Vers télégram
+            color: light-blue
+            hide_state: true
+            vertical: false
+            features:
+              - type: select-options
+            features_position: inline
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: spacer
+            grid_options:
+              columns: full
+              rows: auto
+            uix:
+              style: |
+                ha-card {
+                  padding-bottom: 10px;
+                }
+          - type: custom:mushroom-title-card
+            title: ''
+            subtitle: Mode de fonctionnement
+            uix:
+              style: |
+                .subtitle {
+                  border-bottom: 1px solid var(--ha-card-border-color,var(--divider-color,#e0e0e0));
+                  padding-bottom: 0px;
+                }
+                .header {
+                  margin-bottom: -7px;
+                }
+              columns: full
+              rows: auto
+          - type: markdown
+            content: >-
+              {% set data = state_attr('sensor.misha_arrosage_data_voies',
+              'data_voies') | from_json %}
+
+              {% set vannes_reelles = data.values() |
+              selectattr('entite_reelle', '!=', 'none') | list | count %}
+
+              {% if vannes_reelles == 0 %}
+
+              **<font color=orange size=2>Simulation</font>**
+                  
+              Aucune correspondance matérielle à afficher dans le mode
+              simulation. 
+
+              Les actions sur le dashboard n'ont aucune incidence sur votre
+              équipement.
+
+              {% else %}
+
+              **<font color=orange size=2>Production</font>**
+
+
+              Correspondance des voies avec votre matériel :
+
+              {% for key, item in data.items() if item.entite_reelle != 'none'
+              %}
+
+              - Voie {{ item.voie_id }} : {{ item.entite_reelle
+              }}&nbsp;&nbsp;&nbsp;-->&nbsp;&nbsp;&nbsp;Zone {{ item.zone_id }}
+
+              {% endfor %}
+
+              {% endif %}
+            grid_options:
+              columns: full
+            text_only: true
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: spacer
+            grid_options:
+              columns: full
+              rows: auto
+            uix:
+              style: |
+                ha-card {
+                  padding-bottom: 10px;
+                }
+        column_span: 1
+      - type: grid
+        cards:
+          - type: custom:mushroom-title-card
+            title: ''
+            subtitle: Outils
+            uix:
+              style: |
+                .subtitle {
+                  border-bottom: 1px solid var(--ha-card-border-color,var(--divider-color,#e0e0e0));
+                  padding-bottom: 0px;
+                }
+                .header {
+                  margin-bottom: -7px;
+                }
+            grid_options:
+              columns: full
+              rows: auto
+          - type: markdown
+            content: >-
+              **<font color=orange size=2>Précision préalable</font>**
+
+
+              Tout ajout ou suppression de voies ou zones nécessitera un
+              rédamarrage de Home Assistant pour que les changements soient pris
+              en compte. On ne peut pas supprimer la voie et la zone numero 1. 
+            text_only: true
+          - type: markdown
+            content: >-
+              {% set nb = states('input_number.misha_arrosage_nb_file_voies') |
+              int(0) %}
+
+              **<font color=orange size=2>Ajouter/Supprimer une voie
+              d'arrosage</font>**
+
+
+              {% if nb > 1 %}
+
+              {{ nb }} voies d'arrosage sont présentes. Ajouter une voie, ou
+              supprimer la voie numéro {{ nb }}.
+
+              {% else %}
+
+              Une seule voie d'arrosage est présente. Ajouter une voie.
+
+              {% endif %}
+            grid_options:
+              columns: full
+            text_only: true
+          - type: custom:mushroom-template-card
+            entity: script.misha_arrosage_generer_fichiers_voie
+            primary: Ajouter une voie d'arrosage
+            multiline_secondary: true
+            icon: mdi:plus-circle
+            color: '{{ ''light-green'' if is_state(entity, ''on'') else ''light-blue'' }}'
+            features_position: bottom
+            tap_action:
+              action: toggle
+            grid_options:
+              columns: full
+          - type: custom:mushroom-template-card
+            entity: script.misha_arrosage_supprimer_fichiers_voie
+            primary: Supprimer une voie d'arrosage
+            multiline_secondary: true
+            icon: mdi:minus-circle
+            color: '{{ ''light-green'' if is_state(entity, ''on'') else ''light-blue'' }}'
+            features_position: bottom
+            tap_action:
+              action: toggle
+            visibility:
+              - condition: numeric_state
+                entity: input_number.misha_arrosage_nb_file_voies
+                above: 1
+            grid_options:
+              columns: full
+          - type: markdown
+            content: >
+              {% set nb = states('input_number.misha_arrosage_nb_file_zones') |
+              int(0) %}
+
+              **<font color=orange size=2>Ajouter/Supprimer une zone
+              d'arrosage</font>**
+
+
+              {% if nb > 1 %}
+
+              {{ nb }} zones d'arrosage sont présentes. Ajouter une zone, ou
+              supprimer la zone numéro {{ nb }}.
+
+              {% else %}
+
+              Une seule zone d'arrosage est présente. Ajouter une zone.
+
+              {% endif %}
+            grid_options:
+              columns: full
+            text_only: true
+          - type: custom:mushroom-template-card
+            entity: script.misha_arrosage_generer_fichiers_zone
+            primary: Ajouter une zone d'arrosage
+            multiline_secondary: true
+            icon: mdi:plus-circle
+            color: '{{ ''light-green'' if is_state(entity, ''on'') else ''light-blue'' }}'
+            features_position: bottom
+            tap_action:
+              action: toggle
+            grid_options:
+              columns: full
+          - type: custom:mushroom-template-card
+            entity: script.misha_arrosage_supprimer_fichiers_zone
+            primary: Supprimer une zone d'arrosage
+            multiline_secondary: true
+            icon: mdi:minus-circle
+            color: '{{ ''light-green'' if is_state(entity, ''on'') else ''light-blue'' }}'
+            features_position: bottom
+            tap_action:
+              action: toggle
+            visibility:
+              - condition: numeric_state
+                entity: input_number.misha_arrosage_nb_file_zones
+                above: 1
+            grid_options:
+              columns: full
+          - type: markdown
+            content: '**<font color=orange size=2>Redémarrer le serveur</font>**'
+            text_only: true
+          - type: markdown
+            content: Pas de redémarrage nécessaire.
+            grid_options:
+              columns: full
+            text_only: true
+            visibility:
+              - condition: state
+                entity: input_boolean.misha_arrosage_restart_needed
+                state: 'off'
+          - type: custom:mushroom-template-card
+            entity: script.misha_arrosage_redemarrer_ha
+            primary: Redémarrage Requis
+            secondary: Changements en attente
+            tap_action:
+              action: toggle
+            icon: >-
+              {{'mdi:restart' if is_state(entity, 'on') else
+              'mdi:restart-alert'}}
+            color: '{{''light-green'' if is_state(entity, ''on'') else ''deep-orange''}}'
+            features_position: bottom
+            vertical: true
+            grid_options:
+              columns: full
+            visibility:
+              - condition: state
+                entity: input_boolean.misha_arrosage_restart_needed
+                state: 'on'
+            uix:
+              style: |
+                ha-state-icon {
+                  --mdc-icon-size: 40px;
+                    {%- if is_state(config.entity, 'on') %}
+                      animation: spin 1.5s linear infinite;
+                    {%- else %}
+                      animation: pulse 2s linear infinite;
+                    {%- endif %}
+                }
+                @keyframes pulse {
+                  50% { opacity: 0.2; }
+                }
+                @keyframes spin {
+                  from {transform: rotate(360deg);}
+                  to {transform: rotate(0deg);}
+                }
+          - type: markdown
+            content: >
+              >*Après redémarrage, penser à inclure les voies à une zone
+              d'arrosage.* [<ha-icon
+              icon="mdi:help-circle-outline"></ha-icon>](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/DOCUMENTATION.md#--inclure-une-voie-%C3%A0-une-zone-darrosage)
+            grid_options:
+              columns: full
+            text_only: true
+            visibility:
+              - condition: state
+                entity: input_boolean.misha_arrosage_restart_needed
+                state: 'on'
+        column_span: 1
+      - type: grid
+        cards: []
+        column_span: 1
+    cards: []
+    icon: mdi:tune
+  - type: sections
+    max_columns: 3
+    title: gemini
+    path: gemini
+    sections:
+      - type: grid
+        cards:
+          - type: conditional
+            conditions:
+              - condition: state
+                entity: input_boolean.misha_arrosage_cycle_zone_3
+                state: 'on'
+            card:
+              type: custom:vertical-stack-in-card
+              cards:
+                - type: custom:mushroom-template-card
+                  multiline_secondary: true
+                  primary: ''
+                  secondary: >-
+                    L arrosage de la zone
+                    {{states('input_text.misha_arrosage_nom_de_zone_3')}} est en
+                    cours. Arrêt prévu à
+                    {{state_attr('input_datetime.misha_arrosage_duree_cycle_zone_3',
+                    'timestamp')| timestamp_custom("%Hh%M", true, now())}}
+                  icon: mdi:sprinkler-variant
+                  tap_action:
+                    action: none
+                  color: light-green
+                  features_position: bottom
+                  uix:
+                    style: |
+                      ha-card {
+                        background-color: #e8f3db;
+                      }
+                - type: custom:mushroom-chips-card
+                  chips:
+                    - type: template
+                      icon: mdi:stop
+                      tap_action:
+                        action: perform-action
+                        perform_action: script.misha_arrosage_arret
+                        data:
+                          zone: zone_3
+                      uix:
+                        style: |
+                          ha-card {
+                            border:none; 
+                            --chip-border-radius: 12px;
+                            --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                          }
+                  alignment: end
+                  uix:
+                    style: |
+                      ha-card {
+                        margin-top: -46px;
+                        margin-left: 50%;
+                        padding-bottom: 8px;
+                        padding-left: 8px;
+                        padding-right: 8px;
+                      }
+            grid_options:
+              columns: full
+            visibility:
+              - condition: state
+                entity: input_boolean.misha_arrosage_cycle_zone_3
+                state: 'on'
+          - type: tile
+            entity: input_boolean.test_vanne
+            vertical: false
+            features_position: bottom
+          - type: tile
+            entity: timer.misha_arrosage_voie_8
+            vertical: false
+            features_position: bottom
+        column_span: 3
+      - type: grid
+        cards:
+          - type: vertical-stack
+            cards:
+              - type: vertical-stack
+                cards:
+                  - type: custom:mushroom-title-card
+                    subtitle: '{{ states(''input_text.misha_arrosage_nom_de_zone_1'') }}'
+                    uix:
+                      style: |
+                        .subtitle {
+                          border-bottom: 1px solid var(--ha-card-border-color,var(--divider-color,#e0e0e0));
+                        }
+                        .subtitle::after {
+                          content: "- Zone 1";
+                          font-size: var(--card-secondary-font-size);
+                        }
+                  - type: custom:mushroom-chips-card
+                    chips:
+                      - type: entity
+                        entity: input_text.misha_arrosage_nom_de_zone_1
+                        content_info: none
+                        icon_color: light-grey
+                        uix:
+                          style: |
+                            ha-card {
+                              border: none; 
+                              background: none !important;
+                              --chip-icon-size: 12px;
+                            }
+                    alignment: end
+                    uix:
+                      style: |
+                        ha-card {
+                          margin-top: -36px;
+                          margin-left: 90%;
+                        }
+                uix:
+                  style: |
+                    hui-card {
+                      border: none !important;
+                      background: none !important;
+                      margin-bottom: -8px;
+                    }   
+              - type: conditional
+                conditions:
+                  - condition: state
+                    entity: input_boolean.misha_arrosage_display_notifications
+                    state: 'on'
+                  - condition: state
+                    entity: input_text.misha_arrosage_display_notifications_choix
+                    state: disconnected_zone_1
+                card:
+                  type: custom:mushroom-template-card
+                  multiline_secondary: true
+                  primary: ''
+                  secondary: >-
+                    Le cycle d'arrosage de la zone {{
+                    states('input_text.misha_arrosage_nom_de_zone_1') }} ne peut
+                    pas démarrer. Toutes les voies d'arrosage de la zone sont
+                    déconnectées.
+                  icon: mdi:alert
+                  tap_action:
+                    action: none
+                  color: deep-orange
+                  features_position: bottom
+                  uix:
+                    style: |
+                      ha-card {
+                        background-color: #fff4e0;
+                      }
+              - type: conditional
+                conditions:
+                  - condition: state
+                    entity: input_boolean.misha_arrosage_display_notifications
+                    state: 'on'
+                  - condition: state
+                    entity: input_text.misha_arrosage_display_notifications_choix
+                    state: voies_not_labeled_zone_1
+                card:
+                  type: custom:vertical-stack-in-card
+                  cards:
+                    - type: custom:mushroom-template-card
+                      multiline_secondary: true
+                      primary: ''
+                      secondary: >-
+                        Il n'y a pas de voie incluse dans le cycle d'arrosage de
+                        la zone {{
+                        states('input_text.misha_arrosage_nom_de_zone_1') }}.
+                      icon: mdi:alert
+                      tap_action:
+                        action: none
+                      color: deep-orange
+                      features_position: bottom
+                      uix:
+                        style: |
+                          ha-card {
+                            background-color: #fff4e0;
+                            padding-right: 50px;
+                          }
+                    - type: custom:mushroom-chips-card
+                      chips:
+                        - type: template
+                          tap_action:
+                            action: url
+                            url_path: >-
+                              https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/DASHBOARD.md#--la-carte-%C3%A9lectrovanne-
+                          icon: mdi:help-circle-outline
+                          icon_color: light-blue
+                          uix:
+                            style: |
+                              ha-card {
+                                border:none; 
+                                --chip-border-radius: 12px;
+                                --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                              }
+                      alignment: end
+                      uix:
+                        style: |
+                          ha-card {
+                            margin-top: -46px;
+                            margin-left: 50%;
+                            padding-bottom: 8px;
+                            padding-left: 8px;
+                            padding-right: 8px;
+                          }
+              - type: conditional
+                conditions:
+                  - condition: state
+                    entity: input_boolean.misha_arrosage_display_notifications
+                    state: 'on'
+                  - condition: state
+                    entity: input_text.misha_arrosage_display_notifications_choix
+                    state: voies_disabled_zone_1
+                card:
+                  type: custom:mushroom-template-card
+                  multiline_secondary: true
+                  primary: ''
+                  secondary: >-
+                    Il n'y a pas de voie sélectionnée dans le cycle d'arrosage
+                    de la zone {{
+                    states('input_text.misha_arrosage_nom_de_zone_1') }}.
+                  icon: mdi:alert
+                  tap_action:
+                    action: none
+                  color: deep-orange
+                  features_position: bottom
+                  uix:
+                    style: |
+                      ha-card {
+                        background-color: #fff4e0;
+                      }
+              - type: conditional
+                conditions:
+                  - condition: state
+                    entity: input_boolean.misha_arrosage_display_notifications
+                    state: 'on'
+                  - condition: state
+                    entity: input_text.misha_arrosage_display_notifications_choix
+                    state: voies_duree_zone_1
+                card:
+                  type: custom:mushroom-template-card
+                  multiline_secondary: true
+                  primary: ''
+                  secondary: >-
+                    La durée d'arrosage des voies sélectionnées pour la zone {{
+                    states('input_text.misha_arrosage_nom_de_zone_1') }} n'est
+                    pas définie.
+                  icon: mdi:alert
+                  tap_action:
+                    action: none
+                  color: deep-orange
+                  features_position: bottom
+                  uix:
+                    style: |
+                      ha-card {
+                        background-color: #fff4e0;
+                      }
+              - type: conditional
+                conditions:
+                  - condition: state
+                    entity: input_boolean.misha_arrosage_display_notifications
+                    state: 'on'
+                  - condition: state
+                    entity: input_text.misha_arrosage_display_notifications_choix
+                    state: no_calendar
+                card:
+                  type: custom:mushroom-template-card
+                  multiline_secondary: true
+                  primary: ''
+                  secondary: >-
+                    Impossibble d'activer la programmation pour la zone {{
+                    states('input_text.misha_arrosage_nom_de_zone_1') }}, il n'y
+                    a pas de calendrier Arrosage créé.
+                  icon: mdi:calendar-clock-outline
+                  tap_action:
+                    action: none
+                  color: deep-orange
+                  features_position: bottom
+                  uix:
+                    style: |
+                      ha-card {
+                        background-color: #fff4e0;
+                      }
+              - type: conditional
+                conditions:
+                  - condition: state
+                    entity: input_boolean.misha_arrosage_display_notifications
+                    state: 'on'
+                  - condition: state
+                    entity: input_text.misha_arrosage_display_notifications_choix
+                    state: programmation_no_evenements_zone_1
+                card:
+                  type: custom:mushroom-template-card
+                  multiline_secondary: true
+                  primary: ''
+                  secondary: >-
+                    Programmation activée pour la zone {{
+                    states('input_text.misha_arrosage_nom_de_zone_1') }}, mais
+                    il n'y pas d'évènements prévus pour les 30 prochains jours.
+                  icon: mdi:calendar-clock-outline
+                  tap_action:
+                    action: none
+                  color: deep-orange
+                  features_position: bottom
+                  uix:
+                    style: |
+                      ha-card {
+                        background-color: #fff4e0;
+                      }                
+              - type: conditional
+                conditions:
+                  - condition: state
+                    entity: input_boolean.misha_arrosage_display_notifications
+                    state: 'on'
+                  - condition: state
+                    entity: input_boolean.misha_arrosage_programmation_zone_1
+                    state: 'on'
+                  - condition: state
+                    entity: input_text.misha_arrosage_display_notifications_choix
+                    state: programmation_on_zone_1
+                card:
+                  type: custom:mushroom-template-card
+                  multiline_secondary: true
+                  primary: ''
+                  secondary: >-
+                    Programmation activée pour la zone {{
+                    states('input_text.misha_arrosage_nom_de_zone_1') }}.
+                  icon: mdi:calendar-clock-outline
+                  tap_action:
+                    action: none
+                  color: light-green
+                  features_position: bottom
+                  uix:
+                    style: |
+                      ha-card {
+                        background-color: #e8f3db;
+                      }
+              - type: conditional
+                conditions:
+                  - condition: state
+                    entity: input_boolean.misha_arrosage_display_notifications
+                    state: 'on'
+                  - condition: state
+                    entity: input_boolean.misha_arrosage_programmation_zone_1
+                    state: 'off'
+                  - condition: state
+                    entity: input_text.misha_arrosage_display_notifications_choix
+                    state: programmation_off_zone_1
+                card:
+                  type: custom:mushroom-template-card
+                  multiline_secondary: true
+                  primary: ''
+                  secondary: >-
+                    Programmation désactivée pour la zone {{
+                    states('input_text.misha_arrosage_nom_de_zone_1') }}.
+                  icon: mdi:calendar-clock-outline
+                  tap_action:
+                    action: none
+                  color: light-green
+                  features_position: bottom
+                  uix:
+                    style: |
+                      ha-card {
+                        background-color: #e8f3db;
+                      }
+              - type: conditional
+                conditions:
+                  - condition: state
+                    entity: input_boolean.misha_arrosage_display_notifications
+                    state: 'on'
+                  - condition: state
+                    entity: input_text.misha_arrosage_display_notifications_choix
+                    state: coef_meteo_zone_1
+                card:
+                  type: custom:mushroom-template-card
+                  multiline_secondary: true
+                  primary: ''
+                  secondary: >-
+                    Pas d'arrosage nécessaire pour la zone {{
+                    states('input_text.misha_arrosage_nom_de_zone_1') }}.
+                  icon: mdi:sprinkler-variant
+                  tap_action:
+                    action: none
+                  color: light-green
+                  features_position: bottom
+                  uix:
+                    style: |
+                      ha-card {
+                        background-color: #e8f3db;
+                      }
+              - type: custom:mushroom-chips-card
+                chips:
+                  - type: template
+                    content: >-
+                      {{states('input_number.misha_arrosage_electrovannes_incluses_zone_1')}}
+                    uix:
+                      style: |
+                        ha-card {
+                          border: none;
+                          --chip-background: none! important;
+                          box-shadow: none !important;
+                          padding-top: 14px;
+                          margin-bottom: -14px;
+                          margin-right: -10px;
+                          --text-color: lightgrey;
+                        }
+                        ha-card ::slotted(span) {
+                          width: 18px;
+                          text-align: right;
+                        }
+                  - type: template
+                    entity: input_boolean.misha_arrosage_programmation_zone_1
+                    tap_action:
+                      action: perform-action
+                      perform_action: script.misha_arrosage_programmation_zone_permuter_on_off
+                      data:
+                        zone_id: '1'
+                    content_info: none
+                    icon: mdi:calendar-clock-outline
+                    icon_color: >
+                      {%- set color = '' -%}
+
+                      {%- set color = 'light-green' if is_state(entity, 'on')
+                      and
+                      is_state('binary_sensor.misha_arrosage_evenements_xday_zone_1',
+                      'on') else color -%}
+
+                      {%- set color = 'orange' if is_state(entity, 'on') and
+                      is_state('binary_sensor.misha_arrosage_evenements_xday_zone_1',
+                      'off') else color -%}
+
+                      {{ color }}
+                    uix:
+                      style: |
+                        ha-card {
+                          --chip-border-radius: 12px;
+                        }
+                  - type: entity
+                    entity: input_boolean.misha_arrosage_cycle_zone_1
+                    tap_action:
+                      action: perform-action
+                      perform_action: input_boolean.turn_on
+                      target:
+                        entity_id: input_boolean.misha_arrosage_cycle_zone_1
+                    content_info: none
+                    icon_color: light-green
+                    uix:
+                      style: |
+                        ha-card {
+                          --chip-border-radius: 12px;
+                        }
+                alignment: end
+                uix:
+                  style: |
+                    ha-card {
+                      padding-right: 8px;
+                    }
+          - type: custom:streamline-card
+            template: misha_arrosage_voie
+            variables:
+              numero_de_la_voie: '1'
+              nom_de_la_voie: '1'
+          - type: custom:streamline-card
+            template: misha_arrosage_voie
+            variables:
+              numero_de_la_voie: '2'
+              nom_de_la_voie: '2'
+          - type: custom:streamline-card
+            template: misha_arrosage_voie
+            variables:
+              numero_de_la_voie: '3'
+              nom_de_la_voie: '3'
+          - type: custom:streamline-card
+            template: misha_arrosage_voie
+            variables:
+              numero_de_la_voie: '4'
+              nom_de_la_voie: '4'
+          - type: custom:streamline-card
+            template: misha_arrosage_voie
+            variables:
+              numero_de_la_voie: '8'
+              nom_de_la_voie: '8'
+      - type: grid
+        cards:
+          - type: heading
+            heading: Nouvelle section
+          - type: vertical-stack
+            cards:
+              - type: conditional
+                conditions:
+                  - condition: state
+                    entity: input_text.misha_arrosage_display_notifications_choix
+                    state_not: mode_production_1
+                  - condition: state
+                    entity: input_text.misha_arrosage_display_notifications_choix
+                    state_not: voie_label_1
+                  - condition: state
+                    entity: input_text.misha_arrosage_display_notifications_choix
+                    state_not: voie_connect_1
+                card:
+                  type: custom:vertical-stack-in-card
+                  cards:
+                    - type: custom:mushroom-template-card
+                      entity: switch.misha_arrosage_electrovanne_1
+                      multiline_secondary: true
+                      primary: '[[nom_de_la_voie]]'
+                      secondary: >-
+                        {% set volume = "" %} {% if
+                        has_value('input_text.misha_arrosage_volume_voie_1') and
+                        has_value('input_text.misha_arrosage_dernier_declenchement_voie_1')%}
+                          {% if not states('input_text.misha_arrosage_volume_voie_1') in ['0']%}
+                            {% set volume = states('input_text.misha_arrosage_volume_voie_1')+" L, " %}
+                          {% endif %}
+                          Dernier arrosage {{ volume }}le {{ states('input_text.misha_arrosage_dernier_declenchement_voie_1') }}
+                        {% endif %}  
+                      icon: mdi:sprinkler-variant
+                      tap_action:
+                        action: perform-action
+                        perform_action: script.misha_arrosage_nombre_electrovannes_par_zone
+                        data:
+                          voie: '1'
+                          update_label: 'true'
+                      double_tap_action:
+                        action: more-info
+                      hold_action:
+                        action: more-info
+                      color: |-
+                        {% if is_state(entity, 'on') %}
+                          cyan
+                        {% endif %} 
+                      features_position: bottom
+                      uix:
+                        style:
+                          ha-tile-info$: |
+                            .primary::slotted(span)::after {
+                              content: " - Voie 1";
+                              font-size: var(--tile-info-secondary-font-size);
+                              font-weight: var(--tile-info-secondary-font-weight);
+                            }
+                    - type: conditional
+                      conditions:
+                        - condition: state
+                          entity: timer.misha_arrosage_voie_1
+                          state: idle
+                      card:
+                        type: custom:mushroom-chips-card
+                        chips:
+                          - type: template
+                            entity: switch.misha_arrosage_electrovanne_1
+                            tap_action:
+                              action: more-info
+                            double_tap_action:
+                              action: perform-action
+                              perform_action: >-
+                                script.misha_arrosage_nombre_electrovannes_par_zone
+                              data:
+                                voie: '1'
+                                update_label: 'true'
+                            hold_action:
+                              action: perform-action
+                              perform_action: >-
+                                script.misha_arrosage_nombre_electrovannes_par_zone
+                              data:
+                                voie: '1'
+                                update_label: 'true'
+                            icon: mdi:dots-horizontal
+                            icon_color: >
+                              {% set data =
+                              (state_attr('sensor.misha_arrosage_data_voies',
+                              'data_voies') | from_json).get('voie_1', {}) %}
+
+                              {{ data.color_link }}
+                            uix:
+                              style: |
+                                ha-card {
+                                  border: none; 
+                                  background: none !important;
+                                  --chip-icon-size: 12px;
+                                  margin-right: -16px;
+                                  padding-top: 18px;
+                                  margin-bottom: -18px;
+                                }
+                          - type: template
+                            tap_action:
+                              action: none
+                            icon: mdi:check-network-outline
+                            icon_color: >
+                              {%- set data =
+                              (state_attr('sensor.misha_arrosage_data_voies',
+                              'data_voies') | from_json).get('voie_1', {}) %}
+
+                              {{ data.color_network }}
+                            uix:
+                              style: |
+                                ha-card {
+                                  border: none; 
+                                  background: none !important;
+                                  --chip-icon-size: 14px;
+                                  margin-right: -16px;
+                                  margin-left: -8px;
+                                  padding-top: 13px;
+                                  margin-bottom: -13px;
+                                }
+                          - type: template
+                            entity: input_number.misha_arrosage_duree_voie_1
+                            content: >-
+                              {{ states(entity) |int(0) | timestamp_custom('%M
+                              min %S s') }}
+                            tap_action:
+                              action: more-info
+                            uix:
+                              style: |
+                                ha-card {
+                                  --chip-border-radius: 12px;
+                                }
+                          - type: template
+                            entity: input_boolean.misha_arrosage_enable_voie_1
+                            icon: >
+                              {{ 'mdi:check-circle' if is_state(entity, 'on')
+                              else 'mdi:close-circle-outline' }}
+                            icon_color: >
+                              {%- set data =
+                              (state_attr('sensor.misha_arrosage_data_voies',
+                              'data_voies') | from_json).get('voie_1', {}) %}
+
+                              {{ data.color_enabled }}
+                            tap_action:
+                              action: perform-action
+                              perform_action: >-
+                                script.misha_arrosage_nombre_electrovannes_par_zone
+                              data:
+                                voie: '1'
+                            uix:
+                              style: |
+                                ha-card {
+                                  --chip-border-radius: 12px;
+                                }
+                        alignment: end
+                        uix:
+                          style: |
+                            ha-card {
+                              padding-top: 2px;
+                              margin-top: -14px;
+                              margin-left: 0px;
+                              padding-bottom: 4px;
+                              padding-left: 8px;
+                              padding-right: 8px;
+                            }
+                    - type: conditional
+                      conditions:
+                        - condition: state
+                          entity: timer.misha_arrosage_voie_1
+                          state: active
+                      card:
+                        type: custom:timer-bar-card
+                        entity: timer.misha_arrosage_voie_1
+                        sync_issues: fix
+                        invert: true
+                        bar_direction: ltr
+                        bar_radius: 5px
+                        mushroom:
+                          primary_info: none
+                          icon_type: none
+                        uix:
+                          style: |
+                            ha-card {
+                              transition: none !important;
+                              padding: 0px !important;
+                              --spacing: var(--mush-spacing, 10px) !important;
+                              --icon-size: var(--mush-icon-size, 36px) !important;
+                              background: none;
+                              border: none;
+                              margin-top: -4px;
+                            }
+                  uix:
+                    style: |
+                      ha-card {
+                        {% if is_state('switch.misha_arrosage_electrovanne_1', 'on') %}
+                          background: linear-gradient(180deg, rgba(204,242,247,1) 70%, rgba(255,255,255,1) 100%) !important;
+                          border-color: #DCDCDC;
+                        {% else %}
+                          background: linear-gradient(180deg, rgba(171,171,171,1) 20%, rgba(255,255,255,1) 100%) !important;
+                          border-color: #DCDCDC;
+                        {% endif %}
+                      }
+              - type: conditional
+                conditions:
+                  - condition: state
+                    entity: input_boolean.misha_arrosage_display_notifications
+                    state: 'on'
+                  - condition: state
+                    entity: input_text.misha_arrosage_display_notifications_choix
+                    state: mode_production_1
+                card:
+                  type: custom:vertical-stack-in-card
+                  cards:
+                    - type: custom:mushroom-template-card
+                      entity: switch.misha_arrosage_electrovanne_1
+                      multiline_secondary: true
+                      secondary: >-
+                        Mode production. Cette voie n'est pas encore liée à une
+                        électrovanne réelle. Elle ne peut par conséquent pas
+                        être incluse dans un cycle d'arrosage.
+                      tap_action:
+                        action: none
+                      features_position: bottom
+                      icon: mdi:alert
+                      color: deep-orange
+                      uix:
+                        style: |
+                          ha-card {
+                            background-color: #fff4e0;
+                          }
+                    - type: custom:mushroom-chips-card
+                      chips:
+                        - type: template
+                          entity: switch.misha_arrosage_electrovanne_1
+                          tap_action:
+                            action: more-info
+                          icon: mdi:dots-horizontal
+                          icon_color: >
+                            {% set data =
+                            (state_attr('sensor.misha_arrosage_data_voies',
+                            'data_voies') | from_json).get('voie_1', {}) %}
+
+                            {{ data.color_link }}
+                          uix:
+                            style: |
+                              ha-card {
+                                border: none; 
+                                background: none !important;
+                                --chip-icon-size: 12px;
+                                margin-right: -16px;
+                                padding-top: 18px;
+                                margin-bottom: -18px;
+                              }
+                        - type: template
+                          tap_action:
+                            action: none
+                          icon: mdi:check-network-outline
+                          icon_color: >
+                            {%- set data =
+                            (state_attr('sensor.misha_arrosage_data_voies',
+                            'data_voies') | from_json).get('voie_1', {}) %}
+
+                            {{ data.color_network }}
+                          uix:
+                            style: |
+                              ha-card {
+                                border: none; 
+                                background: none !important;
+                                --chip-icon-size: 14px;
+                                margin-right: -16px;
+                                margin-left: -8px;
+                                padding-top: 13px;
+                                margin-bottom: -13px;
+                              }
+                        - type: template
+                          entity: input_number.misha_arrosage_duree_voie_1
+                          content: >-
+                            {{ states(entity) |int(0) | timestamp_custom('%M min
+                            %S s') }}
+                          tap_action:
+                            action: more-info
+                          uix:
+                            style: |
+                              ha-card {
+                                --chip-border-radius: 12px;
+                              }
+                        - type: template
+                          entity: input_boolean.misha_arrosage_enable_voie_1
+                          icon: >
+                            {{ 'mdi:check-circle' if is_state(entity, 'on') else
+                            'mdi:close-circle-outline' }}
+                          icon_color: >
+                            {%- set data =
+                            (state_attr('sensor.misha_arrosage_data_voies',
+                            'data_voies') | from_json).get('voie_1', {}) %} {%-
+                            set is_on = is_state(entity, 'on') %}
+
+                            {{ data.color_enabled }}
+                          tap_action:
+                            action: perform-action
+                            perform_action: >-
+                              script.misha_arrosage_nombre_electrovannes_par_zone
+                            data:
+                              voie: '1'
+                          uix:
+                            style: |
+                              ha-card {
+                                --chip-border-radius: 12px;
+                              }
+                      alignment: end
+                      uix:
+                        style: |
+                          ha-card {
+                            padding-top: 2px;
+                            margin-top: -14px;
+                            margin-left: 0px;
+                            padding-bottom: 4px;
+                            padding-left: 8px;
+                            padding-right: 8px;
+                          }
+                  uix:
+                    style: |
+                      ha-card {
+                          background: #fff4e0;
+                      }
+              - type: conditional
+                conditions:
+                  - condition: state
+                    entity: input_boolean.misha_arrosage_display_notifications
+                    state: 'on'
+                  - condition: state
+                    entity: input_text.misha_arrosage_display_notifications_choix
+                    state: voie_label_1
+                card:
+                  type: custom:vertical-stack-in-card
+                  cards:
+                    - type: custom:mushroom-template-card
+                      entity: switch.misha_arrosage_electrovanne_1
+                      multiline_secondary: true
+                      secondary: >-
+                        Cette voie n'est pas liée à une zone. Elle ne peut par
+                        conséquent pas être incluse dans un cycle d'arrosage.
+                      tap_action:
+                        action: none
+                      features_position: bottom
+                      icon: mdi:alert
+                      color: deep-orange
+                      uix:
+                        style: |
+                          ha-card {
+                            background-color: #fff4e0;
+                          }
+                    - type: custom:mushroom-chips-card
+                      chips:
+                        - type: template
+                          entity: switch.misha_arrosage_electrovanne_1
+                          tap_action:
+                            action: more-info
+                          icon: mdi:dots-horizontal
+                          icon_color: >
+                            {% set data =
+                            (state_attr('sensor.misha_arrosage_data_voies',
+                            'data_voies') | from_json).get('voie_1', {}) %}
+
+                            {{ data.color_link }}
+                          uix:
+                            style: |
+                              ha-card {
+                                border: none; 
+                                background: none !important;
+                                --chip-icon-size: 12px;
+                                margin-right: -16px;
+                                padding-top: 18px;
+                                margin-bottom: -18px;
+                              }
+                        - type: template
+                          tap_action:
+                            action: none
+                          icon: mdi:check-network-outline
+                          icon_color: >
+                            {%- set data =
+                            (state_attr('sensor.misha_arrosage_data_voies',
+                            'data_voies') | from_json).get('voie_1', {}) %}
+
+                            {{ data.color_network }}
+                          uix:
+                            style: |
+                              ha-card {
+                                border: none; 
+                                background: none !important;
+                                --chip-icon-size: 14px;
+                                margin-right: -16px;
+                                margin-left: -8px;
+                                padding-top: 13px;
+                                margin-bottom: -13px;
+                              }
+                        - type: template
+                          entity: input_number.misha_arrosage_duree_voie_1
+                          content: >-
+                            {{ states(entity) |int(0) | timestamp_custom('%M min
+                            %S s') }}
+                          tap_action:
+                            action: more-info
+                          uix:
+                            style: |
+                              ha-card {
+                                --chip-border-radius: 12px;
+                              }
+                        - type: template
+                          entity: input_boolean.misha_arrosage_enable_voie_1
+                          icon: >
+                            {{ 'mdi:check-circle' if is_state(entity, 'on') else
+                            'mdi:close-circle-outline' }}
+                          icon_color: >
+                            {%- set data =
+                            (state_attr('sensor.misha_arrosage_data_voies',
+                            'data_voies') | from_json).get('voie_1', {}) %} {%-
+                            set is_on = is_state(entity, 'on') %}
+
+                            {{ data.color_enabled }}
+                          tap_action:
+                            action: perform-action
+                            perform_action: >-
+                              script.misha_arrosage_nombre_electrovannes_par_zone
+                            data:
+                              voie: '1'
+                          uix:
+                            style: |
+                              ha-card {
+                                --chip-border-radius: 12px;
+                              }
+                      alignment: end
+                      uix:
+                        style: |
+                          ha-card {
+                            padding-top: 2px;
+                            margin-top: -14px;
+                            margin-left: 0px;
+                            padding-bottom: 4px;
+                            padding-left: 8px;
+                            padding-right: 8px;
+                          }
+                  uix:
+                    style: |
+                      ha-card {
+                          background: #fff4e0;
+                      }
+              - type: conditional
+                conditions:
+                  - condition: state
+                    entity: input_boolean.misha_arrosage_display_notifications
+                    state: 'on'
+                  - condition: state
+                    entity: input_text.misha_arrosage_display_notifications_choix
+                    state: voie_connect_1
+                card:
+                  type: custom:vertical-stack-in-card
+                  cards:
+                    - type: custom:mushroom-template-card
+                      entity: switch.misha_arrosage_electrovanne_1
+                      multiline_secondary: true
+                      secondary: >-
+                        Cette voie présente actuellement un problème de
+                        connexion. Elle ne peut par conséquent pas être incluse
+                        dans un cycle d'arrosage.
+                      tap_action:
+                        action: none
+                      features_position: bottom
+                      icon: mdi:alert
+                      color: deep-orange
+                      uix:
+                        style: |
+                          ha-card {
+                            background-color: #fff4e0;
+                          }
+                    - type: custom:mushroom-chips-card
+                      chips:
+                        - type: template
+                          entity: switch.misha_arrosage_electrovanne_1
+                          tap_action:
+                            action: more-info
+                          icon: mdi:dots-horizontal
+                          icon_color: >
+                            {% set data =
+                            (state_attr('sensor.misha_arrosage_data_voies',
+                            'data_voies') | from_json).get('voie_1', {}) %}
+
+                            {{ data.color_link }}
+                          uix:
+                            style: |
+                              ha-card {
+                                border: none; 
+                                background: none !important;
+                                --chip-icon-size: 12px;
+                                margin-right: -16px;
+                                padding-top: 18px;
+                                margin-bottom: -18px;
+                              }
+                        - type: template
+                          tap_action:
+                            action: none
+                          icon: mdi:check-network-outline
+                          icon_color: >
+                            {%- set data =
+                            (state_attr('sensor.misha_arrosage_data_voies',
+                            'data_voies') | from_json).get('voie_1', {}) %}
+
+                            {{ data.color_network }}
+                          uix:
+                            style: |
+                              ha-card {
+                                border: none; 
+                                background: none !important;
+                                --chip-icon-size: 14px;
+                                margin-right: -16px;
+                                margin-left: -8px;
+                                padding-top: 13px;
+                                margin-bottom: -13px;
+                              }
+                        - type: template
+                          entity: input_number.misha_arrosage_duree_voie_1
+                          content: >-
+                            {{ states(entity) |int(0) | timestamp_custom('%M min
+                            %S s') }}
+                          tap_action:
+                            action: more-info
+                          uix:
+                            style: |
+                              ha-card {
+                                --chip-border-radius: 12px;
+                              }
+                        - type: template
+                          entity: input_boolean.misha_arrosage_enable_voie_1
+                          icon: >
+                            {{ 'mdi:check-circle' if is_state(entity, 'on') else
+                            'mdi:close-circle-outline' }}
+                          icon_color: >
+                            {%- set data =
+                            (state_attr('sensor.misha_arrosage_data_voies',
+                            'data_voies') | from_json).get('voie_1', {}) %} {%-
+                            set is_on = is_state(entity, 'on') %}
+
+                            {{ data.color_enabled }}
+                          tap_action:
+                            action: perform-action
+                            perform_action: >-
+                              script.misha_arrosage_nombre_electrovannes_par_zone
+                            data:
+                              voie: '1'
+                          uix:
+                            style: |
+                              ha-card {
+                                --chip-border-radius: 12px;
+                              }
+                      alignment: end
+                      uix:
+                        style: |
+                          ha-card {
+                            padding-top: 2px;
+                            margin-top: -14px;
+                            margin-left: 0px;
+                            padding-bottom: 4px;
+                            padding-left: 8px;
+                            padding-right: 8px;
+                          }
+                  uix:
+                    style: |
+                      ha-card {
+                          background: #fff4e0;
+                      }
+      - type: grid
+        cards:
+          - type: markdown
+            content: >-
+              ### Zone 1
+
+              {% set dz = (state_attr('sensor.misha_arrosage_data_zones',
+              'data_zones') or '{}') | from_json %}
+
+              {% set z1 = dz.get('zone_1', {}) %}
+
+              **Durée :** {{ z1.duree_cycle }} min
+
+              **Voies incluses :** {{ z1.voies_incluses | join(', ') }}
+
+              **Voies activées :** {{ z1.voies_enable | join(', ') }}
+
+              **Voies hors-ligne :** {{ z1.voies_hors_ligne | join(', ') }}
+
+              **Voies sans durée :** {{ z1.voies_sans_duree | join(', ') }}
+
+
+              ---
+
+
+              ### Voies 1 et 2
+
+              {% set dv = (state_attr('sensor.misha_arrosage_data_voies',
+              'data_voies') or '{}') | from_json %}
+
+              {% for v_id in ['voie_1', 'voie_2'] %}
+
+              {% set v = dv.get(v_id, {}) %}
+
+              **{{ v_id | upper }}**
+
+              * **voie_id :** {{ v.voie_id }}
+
+              * **zone_id :** {{ v.zone_id }}
+
+              * **is_online :** {{ v.is_online }}
+
+              * **is_enabled :** {{ v.is_enabled }}
+
+              * **has_link :** {{ v.has_link }}
+
+              * **entite_reelle :** {{ v.entite_reelle }}
+
+              * **color_link :** {{ v.color_link }}
+
+              * **color_network :** {{ v.color_network }}
+
+              * **color_enabled :** {{ v.color_enabled }}
+
+              {% endfor %}
+    cards: []
+  - type: sections
+    max_columns: 2
+    title: test
+    path: test
+    sections:
+      - type: grid
+        cards:
+          - type: custom:mod-card
+            uix:
+              style: |
+                ha-card {
+                  background: #fff4e0;
+                  --grid-card-gap: 0x;
+                  border: 1px solid #dbdbdb;
+                }
+            card:
+              type: grid
+              square: false
+              cards:
+                - type: custom:mushroom-template-card
+                  multiline_secondary: true
+                  primary: ''
+                  secondary: >-
+                    Vous n'avez pas encore installé l'intégration Calendrier
+                    local.
+                  icon: mdi:calendar-clock
+                  tap_action:
+                    action: none
+                  color: deep-orange
+                  features_position: bottom
+                  uix:
+                    style: |
+                      ha-card {
+                        border: none;
+                        background: none;
+                        margin-right: -100%;
+                        padding-right: 100px;
+                      }
+                - type: custom:mushroom-chips-card
+                  chips:
+                    - type: template
+                      icon: mdi:devices
+                      tap_action:
+                        action: navigate
+                        navigation_path: /config/integrations/dashboard
+                      uix:
+                        style: |
+                          ha-card {
+                            border:none;
+                            --chip-border-radius: 12px;
+                            --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                          }
+                    - type: template
+                      tap_action:
+                        action: url
+                        url_path: >-
+                          https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/INSTALLATION.md#--etape-10-
+                      icon: mdi:help-circle-outline
+                      icon_color: light-blue
+                      uix:
+                        style: |
+                          ha-card {
+                            border:none;
+                            --chip-border-radius: 12px;
+                            --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                          }
+                  alignment: end
+                  uix:
+                    style: |
+                      ha-card {
+                        background: none;
+                        padding-right: 8px;
+                        padding-top: 9px;
+                      }
+              columns: 2
+            grid_options:
+              columns: full
+            visibility:
+              - condition: state
+                entity: sensor.calendars
+                state: '0'
+          - type: custom:mod-card
+            uix:
+              style: |
+                ha-card {
+                  background: #fff4e0;
+                  --grid-card-gap: 0x;
+                  border: 1px solid #dbdbdb;
+                }
+            card:
+              type: grid
+              square: false
+              cards:
+                - type: custom:mushroom-template-card
+                  multiline_secondary: true
+                  primary: ''
+                  secondary: Vous n'avez pas encore créé de calendrier nommé Arrosage.
+                  icon: mdi:calendar-clock
+                  tap_action:
+                    action: none
+                  color: deep-orange
+                  features_position: bottom
+                  uix:
+                    style: |
+                      ha-card {
+                        border: none;
+                        background: none;
+                        margin-right: -100%;
+                        padding-right: 100px;
+                      }
+                - type: custom:mushroom-chips-card
+                  chips:
+                    - type: template
+                      icon: mdi:calendar-edit-outline
+                      tap_action:
+                        action: navigate
+                        navigation_path: /calendar
+                      uix:
+                        style: |
+                          ha-card {
+                            border:none; 
+                            --chip-border-radius: 12px;
+                            --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                          }
+                    - type: template
+                      tap_action:
+                        action: url
+                        url_path: >-
+                          https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/INSTALLATION.md#--etape-10-
+                      icon: mdi:help-circle-outline
+                      icon_color: light-blue
+                      uix:
+                        style: |
+                          ha-card {
+                            border:none; 
+                            --chip-border-radius: 12px;
+                            --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                          }
+                  alignment: end
+                  uix:
+                    style: |
+                      ha-card {
+                        background: none;
+                        padding-right: 8px;
+                        padding-top: 9px;
+                      }
+              columns: 2
+            grid_options:
+              columns: full
+            visibility:
+              - condition: state
+                entity: calendar.arrosage
+                state: unknown
+              - condition: numeric_state
+                entity: sensor.calendars
+                above: 1
+          - type: vertical-stack
+            cards:
+              - type: custom:streamline-card
+                template: misha_arrosage_notification_arrosage_en_cours
+                variables:
+                  numero_de_la_zone: '1'
+              - type: custom:streamline-card
+                template: misha_arrosage_notification_arrosage_en_cours
+                variables:
+                  numero_de_la_zone: '2'
+              - type: custom:streamline-card
+                template: misha_arrosage_notification_arrosage_en_cours
+                variables:
+                  numero_de_la_zone: '3'
+            grid_options:
+              columns: full
+        column_span: 2
+      - type: grid
+        cards:
+          - type: vertical-stack
+            cards:
+              - type: custom:mod-card
+                uix:
+                  style: |
+                    ha-card {
+                      background: #fff4e0;
+                      --grid-card-gap: 0x;
+                      border: 1px solid #dbdbdb;
+                    }
+                card:
+                  type: grid
+                  square: false
+                  cards:
+                    - type: custom:mushroom-template-card
+                      multiline_secondary: true
+                      primary: ''
+                      secondary: >-
+                        Vous n'avez pas encore installé l'intégration Calendrier
+                        local.
+                      icon: mdi:calendar-clock
+                      tap_action:
+                        action: none
+                      color: deep-orange
+                      features_position: bottom
+                      uix:
+                        style: |
+                          ha-card {
+                            border: none;
+                            background: none;
+                            margin-right: -100%;
+                            padding-right: 100px;
+                          }
+                    - type: custom:mushroom-chips-card
+                      chips:
+                        - type: template
+                          icon: mdi:devices
+                          tap_action:
+                            action: navigate
+                            navigation_path: /config/integrations/dashboard
+                          uix:
+                            style: |
+                              ha-card {
+                                border:none;
+                                --chip-border-radius: 12px;
+                                --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                              }
+                        - type: template
+                          tap_action:
+                            action: url
+                            url_path: >-
+                              https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/INSTALLATION.md#--etape-10-
+                          icon: mdi:help-circle-outline
+                          icon_color: light-blue
+                          uix:
+                            style: |
+                              ha-card {
+                                border:none;
+                                --chip-border-radius: 12px;
+                                --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                              }
+                      alignment: end
+                      uix:
+                        style: |
+                          ha-card {
+                            background: none;
+                            padding-right: 8px;
+                            padding-top: 9px;
+                          }
+                  columns: 2
+                grid_options:
+                  columns: full
+                visibility:
+                  - condition: state
+                    entity: sensor.calendars
+                    state: '0'
+              - type: custom:mod-card
+                uix:
+                  style: |
+                    ha-card {
+                      background: #fff4e0;
+                      --grid-card-gap: 0x;
+                      border: 1px solid #dbdbdb;
+                    }
+                card:
+                  type: grid
+                  square: false
+                  cards:
+                    - type: custom:mushroom-template-card
+                      multiline_secondary: true
+                      primary: ''
+                      secondary: >-
+                        Vous n'avez pas encore créé de calendrier nommé
+                        Arrosage.
+                      icon: mdi:calendar-clock
+                      tap_action:
+                        action: none
+                      color: deep-orange
+                      features_position: bottom
+                      uix:
+                        style: |
+                          ha-card {
+                            border: none;
+                            background: none;
+                            margin-right: -100%;
+                            padding-right: 100px;
+                          }
+                    - type: custom:mushroom-chips-card
+                      chips:
+                        - type: template
+                          icon: mdi:calendar-edit-outline
+                          tap_action:
+                            action: navigate
+                            navigation_path: /calendar
+                          uix:
+                            style: |
+                              ha-card {
+                                border:none; 
+                                --chip-border-radius: 12px;
+                                --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                              }
+                        - type: template
+                          tap_action:
+                            action: url
+                            url_path: >-
+                              https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/INSTALLATION.md#--etape-10-
+                          icon: mdi:help-circle-outline
+                          icon_color: light-blue
+                          uix:
+                            style: |
+                              ha-card {
+                                border:none; 
+                                --chip-border-radius: 12px;
+                                --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                              }
+                      alignment: end
+                      uix:
+                        style: |
+                          ha-card {
+                            background: none;
+                            padding-right: 8px;
+                            padding-top: 9px;
+                          }
+                  columns: 2
+                grid_options:
+                  columns: full
+                visibility:
+                  - condition: state
+                    entity: calendar.arrosage
+                    state: unknown
+                  - condition: numeric_state
+                    entity: sensor.calendars
+                    above: 1
+              - type: custom:mushroom-template-card
+                multiline_secondary: true
+                primary: Prochains arrosages
+                secondary: Vous n'avez pas installé l'intégration Calendar Merge
+                icon: mdi:calendar-clock
+                tap_action:
+                  action: navigate
+                  navigation_path: /hacs
+                color: deep-orange
+                features_position: bottom
+                grid_options:
+                  columns: full
+                visibility:
+                  - condition: state
+                    entity: update.calendar_merge_update
+                    state: unknown
+                  - condition: state
+                    entity: calendar.arrosage
+                    not state: unknown
+                  - condition: numeric_state
+                    entity: sensor.calendars
+                    above: 1
+                uix:
+                  style: |
+                    ha-card {
+                      background-color: #fff4e0;
+                    }
+              - type: custom:mushroom-template-card
+                multiline_secondary: true
+                primary: Prochains arrosages
+                secondary: Vous n'avez pas configuré l'entrée Calendar Merge
+                icon: mdi:calendar-clock
+                color: deep-orange
+                features_position: bottom
+                tap_action:
+                  action: navigate
+                  navigation_path: /config/helpers
+                grid_options:
+                  columns: full
+                visibility:
+                  - condition: state
+                    entity: calendar.misha_arrosage_a_venir
+                    state: unknown
+                  - condition: state
+                    entity: calendar.arrosage
+                    not state: unknown
+                  - condition: numeric_state
+                    entity: sensor.calendars
+                    above: 1
+                uix:
+                  style: |
+                    ha-card {
+                      background-color: #fff4e0;
+                    }
+              - type: custom:mushroom-template-card
+                multiline_secondary: true
+                primary: Prochains arrosages
+                secondary: >-
+                  {% if states('sensor.misha_arrosage_a_venir')|int(0) > 0 %}  
+
+
+                  {% for i in range(0,
+                  states('sensor.misha_arrosage_a_venir')|int(0)) %}
+
+                  {{states('sensor.misha_arrosage_a_venir_event_' ~ i)}}
+
+                  {%- endfor %}
+
+
+                  {% else %}
+                    Aucune programmation d'arrosage prévue
+                  {% endif %}
+                icon: mdi:calendar-clock
+                color: light-green
+                features_position: bottom
+                tap_action:
+                  action: navigate
+                  navigation_path: planning-arrosage
+                grid_options:
+                  columns: full
+                visibility:
+                  - condition: state
+                    entity: calendar.misha_arrosage_a_venir
+                    state_not: unknown
+            grid_options:
+              columns: full
+      - type: grid
+        cards:
+          - square: false
+            type: grid
+            cards:
+              - type: custom:mushroom-template-card
+                entity: sensor.misha_arrosage_data_zones
+                primary: '{{ states(''input_text.misha_arrosage_nom_de_zone_1'') }}'
+                secondary: >-
+                  {%- set zone_id = 1 %}
+
+                  {%- set data_zones = state_attr(entity, 'data_zones') |
+                  from_json %}
+
+                  {{ 'Connecté' if not data_zones['zone_' ~
+                  zone_id].zone_disconnected else 'Déconnecté' }}
+                icon: >-
+                  {%- set zone_id = 1 %}
+
+                  {%- set data_zones = state_attr(entity, 'data_zones') |
+                  from_json %}
+
+                  {{ 'mdi:check-network-outline' if not data_zones['zone_' ~
+                  zone_id].zone_disconnected else 'mdi:network-off-outline' }}
+                color: >-
+                  {%- set zone_id = 1 %}
+
+                  {%- set data_zones = state_attr(entity, 'data_zones') |
+                  from_json %}
+
+                  {{ 'light-blue' if not data_zones['zone_' ~
+                  zone_id].zone_disconnected else 'red' }}
+                features_position: bottom
+              - type: custom:mushroom-template-card
+                entity: sensor.misha_arrosage_data_zones
+                primary: '{{ states(''input_text.misha_arrosage_nom_de_zone_2'') }}'
+                secondary: >-
+                  {%- set zone_id = 2 %}
+
+                  {%- set data_zones = state_attr(entity, 'data_zones') |
+                  from_json %}
+
+                  {{ 'Connecté' if not data_zones['zone_' ~
+                  zone_id].zone_disconnected else 'Déconnecté' }}
+                icon: >-
+                  {%- set zone_id = 2 %}
+
+                  {%- set data_zones = state_attr(entity, 'data_zones') |
+                  from_json %}
+
+                  {{ 'mdi:check-network-outline' if not data_zones['zone_' ~
+                  zone_id].zone_disconnected else 'mdi:network-off-outline' }}
+                color: >-
+                  {%- set zone_id = 2 %}
+
+                  {%- set data_zones = state_attr(entity, 'data_zones') |
+                  from_json %}
+
+                  {{ 'light-blue' if not data_zones['zone_' ~
+                  zone_id].zone_disconnected else 'red' }}
+                features_position: bottom
+              - type: custom:mushroom-template-card
+                entity: sensor.misha_arrosage_data_zones
+                primary: '{{ states(''input_text.misha_arrosage_nom_de_zone_3'') }}'
+                secondary: >-
+                  {%- set zone_id = 3 %}
+
+                  {%- set data_zones = state_attr(entity, 'data_zones') |
+                  from_json %}
+
+                  {{ 'Connecté' if not data_zones['zone_' ~
+                  zone_id].zone_disconnected else 'Déconnecté' }}
+                icon: >-
+                  {%- set zone_id = 3 %}
+
+                  {%- set data_zones = state_attr(entity, 'data_zones') |
+                  from_json %}
+
+                  {{ 'mdi:check-network-outline' if not data_zones['zone_' ~
+                  zone_id].zone_disconnected else 'mdi:network-off-outline' }}
+                color: >-
+                  {%- set zone_id = 3 %}
+
+                  {%- set data_zones = state_attr(entity, 'data_zones') |
+                  from_json %}
+
+                  {{ 'light-blue' if not data_zones['zone_' ~
+                  zone_id].zone_disconnected else 'red' }}
+                features_position: bottom
+              - type: custom:streamline-card
+                template: misha_arrosage_zone_conectivity
+                variables:
+                  numero_de_la_zone: '1'
+            columns: 2
+          - type: custom:mushroom-template-card
+            entity: sensor.misha_arrosage_data_zones
+            primary: '{{ states(''input_text.misha_arrosage_nom_de_zone_1'') }}'
+            secondary: >-
+              {%- set zone_id = 1 %}
+
+              {%- set data_zones = state_attr(entity, 'data_zones') | from_json
+              %}
+
+              {{ 'Connecté' if not data_zones['zone_' ~
+              zone_id].zone_disconnected else 'Déconnecté' }}
+            icon: >-
+              {%- set zone_id = 1 %}
+
+              {%- set data_zones = state_attr(entity, 'data_zones') | from_json
+              %}
+
+              {{ 'mdi:check-network-outline' if not data_zones['zone_' ~
+              zone_id].zone_disconnected else 'mdi:network-off-outline' }}
+            color: >-
+              {%- set zone_id = 1 %}
+
+              {%- set data_zones = state_attr(entity, 'data_zones') | from_json
+              %}
+
+              {{ 'light-blue' if not data_zones['zone_' ~
+              zone_id].zone_disconnected else 'red' }}
+            features_position: bottom
+  - type: sections
+    max_columns: 4
+    title: bug
+    path: bug
+    sections:
+      - type: grid
+        cards:
+          - type: tile
+            grid_options:
+              columns: full
+            entity: update.home_assistant_supervisor_update
+            name: carte tuile
+            vertical: false
+            features_position: bottom
+          - type: custom:mushroom-entity-card
+            entity: update.home_assistant_supervisor_update
+            grid_options:
+              columns: full
+            name: mushroom entity
+          - type: custom:mushroom-template-card
+            primary: mushroom template
+            secondary: À jour
+            icon: mdi:mushroom
+            features_position: bottom
+            grid_options:
+              columns: full
+          - type: custom:mushroom-template-card
+            primary: 'mushroom template multiline_secondary: true'
+            secondary: À jour
+            icon: mdi:mushroom
+            features_position: bottom
+            grid_options:
+              columns: full
+            multiline_secondary: true

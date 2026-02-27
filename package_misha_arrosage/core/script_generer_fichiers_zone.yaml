@@ -1,0 +1,58 @@
+# Name : script_generer_fichiers_zone.yaml
+
+
+script:
+
+  misha_arrosage_generer_fichiers_zone:
+    alias: Misha Arrosage - Générer fichiers zone
+    description: >-
+      Script qui permet de générér les fichiers (entrées, automatisations et scripts) pour l'ajout d'une nouvelle zone en plus de celles existantes.
+
+
+      Stocke également le numéro de la dernière zone créée et crée le label de la zone.
+    sequence:
+      - alias: "Lancer le script python de generation des fichiers de la zone"
+        action: shell_command.misha_arrosage_generer_fichiers_zone # lancer le script python de generation des fichiers
+        response_variable: result
+      - variables: # Récupération du numéro de la zone créer depuis le retour du script python
+          nouveau_nombre: "{{ result.stdout | int }}"
+
+      - alias: "Mettre à jour le nombre de zones"
+        action: input_number.set_value
+        data:
+          entity_id: input_number.misha_arrosage_nb_file_zones
+          value: "{{ nouveau_nombre }}"
+
+      - action: logbook.log # Ecriture des événements dans les logs (Est ce vraiment nécessaire)
+        data:
+          name: "Génération des entités pour une nouvelle zone"
+          message: "Fichier zone_{{ nouveau_nombre }}.yaml créé"
+          entity_id: input_number.misha_arrosage_nb_file_zones
+      - action: logbook.log
+        data:
+          name: "Génération de l'automatisation pour une nouvelle zone"
+          message: "Fichier automatisation_arrosage_zone_{{ nouveau_nombre }}.yaml créé"
+          entity_id: input_number.misha_arrosage_nb_file_zones
+
+      - alias: "Création du label de zone si il n'existe pas"
+        choose:
+          - conditions:
+              - alias: "Le label n'existe pas"
+                condition: template
+                value_template: "{{ label_id('Misha Zone ' ~ nouveau_nombre) is none }}"
+            sequence:
+              - alias: "Créer le label de la zone (with Spook)"
+                action: homeassistant.create_label
+                data:
+                  name: "Misha Zone {{ nouveau_nombre }}"
+                  color: cyan
+                  description: "Label de liaison pour la zone {{ nouveau_nombre }}"
+
+      - alias: "Définir qu'un redémarrage est nécessaire"
+        action: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.misha_arrosage_restart_needed
+
+      - delay:
+          milliseconds: 200
+    mode: single

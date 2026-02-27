@@ -1,0 +1,33 @@
+# Name : script_declenchement_auto_voies.yaml
+
+
+script:
+
+  misha_arrosage_declenchement_auto_voies:
+    alias: Misha Arrosage - Déclenchement auto voies
+    description: "Script de déclenchement des voies pour les arrosages de zone."
+    mode: parallel
+    max: 20
+
+    fields: # Les champs passés en paramètres au script
+      voie_id:
+        name: Numéro de la voie
+        required: true
+        selector:
+          text: null
+
+    sequence:
+      - alias: "Déclencher la voie"
+        action: switch.turn_on
+        target:
+          entity_id: "switch.misha_arrosage_electrovanne_{{ voie_id }}"
+      - alias: "Attendre la fin du timer de la voie (avec timeout)"
+        wait_for_trigger:
+          - event_type: timer.finished
+            event_data:
+              entity_id: "timer.misha_arrosage_voie_{{ voie_id }}"
+            trigger: event
+        timeout: # Passer à la suite 10 secondes après la fin prévu du timer si celle ci n'arrive pas
+          seconds: "{{ states('input_number.misha_arrosage_duree_voie_'~voie_id)|float + 10 }}"
+      - delay:
+          milliseconds: 500

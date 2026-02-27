@@ -1,0 +1,64 @@
+# Name : sensor_data_voies.yaml
+
+
+template:
+  - sensor:
+      - name: "Misha arrosage - Data voies"
+        unique_id: misha_arrosage_data_voies
+        # Se rafraîchit quand le sensor zones change ou chaque seconde si besoin
+        state: "{{ states('input_number.misha_arrosage_nb_file_voies') | int(0) }} voies"
+        attributes:
+          data_voies: >
+            {%- set nb_voies = states('input_number.misha_arrosage_nb_file_voies') | int(0) -%}
+            {%- set ns = namespace(voies={}) -%}
+
+            {%- for num in range(1, nb_voies + 1) -%}
+              {%- set voie_key = 'voie_' ~ num -%}
+              {%- set label_id = 'misha_voie_' ~ num -%}
+              
+              {# Electrovanne_reelle #}
+              {%- set entite_reelle = label_entities(label_id) | first | default('none') -%}
+              {%- set has_link = entite_reelle != 'none' -%}
+
+              {# Zone liée #}
+              {%- set zone_label = labels('switch.misha_arrosage_electrovanne_' ~ num) 
+                 | select('match', '^misha_zone_') | first | default('none') -%}
+              {%- set zone_id = zone_label | replace('misha_zone_', '') | int if zone_label != 'none' else 'none' -%}
+
+              {# État de connexion de la voie #}
+              {%- set is_online = true -%}
+              {%- if has_link -%}
+                {%- set is_online = not is_state(entite_reelle, ['unavailable', 'unknown']) -%}
+              {%- endif -%}
+
+              {# Voie sélectionnée #}
+              {%- set is_enabled = is_state('input_boolean.misha_arrosage_enable_voie_' ~ num, 'on') -%}
+
+              {# Couleur si zone liée #}
+              {%- set color_link = 'light-green' if zone_id != 'none' else 'orange' -%}
+
+              {# Couleur pour l'état du réseau #}
+              {%- set color_network = 'light-grey' -%}
+              {%- set color_network = ('light-green' if is_online else 'red') if entite_reelle != 'none' else color_network %}
+
+              {# Couleur pour le bouton d'activation #}
+              {%- set color_enabled = 'light-green' if is_enabled else 'light-grey' %}
+              {%- set color_enabled = 'orange' if is_enabled and not has_link else color_enabled %}
+              {%- set color_enabled = 'orange' if is_enabled and zone_id == 'none' else color_enabled %}
+              {%- set color_enabled = 'red' if is_enabled and not is_online else color_enabled %}
+
+              {# Datas Json #}
+              {%- set voie_data = {
+                "voie_id": num,
+                "zone_id": zone_id,
+                "is_online": is_online,
+                "is_enabled": is_enabled,
+                "has_link": has_link,
+                "entite_reelle": entite_reelle,
+                "color_link": color_link,
+                "color_network": color_network,
+                "color_enabled": color_enabled
+              } -%}
+              {%- set ns.voies = dict(ns.voies, **{voie_key: voie_data}) -%}
+            {%- endfor -%}
+            {{ ns.voies | to_json }}

@@ -1,0 +1,20 @@
+# Name : script_coeff_meteo.yaml
+# Dans ce fichier, se trouve le script permettant le calcul du coefficient météo
+# pour allonger ou réduire la durée des cycles d'arrosage.
+
+
+script:
+
+  misha_arrosage_calcul_coefficient_meteo:
+    alias: Misha Arrosage - Calcul coefficient météo
+    icon: mdi:stop-circle-outline
+    description: >-
+      Script permettant le calcul du coefficient météo. Il est appelé à chaque évènements déclenchés par le calendrier d'arrosage.
+ 
+    sequence:
+      - action: input_number.set_value
+        target:
+          entity_id: input_number.misha_arrosage_coefficient_meteo
+        data:
+          value: >
+            1
