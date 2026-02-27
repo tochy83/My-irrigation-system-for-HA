@@ -8,8 +8,8 @@ Bienvenue sur la page d'installation. Vous trouverez ici toutes les explications
 
 Avant de commencer, assurez-vous d'avoir les outils et intégrations suivants installés sur votre instance Home Assistant.
 
-#### **Modules complémentaires (Gestion de fichiers)**
-* **Recommandé :** `Studio Code Server` ou `Samba share` (indispensable pour copier la cinquantaine de fichiers rapidement).
+#### **Apps (anciennement Modules complémentaires)**
+* **Recommandé :** `Studio Code Server` ou `Samba share` (indispensable pour copier tous les fichiers rapidement).
 * **Alternative :** `File Editor` (possible, mais laborieux au vu du nombre de fichiers).
 
 #### **Intégrations nécessaires au fonctionnement**
@@ -33,7 +33,7 @@ Avant de commencer, assurez-vous d'avoir les outils et intégrations suivants in
 
 #### **1️⃣ Vérification préalable**
 Pour éviter tout conflit, vérifiez qu'aucune entité existante n'utilise déjà les ID du projet.
-Allez dans **Outils de développement > Modèle** et collez le code suivant :
+Allez dans **Paramètres > Outils de développement > Modèle** et collez le code suivant :
 
 ```yml
 {%- set entites = states 
@@ -58,7 +58,7 @@ Installation déconseillée en l'état. Vous avez ces entités en commun avec l'
 
 #### **2️⃣ Activation des Packages**
 
-Vérifiez si les packages sont actifs dans votre `configuration.yaml`. Recherchez la ligne suivante sous la clé `homeassistant:` :
+Vérifiez si les packages sont actifs dans votre `configuration.yaml`. Ouvrez le fichier et recherchez la ligne suivante sous la clé `homeassistant:` :
 
 ```yaml
 homeassistant:
@@ -104,7 +104,12 @@ Téléchargez le fichier ZIP contenant l'intégration depuis la [page d'accueil 
 
 ---
 
-#### **5️⃣ Mise en place du Dashboard**
+#### **5️⃣ Redémarrage du serveur**
+
+Allez dans **Paramètres > Outils de développement > YAML** et cliquez sur `Vérifier la configuration`. Si ce message apparait `La configuration n'empêchera pas Home Assistant de démarrer !` vous pouvez cliquer sur `Redémarrer` puis `Redémarrer Home Assistant`.
+
+---
+#### **6️⃣ Mise en place du Dashboard**
 
 1. Créez un nouveau Dashboard nommé **Arrosage** (respectez la casse, des liens internes l'utilisent).
 2. Ouvrez le fichier `dashboard.yaml` (présent dans le ZIP), copiez tout son contenu et collez-le dans l'éditeur de configuration de votre nouveau dashboard.
@@ -113,7 +118,7 @@ Téléchargez le fichier ZIP contenant l'intégration depuis la [page d'accueil 
 
 ---
 
-#### **6️⃣ Configuration du Calendrier**
+#### **7️⃣ Configuration du Calendrier**
 
 Ajoutez l'intégration **Calendrier local** et créez un calendrier nommé exactement `Arrosage`.
 
@@ -124,7 +129,7 @@ Ajoutez l'intégration **Calendrier local** et créez un calendrier nommé exact
 
 ---
 
-#### **7️⃣ Liaison avec Calendar Merge**
+#### **8️⃣ Liaison avec Calendar Merge**
 
 Configurez une entrée pour l'intégration **Calendar Merge**.
 **C'est cette étape qui permet l'affichage des arrosages à venir.**
