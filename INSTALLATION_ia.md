@@ -123,13 +123,15 @@ Pour finaliser l'installation, il faut maintenant redémarrer Home Assistant. Al
 
 #### **7️⃣ Configuration du Calendrier**
 
-Ajoutez l'intégration **Calendrier local** et créez un calendrier nommé exactement `Arrosage`.
+Ajoutez l'intégration **Calendrier local** (si vous ne l'utilisez pas déja) et créez un calendrier nommé exactement `Arrosage`.
 
 <p align="center">
 <img src="Medias/Install/add_local_calendar_int.gif" width="45%">
 <img src="Medias/Install/add_calendar.gif" width="45%">
 </p>
 
+> [!NOTE] 
+> Si vous avez déjà un calendrier nommé `Arrosage`, c'est celui-ci qui sera utilisé.
 ---
 
 #### **8️⃣ Liaison avec Calendar Merge**
