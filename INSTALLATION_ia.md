@@ -106,10 +106,10 @@ Téléchargez le fichier ZIP contenant l'intégration depuis la [page d'accueil 
 
 #### **5️⃣ Redémarrage du serveur**
 
-Allez dans **Paramètres > Outils de développement > YAML** et cliquez sur `Vérifier la configuration`. Si ce message apparait `La configuration n'empêchera pas Home Assistant de démarrer !`, vous pouvez cliquer sur `Redémarrer` puis `Redémarrer Home Assistant`.
+Allez dans **Paramètres > Outils de développement > YAML** et cliquez sur `Vérifier la configuration`. Si le message `La configuration n'empêchera pas Home Assistant de démarrer !` apparait, vous pouvez cliquer sur `Redémarrer` puis `Redémarrer Home Assistant`.
 
 > [!IMPORTANT]
-> Si le message `La configuration n'empêchera pas Home Assistant de démarrer !` n'apparaissait pas il est probable que vous avez fait une erreur à l'étape 2️⃣ ou 4️⃣.
+> Si le message `La configuration n'empêchera pas Home Assistant de démarrer !` n'apparaissait pas il est probable que vous ayez fait une erreur à l'étape 2️⃣ ou 4️⃣.
 > Vérifiez donc ces 2 étapes.
 ---
 #### **6️⃣ Mise en place du Dashboard**
