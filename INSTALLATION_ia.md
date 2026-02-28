@@ -1,6 +1,6 @@
 # Installation du Dashboard Arrosage
 
-Bienvenue sur la page d'installation. Vous trouverez ici toutes les explications nécessaires pour mettre en place le **Dashboard Arrosage**, ainsi que les automatisations, scripts et entrées utiles.
+Bienvenue sur la page d'installation. Vous trouverez ici toutes les explications nécessaires pour mettre en place le **Dashboard Arrosage**, ainsi que ses automatisations, scripts et entrées utiles.
 
 ---
 
