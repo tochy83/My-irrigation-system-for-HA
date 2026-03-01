@@ -144,7 +144,7 @@ Configurez une entrée pour l'intégration **Calendar Merge**.
 * **Nombre max d'événements :** Votre nombre de zone
 * **Calendrier :** Arrosage
 * **Option :** Désactiver "Utiliser le résumé comme nom d’entité"
-* **Format de date :** Celui que vous préférez
+* **Format de date :** Selon votre préférence
 
 <p align="center">
 <img src="Medias/Install/add_calendar_merge_int.gif" width="45%">
