@@ -143,7 +143,7 @@ Configurez une entrée pour l'intégration **Calendar Merge**.
 * **Période :** 7 jours
 * **Nombre max d'événements :** Votre nombre de zone
 * **Calendrier :** Arrosage
-* **Option :** Activer "Utiliser le résumé comme nom d’entité"
+* **Option :** Désactiver "Utiliser le résumé comme nom d’entité"
 * **Format de date :** Celui que vous préférez
 
 <p align="center">
