@@ -139,10 +139,12 @@ Ajoutez l'intégration **Calendrier local** (si vous ne l'utilisez pas déja) et
 Configurez une entrée pour l'intégration **Calendar Merge**.
 **C'est cette étape qui permet l'affichage des arrosages à venir.**
 
-* **Nom du capteur :** `Arrosage a venir` (Strictement !)
-* **Nombre max d'événements :** 3
+* **Nom du capteur :** `misha arrosage a venir` (Strictement !)
 * **Période :** 7 jours
-* **Option :** Activer "Afficher l'événement du calendrier comme heure de".
+* **Nombre max d'événements :** Votre nombre de zone
+* **Calendrier :** Arrosage
+* **Option :** Activer "Utiliser le résumé comme nom d’entité"
+* **Format de date :** Celui que vous préférez
 
 <p align="center">
 <img src="Medias/Install/add_calendar_merge_int.gif" width="45%">
