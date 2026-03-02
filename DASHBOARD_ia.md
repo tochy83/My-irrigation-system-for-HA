@@ -18,6 +18,9 @@ Retrouvez sur cette page toutes les cartes du **Dashboard Arrosage**, ainsi que 
 
 Cette carte permet de naviguer entre les différentes pages du **dashboard**
 
+<details>
+  <summary>Le code <span><img src="Medias/Icons/code.svg" width="18"></span></summary>
+
 ```yml
 type: custom:mushroom-chips-card
 chips:
@@ -49,6 +52,7 @@ grid_options:
   columns: full
   rows: auto
 ```
+</details>
 
 <p align="center">
 <img src="Medias/Install/verify.jpg" width="45%" alt="Vérification OK">
