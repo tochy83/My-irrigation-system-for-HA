@@ -7,19 +7,26 @@ Retrouvez sur cette page toutes les cartes du **Dashboard Arrosage**, ainsi que 
 ### La page principale
 
 <p align="center">
-<img src="Medias/arrosage_page.jpg" width="100%">
+<img src="Medias/arrosage_page.jpg">
 </p>
+<br>
 
-#### **1️⃣ La carte navigation**
+#### **- La carte navigation**
 
 <p align="center">
-<img src="Medias/navigation_card.jpg" width="100%">
+<img src="Medias/navigation_card.jpg">
 </p>
 
 Cette carte permet de naviguer entre les différentes pages du **dashboard**
 
+<img src="Medias/Icons/arrow-left.svg" width="20" align="absmiddle"> : Permet de revenir à la page précédemment affichée.
+
+<img src="Medias/Icons/calendar-clock-outline.svg" width="20" align="absmiddle"> : Permet de naviguer vers la page **Programmation d'arrosage**. Elle sera <img src="Medias/Icons/calendar-clock-outline_green.svg" width="20" align="absmiddle"> si un calendrier nommé `Arrosage` existe sinon elle sera <img src="Medias/Icons/calendar-clock-outline_orange.svg" width="20" align="absmiddle">.
+
+<img src="Medias/Icons/tune.svg" width="20" align="absmiddle"> : Permet de naviguer vers la page **Paramètres**.
+
 <details>
-  <summary><img src="Medias/Icons/code.svg" width="14" align="absmiddle"> <b>Le code</b></summary>
+  <summary><img src="Medias/Icons/code.svg" width="16" align="absmiddle"> <b>Le code</b></summary>
 
 ```yml
 type: custom:mushroom-chips-card
@@ -53,123 +60,132 @@ grid_options:
   rows: auto
 ```
 </details>
+<br>
+
+
+#### **- La carte arrosage en cours**
 
 <p align="center">
-<img src="Medias/Install/verify.jpg" width="45%" alt="Vérification OK">
-<img src="Medias/Install/verify_not_ok.jpg" width="45%" alt="Vérification KO">
+<img src="Medias/arrosage_en_cours_card.jpg">
 </p>
 
----
+Cette carte s'affichera quand un arrosage de zone est en cours.
 
-#### **2️⃣ Activation des Packages**
+<img src="Medias/Icons/stop.svg" width="20" align="absmiddle"> : Permet de couper l'arrosage de la zone avant son terme.
 
-Vérifiez si les packages sont actifs dans votre `configuration.yaml`. Ouvrez le fichier et recherchez la ligne suivante sous la clé `homeassistant:` :
+<details>
+  <summary><img src="Medias/Icons/code.svg" width="16" align="absmiddle"> <b>Le code</b></summary>
 
-```yaml
-homeassistant:
-  packages: !include_dir_named packages
+```yml
+type: conditional
+conditions:
+  - condition: state
+    entity: input_boolean.misha_arrosage_cycle_zone_1
+    state: "on"
+card:
+  type: custom:mod-card
+  uix:
+    style: |
+      ha-card {
+        background: #e8f3db;
+        --grid-card-gap: 0x;
+        border: 1px solid #dbdbdb;
+      }
+  card:
+    type: grid
+    square: false
+    cards:
+      - type: custom:mushroom-template-card
+        multiline_secondary: true
+        primary: ""
+        secondary: >-
+          L arrosage de la zone
+          {{states('input_text.misha_arrosage_nom_de_zone_1')}}
+          est en cours. Arrêt prévu à
+          {{state_attr('input_datetime.misha_arrosage_duree_cycle_zone_1',
+          'timestamp')| timestamp_custom("%Hh%M", true, now())}}
+        icon: mdi:sprinkler-variant
+        tap_action:
+          action: none
+        color: light-green
+        features_position: bottom
+        uix:
+          style: |
+            ha-card {
+              border: none;
+              background: none;
+              margin-right: -100%;
+              padding-right: 100px;
+            }
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: template
+            icon: mdi:stop
+            tap_action:
+              action: perform-action
+              perform_action: script.misha_arrosage_arret
+              data:
+                zone_id: "1"
+            uix:
+              style: |
+                ha-card {
+                  border:none; 
+                  --chip-border-radius: 12px;
+                  --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                }
+        alignment: end
+        uix:
+          style: |
+            ha-card {
+              background: none;
+              padding-right: 8px;
+              padding-top: 9px;
+            }
+    columns: 2
+grid_options:
+  columns: full
+visibility:
+  - condition: state
+    entity: input_boolean.misha_arrosage_cycle_zone_1
+    state: "on"
 
 ```
+</details>
+<br>
 
-*Si elle n'existe pas, ajoutez-la, vérifiez la configuration et redémarrez Home Assistant.*
-
-> [!TIP]
-> Pour en savoir plus sur l'intérêt des packages, consultez cet [article sur Domo-blog.fr](https://www.domo-blog.fr/packages-home-assistant-organiser-configuration-code-yaml-domotique/).
-
-
-> [!NOTE] 
-> Il est possible, si vous utilisez déjà les packages mais de manière différente et que vous ayez la ligne :
-> ```
->packages: !include_dir_merge_named packages/
-> ```
-> Dans ce cas il y a quelques modifications à faire pour rendre l'intégration instalable.
----
-
-#### **3️⃣ Téléchargement**
-
-Téléchargez le fichier ZIP contenant l'intégration depuis la [page d'accueil du repository](https://github.com/tochy83/My-irrigation-system-for-HA).
-
-<p align="center"><img src="Medias/Install/download_from_github.gif" alt="Download GitHub"></p>
-
----
-
-#### **4️⃣ Transfert des fichiers**
-
-1. À l'aide de **Studio Code Server**, créez un dossier `packages` dans `/config/`.
-2. Copiez le dossier `misha_arrosage` du ZIP dans le dossier `packages` que vous venez de créer.
+#### **- La carte zone**
 
 <p align="center">
-<img src="Medias/Install/studio_code_server_add_folder.gif" width="45%">
-<img src="Medias/Install/studio_code_server.gif" width="45%">
+<img src="Medias/zone_card.jpg">
 </p>
 
-**Structure finale attendue :**
+Carte indiquant le nom de la zone ainsi que son id. Elle permet entre autre de déclencher un arrosage de zone manuellement.
 
-<p align="center"><img src="Medias/Install/structure_dossier_packages.jpg" alt="Structure dossiers"></p>
+<img src="Medias/Icons/form-textbox.svg" width="13" align="absmiddle"> : Permet de modifier le nom de la zone.
 
----
+<img src="Medias/Icons/numeric-5.svg" width="20" align="absmiddle">: Indique le nombre de voies liées à la zone (ici 5). Elle sera<img src="Medias/Icons/numeric-5_grey.svg" width="20" align="absmiddle">quand tout est bien configuré,<img src="Medias/Icons/numeric-5_red.svg" width="20" align="absmiddle">si aucune voie n'est liée à la zone et<img src="Medias/Icons/numeric-5_orange.svg" width="20" align="absmiddle">si vous avez des voies réelles et virtuelles liées à la zone.
 
-#### **5️⃣ Redémarrage du serveur**
+<img src="Medias/Icons/check-network-outline.svg" width="14" align="absmiddle"> : Indique si les voies de la zone sont connectées. Elle sera <img src="Medias/Icons/check-network-outline_grey.svg" width="14" align="absmiddle"> en mode démo, <img src="Medias/Icons/check-network-outline_green.svg" width="14" align="absmiddle"> si toutes les voies de la zone sont connectées, <img src="Medias/Icons/check-network-outline_orange.svg" width="14" align="absmiddle"> si des voies de la zone sont déconnectées et <img src="Medias/Icons/check-network-outline_red.svg" width="14" align="absmiddle"> si toutes les voies de la zone sont déconnectées.
 
-Pour finaliser l'installation, il faut maintenant redémarrer Home Assistant. Allez dans **Paramètres > Outils de développement > YAML** et cliquez sur `Vérifier la configuration`. Si le message `La configuration n'empêchera pas Home Assistant de démarrer !` apparait, vous pouvez cliquer sur `Redémarrer` puis `Redémarrer Home Assistant`.
+<img src="Medias/Icons/calendar-clock-outline.svg" width="20" align="absmiddle"> : Permet d'activer/désactiver la programmation. Elle passera <img src="Medias/Icons/calendar-clock-outline_green.svg" width="20" align="absmiddle"> si la programmation est activée et <img src="Medias/Icons/calendar-clock-outline_orange.svg" width="20" align="absmiddle"> si la programmation est activée mais qu'aucun évènement n'est prévu dans le calendrier dans les 30 jours à venir.
 
-> [!IMPORTANT]
-> Si le message `La configuration n'empêchera pas Home Assistant de démarrer !` n'apparaissait pas il est probable que vous ayez fait une erreur à l'étape 2️⃣ ou 4️⃣.
-> Vérifiez donc ces 2 étapes.
----
-#### **6️⃣ Mise en place du Dashboard**
+<img src="Medias/Icons/sprinkler-variant.svg" width="20" align="absmiddle"> : Permet de déclencher un arrosage de zone. Elle passera en <img src="Medias/Icons/sprinkler-variant_green.svg" width="20" align="absmiddle"> quand une zone est en cours d'arrosage.
 
-1. Créez un nouveau Dashboard nommé **Arrosage** (respectez la casse, des liens internes l'utilisent).
-2. Ouvrez le fichier `dashboard.yaml` (présent dans le ZIP), copiez tout son contenu et collez-le dans l'éditeur de configuration de votre nouveau dashboard.
+<details>
+  <summary><img src="Medias/Icons/code.svg" width="16" align="absmiddle"> <b>Le code</b></summary>
 
-<p align="center"><img src="Medias/Install/add_dashboard.gif" alt="Ajout Dashboard"></p>
+```yml
 
----
 
-#### **7️⃣ Configuration du Calendrier**
+```
+</details>
+<br>
 
-Ajoutez l'intégration **Calendrier local** (si vous ne l'utilisez pas déja) et créez un calendrier nommé exactement `Arrosage`.
+#### **- La carte voie**
 
 <p align="center">
-<img src="Medias/Install/add_local_calendar_int.gif" width="45%">
-<img src="Medias/Install/add_calendar.gif" width="45%">
+<img src="Medias/zone_card.jpg">
 </p>
 
-> [!NOTE] 
-> Si vous avez déjà un calendrier nommé `Arrosage`, c'est celui-ci qui sera utilisé.
----
+Carte
 
-#### **8️⃣ Liaison avec Calendar Merge**
-
-Configurez une entrée pour l'intégration **Calendar Merge**.
-**C'est cette étape qui permet l'affichage des arrosages à venir.**
-
-* **Nom du capteur :** `misha arrosage a venir` (Strictement !)
-* **Période :** 7 jours
-* **Nombre max d'événements :** Votre nombre de zone
-* **Calendrier :** Arrosage
-* **Option :** Désactiver "Utiliser le résumé comme nom d’entité"
-* **Format de date :** Selon votre préférence
-
-<p align="center">
-<img src="Medias/Install/add_calendar_merge_int.gif" width="45%">
-<img src="Medias/Install/config_calendar_merge.gif" width="45%">
-</p>
-
----
-
-### 🎉 C'est fini !
-
-Il ne vous reste plus qu'à tester toutes les fonctionnalités. Pour la partie programmation, ajoutez simplement des événements au calendrier comme montré dans la vidéo ci-dessous.
-
-> [!NOTE]
-> L'intégration tourne actuellement en **mode simulation** pour vous permettre de découvrir le fonctionnement sans activer vos vannes réelles.
-
-<div align="center">
-
-  [![Lancer la vidéo](https://img.youtube.com/vi/Ewms74Tb5es/0.jpg)](https://www.youtube.com/watch?v=Ewms74Tb5es "Lancer la vidéo")
-
-</div>
-
-*<p align="center">Une vidéo complète de l'installation pas à pas en partant d'un Home Assistant vierge ou j'ai juste installé tous les modules complémentaires et intégrations nécessaires à l'installation et au fonctionnement du Dashboard. La seule différence avec les étapes décrites ci-dessus est que je passerai par l'explorateur de fichiers windows pour créer les différents dossiers nécessaires au packages et copier les fichiers car c'est plus rapide pour la vidéo.</p>*
-<br><br><br><br><br>
