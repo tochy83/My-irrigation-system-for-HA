@@ -10,22 +10,44 @@ Retrouvez sur cette page toutes les cartes du **Dashboard Arrosage**, ainsi que 
 <img src="Medias/arrosage_page.jpg" width="100%">
 </p>
 
-#### **1️⃣ Vérification préalable**
-Pour éviter tout conflit, vérifiez qu'aucune entité existante n'utilise déjà les ID du projet.
-Allez dans **Paramètres > Outils de développement > Modèle** et collez le code suivant :
+#### **1️⃣ La carte navigation**
+
+<p align="center">
+<img src="Medias/navigation_card.jpg" width="100%">
+</p>
+
+Cette carte permet de naviguer entre les différentes pages du **dashboard**
 
 ```yml
-{%- set entites = states 
-   | selectattr('entity_id', 'search', 'misha_arrosage_')
-   | map(attribute='entity_id')
-   | list -%}
-Entités en commun avec Arrosage : {{entites|count}}
-{%- if (entites|count) == 0 %}
-Pas de soucis pour procéder à l'installation
-{%- else %}
-Installation déconseillée en l'état. Vous avez ces entités en commun avec l'intégration :
- - {{ entites|join('\n - ')}}
-{%- endif %}
+type: custom:mushroom-chips-card
+chips:
+  - type: back
+  - type: template
+    content: ARROSAGE
+    uix:
+      style: |
+        ha-card {
+          border: none;
+          background: none !important;
+        }
+  - type: spacer
+  - type: template
+    icon: mdi:calendar-clock
+    icon_color: >-
+      {{ 'deep-orange' if is_state('calendar.arrosage', 'unknown') else
+      'light-green' }}
+    tap_action:
+      action: navigate
+      navigation_path: planning-arrosage
+  - type: template
+    icon: mdi:tune
+    icon_color: deep-orange
+    tap_action:
+      action: navigate
+      navigation_path: parametres-dashboard-arrosage
+grid_options:
+  columns: full
+  rows: auto
 ```
 
 <p align="center">
