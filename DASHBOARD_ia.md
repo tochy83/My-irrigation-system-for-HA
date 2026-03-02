@@ -165,16 +165,23 @@ Carte indiquant le nom de la zone ainsi que son id. Elle permet entre autre de d
 
 <img src="Medias/Icons/numeric-5.svg" width="20" align="absmiddle">: Indique le nombre de voies liées à la zone (ici 5). Elle sera<img src="Medias/Icons/numeric-5_grey.svg" width="20" align="absmiddle">quand tout est bien configuré,<img src="Medias/Icons/numeric-5_red.svg" width="20" align="absmiddle">si aucune voie n'est liée à la zone et<img src="Medias/Icons/numeric-5_orange.svg" width="20" align="absmiddle">si vous avez des voies réelles et virtuelles liées à la zone.
 
-<img src="Medias/Icons/check-network-outline.svg" width="14" align="absmiddle"> : Indique si les voies de la zone sont connectées. Elle sera <img src="Medias/Icons/check-network-outline_grey.svg" width="14" align="absmiddle"> en mode démo, <img src="Medias/Icons/check-network-outline_green.svg" width="14" align="absmiddle"> si toutes les voies de la zone sont connectées, <img src="Medias/Icons/check-network-outline_orange.svg" width="14" align="absmiddle"> si des voies de la zone sont déconnectées et <img src="Medias/Icons/check-network-outline_red.svg" width="14" align="absmiddle"> si toutes les voies de la zone sont déconnectées.
+<img src="Medias/Icons/check-network-outline.svg" width="14" align="absmiddle"> : Indique si les voies de la zone sont connectées. Elle sera <img src="Medias/Icons/check-network-outline_grey.svg" width="14" align="absmiddle"> en mode démo, <img src="Medias/Icons/check-network-outline_green.svg" width="14" align="absmiddle"> si toutes les voies de la zone sont connectées, <img src="Medias/Icons/check-network-outline_orange.svg" width="14" align="absmiddle"> si des voies de la zone sont déconnectées et <img src="Medias/Icons/check-network-outline_red.svg" width="14" align="absmiddle"> si toutes les voies de la zone sont déconnectées. Elle permet du coup de savoir si on est en mode démo ou production (icone grise ou colorée).
 
 <img src="Medias/Icons/calendar-clock-outline.svg" width="20" align="absmiddle"> : Permet d'activer/désactiver la programmation. Elle passera <img src="Medias/Icons/calendar-clock-outline_green.svg" width="20" align="absmiddle"> si la programmation est activée et <img src="Medias/Icons/calendar-clock-outline_orange.svg" width="20" align="absmiddle"> si la programmation est activée mais qu'aucun évènement n'est prévu dans le calendrier dans les 30 jours à venir.
 
 <img src="Medias/Icons/sprinkler-variant.svg" width="20" align="absmiddle"> : Permet de déclencher un arrosage de zone. Elle passera en <img src="Medias/Icons/sprinkler-variant_green.svg" width="20" align="absmiddle"> quand une zone est en cours d'arrosage.
+<br><br>
+
+Cette carte dispose également de ces propres notifications.
+<p align="center">
+<img src="Medias/zone_card_notifs.jpg">
+</p>
 
 <details>
   <summary><img src="Medias/Icons/code.svg" width="16" align="absmiddle"> <b>Le code</b></summary>
 
 ```yml
+
 
 
 ```
@@ -184,8 +191,45 @@ Carte indiquant le nom de la zone ainsi que son id. Elle permet entre autre de d
 #### **- La carte voie**
 
 <p align="center">
-<img src="Medias/zone_card.jpg">
+<img src="Medias/voie_card.jpg">
 </p>
 
-Carte
+*<p align="center">La carte sans arrosage en cours</p>*
+
+
+<p align="center">
+<img src="Medias/voie_card_en_cours.jpg">
+</p>
+
+*<p align="center">La carte avec arrosage en cours</p>*
+
+Carte indiquant le nom de la voie et son id ainsi que la date et l'heure du dernier arrosage. Elle permet de déclencher la voie et également de la liée à une zone.
+
+<img src="Medias/Icons/sprinkler-variant.svg" width="20" align="absmiddle"> : Permet de déclencher/arrêter la voie. Elle passe en <img src="Medias/Icons/sprinkler-variant_cyan.svg" width="20" align="absmiddle"> lorsque un arrosage est en cours.
+
+<img src="Medias/Icons/dots-horizontal.svg" width="12" align="absmiddle"> : Permet de lier la voie à une zone. Elle sera <img src="Medias/Icons/dots-horizontal_orange.svg" width="12" align="absmiddle"> si la voie est n'est pas liée à une zone, sinon elle sera <img src="Medias/Icons/dots-horizontal_green.svg" width="12" align="absmiddle">.
+
+<img src="Medias/Icons/check-network-outline.svg" width="14" align="absmiddle"> : Indique si la voie est connectée. Elle sera <img src="Medias/Icons/check-network-outline_grey.svg" width="14" align="absmiddle"> en mode démo, sinon <img src="Medias/Icons/check-network-outline_green.svg" width="14" align="absmiddle"> si la voie est connectée, et <img src="Medias/Icons/check-network-outline_red.svg" width="14" align="absmiddle"> si la voie est déconnectée. Elle permet du coup de savoir si on est en mode démo ou production (icone grise ou colorée) toute comme la même icone sur la carte zone.
+
+<img src="Medias/Icons/timer.jpg"> : Permet de régler la durée de déclenchement de la voie.
+
+<img src="Medias/Icons/check-circle-outline.svg" width="20" align="absmiddle"> : Permet de sélectionner/déselectionner la voie pour un cycle d'arrosage de zone. Elle passe en <img src="Medias/Icons/check-circle-outline_green.svg" width="20" align="absmiddle"> lorsque la voie est sélectionnée ou <img src="Medias/Icons/close-circle-outline_grey.svg" width="20" align="absmiddle"> si cela n'est pas le cas.
+<br><br>
+
+Comme la carte zone, cette carte dispose de ces propres notifications.
+<p align="center">
+<img src="Medias/voie_card_notifs.jpg">
+</p>
+
+<details>
+  <summary><img src="Medias/Icons/code.svg" width="16" align="absmiddle"> <b>Le code</b></summary>
+
+```yml
+
+
+
+```
+</details>
+<br>
+
 
