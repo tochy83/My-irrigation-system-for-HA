@@ -7,7 +7,7 @@ Retrouvez sur cette page toutes les cartes du **Dashboard Arrosage**, ainsi que 
 ### La page principale
 
 <p align="center">
-<img src="Medias/arrosage_page.jpg" width="45%">
+<img src="Medias/arrosage_page.jpg" width="100%">
 </p>
 
 #### **1️⃣ Vérification préalable**
