@@ -1,8 +1,8 @@
 # Les pages et cartes du dashboard
 
-Retrouvez sur cette page toutes les cartes du **Dashboard Arrosage**, ainsi que leur fonctions et code.
+Retrouvez sur cette page toutes les cartes du **Dashboard Arrosage**, ainsi que leurs fonctions et code.
 
----
+##
 
 ### La page principale
 
