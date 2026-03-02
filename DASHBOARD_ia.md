@@ -19,7 +19,7 @@ Retrouvez sur cette page toutes les cartes du **Dashboard Arrosage**, ainsi que 
 Cette carte permet de naviguer entre les différentes pages du **dashboard**
 
 <details>
-  <summary>Le code <img src="Medias/Icons/code.svg" width="18" style="vertical-align: middle;"></summary>
+  <summary>Le code <img src="Medias/Icons/code.svg" width="18" style="vertical-align: -5px;"></summary>
 
 ```yml
 type: custom:mushroom-chips-card
