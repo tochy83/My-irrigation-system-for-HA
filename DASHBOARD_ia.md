@@ -1,35 +1,14 @@
-# Installation du Dashboard Arrosage
+# Les pages et cartes du dashboard
 
-Bienvenue sur la page d'installation. Vous trouverez ici toutes les explications nécessaires pour mettre en place le **Dashboard Arrosage**, ainsi que ses automatisations, scripts et entrées utiles.
-
----
-
-### 🛠️ Prérequis techniques
-
-Avant de commencer, assurez-vous d'avoir les outils et intégrations suivants installés sur votre instance Home Assistant.
-
-#### **Apps (anciennement Modules complémentaires)**
-* **Recommandé :** `Studio Code Server` ou `Samba share` (indispensable pour copier tous les fichiers rapidement).
-* **Alternative :** `File Editor` (possible, mais laborieux au vu du nombre de fichiers).
-
-#### **Intégrations nécessaires au fonctionnement**
-| Type | Nom & Lien |
-| :--- | :--- |
-| **UI / Cartes** | [Mushroom card](https://github.com/piitaya/lovelace-mushroom) • [Card mod](https://github.com/thomasloven/lovelace-card-mod) • [Vertical stack in card](https://github.com/ofekashery/vertical-stack-in-card) • [Timer bar card](https://github.com/rianadon/timer-bar-card) • [Streamline card](https://github.com/brunosabot/streamline-card) |
-| **Système** | [Calendar merge](https://github.com/kgn3400/calendar_merge) • [Spook](https://github.com/frenck/spook) • `Calendrier local` (natif HA) |
-
-> [!IMPORTANT]
-> **Notifications :** Pour recevoir les alertes, l'application officielle doit être installée sur votre mobile/tablette. 
-> * **Android :** Entièrement supporté par défaut.
-> * **iOS :** La syntaxe des notifications peut varier, une adaptation du script sera peut être nécessaire.
-> * **Telegram :** Entièrement supporté par défaut (nécessite l'installation préalable de l'intégration Telegram).
+Retrouvez sur cette page toutes les cartes du **Dashboard Arrosage**, ainsi que leur fonctions et code.
 
 ---
 
-### 🚀 Étapes de l'installation
+### La page principale
 
-> [!NOTE]
-> Certains screenshots ou vidéos peuvent présenter de légères différences suite aux mises à jour de l'intégration, mais la procédure reste strictement identique.
+<p align="center">
+<img src="Medias/arrosage_page.jpg" width="45%">
+</p>
 
 #### **1️⃣ Vérification préalable**
 Pour éviter tout conflit, vérifiez qu'aucune entité existante n'utilise déjà les ID du projet.
