@@ -253,7 +253,7 @@ Comme la carte zone, cette carte dispose de ces propres notifications.
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
 
-#### **- La carte information programmation**
+#### **- La carte informations programmation**
 
 <p align="center"><img src="Medias/informations_card.jpg"></p>
 
@@ -263,6 +263,20 @@ Cette carte dispose aussi de ces propres notifications.
 <p align="center"><img src="Medias/informations_card_notifs.jpg"></p>
 
 <img src="Medias/Icons/help-circle-outline.svg" width="20" align="absmiddle"> : Renvoi vers la page documentation du **dashboard arrosage**. Les autres icones renvoient vers les pages adéquates de **Home Assistant**.
+
+<details>
+  <summary><code><img src="Medias/Icons/code.svg" width="16" align="absmiddle"> <b>Voir le code de la carte</b></code></summary>
+
+<br>
+
+📄 **Fichier :** `ui-lovelace/cards/navigation_card.yaml`
+
+```yml
+
+
+
+```
+</details>
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
