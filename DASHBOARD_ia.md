@@ -10,7 +10,7 @@ Retrouvez sur cette page toutes les cartes du **Dashboard Arrosage**, ainsi que 
 <p align="center"><img src="Medias/arrosage_page.jpg"></p>
 
 <details>
-  <summary><code><img src="Medias/Icons/code.svg" width="16" align="absmiddle"> <b>Voir le code de la page</b></code></summary>
+  <summary><code><img src="Medias/Icons/code.svg" width="16" align="absmiddle"> Voir le code de la page</code></summary>
 
 <br>
 
@@ -37,7 +37,7 @@ Cette carte permet de naviguer entre les différentes pages du **dashboard**
 <img src="Medias/Icons/tune.svg" width="20" align="absmiddle"> : Permet de naviguer vers la page **Paramètres**.
 
 <details>
-  <summary><code><img src="Medias/Icons/code.svg" width="16" align="absmiddle"> <b>Voir le code de la carte</b></code></summary>
+  <summary><code><img src="Medias/Icons/code.svg" width="16" align="absmiddle"> Voir le code de la carte</code></summary>
 
 <br>
 
@@ -88,7 +88,7 @@ Cette carte s'affichera quand un arrosage de zone est en cours.
 <img src="Medias/Icons/stop.svg" width="20" align="absmiddle"> : Permet de couper l'arrosage de la zone avant son terme.
 
 <details>
-  <summary><code><img src="Medias/Icons/code.svg" width="16" align="absmiddle"> <b>Voir le code de la carte</b></code></summary>
+  <summary><code><img src="Medias/Icons/code.svg" width="16" align="absmiddle"> Voir le code de la carte</code></summary>
 
 <br>
 
@@ -194,7 +194,7 @@ Cette carte dispose également de ces propres notifications.
 <p align="center"><img src="Medias/zone_card_notifs.jpg"></p>
 
 <details>
-  <summary><code><img src="Medias/Icons/code.svg" width="16" align="absmiddle"> <b>Voir le code de la carte</b></code></summary>
+  <summary><code><img src="Medias/Icons/code.svg" width="16" align="absmiddle"> Voir le code de la carte</code></summary>
 
 <br>
 
@@ -237,7 +237,7 @@ Comme la carte zone, cette carte dispose de ces propres notifications.
 <p align="center"><img src="Medias/voie_card_notifs.jpg"></p>
 
 <details>
-  <summary><code><img src="Medias/Icons/code.svg" width="16" align="absmiddle"> <b>Voir le code de la carte</b></code></summary>
+  <summary><code><img src="Medias/Icons/code.svg" width="16" align="absmiddle"> Voir le code de la carte</code></summary>
 
 <br>
 
@@ -265,7 +265,7 @@ Cette carte dispose aussi de ces propres notifications.
 <img src="Medias/Icons/help-circle-outline.svg" width="20" align="absmiddle"> : Renvoi vers la page documentation du **dashboard arrosage**. Les autres icones renvoient vers les pages adéquates de **Home Assistant**.
 
 <details>
-  <summary><code><img src="Medias/Icons/code.svg" width="16" align="absmiddle"> <b>Voir le code de la carte</b></code></summary>
+  <summary><code><img src="Medias/Icons/code.svg" width="16" align="absmiddle"> Voir le code de la carte</code></summary>
 
 <br>
 
@@ -290,7 +290,7 @@ Une carte grid, regroupant les cartes de connectivité de chaque zone.
 <img src="Medias/Icons/check-network-outline.svg" width="20" align="absmiddle"> : Indique si les voies de la zone sont connectées. Elle sera <img src="Medias/Icons/check-network-outline_grey.svg" width="20" align="absmiddle"> en mode démo, <img src="Medias/Icons/check-network-outline_green.svg" width="20" align="absmiddle"> si toutes les voies de la zone sont connectées, <img src="Medias/Icons/check-network-outline_orange.svg" width="20" align="absmiddle"> si des voies de la zone sont déconnectées et <img src="Medias/Icons/check-network-outline_red.svg" width="20" align="absmiddle"> si toutes les voies de la zone sont déconnectées. Elle permet du coup de savoir si on est en mode démo ou production (icone grise ou colorée).
 
 <details>
-  <summary><code><img src="Medias/Icons/code.svg" width="16" align="absmiddle"> <b>Voir le code de la carte</b></code></summary>
+  <summary><code><img src="Medias/Icons/code.svg" width="16" align="absmiddle"> Voir le code de la carte</code></summary>
 
 <br>
 
@@ -315,7 +315,7 @@ On retrouve en haut de la page une carte de navigation comme sur la page princip
 La section `informations complémentaires` comprend des informations utiles pour l'ajout d'évènements au calendrier d'arrosage.
 
 <details>
-  <summary><code><img src="Medias/Icons/code.svg" width="16" align="absmiddle"> <b>Voir le code de la page</b></code></summary>
+  <summary><code><img src="Medias/Icons/code.svg" width="16" align="absmiddle"> Voir le code de la page</code></summary>
 
 <br>
 
@@ -352,7 +352,7 @@ En cas de suppression et après redémmarage du serveur, une carte listant les e
 Cette carte se masquera une fois les entités orphelines supprimées.
 
 <details>
-  <summary><code><img src="Medias/Icons/code.svg" width="16" align="absmiddle"> <b>Voir le code de la page</b></code></summary>
+  <summary><code><img src="Medias/Icons/code.svg" width="16" align="absmiddle"> Voir le code de la page</code></summary>
 
 <br>
 
