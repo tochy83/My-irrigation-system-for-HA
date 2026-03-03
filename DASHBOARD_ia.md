@@ -4,18 +4,29 @@ Retrouvez sur cette page toutes les cartes du **Dashboard Arrosage**, ainsi que 
 
 ##
 
+
 ### La page principale
 
-<p align="center">
-<img src="Medias/arrosage_page.jpg">
-</p>
+<p align="center"><img src="Medias/arrosage_page.jpg"></p>
+
+<details>
+  <summary><img src="Medias/Icons/code.svg" width="16" align="absmiddle"> <b>Le code</b></summary>
+
 <br>
+
+📄 **Fichier :** `ui-lovelace/cards/navigation_card.yaml`
+
+```yml
+
+```
+</details>
+
+<p align="center"><img src="Medias/Icons/divider.png"></p>
+
 
 #### **- La carte navigation**
 
-<p align="center">
-<img src="Medias/navigation_card.jpg">
-</p>
+<p align="center"><img src="Medias/navigation_card.jpg"></p>
 
 Cette carte permet de naviguer entre les différentes pages du **dashboard**
 
@@ -27,6 +38,10 @@ Cette carte permet de naviguer entre les différentes pages du **dashboard**
 
 <details>
   <summary><img src="Medias/Icons/code.svg" width="16" align="absmiddle"> <b>Le code</b></summary>
+
+<br>
+
+📄 **Fichier :** `ui-lovelace/cards/navigation_card.yaml`
 
 ```yml
 type: custom:mushroom-chips-card
@@ -60,14 +75,13 @@ grid_options:
   rows: auto
 ```
 </details>
-<br>
+
+<p align="center"><img src="Medias/Icons/divider.png"></p>
 
 
 #### **- La carte arrosage en cours**
 
-<p align="center">
-<img src="Medias/arrosage_en_cours_card.jpg">
-</p>
+<p align="center"><img src="Medias/arrosage_en_cours_card.jpg"></p>
 
 Cette carte s'affichera quand un arrosage de zone est en cours.
 
@@ -75,6 +89,10 @@ Cette carte s'affichera quand un arrosage de zone est en cours.
 
 <details>
   <summary><img src="Medias/Icons/code.svg" width="16" align="absmiddle"> <b>Le code</b></summary>
+
+<br>
+
+📄 **Fichier :** `ui-lovelace/cards/navigation_card.yaml`
 
 ```yml
 type: conditional
@@ -151,13 +169,13 @@ visibility:
 
 ```
 </details>
-<br>
+
+<p align="center"><img src="Medias/Icons/divider.png"></p>
+
 
 #### **- La carte zone**
 
-<p align="center">
-<img src="Medias/zone_card.jpg">
-</p>
+<p align="center"><img src="Medias/zone_card.jpg"></p>
 
 Carte indiquant le nom de la zone ainsi que son id. Elle permet entre autre de déclencher un arrosage de zone manuellement.
 
@@ -173,12 +191,14 @@ Carte indiquant le nom de la zone ainsi que son id. Elle permet entre autre de d
 <br><br>
 
 Cette carte dispose également de ces propres notifications.
-<p align="center">
-<img src="Medias/zone_card_notifs.jpg">
-</p>
+<p align="center"><img src="Medias/zone_card_notifs.jpg"></p>
 
 <details>
   <summary><img src="Medias/Icons/code.svg" width="16" align="absmiddle"> <b>Le code</b></summary>
+
+<br>
+
+📄 **Fichier :** `ui-lovelace/cards/navigation_card.yaml`
 
 ```yml
 
@@ -186,20 +206,17 @@ Cette carte dispose également de ces propres notifications.
 
 ```
 </details>
-<br>
+
+<p align="center"><img src="Medias/Icons/divider.png"></p>
+
 
 #### **- La carte voie**
 
-<p align="center">
-<img src="Medias/voie_card.jpg">
-</p>
+<p align="center"><img src="Medias/voie_card.jpg"></p>
 
 *<p align="center">La carte sans arrosage en cours</p>*
 
-
-<p align="center">
-<img src="Medias/voie_card_en_cours.jpg">
-</p>
+<p align="center"><img src="Medias/voie_card_en_cours.jpg"></p>
 
 *<p align="center">La carte avec arrosage en cours</p>*
 
@@ -217,12 +234,14 @@ Carte indiquant le nom de la voie et son id ainsi que la date et l'heure du dern
 <br><br>
 
 Comme la carte zone, cette carte dispose de ces propres notifications.
-<p align="center">
-<img src="Medias/voie_card_notifs.jpg">
-</p>
+<p align="center"><img src="Medias/voie_card_notifs.jpg"></p>
 
 <details>
   <summary><img src="Medias/Icons/code.svg" width="16" align="absmiddle"> <b>Le code</b></summary>
+
+<br>
+
+📄 **Fichier :** `ui-lovelace/cards/navigation_card.yaml`
 
 ```yml
 
@@ -230,6 +249,104 @@ Comme la carte zone, cette carte dispose de ces propres notifications.
 
 ```
 </details>
+
+<p align="center"><img src="Medias/Icons/divider.png"></p>
+
+
+#### **- La carte information programmation**
+
+<p align="center"><img src="Medias/informations_card.jpg"></p>
+
+La première carte indiquent les arrosages à venir par zone et la seconde renvoi la page de programmation d'arrosage.
+
+Cette carte dispose aussi de ces propres notifications.
+<p align="center"><img src="Medias/informations_card_notifs.jpg"></p>
+
+<img src="Medias/Icons/help-circle-outline.svg" width="20" align="absmiddle"> : Renvoi vers la page documentation du **dashboard arrosage**. Les autres icones renvoient vers les pages adéquates de **Home Assistant**.
+
+<p align="center"><img src="Medias/Icons/divider.png"></p>
+
+
+#### **- La carte information connectivité**
+
+<p align="center"><img src="Medias/connectivity_card.jpg"></p>
+
+Une carte grid, regroupant les cartes de connectivité de chaque zone.
+
+<img src="Medias/Icons/check-network-outline.svg" width="20" align="absmiddle"> : Indique si les voies de la zone sont connectées. Elle sera <img src="Medias/Icons/check-network-outline_grey.svg" width="20" align="absmiddle"> en mode démo, <img src="Medias/Icons/check-network-outline_green.svg" width="20" align="absmiddle"> si toutes les voies de la zone sont connectées, <img src="Medias/Icons/check-network-outline_orange.svg" width="20" align="absmiddle"> si des voies de la zone sont déconnectées et <img src="Medias/Icons/check-network-outline_red.svg" width="20" align="absmiddle"> si toutes les voies de la zone sont déconnectées. Elle permet du coup de savoir si on est en mode démo ou production (icone grise ou colorée).
+
+<details>
+  <summary><img src="Medias/Icons/code.svg" width="16" align="absmiddle"> <b>Le code</b></summary>
+
 <br>
 
+📄 **Fichier :** `ui-lovelace/cards/navigation_card.yaml`
 
+```yml
+
+```
+</details>
+
+##
+
+
+### La page programmation arrosage
+
+<p align="center"><img src="Medias/programmation_page.jpg"></p>
+
+Sur cette page vous pouvez définir la programmation de chaque zone en cliquant sur le bouton <img src="Medias/Icons/ajout_event.png" width="100" align="absmiddle">
+
+On retrouve en haut de la page une carte de navigation comme sur la page principale. Cette carte est utile si vous souhaitez faire de cette page une `sous-vue` sur votre dashboard.
+
+La section `informations complémentaires` comprend des informations utiles pour l'ajout d'évènements au calenbdrier d'arrosage.
+
+<details>
+  <summary><img src="Medias/Icons/code.svg" width="16" align="absmiddle"> <b>Le code</b></summary>
+
+<br>
+
+📄 **Fichier :** `ui-lovelace/cards/navigation_card.yaml`
+
+```yml
+
+```
+</details>
+
+##
+
+
+### La page paramètres
+
+<p align="center"><img src="Medias/parameters_page.jpg"></p>
+
+On retrouve en haut de la page une carte de navigation comme sur la page principale. Cette carte est utile si vous souhaitez faire de cette page une `sous-vue` sur votre dashboard.
+
+La section `Paramètres` permet de choisir où vous voulez envoyer les notifications.
+
+La section `Mode de fonctionnement` indique si vous êtes en mode **démo** ou **production**. En mode production elle listera la correspondance entre les voies du dashboard et votre matériel.
+
+La section `Mode de fonctionnement` Permet l'ajout ou la suppression de voies ou de zones en cliquant sur les boutons correspondants.
+
+En cas d'ajout/suppression une carte apparaitra, indiquant qu'il est nécessaire de redémarrer le srveur pour prendre en compte les modifications.
+
+<p align="center"><img src="Medias/restart_needed_card.jpg"></p>
+
+En cas de suppression et après redémmarage du serveur, une carte listant les entités orphelines apparaitra, pour vous rappeler de les supprimer.
+
+<p align="center"><img src="Medias/entites_orphelines_card.jpg"></p>
+
+Cette carte se masquera une fois les entités orphelines supprimées.
+
+<details>
+  <summary><img src="Medias/Icons/code.svg" width="16" align="absmiddle"> <b>Le code</b></summary>
+
+<br>
+
+📄 **Fichier :** `ui-lovelace/cards/navigation_card.yaml`
+
+```yml
+
+```
+</details>
+
+<hr>
