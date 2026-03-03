@@ -312,7 +312,7 @@ Sur cette page vous pouvez définir la programmation de chaque zone en cliquant 
 
 On retrouve en haut de la page une carte de navigation comme sur la page principale. Cette carte est utile si vous souhaitez faire de cette page une `sous-vue` sur votre dashboard.
 
-La section `informations complémentaires` comprend des informations utiles pour l'ajout d'évènements au calenbdrier d'arrosage.
+La section `informations complémentaires` comprend des informations utiles pour l'ajout d'évènements au calendrier d'arrosage.
 
 <details>
   <summary><code><img src="Medias/Icons/code.svg" width="16" align="absmiddle"> <b>Voir le code de la page</b></code></summary>
