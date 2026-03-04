@@ -226,7 +226,7 @@ Carte indiquant le nom de la voie et son id ainsi que la date et l'heure du dern
 
 <img src="Medias/Icons/dots-horizontal.svg" width="12" align="absmiddle"> : Permet de lier la voie à une zone. Elle sera <img src="Medias/Icons/dots-horizontal_orange.svg" width="12" align="absmiddle"> si la voie est n'est pas liée à une zone, sinon elle sera <img src="Medias/Icons/dots-horizontal_green.svg" width="12" align="absmiddle">.
 
-> Lorsque la voie est liée à une zone, un numéro indiquant la zone liée a été ajouté après l'icone <img src="Medias/Icons/voie_liee_zone_id.png">
+> Lorsque la voie est liée à une zone, un numéro indiquant la zone liée a été ajouté après l'icone <img src="Medias/Icons/voie_liee_zone_id.jpg">
 
 <img src="Medias/Icons/check-network-outline.svg" width="14" align="absmiddle"> : Indique si la voie est connectée. Elle sera <img src="Medias/Icons/check-network-outline_grey.svg" width="14" align="absmiddle"> en mode démo, sinon <img src="Medias/Icons/check-network-outline_green.svg" width="14" align="absmiddle"> si la voie est connectée, et <img src="Medias/Icons/check-network-outline_red.svg" width="14" align="absmiddle"> si la voie est déconnectée. Elle permet du coup de savoir si on est en mode démo ou production (icone grise ou colorée) toute comme la même icone sur la carte zone.
 
