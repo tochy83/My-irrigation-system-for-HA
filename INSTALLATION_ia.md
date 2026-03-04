@@ -66,11 +66,7 @@ homeassistant:
 
 ```
 
-*Si elle n'existe pas, ajoutez-la, vérifiez la configuration et redémarrez Home Assistant.*
-
-> [!TIP]
-> Pour en savoir plus sur l'intérêt des packages, consultez cet [article sur Domo-blog.fr](https://www.domo-blog.fr/packages-home-assistant-organiser-configuration-code-yaml-domotique/).
-
+Si elle n'existe pas, ajoutez-la.
 
 > [!NOTE] 
 > Il est possible, si vous utilisez déjà les packages mais de manière différente et que vous ayez la ligne :
@@ -78,6 +74,9 @@ homeassistant:
 >packages: !include_dir_merge_named packages/
 > ```
 > Dans ce cas il y a quelques modifications à faire pour rendre l'intégration instalable.
+
+> [!TIP]
+> Pour en savoir plus sur l'intérêt des packages, consultez cet [article sur Domo-blog.fr](https://www.domo-blog.fr/packages-home-assistant-organiser-configuration-code-yaml-domotique/).
 
 ##
 
