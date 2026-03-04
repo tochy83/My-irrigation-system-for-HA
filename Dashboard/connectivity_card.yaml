@@ -1,23 +1,32 @@
-type: custom:mushroom-template-card
-entity: binary_sensor.arrosage_electrovannes_connected
-primary: Electrovannes
-secondary: |-
-  {% if is_state(entity, "on") %}
-    Connecté
-  {% else %}
-    Déconnecté
-  {% endif %}
-icon_color: |-
-  {% if is_state(entity, "on") %}
-    light-blue
-  {% else %}
-    red
-  {% endif %}
-icon: |-
-  {% if is_state(entity, "on") %}
-    mdi:check-network-outline   
-  {% else %}
-    mdi:network-off-outline
-  {% endif %}
-grid_options:
-  columns: full
+type: grid
+square: false
+columns: 2
+cards:
+  - type: custom:mushroom-template-card
+    entity: sensor.misha_arrosage_data_zones
+    primary: "{{ states('input_text.misha_arrosage_nom_de_zone_1') }}"
+    secondary: >-
+      {%- set data_zones = (state_attr(entity, 'data_zones') |
+      from_json).get('zone_' ~ 1) %}
+
+      {%- set connectivity = 'Connectée' if not data_zones.zone_disconnected
+      else 'Déconnectée' %}
+
+      {%- set connectivity = 'Partiellement connectée' if not
+      data_zones.zone_disconnected and (data_zones.voies_hors_ligne |
+      default([]) | count) > 0 else connectivity %}
+
+      {{ connectivity }}
+    icon: >-
+      {%- set data_zones = (state_attr(entity, 'data_zones') |
+      from_json).get('zone_' ~ 1) %}
+
+      {{ 'mdi:check-network-outline' if not data_zones.zone_disconnected else
+      'mdi:network-off-outline' }}
+    color: >-
+      {%- set data_zones = (state_attr(entity, 'data_zones') |
+      from_json).get('zone_' ~ 1) %}
+
+      {{ data_zones.color_network }}
+    features_position: bottom
+

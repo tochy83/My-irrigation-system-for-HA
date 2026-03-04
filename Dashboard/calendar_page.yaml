@@ -2,7 +2,8 @@ type: sections
 max_columns: 2
 title: Planning arrosage
 path: planning-arrosage
-icon: mdi:calendar
+icon: mdi:calendar-clock
+cards: []
 sections:
   - type: grid
     cards:
@@ -11,17 +12,13 @@ sections:
           - type: back
           - type: template
             content: PROGRAMMATION ARROSAGE
-            double_tap_action:
-              action: none
             tap_action:
               action: none
-            hold_action:
-              action: none
-            card_mod:
+            uix:
               style: |
                 ha-card {
                   border: none;
-                  background: transparent !important;
+                  background: none !important;
                 }
         grid_options:
           columns: full
@@ -29,121 +26,192 @@ sections:
     column_span: 2
   - type: grid
     cards:
-      - type: custom:mod-card
-        card:
-          type: custom:mushroom-title-card
-          title: ""
-          subtitle: Calendrier d'arrosage
-        card_mod:
-          style:
-            mushroom-title-card$: |
-              .subtitle {
-                border-bottom: 1px solid var(--ha-card-border-color,var(--divider-color,#e0e0e0));
-                padding-bottom: 0px;
-              }
-              .header {
-                margin-bottom: -7px;
-              }
-      - type: horizontal-stack
-        cards:
-          - type: custom:vertical-stack-in-card
-            cards:
-              - type: custom:mushroom-template-card
-                multiline_secondary: true
-                primary: ""
-                secondary: Vous n'avez pas encore crée de calendrier pour l'arrosage.
-                icon: mdi:alert
-                icon_color: deep-orange
-                tap_action:
-                  action: none
-                hold_action:
-                  action: none
-                double_tap_action:
-                  action: none
-                card_mod:
-                  style: |
-                    ha-card {
-                      background-color: #FAEFDB;
-                    }
-              - type: custom:mushroom-chips-card
-                chips:
-                  - type: template
-                    icon: mdi:calendar-edit-outline
-                    tap_action:
-                      action: navigate
-                      navigation_path: /calendar
-                    card_mod:
-                      style: |
-                        ha-card {
-                          border:none; 
-                          --chip-border-radius: 12px;
-                          --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
-                        }
-                alignment: end
-                card_mod:
-                  style: |
-                    ha-card {
-                      margin-top: -46px;
-                      margin-left: 50%;
-                      padding-bottom: 8px;
-                      padding-left: 8px;
-                      padding-right: 8px;
-                    }
-        grid_options:
-          columns: full
-        visibility:
-          - condition: state
-            entity: calendar.arrosage
-            state: unknown
+      - type: custom:mushroom-title-card
+        title: ""
+        subtitle: Calendrier d'arrosage
+        uix:
+          style: |
+            .subtitle {
+              border-bottom: 1px solid var(--ha-card-border-color,var(--divider-color,#e0e0e0));
+              padding-bottom: 0px;
+            }
+            .header {
+              margin-bottom: -7px;
+            }
       - type: vertical-stack
         cards:
-          - type: calendar
-            entities:
-              - calendar.arrosage
-          - type: custom:mushroom-chips-card
-            chips:
-              - type: template
-                tap_action:
-                  action: navigate
-                  navigation_path: /calendar
-                icon: mdi:plus
-                icon_color: white
-                content: ""
-            alignment: end
-            card_mod:
+          - type: custom:mod-card
+            uix:
               style: |
                 ha-card {
-                  --chip-background: #0CACF4;
-                  --chip-border-color: #0CACF4;
-                  --primary-text-color: white;
-                  padding-right: 8px;
+                  background: #fff4e0;
+                  --grid-card-gap: 0x;
+                  border: 1px solid #dbdbdb;
                 }
-        visibility:
-          - condition: state
-            entity: calendar.arrosage
-            state_not: unknown
+            card:
+              type: grid
+              square: false
+              cards:
+                - type: custom:mushroom-template-card
+                  multiline_secondary: true
+                  primary: ""
+                  secondary: >-
+                    Vous n'avez pas encore installé l'intégration Calendrier
+                    local.
+                  icon: mdi:calendar-clock
+                  tap_action:
+                    action: none
+                  color: deep-orange
+                  features_position: bottom
+                  uix:
+                    style: |
+                      ha-card {
+                        border: none;
+                        background: none;
+                        margin-right: -100%;
+                        padding-right: 100px;
+                      }
+                - type: custom:mushroom-chips-card
+                  chips:
+                    - type: template
+                      icon: mdi:devices
+                      tap_action:
+                        action: navigate
+                        navigation_path: /config/integrations/dashboard
+                      uix:
+                        style: |
+                          ha-card {
+                            border:none;
+                            --chip-border-radius: 12px;
+                            --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                          }
+                    - type: template
+                      tap_action:
+                        action: url
+                        url_path: >-
+                          https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/INSTALLATION.md#--etape-10-
+                      icon: mdi:help-circle-outline
+                      icon_color: light-blue
+                      uix:
+                        style: |
+                          ha-card {
+                            border:none;
+                            --chip-border-radius: 12px;
+                            --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                          }
+                  alignment: end
+                  uix:
+                    style: |
+                      ha-card {
+                        background: none;
+                        padding-right: 8px;
+                        padding-top: 9px;
+                      }
+              columns: 2
+            grid_options:
+              columns: full
+            visibility:
+              - condition: state
+                entity: sensor.calendars
+                state: "0"
+          - type: custom:mod-card
+            uix:
+              style: |
+                ha-card {
+                  background: #fff4e0;
+                  --grid-card-gap: 0x;
+                  border: 1px solid #dbdbdb;
+                }
+            card:
+              type: grid
+              square: false
+              cards:
+                - type: custom:mushroom-template-card
+                  multiline_secondary: true
+                  primary: ""
+                  secondary: Vous n'avez pas encore créé de calendrier nommé Arrosage.
+                  icon: mdi:calendar-clock
+                  tap_action:
+                    action: none
+                  color: deep-orange
+                  features_position: bottom
+                  uix:
+                    style: |
+                      ha-card {
+                        border: none;
+                        background: none;
+                        margin-right: -100%;
+                        padding-right: 100px;
+                      }
+                - type: custom:mushroom-chips-card
+                  chips:
+                    - type: template
+                      icon: mdi:calendar-edit-outline
+                      tap_action:
+                        action: navigate
+                        navigation_path: /calendar
+                      uix:
+                        style: |
+                          ha-card {
+                            border:none; 
+                            --chip-border-radius: 12px;
+                            --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                          }
+                    - type: template
+                      tap_action:
+                        action: url
+                        url_path: >-
+                          https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/INSTALLATION.md#--etape-10-
+                      icon: mdi:help-circle-outline
+                      icon_color: light-blue
+                      uix:
+                        style: |
+                          ha-card {
+                            border:none; 
+                            --chip-border-radius: 12px;
+                            --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                          }
+                  alignment: end
+                  uix:
+                    style: |
+                      ha-card {
+                        background: none;
+                        padding-right: 8px;
+                        padding-top: 9px;
+                      }
+              columns: 2
+            grid_options:
+              columns: full
+            visibility:
+              - condition: state
+                entity: calendar.arrosage
+                state: unknown
+              - condition: numeric_state
+                entity: sensor.calendars
+                above: 0
+        grid_options:
+          columns: full
+      - type: calendar
+        entities:
+          - calendar.arrosage
   - type: grid
     cards:
-      - type: custom:mod-card
-        card:
-          type: custom:mushroom-title-card
-          title: ""
-          subtitle: Infos complémentaires
-        card_mod:
-          style:
-            mushroom-title-card$: |
-              .subtitle {
-                border-bottom: 1px solid var(--ha-card-border-color,var(--divider-color,#e0e0e0));
-                padding-bottom: 0px;
-              }
-              .header {
-                margin-bottom: -7px;
-              }
+      - type: custom:mushroom-title-card
+        title: ""
+        subtitle: Infos complémentaires
+        uix:
+          style: |
+            .subtitle {
+              border-bottom: 1px solid var(--ha-card-border-color,var(--divider-color,#e0e0e0));
+              padding-bottom: 0px;
+            }
+            .header {
+              margin-bottom: -7px;
+            }
       - type: markdown
-        content: >-
-          - Pour ajouter une programmation cliquez sur l'icone <font color
-          ="#0cacf4"><ha-icon icon="mdi:plus-circle"></ha-icon></font> sous le
-          calendrier.<br><br>
+        content: >
+          - Pour ajouter une programmation cliquez sur le bouton <font color
+          ="#03a9f4">**Ajouter un évènement**</font> sur le calendrier.<br><br>
 
           - Pour modifier/supprimer une programmation vous pouvez cliquez
           directement dessus dans le calendrier ci-contre/ci-dessus.<br><br>
@@ -156,16 +224,35 @@ sections:
           </font>** de la zone d'arrosage concernée comme résumé du
           calendrier.<br><br>
 
-          - Pour rappel, les noms de vos zones sont :
+          - Pour rappel, les noms de vos zones ainsi que la durée de leur cycle
+          sont :
 
-          {%- for item in states.sensor.arrosage_noms_des_zones.attributes |
-          select('match', 'zone_') %}
+          {%- set coeff =
+          states('input_number.misha_arrosage_coefficient_meteo') | float(1) %}
 
-          {% if not is_state_attr('sensor.arrosage_noms_des_zones' , item,
-          'Nom_de_la_'~item ) %} Pour la {{ item | replace('_',' ') }} : **<font
-          color =orange>{{ state_attr('sensor.arrosage_noms_des_zones' , item)
-          }}</font>** {% endif %} {% endfor %}
-        card_mod:
+          {%- set data_zones = state_attr('sensor.misha_arrosage_data_zones',
+          'data_zones') | from_json %}
+
+          {%- for item in states['input_text'] 
+
+          |
+          selectattr('entity_id','match','input_text.misha_arrosage_nom_de_zone_') 
+
+          |map(attribute='entity_id') %}
+
+          {%- set zone_id = item |
+          replace('input_text.misha_arrosage_nom_de_zone_','') | replace('_','
+          ')%}
+
+          {%- set duree = data_zones['zone_' ~ zone_id].duree_cycle%}
+
+          {%- set duree = duree if coeff == 1 else duree/coeff %}
+
+          Pour la zone {{ zone_id }} : **<font color =orange>{{ states(item)
+          }}</font>** ({{duree| timestamp_custom('%M min %S s')}})
+
+          {%- endfor %}
+        uix:
           style: |
             ha-card {
               color: var(--secondary-text-color);
@@ -175,4 +262,4 @@ sections:
               ha-markdown.no-header {
               padding-bottom: 0px !important;
             }      
-cards: []
+

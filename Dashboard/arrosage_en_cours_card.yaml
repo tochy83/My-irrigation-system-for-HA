@@ -1,0 +1,71 @@
+type: conditional
+conditions:
+  - condition: state
+    entity: input_boolean.misha_arrosage_cycle_zone_1
+    state: "on"
+card:
+  type: custom:mod-card
+  uix:
+    style: |
+      ha-card {
+        background: #e8f3db;
+        --grid-card-gap: 0x;
+        border: 1px solid #dbdbdb;
+      }
+  card:
+    type: grid
+    square: false
+    cards:
+      - type: custom:mushroom-template-card
+        multiline_secondary: true
+        primary: ""
+        secondary: >-
+          L arrosage de la zone
+          {{states('input_text.misha_arrosage_nom_de_zone_1')}} est en cours.
+          Arrêt prévu à
+          {{state_attr('input_datetime.misha_arrosage_duree_cycle_zone_1',
+          'timestamp')| timestamp_custom("%Hh%M", true, now())}}
+        icon: mdi:sprinkler-variant
+        tap_action:
+          action: none
+        color: light-green
+        features_position: bottom
+        uix:
+          style: |
+            ha-card {
+              border: none;
+              background: none;
+              margin-right: -100%;
+              padding-right: 100px;
+            }
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: template
+            icon: mdi:stop
+            tap_action:
+              action: perform-action
+              perform_action: script.misha_arrosage_arret
+              data:
+                zone_id: "1"
+            uix:
+              style: |
+                ha-card {
+                  border:none; 
+                  --chip-border-radius: 12px;
+                  --chip-background: rgba(var(--rgb-primary-text-color), 0.1);
+                }
+        alignment: end
+        uix:
+          style: |
+            ha-card {
+              background: none;
+              padding-right: 8px;
+              padding-top: 9px;
+            }
+    columns: 2
+grid_options:
+  columns: full
+visibility:
+  - condition: state
+    entity: input_boolean.misha_arrosage_cycle_zone_1
+    state: "on"

@@ -3,12 +3,27 @@ chips:
   - type: back
   - type: template
     content: ARROSAGE
-    card_mod:
+    uix:
       style: |
         ha-card {
           border: none;
-          background: transparent !important;
+          background: none !important;
         }
+  - type: spacer
+  - type: template
+    icon: mdi:calendar-clock
+    icon_color: >-
+      {{ 'deep-orange' if is_state('calendar.arrosage', 'unknown') else
+      'light-green' }}
+    tap_action:
+      action: navigate
+      navigation_path: planning-arrosage
+  - type: template
+    icon: mdi:tune
+    icon_color: deep-orange
+    tap_action:
+      action: navigate
+      navigation_path: parametres-dashboard-arrosage
 grid_options:
   columns: full
   rows: auto
