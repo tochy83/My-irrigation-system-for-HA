@@ -171,4 +171,5 @@ Il ne vous reste plus qu'à tester toutes les fonctionnalités. Pour la partie p
 </div>
 
 *<p align="center">Une vidéo complète de l'installation pas à pas en partant d'un Home Assistant vierge ou j'ai juste installé tous les modules complémentaires et intégrations nécessaires à l'installation et au fonctionnement du Dashboard. La seule différence avec les étapes décrites ci-dessus est que je passerai par l'explorateur de fichiers windows pour créer les différents dossiers nécessaires au packages et copier les fichiers car c'est plus rapide pour la vidéo.</p>*
+
 <br><br><br><br><br>
