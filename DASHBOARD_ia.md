@@ -350,7 +350,7 @@ En cas d'ajout/suppression une carte apparaitra, indiquant qu'il est nécessaire
 
 <p align="center"><img src="Medias/restart_needed_card.jpg"></p>
 
-En cas de suppression et après redémmarage du serveur, une carte listant les entités orphelines apparaitra, pour vous rappeler de les supprimer.
+En cas de suppression et après redémarrage du serveur, une carte listant les entités orphelines apparaitra, pour vous rappeler de les supprimer.
 
 <p align="center"><img src="Medias/entites_orphelines_card.jpg"></p>
 
