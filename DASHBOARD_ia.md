@@ -368,4 +368,4 @@ Cette carte se masquera une fois les entités orphelines supprimées.
 ```
 </details>
 
-<hr>
+<br><br><br><br><br>
