@@ -1,0 +1,77 @@
+# Name : scripts_supprimer_fichiers_voie.yaml
+
+
+script:
+
+  misha_arrosage_supprimer_fichiers_voie:
+    alias: Misha Arrosage - Supprimer fichiers voie
+    description: >-
+      Script qui permet de supprimer les fichiers (entrées, automatisations et scripts) pour la dernière voie existante.
+
+
+      Stocke le nombre de voie. Supprime le label de voie.
+    sequence:
+      - alias: "Reset des entités à supprimer"
+        repeat:
+          for_each:
+            - { cible: "input_number.misha_arrosage_duree_voie_", action: "input_number.set_value", valeur: 0 }
+            - { cible: "input_text.misha_arrosage_dernier_declenchement_voie_", action: "input_text.set_value", valeur: "unknown" }
+            - { cible: "input_text.misha_arrosage_volume_voie_", action: "input_text.set_value", valeur: "unknown" }
+            - { cible: "input_boolean.misha_arrosage_enable_voie_", action: "input_boolean.turn_off" }
+            - { cible: "input_boolean.misha_arrosage_electrovanne_virtuelle_", action: "input_boolean.turn_off" }
+            - { cible: "switch.misha_arrosage_electrovanne_", action: "switch.turn_off" }
+          sequence:
+            - alias: "Appliquer le reset pour chaque entité définie dans la liste"
+              action: "{{ repeat.item.action }}"
+              target:
+                entity_id: "{{ repeat.item.cible }}{{ states('input_number.misha_arrosage_nb_file_voies')|int }}"
+              data: "{{ {'value': repeat.item.valeur} if 'set_value' in repeat.item.action else {} }}"
+
+      - alias: "Suppression du label de voie si il existe"
+        choose:
+          - conditions:
+              - alias: "Le label existe"
+                condition: template
+                value_template: "{{ label_id('Misha Voie ' ~ states('input_number.misha_arrosage_nb_file_voies')|int) is not none }}"
+            sequence:
+              - alias: "Supprimer le label de la voie (with Spook)"              
+                action: homeassistant.delete_label
+                data:
+                  label_id: "misha_voie_{{ states('input_number.misha_arrosage_nb_file_voies')|int }}"
+
+      - alias: "Lancer le script python de suppression des fichiers de la voie"
+        action: shell_command.misha_arrosage_supprimer_fichiers_voie
+        response_variable: result
+      - variables: # Récupération du numéro de la voie supprimée depuis le retour du script python
+          voie_supprimee: "{{ result.stdout | int }}"
+
+      - action: logbook.log # Ecriture des événements dans les logs (Est ce vraiment nécessaire)
+        data:
+          name: "Suppression des entités pour la dernière voie existante"
+          message: "Fichier voie_{{ voie_supprimee }}.yaml supprimé"
+          entity_id: input_number.misha_arrosage_nb_file_voies
+      - action: logbook.log
+        data:
+          name: "Suppression du script pour la dernière voie existante"
+          message: "Fichier script_arrosage_declenchement_auto_voie_{{ voie_supprimee }}.yaml supprimé"
+          entity_id: input_number.misha_arrosage_nb_file_voies
+      - action: logbook.log
+        data:
+          name: "Suppression de l'automatisation pour la dernière voie existante"
+          message: "Fichier automatisation_arrosage_voie_{{ voie_supprimee }}.yaml supprimé"
+          entity_id: input_number.misha_arrosage_nb_file_voies 
+
+      - alias: "Mettre à jour le nombre de voies"
+        action: input_number.set_value
+        data:
+          entity_id: input_number.misha_arrosage_nb_file_voies
+          value: "{{ (voie_supprimee | int) - 1 }}"
+
+      - alias: "Définir qu'un redémarrage est nécessaire"
+        action: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.misha_arrosage_restart_needed
+
+      - delay:
+          milliseconds: 200
+    mode: single

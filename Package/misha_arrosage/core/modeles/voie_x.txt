@@ -1,0 +1,74 @@
+# Name : voie_[X].yaml
+
+
+timer:
+  misha_arrosage_voie_[X]:
+    name: Misha arrosage - Timer voie [X]
+    duration: "00:00:00"
+    restore: true
+
+input_number:
+  misha_arrosage_duree_voie_[X]:  # Définit la durée d'arrosage de la voie [X]
+    name: Misha arrosage - Durée timer voie [X]
+    min: 0
+    max: 1800
+    step: 10
+    mode: slider
+    unit_of_measurement: secondes
+
+input_text:
+  misha_arrosage_dernier_declenchement_voie_[X]:  # Stocke la date du dernier déclenchement de la voie [X]
+    name: Misha arrosage - Dernier déclenchement voie [X]
+    min: 0
+    max: 40
+
+  misha_arrosage_volume_voie_[X]:  # Stocke le volume d'eau du dernier déclenchement de la voie [X]
+    name: Misha arrosage - Dernier volume voie [X]
+    min: 0
+    max: 10
+
+input_boolean:
+  misha_arrosage_enable_voie_[X]:  # Définit si la voie [X] doit être incluse dans les séquences d'arrosage
+    name: Misha arrosage - Enable voie [X]
+
+  misha_arrosage_electrovanne_virtuelle_[X]:
+    name: "Misha Arrosage - Électrovanne Virtuelle [X]"
+    icon: mdi:vibrate
+
+template:
+  - switch:
+      - name: "Misha arrosage - Electrovanne [X]"
+        unique_id: misha_arrosage_electrovanne_[X]
+        icon: mdi:sprinkler-variant
+        state: >- # Priorité à l'électrovanne réelle (via label voie_1), sinon virtuelle
+          {% set data_refresh = states('sensor.misha_arrosage_data_voies') %}
+          {% set reelle = label_entities('misha_voie_[X]') | first | default('none') %}
+          {% if reelle != 'none' %}
+            {{ states(reelle) }}
+          {% else %}
+            {{ states('input_boolean.misha_arrosage_electrovanne_virtuelle_[X]') }}
+          {% endif %}
+
+        availability: >- # On vérifie si le matériel réel répond
+          {% set data_refresh = states('sensor.misha_arrosage_data_voies') %}
+          {% set reelle = label_entities('misha_voie_[X]') | first | default('none') %}
+          {% set virtuelle = 'input_boolean.misha_arrosage_electrovanne_virtuelle_[X]' %}
+          {% if reelle != 'none' %}
+            {{ states(reelle) not in ['unavailable', 'unknown'] }}
+          {% else %}
+            {{ states(virtuelle) not in ['unavailable', 'unknown'] }}
+          {% endif %}
+        
+        turn_on:
+          action: homeassistant.turn_on
+          target:
+            entity_id: >-
+              {% set electrovanne_reelle = label_entities('misha_voie_[X]') | first | default('none') %}
+              {{ electrovanne_reelle if electrovanne_reelle != 'none' else 'input_boolean.misha_arrosage_electrovanne_virtuelle_[X]' }}
+              
+        turn_off:
+          action: homeassistant.turn_off
+          target:
+            entity_id: >-
+              {% set electrovanne_reelle = label_entities('misha_voie_[X]') | first | default('none') %}
+              {{ electrovanne_reelle if electrovanne_reelle != 'none' else 'input_boolean.misha_arrosage_electrovanne_virtuelle_[X]' }}

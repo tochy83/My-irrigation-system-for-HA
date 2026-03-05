@@ -1,0 +1,40 @@
+# Name : automatisation_calendrier.yaml
+
+
+automation:
+
+  - id: 'misha_arrosage_calendrier'
+    alias: Misha Arrosage - Calendrier
+    description: >-
+      Détecte les événéments sur le calendrier Arrosage pour démarrer les cycles
+      d'arrosage programmés    
+    triggers:
+      - event: start
+        offset: "0:0:0"
+        entity_id: calendar.arrosage
+        trigger: calendar
+    conditions: []
+    actions:
+      - variables: # Récupération du nom et numero de zone
+          zone_nom: >-
+            {{ states['input_text']
+            |selectattr('entity_id','match','input_text.misha_arrosage_nom_de_zone_')
+            |selectattr('state', 'in', trigger.calendar_event.summary)
+            |map(attribute='entity_id') |join }}
+          zone_id: "{{ zone_nom | replace('input_text.misha_arrosage_nom_de_zone_','') }}"
+
+      - alias: "Le nom de zone est présent dans le résumé de l'événement sur le calendrier"
+        condition: template
+        value_template: >-
+          {{ states('input_text.misha_arrosage_nom_de_zone_'~zone_id) in trigger.calendar_event.summary }}
+      - alias: "La programmation de la zone est activée"
+        condition: template
+        value_template: >-
+          {{ is_state('input_boolean.misha_arrosage_programmation_zone_'~zone_id, 'on')}}
+      - alias: "Calcul du coefficient météo"
+        action: script.misha_arrosage_calcul_coefficient_meteo
+      - alias: "Lancer l'arrosage de la zone"
+        action: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.misha_arrosage_cycle_zone_{{ zone_id }}
+    mode: single

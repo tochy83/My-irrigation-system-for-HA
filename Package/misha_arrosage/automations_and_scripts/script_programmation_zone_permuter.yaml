@@ -1,0 +1,70 @@
+# Name : script_programmation_zone_permuter.yaml
+
+
+script:
+
+  misha_arrosage_programmation_zone_permuter_on_off:
+    alias: Misha Arrosage - Permuter programmation zone on/off
+    description: "Permet de d'activer ou désactiver la programmation d'arrosage pour une zone"
+    mode: restart
+
+    fields:
+      zone_id:
+        name: Numéro de la zone
+        description: Le numéro de la zone pour laquelle permuter la programmation
+        selector:
+          text: null
+    sequence:
+      - variables: # Récupération de entity_id, du nom, de l'état de programmation de la zone
+          entity_id: "input_boolean.misha_arrosage_programmation_zone_{{ zone_id }}"
+          zone_nom: "{{ states('input_text.misha_arrosage_nom_de_zone_' ~ zone_id) }}"
+          last_state_off: "{{ is_state('input_boolean.misha_arrosage_programmation_zone_' ~ zone_id, 'off') }}"
+
+      - alias: "Permuter la programmation de la zone"
+        action: input_boolean.toggle
+        target:
+          entity_id: "input_boolean.misha_arrosage_programmation_zone_{{ zone_id }}"
+      - alias: "Délai pour retour visuel"
+        delay:
+          milliseconds: 200
+
+      - alias: "Les différents choix possibles et leurs actions"
+        choose:
+          - conditions:
+              - alias: "La programmation de la zone était activée"
+                condition: template
+                value_template: "{{ not last_state_off }}"
+            sequence:
+              - alias: "Afficher la notification temporaire du dashboard"
+                action: script.misha_arrosage_notifications_temporaires
+                data:
+                  notifs: "programmation_off_zone_{{ zone_id }}"
+                  duree: "3"
+          - conditions:
+              - alias: "Le calendrier Arrosage n'existe pas"
+                condition: template
+                value_template: "{{ states('calendar.arrosage') == 'unknown' }}"
+            sequence:
+              - alias: "Désactiver la programmation de la zone"
+                action: input_boolean.turn_off
+                target:
+                  entity_id: "input_boolean.misha_arrosage_programmation_zone_{{ zone_id }}"
+              - alias: "Afficher la notification temporaire du dashboard"
+                action: script.misha_arrosage_notifications_temporaires
+                data:
+                  notifs: "no_calendar_{{ zone_id }}"
+                  duree: "3"
+          - conditions:
+              - alias: "La zone n'as pas d'évènements prévus dans les 30 prochains jours"
+                condition: template
+                value_template: "{{ is_state('binary_sensor.misha_arrosage_evenements_xday_zone_' ~ zone_id, 'off') }}"
+            sequence:
+              - alias: "Activer la programmation de la zone"
+                action: input_boolean.turn_on
+                target:
+                  entity_id: "input_boolean.misha_arrosage_programmation_zone_{{ zone_id }}"
+              - alias: "Afficher la notification temporaire du dashboard"
+                action: script.misha_arrosage_notifications_temporaires
+                data:
+                  notifs: "programmation_no_evenements_zone_{{ zone_id }}"
+                  duree: "3"

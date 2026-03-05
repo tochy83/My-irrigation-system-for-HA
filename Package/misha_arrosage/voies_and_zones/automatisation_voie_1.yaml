@@ -1,0 +1,109 @@
+# Name : automatisation_arrosage_voie_1.yaml
+
+
+automation:
+  - id: 'misha_arrosage_voie_1'
+    alias: Misha Arrosage - Voie 1
+    description: >-
+      Permet de démarrer/arrêter le minuteur de la voie 1 et le stockage des données
+      propre à cette voie. Distingue le lancement manuel de la voie ou depuis une automatisation (durée avec coefficient pour l'automatisation).
+
+
+      Si vous avez moins de 1 voies d'arrosage vous pouvez supprimer cette
+      automatisation.
+    triggers:
+      - entity_id:
+          - switch.misha_arrosage_electrovanne_1
+        from: "off"
+        to: "on"
+        id: marche
+        trigger: state
+      - entity_id:
+          - switch.misha_arrosage_electrovanne_1
+        from: "on"
+        to: "off"
+        id: arret
+        trigger: state
+      - event_type: timer.finished
+        event_data:
+          entity_id: timer.misha_arrosage_voie_1
+        id: arret timer
+        trigger: event
+    conditions: []
+    actions:
+      - choose:
+          - conditions: # Déclenchement
+              - condition: trigger
+                id:
+                  - marche
+              - alias: "Durée voie > 0"
+                condition: template
+                value_template: "{{ states('input_number.misha_arrosage_duree_voie_1') | int(0) > 0 }}"
+            sequence:
+              - variables: # La voie n'est pas activée depuis une automatisation
+                  demarrage_manuel: "{{ trigger.to_state.context.parent_id == none }}"
+
+              - alias: "Initialiser le compteur d'eau"
+                action: input_text.set_value
+                target:
+                  entity_id:
+                    - input_text.misha_arrosage_volume_depart
+                data:
+                  value: "{{ states('sensor.misha_arrosage_compteur_eau') }}"
+              - alias: "Initialiser le timer selon le type de lancement de la voie (automatique ou manuel)"
+                action: timer.start 
+                target:
+                  entity_id: timer.misha_arrosage_voie_1
+                data:
+                  duration: >
+                    {% if demarrage_manuel %}
+                      {{ (states('input_number.misha_arrosage_duree_voie_1')|float) }}
+                    {% else %}
+                      {{ (states('input_number.misha_arrosage_duree_voie_1')|float) * (states('input_number.misha_arrosage_coefficient_meteo')|float) }}
+                    {% endif %}
+
+          - conditions: # Arret manuel
+              - condition: trigger
+                id:
+                  - arret
+            sequence:
+              - alias: "Arreter le timer"
+                action: timer.finish
+                target:
+                  entity_id:
+                    - timer.misha_arrosage_voie_1
+                
+          - conditions: # Fin du timer - Arret automatique
+              - condition: trigger
+                id:
+                  - arret timer
+            sequence:
+              - choose:
+                  - alias: "La voie est active"
+                    conditions:
+                      - condition: state
+                        entity_id: switch.misha_arrosage_electrovanne_1
+                        state: "on"          
+                    sequence:
+                      - alias: "Couper le voie"
+                        action: switch.turn_off
+                        target:
+                          entity_id: switch.misha_arrosage_electrovanne_1
+
+              - alias: "Enregistrer l'heure de fin"
+                action: input_text.set_value
+                data:
+                  value: "{{ as_local(now()).strftime('%d/%m à %-H:%M') }}"
+                target:
+                  entity_id: input_text.misha_arrosage_dernier_declenchement_voie_1
+              - alias: "Enregistrer le volume d'eau"
+                action: input_text.set_value
+                data:
+                  value: >-
+                    {{ states('sensor.misha_arrosage_compteur_eau')|int(0) -
+                    states('input_text.misha_arrosage_volume_depart')|int(0) }}
+                target:
+                  entity_id: input_text.misha_arrosage_volume_voie_1
+    mode: queued
+    max: 3
+    

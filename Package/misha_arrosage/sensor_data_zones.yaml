@@ -1,0 +1,107 @@
+# Name : sensor_data_zones.yaml
+
+
+template:
+  - sensor:
+      - name: "Misha arrosage - Data zones"
+        unique_id: misha_arrosage_data_zones
+        icon: mdi:sprinkler-variant
+        state: "{{ states('input_number.misha_arrosage_nb_file_zones') | int(0) }} zones"
+        attributes:
+          data_zones: >-
+            {%- set nb_zones = states('input_number.misha_arrosage_nb_file_zones') | int(0) -%}
+            {%- set nb_voies_max = states('input_number.misha_arrosage_nb_file_voies') | int(0) -%}
+            {%- set coef = states('input_number.misha_arrosage_coefficient_meteo') | float(1) -%}
+
+            {# Détection du mode production #}
+            {%- set ns_prod = namespace(actif=false) -%}
+            {%- for i in range(1, nb_voies_max + 1) -%}
+              {%- if label_entities('misha_voie_' ~ i) | count > 0 -%}
+                {%- set ns_prod.actif = true -%}
+              {%- endif -%}
+            {%- endfor -%}
+            {%- set mode_production_actif = ns_prod.actif -%}
+
+            {%- set ns_global = namespace(zones={}) -%}
+            
+            {%- for i in range(1, nb_zones + 1) -%}
+              {%- set zone_key = "zone_" ~ i -%}
+              {%- set label_id = "misha_zone_" ~ i -%}
+              {%- set ns_zone = namespace(duree = 0, deco = [], enable = [], incluses = [], no_time = [], voies_effectives = 0) -%}
+              
+              {# Récupération des voies de la zone #}
+              {%- set voies_ids = label_entities(label_id) 
+                | select('match', 'switch.misha_arrosage_electrovanne_') 
+                | map('replace', 'switch.misha_arrosage_electrovanne_', '') 
+                | map('int') | list | sort -%}
+              {%- set ns_zone.incluses = voies_ids -%}
+
+              {# Analyse individuelle par voie #}
+              {%- for item in voies_ids -%}
+                {%- set switch_entity = 'switch.misha_arrosage_electrovanne_' ~ item -%}
+                {%- set has_link = label_entities('misha_voie_' ~ item) | count > 0 -%}
+                {%- set voie_connected = not is_state(switch_entity, ['unavailable', 'unknown']) -%}
+                {%- set voie_duree = states('input_number.misha_arrosage_duree_voie_' ~ item) | float(0) -%}
+                {%- set is_enabled = is_state('input_boolean.misha_arrosage_enable_voie_' ~ item, 'on') -%}
+                
+                {# Gestion de la connectivité basée sur le mode production #}
+                {%- if mode_production_actif -%}
+                  {%- if has_link -%}
+                    {%- set ns_zone.voies_effectives = ns_zone.voies_effectives + 1 -%}
+                    {%- if not voie_connected -%}
+                      {%- set ns_zone.deco = ns_zone.deco + [item | int] -%}
+                    {%- endif -%}
+                  {%- endif -%}
+                {%- else -%}
+                  {# Mode démo : toutes les voies comptent pour la déco #}
+                  {%- set ns_zone.voies_effectives = ns_zone.voies_effectives + 1 -%}
+                  {%- if not voie_connected -%}
+                    {%- set ns_zone.deco = ns_zone.deco + [item | int] -%}
+                  {%- endif -%}
+                {%- endif -%}
+
+                {# Liste des voies sélectionnées #}
+                {%- if is_enabled -%}
+                  {%- set ns_zone.enable = ns_zone.enable + [item | int] -%}
+                {%- endif -%}
+
+                {# Calcul de la durée (conditionner à voie_connected) #}
+                {%- if is_enabled and voie_connected -%}
+                  {%- if voie_duree <= 0 -%}
+                    {%- set ns_zone.no_time = ns_zone.no_time + [item | int] -%}
+                  {%- else -%}
+                    {%- set ns_zone.duree = ns_zone.duree + (voie_duree * coef) -%}
+                  {%- endif -%}
+                {%- endif -%}
+              {%- endfor -%}
+
+              {# Zone déconnectée - Compare les déconnexions réelles aux voies attendues #}
+              {%- set zone_disconnected = (ns_zone.voies_effectives > 0 and ns_zone.deco | count == ns_zone.voies_effectives) -%}
+
+              {# Couleur pour nombre de voies #}
+              {%- set total_incluses = ns_zone.incluses | count -%}
+              {%- set color_text = '#bdbdbd' if not mode_production_actif
+                else 'red' if total_incluses == 0
+                else 'orange' if ns_zone.voies_effectives != total_incluses
+                else '#bdbdbd' -%}
+
+              {# Couleur pour l'état du réseau #}
+              {%- set color_network = 'light-grey' if not mode_production_actif 
+                else 'red' if zone_disconnected 
+                else 'orange' if ns_zone.deco | count > 0 
+                else 'light-green' -%}
+
+              {%- set zone_data = {
+                "voies_incluses": ns_zone.incluses,
+                "voies_effectives": ns_zone.voies_effectives,
+                "voies_enable": ns_zone.enable,
+                "voies_hors_ligne": ns_zone.deco,
+                "voies_sans_duree": ns_zone.no_time,
+                "duree_cycle": ns_zone.duree | round(1), 
+                "zone_disconnected": zone_disconnected,
+                "color_text": color_text,
+                "color_network": color_network
+              } -%}
+              {%- set ns_global.zones = dict(ns_global.zones, **{zone_key: zone_data}) -%}
+            {%- endfor -%}
+            {{ ns_global.zones | to_json }}

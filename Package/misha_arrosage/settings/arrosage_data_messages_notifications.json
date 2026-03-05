@@ -1,0 +1,84 @@
+{
+    "cycle_started": {
+        "titre": "{zone_nom}",
+        "message": "Arrosage démarré {heure}.",
+        "message_telegram": "Arrosage démarré {heure}.",
+        "color": "cyan",
+        "icon": "mdi:sprinkler-variant",
+        "tag": "arrosage zone {zone_id}",
+        "persistent": true
+    },
+    "cycle_ended": {
+        "titre": "{zone_nom}",
+        "message": "clear_notification",
+        "message_telegram": "Arrosage terminé {heure}.",
+        "color": "cyan",
+        "icon": "mdi:sprinkler-variant",
+        "tag": "arrosage zone {zone_id}",
+        "persistent": false
+    },
+    "cycle_ended_error": {
+      "titre": "{zone_nom}",
+      "message": "Arrosage terminé {heure}.\n{message_erreur}",
+      "message_telegram": "Arrosage terminé {heure}.\n{message_erreur}",
+      "color": "cyan",
+      "icon": "mdi:sprinkler-variant",
+      "tag": "arrosage zone {zone_id}",
+      "persistent": true
+  },
+    "cycle_stopped_manually": {
+        "titre": "{zone_nom}",
+        "message": "Arrêt manuel de l'arrosage {heure}.\n{message_erreur}",
+        "message_telegram": "Arrêt manuel de l'arrosage {heure}.\n{message_erreur}",
+        "color": "cyan",
+        "icon": "mdi:sprinkler-variant",
+        "tag": "arrosage zone {zone_id}",
+        "persistent": true
+    },
+    "zone_disconnected": {
+        "titre": "Arrosage - Problème",
+        "message": "Le cycle d'arrosage de la zone {zone_nom} ne peut pas démarrer. Toutes les voies d'arrosage de la zone sont déconnectées.",
+        "message_telegram": "Le cycle d'arrosage de la zone {zone_nom} ne peut pas démarrer. Toutes les voies d'arrosage de la zone sont déconnectées.",
+        "color": "red",
+        "icon": "mdi:sprinkler-variant",
+        "tag": "arrosage",
+        "persistent": true
+      },
+      "zone_no_time": {
+        "titre": "Arrosage - Problème",
+        "message": "Aucune durée d'arrosage n'est définie, pour les voies incluses à la zone {zone_nom}.",
+        "message_telegram": "Aucune durée d'arrosage n'est définie, pour les voies incluses à la zone {zone_nom}.",
+        "color": "red",
+        "icon": "mdi:sprinkler-variant",
+        "tag": "arrosage",
+        "persistent": false
+      },
+      "coef_meteo": {
+        "titre": "{zone_nom}",
+        "message": "Pas d'arrosage nécessaire.",
+        "message_telegram": "Pas d'arrosage nécessaire.",
+        "color": "cyan",
+        "icon": "mdi:sprinkler-variant",
+        "tag": "arrosage zone {zone_id}",
+        "persistent": false
+      },
+      "server_restarted": {
+        "titre": "Arrosage interrompu",
+        "message": "Le serveur a redémarré alors que {zones_count} {pluriel_zones} en cours d'arrosage. Les voies actives au moment du redémarrage termineront leur cycle, les suivantes ne seront déclenchées.",
+        "message_telegram": "Le serveur a redémarré alors que {zones_count} {pluriel_zones} en cours d'arrosage. Les voies actives au moment du redémarrage termineront leur cycle, les suivantes ne seront déclenchées.",
+        "color": "red",
+        "icon": "mdi:sprinkler-variant",
+        "tag": "arrosage",
+        "persistent": true
+      },
+      "arrosage_alert": {
+        "titre": "Arrosage - Attention",
+        "message": "L'arrosage de la zone {zone_nom} semble être toujours en cours ! Un arrêt manuel de la zone a été declenché. Pensez à vérifier.",
+        "message_telegram": "L'arrosage de la zone {zone_nom} semble être toujours en cours ! Un arrêt manuel de la zone a été declenché. Pensez à vérifier.",
+        "color": "red",
+        "icon": "mdi:sprinkler-variant",
+        "tag": "arrosage",
+        "persistent": true
+      }
+}
+

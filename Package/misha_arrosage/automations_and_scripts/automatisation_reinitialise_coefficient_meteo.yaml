@@ -1,0 +1,25 @@
+# Name : automatisation_reinitialise_coefficient_meteo.yaml
+
+
+automation:
+
+  - id: 'misha_arrosage_reinitialise_coefficient_meteo'
+    alias: Misha Arrosage - Réinitialise coefficient météo
+    description: >-
+      Tous les jours à minuit, remet le coefficent météo à sa valeur initiale '1' (100%)
+
+
+      Vous pouvez exploiter ce coeffcient en modifiant le script 'script.misha_arrosage_calcul_coefficient_meteo'.
+      Le fichier de ce sript se trouve dans le fichier 'settings/script_coeff_meteo.yaml' du package.
+    mode: single
+    triggers:
+      - trigger: time
+        at: "00:00:00"
+    conditions: []
+    actions:
+      - alias: "Reinitialisation du coeff météo à sa valeur par defaut 1 (100%)"
+        action: input_number.set_value
+        data:
+          value: 1
+        target:
+          entity_id: input_number.misha_arrosage_coefficient_meteo

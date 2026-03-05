@@ -1,0 +1,54 @@
+# Name : script_notifications_temporaires.yaml
+
+
+script:
+
+  misha_arrosage_notifications_temporaires:
+    alias: Misha Arrosage - Notifications temporaires
+    description: "Permet de définir quelles notifications afficher ainsi que leurs durée"
+    mode: restart
+
+    fields: # Les champs passés en paramètres au script
+      notifs:
+        selector:
+          text: null
+        name: Notifs
+        required: true
+      duree:
+        selector:
+          text: null
+        name: Duree
+        required: true
+
+    sequence:
+      - alias: "Couper l'affichage des notifications temporaires du dashboard"
+        action: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.misha_arrosage_display_notifications
+      - alias: "Délai pour retour visuel"
+        delay:
+          milliseconds: 100
+        enabled: true
+      - alias: "Récupérer la notification temporaire à envoyer"
+        action: input_text.set_value
+        data:
+          value: "{{ notifs }}"
+        target:
+          entity_id: input_text.misha_arrosage_display_notifications_choix
+      - alias: "Afficher la notification temporaire du dashboard"        
+        action: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.misha_arrosage_display_notifications
+      - alias: "Temps d'affichage de la notification"
+        delay:
+          seconds: "{{ duree }}"
+      - alias: "Couper l'affichage des notifications temporaires du dashboard"
+        action: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.misha_arrosage_display_notifications
+      - alias: "Réinitialiser les notifications temporaires"
+        action: input_text.set_value
+        data:
+          value: "unknown"
+        target:
+          entity_id: input_text.misha_arrosage_display_notifications_choix

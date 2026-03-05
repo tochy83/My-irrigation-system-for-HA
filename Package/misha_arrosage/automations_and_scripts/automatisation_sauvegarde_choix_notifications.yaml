@@ -1,0 +1,21 @@
+# Name : automatisation_sauvegarde_choix_notifications.yaml
+
+
+automation:
+
+  - id: 'misha_arrosage_sauvegarde_choix_notifications_json'
+    alias: Misha Arrosage - Sauvegarde choix notifications json
+    description: Déclenche le script python pour sauvegarder les sélections des utilsateurs à notifier
+    triggers:
+      - entity_id:
+          - input_select.misha_arrosage_mobileapp_notifications
+          - input_select.misha_arrosage_telegram_notifications
+        trigger: state
+    actions:
+      - alias: "Lancer le script python pour la sauvegarde des préférences de notifications"
+        action: shell_command.misha_arrosage_data_preferences_notifications
+        data:
+          mobile_app: "{{ states('input_select.misha_arrosage_mobileapp_notifications') }}"
+          telegram: "{{ states('input_select.misha_arrosage_telegram_notifications') }}"
+    mode: queued
+    max: 10

@@ -1,0 +1,15 @@
+# Name : sensor_compteur_eau.yaml
+
+
+template:
+  - sensor:
+      - name: "Misha arrosage - Compteur eau" # Sensor faisant le lien vers un compteur d'eau
+        unique_id: misha_arrosage_compteur_eau
+        state: "{{ states(my_entity) | int(0) }}"
+        icon: mdi:water
+        unit_of_measurement: L
+        variables:
+          my_entity: sensor.d1mini_verger_compteur_eau_jour
+        # Si vous n'avez pas de moyen de comptabliser votre consommation d'eau, laissez le sensor ci-dessus tel quel il affichera juste 0.
+        # Si vous en avez un, remplacer 'sensor.d1mini_verger_compteur_eau_jour' dans la ligne 'my_entity:'
+        # par votre entité qui comptabilise votre consommation d'eau.

@@ -1,0 +1,94 @@
+# Name : generic_sensors.yaml
+# Dans ce fichier, se trouve les sensors utiles pour gérér des conditions
+
+
+template:
+  - binary_sensor:
+      - name: "Misha arrosage - Zone status" # Binary_sensor permettant se savoir si un cycle d'arrosage de zone est en cours (sert uniquement dans automation.misha_arrosage_alerte)
+        unique_id: misha_arrosage_zone_status
+        state: >-
+          {% set nb_zones = (states['input_boolean'] | selectattr('entity_id','match','input_boolean.misha_arrosage_cycle_zone_') | selectattr('state','eq','on') | list | count) %}
+          {{ iif(nb_zones == 0, 'off', 'on') }}
+
+input_text:
+  misha_arrosage_volume_depart:  # Stocke le volume d'arrosage au déclenchement d'une électrovanne
+    name: Misha arrosage - Volume de départ
+    min: 0
+    max: 10
+
+  misha_arrosage_display_notifications_choix:  # Stocke le "nom" de la la notification qui doit s'afficher. Le "nom" est définit par le trigger_id de l'automatisation 'arrosage_affichage_notifications_temporaires'
+    name: Misha arrosage - Affichage notifications choix
+    min: 0
+    max: 50
+
+input_boolean:
+  misha_arrosage_display_notifications:  # Définit si les notifications doivent être affichées
+    name: Misha arrosage - Affichage notifications
+
+  misha_arrosage_restart_needed:  # Définit si un redémarrage est nécessaire (suite à ajout/suppression de fichiers)
+    name: Misha arrosage - Restart needed
+
+input_select:
+  misha_arrosage_mobileapp_notifications:
+    name: Misha arrosage - Mobileapp notifications
+    options:
+      - "pas de notifications"
+
+  misha_arrosage_telegram_notifications:
+    name: Misha arrosage - Telegram notifications
+    options:
+      - "pas de notifications"
+
+input_number:
+  misha_arrosage_coefficient_meteo: # Coefficent pouvant être definit par automatisation pour augmenter ou diminuer le temps d'arrosage de chaque voie(Ex. Si 0.5 alors temps divisé par 2).
+                                    # Il est remis à sa valeur initiale (1) tous les jours à minuit par une l'automatisation 'automation.misha_arrosage_init_coeff' ou au redémarrage de Home Assistant.
+                                    # Vous pouvez l'exploiter par une automatisation (à créer) qui modifierai sa valeur, par exemple avant que le calendrier déclenche un cycle d'arrosage.
+    name: Misha arrosage - Coefficient météo
+    initial: 1
+    min: 0
+    max: 5
+    step: 0.1
+
+  misha_arrosage_nb_file_voies: # Stocke le numéro de la dernière voie (dont les entités existent) pour la génération automatique des fichiers
+    name: Misha arrosage - Nombre de voies avec entités
+    min: 0
+    max: 50
+    step: 1
+
+  misha_arrosage_nb_file_zones: # Stocke le numéro de la dernière zone (dont les entités existent) pour la génération automatique des fichiers
+    name: Misha arrosage - Nombre de zones avec entités
+    min: 0
+    max: 50
+    step: 1
+
+  misha_arrosage_nb_entites_orphelines: # Stocke le nombre d'entités orphelines suite à la suppression de fichiers du package arrosage
+    name: Misha arrosage - Nombre d'entités orphelines
+    min: 0
+    max: 500
+    step: 1    
+
+command_line:
+  - sensor:
+      name: "Misha arrosage - Data messages notifications" # Stocke les messages de notofication et leurs paramètrage
+      unique_id: misha_arrosage_data_messages_notifications
+      command: "cat /config/packages/misha_arrosage/settings/arrosage_data_messages_notifications.json"
+      value_template: "Json contenant les messages de notifications"
+      scan_interval: 86400
+      json_attributes:
+        - cycle_started
+        - cycle_ended
+        - cycle_ended_error
+        - cycle_stopped_manually
+        - zone_disconnected
+        - zone_no_time
+        - coef_meteo
+        - server_restarted
+        - arrosage_alert
+
+shell_command:
+  misha_arrosage_generer_fichiers_voie: "python3 /config/packages/misha_arrosage/core/python/arrosage_generer_fichiers_voie.py" # Génération automatique des fichiers pour les voies d'arrosage
+  misha_arrosage_generer_fichiers_zone: "python3 /config/packages/misha_arrosage/core/python/arrosage_generer_fichiers_zone.py" # Génération automatique des fichiers pour les zones d'arrosage
+  misha_arrosage_supprimer_fichiers_voie: "python3 /config/packages/misha_arrosage/core/python/arrosage_supprimer_fichiers_voie.py" # Supression des fichiers pour la dernière voie d'arrosage existante
+  misha_arrosage_supprimer_fichiers_zone: "python3 /config/packages/misha_arrosage/core/python/arrosage_supprimer_fichiers_zone.py" # Supression des fichiers pour la dernière zone d'arrosage existante
+  misha_arrosage_data_preferences_notifications: >-
+    python3 /config/packages/misha_arrosage/core/python/arrosage_data_preferences_notifications.py "{{ mobile_app | default('') }}" "{{ telegram | default('') }}"

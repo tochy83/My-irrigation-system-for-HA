@@ -1,0 +1,16 @@
+# Name : scripts_restart_ha.yaml
+
+
+script:
+
+  misha_arrosage_redemarrer_ha:
+    alias: Misha Arrosage - Redemarrer HA
+    description: >-
+      Redemarre Home Assistant avec une petite tempo pour avoir un retour visuel.
+    sequence:
+      - alias: "Délai pour retour visuel sur le dashboard"
+        delay:
+          milliseconds: 3000
+      - alias: "Redémarrer le serveur"
+        action: homeassistant.restart
+

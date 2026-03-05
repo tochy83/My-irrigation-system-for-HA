@@ -1,0 +1,146 @@
+# Name : script_arrosage_envoi_notifications.yaml
+
+
+script:
+
+  misha_arrosage_envoi_notifications:
+    alias: Misha Arrosage - Envoi des notifications
+    description: "Envoi des notifications, basé sur le fichier JSON (contenant les messages) avec gestion des variables"
+
+    fields: # Les champs passés en paramètres au script
+      message_id:
+        name: ID du message
+        description: "L'identifiant du message dans le JSON (ex: cycle_started)."
+        required: true
+        selector:
+          text: null
+      zone_id:
+        name: Numéro de zone
+        description: "Numéro de la zone."
+        selector:
+          text: null
+      zones_count:
+        name: Compteur de zones
+        selector:
+          text: null
+      pluriel_zones:
+        name: Texte pluriel
+        description: "Variable préformatée si 1 ou plusieurs zones sont en cours et que le serveur à redémarré."
+        selector:
+          text: null
+      heure:
+        name: Heure
+        description: "L'heure de l'événement."
+        selector:
+          text: null
+      json_error:
+        name: Voies en erreur
+        description: "Variable préformatée pour les voies hors ligne ou sans durée d'un cycle."
+        selector:
+          text: null
+
+    sequence:
+      - variables: # Récupération des messages de notification depuis les attributes de sensor.misha_arrosage_data_messages_notifications
+                   # et mise en forme des messages et paramètres en fonction des différentes variables
+          message_erreur: >
+            {# On transforme l'entrée en texte, on nettoie, et on reconstruit l'objet #}
+            {%- set clean_error = json_error | default('') | string | replace('"" ', '') | replace("'", '"') %}
+            {%- set data_error = clean_error | from_json if clean_error not in ["", "None", "unknown", "unavailable"] and clean_error.startswith('{') else {} %}
+            {%- if data_error.liste is defined and data_error.liste | count > 0 %}
+            {# ----------------------- C'est ici qu'ait construit le message si des voies sont en erreurs ------------------------------------ #}
+            {# Les datas à disposition sont data_error.liste, data_error.hors_ligne, data_error.sans_duree contenat chacune uns liste de voies #}
+            {# ------------------------------------------------------------------------------------------------------------------------------- #}
+              {%- set msg = [] %}
+              {%- if data_error.hors_ligne | count > 0 %}{% set msg = msg + ["Hors ligne: " ~ data_error.hors_ligne | join(',')] %}{% endif %}
+              {%- if data_error.sans_duree | count > 0 %}{% set msg = msg + ["Sans durée: " ~ data_error.sans_duree | join(',')] %}{% endif %}
+              {%- set prefixe = "Voie ignorée - " if (data_error.liste | count) == 1 else "Voies ignorées - " %}
+              {{ prefixe ~ (msg | join(' | ')) ~ "." }}
+            {# ------------------------------------------------------------------------------------------------------------------------------- #}
+            {# Le message par défaut : Voies ignorées - Hors ligne: x | Sans durée: y, z.                                                      #}
+            {# ------------------------------------------------------------------------------------------------------------------------------- #}
+            {%- else %}
+              {{ "" }}
+            {%- endif %}
+          data_messages: >
+            {% set data = states.sensor.misha_arrosage_data_messages_notifications.attributes %}
+            {{ data[message_id] if message_id in data else {} }}
+          zone_nom: >
+            {% if zone_id is defined and zone_id is not none %}
+              {{ states('input_text.misha_arrosage_nom_de_zone_' ~ zone_id) }}
+            {% else %} "" {% endif %}
+          titre: >-
+            {% set contenu = data_messages.titre | default('Arrosage') %}
+            {{ contenu | replace('{zone_nom}', zone_nom) 
+                       | replace('{zone_id}', zone_id | default('')) }}
+          message: >-
+            {% set contenu = data_messages.message | default('ID inconnu: ' ~ message_id) %}
+            {{ contenu | replace('{zone_nom}', zone_nom) 
+                       | replace('{zone_id}', zone_id | default('')) 
+                       | replace('{zones_count}', zones_count | default('')) 
+                       | replace('{pluriel_zones}', pluriel_zones | default('')) 
+                       | replace('{heure}', heure | default(''))
+                       | replace('{message_erreur}', message_erreur | default('')) }}
+          message_telegram: >-
+            {% set contenu = data_messages.message_telegram | default(data_messages.message | default('ID inconnu: ' ~ message_id)) %}
+            {{ contenu | replace('{zone_nom}', zone_nom) 
+                       | replace('{zone_id}', zone_id | default('')) 
+                       | replace('{zones_count}', zones_count | default('')) 
+                       | replace('{pluriel_zones}', pluriel_zones | default('')) 
+                       | replace('{heure}', heure | default(''))
+                       | replace('{message_erreur}', message_erreur | default('')) }}
+          tag: >-
+            {% set contenu = data_messages.tag | default('arrosage') %}
+            {{ contenu | replace('{zone_nom}', zone_nom) 
+                       | replace('{zone_id}', zone_id | default('')) }}
+
+      - alias: "Envoi des notifications vers app_mobile"
+        choose:
+          - conditions:
+              - alias: "Une app_mobile est sélectionnée"
+                condition: template
+                value_template: "{{ states('input_select.misha_arrosage_mobileapp_notifications') != 'pas de notifications' }}"
+            sequence:
+              - alias: "Envoi du message"
+                action: "notify.mobile_app_{{ states('input_select.misha_arrosage_mobileapp_notifications') }}"
+                data:
+                  message: "{{ message }}"
+                  title: "{{ titre }}"
+                  data:
+                    color: "{{ data_messages.color | default('cyan') }}"
+                    tag: "{{ tag }}"
+                    persistent: "{{ data_messages.persistent | default(false) }}"
+                    notification_icon: "{{ data_messages.icon | default('mdi:sprinkler-variant') }}"
+                    priority: high
+                    ttl: 0
+
+      - alias: "Envoi des notifications vers télégram"
+        choose:
+          - conditions:
+              - alias: "Un bot télégram est sélectionné"
+                condition: template
+                value_template: "{{ states('input_select.misha_arrosage_telegram_notifications') != 'pas de notifications' }}"
+            sequence:
+              - variables: # Recomposition du notifieur (notify.home_assistant_tochy_xxxxxxxxxx par exemple) depuis le choix dans la liste
+                  selection: "{{ states('input_select.misha_arrosage_telegram_notifications') }}"
+                  service_id: >
+                    {% set ns = namespace(id='') %} 
+                    {% for s in states.notify if s.entity_id.startswith('notify.telegram_') or s.entity_id.startswith('notify.home_assistant_') %}
+                      {% if s.attributes.friendly_name is defined %}
+                        {% set name = s.attributes.friendly_name.lower() | replace('home assistant', '') | trim %}
+                        {% if name == selection %}
+                          {% set ns.id = s.entity_id.split('.')[1] %}
+                        {% endif %}
+                      {% endif %}
+                    {% endfor %} 
+                    {{ ns.id }}
+              - alias: "un service de notification télégram est trouvé "
+                condition: template
+                value_template: "{{ service_id != '' }}"
+              - alias: "Envoi du message"
+                action: notify.send_message
+                target:
+                  entity_id: "notify.{{ service_id }}"
+                data:
+                  message: |-
+                    {{ titre | default('Arrosage') }}
+                    {{ message_telegram }}
