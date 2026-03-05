@@ -17,7 +17,7 @@ Retrouvez sur cette page toutes les cartes du **Dashboard Arrosage**, ainsi que 
 
 <br>
 
-📄 **Fichier :** `Dashboard/arrosage_page.yaml`
+📄 **Fichier :** [`Dashboard/arrosage_page.yaml`](Dashboard/arrosage_page.yaml)
 
 ```yml
 type: sections
