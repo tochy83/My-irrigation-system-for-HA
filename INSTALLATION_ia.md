@@ -2,6 +2,8 @@
 
 Vous trouverez ici toutes les explications nécessaires pour mettre en place le **Dashboard Arrosage**, ainsi que ses automatisations, scripts et entrées utiles.
 
+<br>
+
 ##
 
 ### 🛠️ Prérequis techniques
@@ -23,6 +25,8 @@ Avant de commencer, assurez-vous d'avoir les outils et intégrations suivants in
 > * **Android :** Entièrement supporté par défaut.
 > * **iOS :** La syntaxe des notifications peut varier, une adaptation du script sera peut être nécessaire.
 > * **Telegram :** Entièrement supporté par défaut (nécessite l'installation préalable de l'intégration Telegram).
+
+<br>
 
 ##
 
@@ -54,7 +58,7 @@ Installation déconseillée en l'état. Vous avez ces entités en commun avec l'
 <img src="Medias/Install/verify_not_ok.jpg" width="45%" alt="Vérification KO">
 </p>
 
-##
+<p align="center"><img src="Medias/Icons/divider.png"></p>
 
 #### **2️⃣ Activation des Packages**
 
@@ -78,7 +82,7 @@ Si elle n'existe pas, ajoutez-la.
 > [!TIP]
 > Pour en savoir plus sur l'intérêt des packages, consultez cet [`article sur Domo-blog.fr`](https://www.domo-blog.fr/packages-home-assistant-organiser-configuration-code-yaml-domotique/).
 
-##
+<p align="center"><img src="Medias/Icons/divider.png"></p>
 
 #### **3️⃣ Téléchargement**
 
@@ -86,7 +90,7 @@ Téléchargez le fichier ZIP contenant l'intégration depuis la [`page d'accueil
 
 <p align="center"><img src="Medias/Install/download_from_github.gif" alt="Download GitHub"></p>
 
-##
+<p align="center"><img src="Medias/Icons/divider.png"></p>
 
 #### **4️⃣ Transfert des fichiers**
 
@@ -102,7 +106,7 @@ Téléchargez le fichier ZIP contenant l'intégration depuis la [`page d'accueil
 
 <p align="center"><img src="Medias/Install/structure_dossier_packages.jpg" alt="Structure dossiers"></p>
 
-##
+<p align="center"><img src="Medias/Icons/divider.png"></p>
 
 #### **5️⃣ Redémarrage du serveur**
 
@@ -112,7 +116,7 @@ Pour finaliser l'installation, il faut maintenant redémarrer Home Assistant. Al
 > Si le message `La configuration n'empêchera pas Home Assistant de démarrer !` n'apparaissait pas il est probable que vous ayez fait une erreur à l'étape 2️⃣ ou 4️⃣.
 > Vérifiez donc ces 2 étapes.
 
-##
+<p align="center"><img src="Medias/Icons/divider.png"></p>
 
 #### **6️⃣ Mise en place du Dashboard**
 
@@ -121,7 +125,7 @@ Pour finaliser l'installation, il faut maintenant redémarrer Home Assistant. Al
 
 <p align="center"><img src="Medias/Install/add_dashboard.gif" alt="Ajout Dashboard"></p>
 
-##
+<p align="center"><img src="Medias/Icons/divider.png"></p>
 
 #### **7️⃣ Configuration du Calendrier**
 
@@ -135,7 +139,7 @@ Ajoutez l'intégration **Calendrier local** (si vous ne l'utilisez pas déja) et
 > [!NOTE] 
 > Si vous avez déjà un calendrier nommé `Arrosage`, c'est celui-ci qui sera utilisé.
 
-##
+<p align="center"><img src="Medias/Icons/divider.png"></p>
 
 #### **8️⃣ Liaison avec Calendar Merge**
 
@@ -153,6 +157,8 @@ Configurez une entrée pour l'intégration **Calendar Merge**.
 <img src="Medias/Install/add_calendar_merge_int.gif" width="45%">
 <img src="Medias/Install/config_calendar_merge.gif" width="45%">
 </p>
+
+<br>
 
 ##
 

@@ -5,6 +5,8 @@ Retrouvez sur cette page toutes les cartes du **Dashboard Arrosage**, ainsi que 
 > [!NOTE]
 > Certains screenshots ou vidéos peuvent présenter de légères différences suite aux mises à jour de l'intégration. Dans ce cas une note est ajoutée à la partie concernée.
 
+<br>
+
 ##
 
 
@@ -131,6 +133,8 @@ Une carte grid, regroupant les cartes de connectivité de chaque zone.
 
 >📄 **Code de la carte :** [`Dashboard/connectivity_card.yaml`](Dashboard/connectivity_card.yaml)
 
+<br>
+
 ##
 
 
@@ -145,6 +149,8 @@ On retrouve en haut de la page une carte de navigation comme sur la page princip
 La section `informations complémentaires` comprend des informations utiles pour l'ajout d'évènements au calendrier d'arrosage.
 
 >📄 **Code de la page :** [`Dashboard/calendar_page.yaml`](Dashboard/calendar_page.yaml)
+
+<br>
 
 ##
 
