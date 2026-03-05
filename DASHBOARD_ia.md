@@ -173,6 +173,8 @@ Cette carte se masquera une fois les entités orphelines supprimées.
 
 >📄 **Code de la page :** [`Dashboard/parameters_page.yaml`](Dashboard/parameters_page.yaml)
 
+<br>
+
 ##
 
 
@@ -182,7 +184,7 @@ Je n'ai repris ci-dessus que les cartes essentielles du dashboard, mais il y'a �
 
 <p align="center"><img src="Medias/titre_card.jpg"></p>
 
->📄 **Code de la page :** [`Dashboard/titre_card.yaml`](Dashboard/titre_card.yaml)
+>📄 **Code de la carte :** [`Dashboard/titre_card.yaml`](Dashboard/titre_card.yaml)
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
@@ -191,6 +193,16 @@ Je n'ai repris ci-dessus que les cartes essentielles du dashboard, mais il y'a �
 
 Une carte permettant d'ajouter un espace entre 2 cartes/sections pour une mise en page plus aérée.
 
->📄 **Code de la page :** [`Dashboard/espacement_card.yaml`](Dashboard/espacement_card.yaml)
+>📄 **Code de la carte :** [`Dashboard/espacement_card.yaml`](Dashboard/espacement_card.yaml)
+
+<br>
+
+##
+
+#### **- Les cartes streamline**
+
+Les codes des cartes voie_card, zone_card, arrosage_en_cours_card et connectivity_card sont présentés ici pour une carte unique afin que vous puissiez voir la façon dont elles sont construites, mais pour le dashboard et pour pouvoir les intégrer de manière simple elles sont converties en streamline_card.
+
+>📄 **Code des cartes streamline :** [`Dashboard/streamline_card.yaml`](Dashboard/streamline_card.yaml)
 
 <br><br><br><br><br>
