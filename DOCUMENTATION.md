@@ -34,7 +34,7 @@ On garde bien sûr la possibilité de déclencher un cycle ou une voie de façon
 C'est grâce au libellés (labels) que les cycles d'arrosage qu'ils soient programmés ou manuels fonctionnent. Pour cela il est important que chaque zone ait son libellé et que ce libellé soit supprimer si on supprime une zone.
 
 Le nom des libellés a également son importance. Ils doivent être de la forme Zone 1, Zone 2 et ainsi de suite. 
-<p align="center"><img src="Medias/Install/add_labels.gif" width=75%></p>
+<p align="center"><img src="Medias/Installation/add_labels.gif" width=75%></p>
 
 Je n'ai malheureusement pas trouvé comment les créer ou les supprimer automatiquement. 
 <br><br>
@@ -267,7 +267,7 @@ Le sous-dossier 'modeles' contient les modèles de fichiers pour les outils de c
 
 <div align="center">
 
-<i>[Un visuel de la stucture complète](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Medias/Install/structure_dossier_packages.jpg)</i>
+<i>[Un visuel de la stucture complète](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Medias/Installation/structure_dossier_packages.jpg)</i>
 
 </div>
 <br>

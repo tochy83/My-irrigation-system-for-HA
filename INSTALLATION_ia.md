@@ -54,8 +54,8 @@ Installation déconseillée en l'état. Vous avez ces entités en commun avec l'
 ```
 
 <p align="center">
-<img src="Medias/Install/verify.jpg" width="45%" alt="Vérification OK">
-<img src="Medias/Install/verify_not_ok.jpg" width="45%" alt="Vérification KO">
+<img src="Medias/Installation/verify.jpg" width="45%" alt="Vérification OK">
+<img src="Medias/Installation/verify_not_ok.jpg" width="45%" alt="Vérification KO">
 </p>
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
@@ -88,7 +88,7 @@ Si elle n'existe pas, ajoutez-la.
 
 Téléchargez le fichier ZIP contenant l'intégration depuis la [`page d'accueil du repository`](https://github.com/tochy83/My-irrigation-system-for-HA).
 
-<p align="center"><img src="Medias/Install/download_from_github.gif" alt="Download GitHub"></p>
+<p align="center"><img src="Medias/Installation/download_from_github.gif" alt="Download GitHub"></p>
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
@@ -98,13 +98,13 @@ Téléchargez le fichier ZIP contenant l'intégration depuis la [`page d'accueil
 2. Copiez le dossier `misha_arrosage` du ZIP dans le dossier `packages` que vous venez de créer.
 
 <p align="center">
-<img src="Medias/Install/studio_code_server_add_folder.gif" width="45%">
-<img src="Medias/Install/studio_code_server.gif" width="45%">
+<img src="Medias/Installation/studio_code_server_add_folder.gif" width="45%">
+<img src="Medias/Installation/studio_code_server.gif" width="45%">
 </p>
 
 **Structure finale attendue :**
 
-<p align="center"><img src="Medias/Install/structure_dossier_packages.jpg" alt="Structure dossiers"></p>
+<p align="center"><img src="Medias/Installation/structure_dossier_packages.jpg" alt="Structure dossiers"></p>
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
@@ -123,7 +123,7 @@ Pour finaliser l'installation, il faut maintenant redémarrer Home Assistant. Al
 1. Créez un nouveau Dashboard nommé **Arrosage** (respectez la casse, des liens internes l'utilisent).
 2. Ouvrez le fichier `dashboard.yaml` (présent dans le ZIP), copiez tout son contenu et collez-le dans l'éditeur de configuration de votre nouveau dashboard.
 
-<p align="center"><img src="Medias/Install/add_dashboard.gif" alt="Ajout Dashboard"></p>
+<p align="center"><img src="Medias/Installation/add_dashboard.gif" alt="Ajout Dashboard"></p>
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
@@ -132,8 +132,8 @@ Pour finaliser l'installation, il faut maintenant redémarrer Home Assistant. Al
 Ajoutez l'intégration **Calendrier local** (si vous ne l'utilisez pas déja) et créez un calendrier nommé exactement `Arrosage`.
 
 <p align="center">
-<img src="Medias/Install/add_local_calendar_int.gif" width="45%">
-<img src="Medias/Install/add_calendar.gif" width="45%">
+<img src="Medias/Installation/add_local_calendar_int.gif" width="45%">
+<img src="Medias/Installation/add_calendar.gif" width="45%">
 </p>
 
 > [!NOTE] 
@@ -154,8 +154,8 @@ Configurez une entrée pour l'intégration **Calendar Merge**.
 * **Format de date :** Selon votre préférence
 
 <p align="center">
-<img src="Medias/Install/add_calendar_merge_int.gif" width="45%">
-<img src="Medias/Install/config_calendar_merge.gif" width="45%">
+<img src="Medias/Installation/add_calendar_merge_int.gif" width="45%">
+<img src="Medias/Installation/config_calendar_merge.gif" width="45%">
 </p>
 
 <br>

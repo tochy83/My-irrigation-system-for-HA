@@ -12,7 +12,7 @@ Retrouvez sur cette page toutes les cartes du **Dashboard Arrosage**, ainsi que 
 
 ### La page principale
 
-<p align="center"><img src="Medias/arrosage_page.jpg"></p>
+<p align="center"><img src="Medias/Dashboard/arrosage_page.jpg"></p>
 
 >📄 **Code de la page :** [`Dashboard/arrosage_page.yaml`](Dashboard/arrosage_page.yaml)
 
@@ -21,7 +21,7 @@ Retrouvez sur cette page toutes les cartes du **Dashboard Arrosage**, ainsi que 
 
 #### **- La carte navigation**
 
-<p align="center"><img src="Medias/navigation_card.jpg"></p>
+<p align="center"><img src="Medias/Dashboard/navigation_card.jpg"></p>
 
 Cette carte permet de naviguer entre les différentes pages du **dashboard**
 
@@ -38,7 +38,7 @@ Cette carte permet de naviguer entre les différentes pages du **dashboard**
 
 #### **- La carte arrosage en cours**
 
-<p align="center"><img src="Medias/arrosage_en_cours_card.jpg"></p>
+<p align="center"><img src="Medias/Dashboard/arrosage_en_cours_card.jpg"></p>
 
 Cette carte s'affichera quand un arrosage de zone est en cours.
 
@@ -51,7 +51,7 @@ Cette carte s'affichera quand un arrosage de zone est en cours.
 
 #### **- La carte zone**
 
-<p align="center"><img src="Medias/zone_card.jpg"></p>
+<p align="center"><img src="Medias/Dashboard/zone_card.jpg"></p>
 
 Carte indiquant le nom de la zone ainsi que son id. Elle permet entre autre de déclencher un arrosage de zone manuellement.
 
@@ -67,7 +67,7 @@ Carte indiquant le nom de la zone ainsi que son id. Elle permet entre autre de d
 <br><br>
 
 Cette carte dispose également de ces propres notifications.
-<p align="center"><img src="Medias/zone_card_notifs.jpg"></p>
+<p align="center"><img src="Medias/Dashboard/zone_card_notifs.jpg"></p>
 
 >📄 **Code de la carte :** [`Dashboard/zone_card.yaml`](Dashboard/zone_card.yaml)
 
@@ -76,11 +76,11 @@ Cette carte dispose également de ces propres notifications.
 
 #### **- La carte voie**
 
-<p align="center"><img src="Medias/voie_card.jpg"></p>
+<p align="center"><img src="Medias/Dashboard/voie_card.jpg"></p>
 
 *<p align="center">La carte sans arrosage en cours</p>*
 
-<p align="center"><img src="Medias/voie_card_en_cours.jpg"></p>
+<p align="center"><img src="Medias/Dashboard/voie_card_en_cours.jpg"></p>
 
 *<p align="center">La carte avec arrosage en cours</p>*
 
@@ -100,7 +100,7 @@ Carte indiquant le nom de la voie et son id ainsi que la date et l'heure du dern
 <br><br>
 
 Comme la carte zone, cette carte dispose de ces propres notifications.
-<p align="center"><img src="Medias/voie_card_notifs.jpg"></p>
+<p align="center"><img src="Medias/Dashboard/voie_card_notifs.jpg"></p>
 
 >📄 **Code de la carte :** [`Dashboard/voie_card.yaml`](Dashboard/voie_card.yaml)
 
@@ -109,7 +109,7 @@ Comme la carte zone, cette carte dispose de ces propres notifications.
 
 #### **- La carte informations programmation**
 
-<p align="center"><img src="Medias/informations_card.jpg"></p>
+<p align="center"><img src="Medias/Dashboard/informations_card.jpg"></p>
 
 La première carte indiquent les arrosages à venir par zone et la seconde renvoi la page de programmation d'arrosage.
 
@@ -125,7 +125,7 @@ Cette carte dispose aussi de ces propres notifications.
 
 #### **- La carte connectivité**
 
-<p align="center"><img src="Medias/connectivity_card.jpg"></p>
+<p align="center"><img src="Medias/Dashboard/connectivity_card.jpg"></p>
 
 Une carte grid, regroupant les cartes de connectivité de chaque zone.
 
@@ -140,7 +140,7 @@ Une carte grid, regroupant les cartes de connectivité de chaque zone.
 
 ### La page programmation arrosage
 
-<p align="center"><img src="Medias/programmation_page.jpg"></p>
+<p align="center"><img src="Medias/Dashboard/programmation_page.jpg"></p>
 
 Sur cette page vous pouvez définir la programmation de chaque zone en cliquant sur le bouton <img src="Medias/Icons/ajout_event.png" width="100" align="absmiddle">
 
@@ -157,7 +157,7 @@ La section `informations complémentaires` comprend des informations utiles pour
 
 ### La page paramètres
 
-<p align="center"><img src="Medias/parameters_page.jpg"></p>
+<p align="center"><img src="Medias/Dashboard/parameters_page.jpg"></p>
 
 On retrouve en haut de la page une carte de navigation comme sur la page principale. Cette carte est utile si vous souhaitez faire de cette page une `sous-vue` sur votre dashboard.
 
@@ -169,11 +169,11 @@ La section `Mode de fonctionnement` Permet l'ajout ou la suppression de voies ou
 
 En cas d'ajout/suppression une carte apparaitra, indiquant qu'il est nécessaire de redémarrer le srveur pour prendre en compte les modifications.
 
-<p align="center"><img src="Medias/restart_needed_card.jpg"></p>
+<p align="center"><img src="Medias/Dashboard/restart_needed_card.jpg"></p>
 
 En cas de suppression et après redémarrage du serveur, une carte listant les entités orphelines apparaitra, pour vous rappeler de les supprimer.
 
-<p align="center"><img src="Medias/entites_orphelines_card.jpg"></p>
+<p align="center"><img src="Medias/Dashboard/entites_orphelines_card.jpg"></p>
 
 Cette carte se masquera une fois les entités orphelines supprimées.
 
@@ -188,7 +188,7 @@ Je n'ai repris ci-dessus que les cartes essentielles du dashboard, mais il y'a �
 
 #### **- La carte titre**
 
-<p align="center"><img src="Medias/titre_card.jpg"></p>
+<p align="center"><img src="Medias/Dashboard/titre_card.jpg"></p>
 
 >📄 **Code de la carte :** [`Dashboard/titre_card.yaml`](Dashboard/titre_card.yaml)
 

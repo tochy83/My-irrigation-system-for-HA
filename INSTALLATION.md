@@ -66,10 +66,10 @@ Installation déconseillée en l'état. Vous avez ces entités en commun avec l'
 <br>
 
 Si c'est tout bon, vous devriez voir un message comme celui-ci :
-<p align="center"><img src="Medias/Install/verify.jpg"></p>
+<p align="center"><img src="Medias/Installation/verify.jpg"></p>
 
 Sinon le résultat ressemblera plus à ça, avec une liste de toutes les entités ayant un 'entity_id' en commun avec "l'intégration" :
-<p align="center"><img src="Medias/Install/verify_not_ok.jpg"></p>
+<p align="center"><img src="Medias/Installation/verify_not_ok.jpg"></p>
 <br>
 
 
@@ -108,7 +108,7 @@ Pour en savoir plus sur les packages et découvrir leur intérêt, vous pouvez l
 
 #### - ***Etape 3*** :
 Depuis [la page d'accueil](https://github.com/tochy83/My-irrigation-system-for-HA) de ce 'repository' télécharger le fichier zip contenant tous les fichiers de "l'intégration".
-<p align="center"><img src="Medias/Install/download_from_github.gif"></p>
+<p align="center"><img src="Medias/Installation/download_from_github.gif"></p>
 
 Une fois téléchargé, on les extrait dans le dossier de son choix.
 <br><br>
@@ -119,16 +119,16 @@ A l'aide de 'Studio Code Server', créer dans le dossier 'config' de Home Assist
 <br>
 
 - Dans ce dossier 'packages' créer un dossier 'arrosage'.
-<p align="center"><img src="Medias/Install/studio_code_server_add_folder.gif"></p>
+<p align="center"><img src="Medias/Installation/studio_code_server_add_folder.gif"></p>
 <br>
 
 
 #### - ***Etape 5*** :
 A l'aide de 'Studio Code Server', copier tous les fichiers et dossiers se trouvant dans le dossier 'Files' du zip décompressé précedemment, dans le dossier 'arrosage' que l'on vient de créer.
-<p align="center"><img src="Medias/Install/studio_code_server.gif"></p>
+<p align="center"><img src="Medias/Installation/studio_code_server.gif"></p>
 
 La structure finale du dossier 'arrosage' doit être celle-ci :
-<p align="center"><img src="Medias/Install/structure_dossier_packages.jpg"></p>
+<p align="center"><img src="Medias/Installation/structure_dossier_packages.jpg"></p>
 
 Une fois ceci fait on va dans Outils de développement, on vérifie la configuration pour être sur qu'il n'ya pas d'erreurs et on redémarre Home Assistant.
 <br><br>
@@ -148,7 +148,7 @@ Ajouter un nouveau Dashboard nommé 'Arrosage' à Home Assistant. **Ici aussi re
 <br>
 
 Modifier ce nouveau Dashboard pour y coller le contenu du fichier 'dashboard.yaml'.
-<p align="center"><img src="Medias/Install/add_dashboard.gif"></p>
+<p align="center"><img src="Medias/Installation/add_dashboard.gif"></p>
 
 Maintenant "l'intégration" est opérationnelle, il ne reste plus qu'à configurer le calendrier pour pouvoir activer la programmation.
 <br><br>
@@ -156,22 +156,22 @@ Maintenant "l'intégration" est opérationnelle, il ne reste plus qu'à configur
 
 #### - ***Etape 7*** :
 Ajouter l'intégration 'Calendrier local' si elle n'est pas déjà présente sur votre serveur de Home Assistant.
-<p align="center"><img src="Medias/Install/add_local_calendar_int.gif"></p>
+<p align="center"><img src="Medias/Installation/add_local_calendar_int.gif"></p>
 
 Ajouter un calendrier nommé 'Arrosage', à l'intégration 'Calendrier local'. **Ici aussi le nom du calendrier** à son importance pour un fonctionnement "Out of the box" de "l'intégration".
 
 Si vous avez déjà un calendrier nommé 'Arrosage', pas de soucis ça fonctionnera également.
-<p align="center"><img src="Medias/Install/add_calendar.gif"></p>
+<p align="center"><img src="Medias/Installation/add_calendar.gif"></p>
 <br><br>
 
 
 #### - ***Etape 8*** :
 Si ce n'est pas dejà fait, ajouter l'intégration 'Calendar merge'. Normalement vous auriez du le faire à l'étape 1.
-<p align="center"><img src="Medias/Install/add_calendar_merge_int.gif"></p>
+<p align="center"><img src="Medias/Installation/add_calendar_merge_int.gif"></p>
 <br>
 
 Configurer une entrée pour l'intégration 'Calendar merge'.
-<p align="center"><img src="Medias/Install/config_calendar_merge.gif"></p>
+<p align="center"><img src="Medias/Installation/config_calendar_merge.gif"></p>
 
 Le fait de configurer cette intégration, va créer 5 entrées supplémentaires. Ce sont ces entrées qui permettent d'afficher les arrosages à venir du calendrier.
 <br>
