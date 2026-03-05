@@ -76,13 +76,13 @@ Si elle n'existe pas, ajoutez-la.
 > Dans ce cas il y a quelques modifications à faire pour rendre l'intégration instalable.
 
 > [!TIP]
-> Pour en savoir plus sur l'intérêt des packages, consultez cet [article sur Domo-blog.fr](https://www.domo-blog.fr/packages-home-assistant-organiser-configuration-code-yaml-domotique/).
+> Pour en savoir plus sur l'intérêt des packages, consultez cet [`article sur Domo-blog.fr`](https://www.domo-blog.fr/packages-home-assistant-organiser-configuration-code-yaml-domotique/).
 
 ##
 
 #### **3️⃣ Téléchargement**
 
-Téléchargez le fichier ZIP contenant l'intégration depuis la [page d'accueil du repository](https://github.com/tochy83/My-irrigation-system-for-HA).
+Téléchargez le fichier ZIP contenant l'intégration depuis la [`page d'accueil du repository`](https://github.com/tochy83/My-irrigation-system-for-HA).
 
 <p align="center"><img src="Medias/Install/download_from_github.gif" alt="Download GitHub"></p>
 
@@ -161,7 +161,7 @@ Configurez une entrée pour l'intégration **Calendar Merge**.
 Il ne vous reste plus qu'à tester toutes les fonctionnalités. Pour la partie programmation, ajoutez simplement des événements au calendrier comme montré dans la vidéo ci-dessous.
 
 > [!NOTE]
-> L'intégration tourne actuellement en **mode simulation** pour vous permettre de découvrir le fonctionnement sans activer vos vannes réelles.
+> L'intégration tourne actuellement en **mode démo** pour vous permettre de découvrir le fonctionnement sans activer vos vannes réelles.
 
 <div align="center">
 
