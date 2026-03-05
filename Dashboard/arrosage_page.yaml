@@ -1,8 +1,8 @@
 type: sections
 max_columns: 2
 title: Arrosage
-path: arrosage
 icon: mdi:sprinkler-variant
+path: arrosage
 cards: []
 sections:
   - type: grid

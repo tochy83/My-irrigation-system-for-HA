@@ -34,7 +34,7 @@ streamline_templates:
                 icon: mdi:sprinkler-variant
                 tap_action:
                   action: perform-action
-                  perform_action: script.misha_arrosage_nombre_electrovannes_par_zone
+                  perform_action: script.misha_arrosage_maj_data_voies_and_zones
                   data:
                     voie: '[[numero_de_la_voie]]'
                     update_label: 'true'
@@ -69,13 +69,13 @@ streamline_templates:
                         action: more-info
                       double_tap_action:
                         action: perform-action
-                        perform_action: script.misha_arrosage_nombre_electrovannes_par_zone
+                        perform_action: script.misha_arrosage_maj_data_voies_and_zones
                         data:
                           voie: '[[numero_de_la_voie]]'
                           update_label: 'true'
                       hold_action:
                         action: perform-action
-                        perform_action: script.misha_arrosage_nombre_electrovannes_par_zone
+                        perform_action: script.misha_arrosage_maj_data_voies_and_zones
                         data:
                           voie: '[[numero_de_la_voie]]'
                           update_label: 'true'
@@ -161,7 +161,7 @@ streamline_templates:
                         {{ data.color_enabled }}
                       tap_action:
                         action: perform-action
-                        perform_action: script.misha_arrosage_nombre_electrovannes_par_zone
+                        perform_action: script.misha_arrosage_maj_data_voies_and_zones
                         data:
                           voie: '[[numero_de_la_voie]]'
                       uix:
