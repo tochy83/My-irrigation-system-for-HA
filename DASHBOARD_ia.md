@@ -12,6 +12,8 @@ Retrouvez sur cette page toutes les cartes du **Dashboard Arrosage**, ainsi que 
 
 <p align="center"><img src="Medias/arrosage_page.jpg"></p>
 
+>📄 **Fichier :** [`Dashboard/arrosage_page.yaml`](Dashboard/arrosage_page.yaml)
+
 <details>
   <summary><code><img src="Medias/Icons/code.svg" width="16" align="absmiddle"> Voir le code de la page</code></summary>
 
