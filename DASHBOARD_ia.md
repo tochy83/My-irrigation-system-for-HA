@@ -173,4 +173,24 @@ Cette carte se masquera une fois les entités orphelines supprimées.
 
 >📄 **Code de la page :** [`Dashboard/parameters_page.yaml`](Dashboard/parameters_page.yaml)
 
+##
+
+
+Je n'ai repris ci-dessus que les cartes essentielles du dashboard, mais il y'a également 2 cartes qui ne servent qu'à la mise en page.
+
+#### **- La carte titre**
+
+<p align="center"><img src="Medias/titre_card.jpg"></p>
+
+>📄 **Code de la page :** [`Dashboard/titre_card.yaml`](Dashboard/titre_card.yaml)
+
+<p align="center"><img src="Medias/Icons/divider.png"></p>
+
+
+#### **- La carte espacement**
+
+Une carte permettant d'ajouter un espace entre 2 cartes/sections pour une mise en page plus aérée.
+
+>📄 **Code de la page :** [`Dashboard/espacement_card.yaml`](Dashboard/espacement_card.yaml)
+
 <br><br><br><br><br>
