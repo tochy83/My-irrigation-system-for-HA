@@ -29,7 +29,7 @@ Dans mon cas j'ai besoin de 3 zones nommées **`Potager`**, **`Fruitiers`** et *
 
 #### **1️⃣ Ajouter le nombre de zones et voies nécessaires**
 
-Rendez vous sur la page **`Paramètres`** et cliquez sur les cartes d'ajout de zones et de voies et ensuite redémarrer votre serveur pour la prise en compte des modifications.
+Rendez vous sur la page **`Paramètres`** et cliquez sur les cartes d'ajout de zones et de voies. Redémarrer ensuite votre serveur pour la prise en compte des modifications.
 
 <p align="center"><img src="Medias/Personnalisation/add_voies_and_zones.gif" width="75%"></p>
 
@@ -38,7 +38,7 @@ Rendez vous sur la page **`Paramètres`** et cliquez sur les cartes d'ajout de z
 
 #### **2️⃣ Ajouter les cartes zones et les nommer**
 
-Sur la page **`Arrosage`** on va ajouter les cartes pour les zones ainsi que les cartes de notifications ou d'informations pour celles ci. On en profitera également pour nommer les zones et disposer les cartes à l'emplacement voulu sur la page.
+Sur la page **`Arrosage`** on va ajouter les cartes pour les zones ainsi que les cartes de notifications ou d'informations pour celles-ci. On en profitera également pour nommer les zones et disposer les cartes à l'emplacement voulu sur la page.
 
 <p align="center"><img src="Medias/Personnalisation/add_zones_card.gif" width="75%"></p>
 
