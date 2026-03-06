@@ -135,7 +135,7 @@ Ajoutez l'intégration **Calendrier local** (si vous ne l'utilisez pas déja) et
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
-#### **8️⃣ Configurer Calendar Merge**
+#### **8️⃣ Configuration de Calendar Merge**
 
 Configurez une entrée pour l'intégration **Calendar Merge**.
 **C'est cette étape qui permet l'affichage des arrosages à venir.**
