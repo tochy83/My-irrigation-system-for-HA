@@ -16,13 +16,13 @@ Passer de :
 
 Dans mon cas j'ai besoin de 3 zones nommées **`Potager`**, **`Fruitiers`** et **`Agrumes`** ainsi que 9 voies.
 
-<p align="center">
+<div align="center">
 
 | Potager | Fruitiers | Agrumes | 
 | :---: | :---: | :---: |
 | Voie 1 - Fraisiers<br>Voie 2 - Tomates<br>Voie 3 - Melons<br>Voie 4 - Salades<br>Voie 8 - Courgettes | Voie 7 - Abricotier/Poirier/Prunier<br>Voie 9 - Pêcher/Figuier | Voie 5 - Citronnier<br>Voie 6 - Oranger |
 
-</p>
+</div>
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
