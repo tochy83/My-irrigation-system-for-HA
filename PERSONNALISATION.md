@@ -11,7 +11,7 @@ Maintenant que le **Dashboard Arrosage** est installé, vous pouvez "l'ajuster" 
 
 Passer de :
 
-<p align="center"><img src="Medias/Personalisation/arrosage_page_fresh_install.jpg" width="40%" align="absmiddle">&nbsp;&nbsp;&nbsp;>>>&nbsp;&nbsp;&nbsp;<img src="Medias/Personalisation/arrosage_page.jpg" width="40%" align="absmiddle">
+<p align="center"><img src="Medias/Personnalisation/arrosage_page_fresh_install.jpg" width="40%" align="absmiddle">&nbsp;&nbsp;&nbsp;>>>&nbsp;&nbsp;&nbsp;<img src="Medias/Personnalisation/arrosage_page.jpg" width="40%" align="absmiddle">
 </p>
 
 Dans mon cas j'ai besoin de 3 zones nommées **`Potager`**, **`Fruitiers`** et **`Agrumes`** ainsi que 9 voies.
@@ -31,7 +31,7 @@ Dans mon cas j'ai besoin de 3 zones nommées **`Potager`**, **`Fruitiers`** et *
 
 Rendez vous sur la page **`Paramètres`** et cliquez sur les cartes d'ajout de zones et de voies et ensuite redémarrer votre serveur pour la prise en compte des modifications.
 
-<p align="center"><img src="Medias/Personalisation/add_voies_and_zones.gif" width="75%"></p>
+<p align="center"><img src="Medias/Personnalisation/add_voies_and_zones.gif" width="75%"></p>
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
@@ -40,7 +40,7 @@ Rendez vous sur la page **`Paramètres`** et cliquez sur les cartes d'ajout de z
 
 Sur la page **`Arrosage`** on va ajouter les cartes pour les zones ainsi que les cartes de notifications ou d'informations pour celles ci. On en profitera également pour nommer les zones et disposer les cartes à l'emplacement voulu sur la page.
 
-<p align="center"><img src="Medias/Personalisation/add_zones_card.gif" width="75%"></p>
+<p align="center"><img src="Medias/Personnalisation/add_zones_card.gif" width="75%"></p>
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
@@ -49,7 +49,7 @@ Sur la page **`Arrosage`** on va ajouter les cartes pour les zones ainsi que les
 
 On va maintenant ajouter les cartes pour les voies, nommer celles-ci et disposer les cartes à l'emplacement voulu sur la page.
 
-<p align="center"><img src="Medias/Personalisation/add_voies_card.gif" width="75%"></p>
+<p align="center"><img src="Medias/Personnalisation/add_voies_card.gif" width="75%"></p>
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
@@ -60,7 +60,7 @@ Maintenant que les cartes sont à leur place on va s'occuper de la partie "techn
 
 Un **`Double-clic`** ou un **`appui long`** sur la partie blanche de la carte permet d'ajouter un **`label`**. Un **`simple-clic`** fait la mise à jour des infos. Vous pouvez alternativement faire un **`simple-clic`** sur <img src="Medias/Icons/dots-horizontal_orange.svg" width="12" align="absmiddle"> pour ajouter le **`label`**.
 
-<p align="center"><img src="Medias/Personalisation/link_voies.gif" width="75%"></p>
+<p align="center"><img src="Medias/Personnalisation/link_voies.gif" width="75%"></p>
 
 <br>
 
