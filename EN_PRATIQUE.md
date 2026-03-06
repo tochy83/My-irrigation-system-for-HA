@@ -49,7 +49,7 @@ Sur la page **`Arrosage`** on va ajouter les cartes pour les zones ainsi que les
 
 On va maintenant ajouter les cartes pour les voies, nommer celles-ci et disposer les cartes à l'emplacement voulu sur la page.
 
-<p align="center"><img src="Medias/En_pratique/add_zones_card.gif" width="75%"></p>
+<p align="center"><img src="Medias/En_pratique/add_voies_card.gif" width="75%"></p>
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
@@ -58,7 +58,9 @@ On va maintenant ajouter les cartes pour les voies, nommer celles-ci et disposer
 
 Maintenant que les cartes sont à leur place on va s'occuper de la partie "technique" et faire la liaison entre les voies et les zones. Pour cela il va falloir ajouter un **`label`** (une étiquette) à chaque voie. Tout ceci est réalisable sans quitter la page **`Arrosage`**.
 
-<p align="center"><img src="Medias/En_pratique/add_voies_card.gif" width="75%"></p>
+Un **`Double-clic`** ou un **`appui long`** sur la partie blanche de la carte permet d'ajouter un **`label`**. Un **`simple-clic`** fait la mise à jour des infos. Vous pouvez alternativement faire un **`simple-clic`** sur <img src="Medias/Icons/dots-horizontal_orange.svg" width="12" align="absmiddle"> pour ajouter le **`label`**.
+
+<p align="center"><img src="Medias/En_pratique/link_voies.gif" width="75%"></p>
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
