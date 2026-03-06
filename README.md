@@ -22,7 +22,7 @@ Répliquer le fonctionnement d'un programmateur d'arrosage de la marque Hunter (
 Pour résumé, les fonctions de base de tout programmateur d'arrosage, auquel j'ai ajouté :
 
 - Un dashboard pour piloter tout ça de manière simple et intuitive.
-- L'envoi de notifications vers l'application mobile (désactivables) et/ou Télégram pour avoir un retour sur l'état du système.
+- L'envoi de notifications vers l'application mobile et/ou Télégram pour avoir un retour sur l'état du système.
 - Pouvoir tenir compte des conditions climatiques pour la durée d'arrosage.
 
 Ça c'était la partie simple puisque ça tourne chez moi comme ça depuis 2 ans.
@@ -36,24 +36,31 @@ Pour résumé, les fonctions de base de tout programmateur d'arrosage, auquel j'
 - Avoir la possibilité d'interagir avec **tout matériel** susceptible de pouvoir piloter un arrosage depuis home assistant.
 - Avoir une façon relativement simple de passer du **mode démo** au **mode production**.
 - Essayer de nouvelles choses que je ne connaissais pas ou maîtrisais pas sur Home Assistant.
-- Avoir **zéro yaml** pour que vous l'adaptiez à votre configuration.
+- Avoir **zéro yaml** pour toutes les fonctions essentielles, afin que vous puissiez l'adapter facilement à votre configuration.
 
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
-### 📖 Laisser vous guider pour la mise en place
+### 📖 Laissez-vous guider pour la mise en place
 
 <br>
 
-🛠️ [`L'installation`](INSTALLATION.md). Toutes les étapes pour une installation pas à pas du **Dashboard arrosage**.
+🛠️ [`L'installation`](INSTALLATION.md) — Les étapes pour une installation pas à pas du **Dashboard arrosage**.
 
-⚙️ [`Personnalisation de votre système d'arrosage`](PERSONNALISATION.md). Comment passer du système de base, à un système correspondant à votre jardin.
+⚙️ [`Personnalisation de votre système d'arrosage`](PERSONNALISATION.md) — Adaptez le système de base à la configuration de votre jardin.
 
-✅ [`Le passage en production`](PRODUCTION.md). Une fois le dashboard testé en **mode démo**, comment **piloter réellement** votre arrosage du jardin.
+✅ [`Le passage en production`](PRODUCTION.md) — Une fois le dashboard testé en **mode démo**, comment **piloter réellement** votre arrosage du jardin.
 
-🖼️ [`Le dashboard et ses cartes`](DASHBOARD.md). Toutes les **cartes** utiles du dashboard avec leurs **fonctions et codes**.
 
-📚 [`La documentation`](DOCUMENTATION.md).
+<p align="center"><img src="Medias/Icons/divider.png"></p>
+
+### 🔍 Ressources techniques
+
+<br>
+
+🖼️ [`Le dashboard et ses cartes`](DASHBOARD.md) — Le catalogue complet des **cartes**, leurs **codes YAML** et leurs **fonctions** détaillées.
+
+📚 [`La documentation`](DOCUMENTATION.md) — Informations complémentaires et architecture du projet.
 
 
 <br><br><br><br><br>
