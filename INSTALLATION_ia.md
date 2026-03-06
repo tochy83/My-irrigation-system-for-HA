@@ -97,7 +97,7 @@ Téléchargez le fichier ZIP contenant l'intégration depuis la [`page d'accueil
 
 #### **4️⃣ Transfert des fichiers**
 
-Copiez le dossier `misha_arrosage` du ZIP dans le dossier `packages` que vous avez créé à l'étape 2️⃣.
+Décompressez le ZIP et copiez le dossier `misha_arrosage` présent dans le dossier `Package` de celui-ci, dans le dossier `packages` que vous avez créé à l'étape 2️⃣.
 
 <p align="center"><img src="Medias/Installation/install_package.gif" width="75%"></p>
 
