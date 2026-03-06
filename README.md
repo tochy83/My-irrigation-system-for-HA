@@ -1,15 +1,16 @@
-# My-irrigation-system-for-HA
-Dashboard, automations and scripts of my irrigation system for Home Assistant.
+# My-Irrigation-System-for-HA
 
-***<p align="center">Still a work in progress... it's not completely ready.</p>***
+Un **dashboard pour Home Assistant**, permettant de contrôler simplement le système d'arrosage de son jardin.
 
- <br><br>
-Un dashboard pour Home Assistant, conçu, par défaut, pour 9 électrovannes réparties sur 3 zones d'arrosage. On peut bien sur ajouter ou enlever des d'électrovannes ou des zones.
+<p align="center"><img src="Medias/illustration.png" width="75%"></p>
 
-<br><br>
-**L'objectif de départ :**
+<br>
 
-Répliquer le fonctionnement du programmateur d'arrosage de la marque Hunter (ceux d'autres marques fonctionnant à peu de choses près de la même façon) que j'avais pour l'arrosage de mon jardin. Rendre le tout plus ergonomique et profiter des avantages de Home Assistant.
+##
+
+### 🎯 L'objectif de départ
+
+Répliquer le fonctionnement d'un programmateur d'arrosage de la marque Hunter (ceux d'autres marques fonctionnant à peu de choses près de la même façon) que j'avais pour l'arrosage de mon jardin. Rendre le tout plus ergonomique et profiter des avantages de Home Assistant.
 
 - Pouvoir déclencher l'arrosage d'une voie.
 - Pouvoir régler le temps d'arrosage d'une voie.
@@ -22,47 +23,37 @@ Pour résumé, les fonctions de base de tout programmateur d'arrosage, auquel j'
 
 - Un dashboard pour piloter tout ça de manière simple et intuitive.
 - L'envoi de notifications vers l'application mobile (désactivables) et/ou Télégram pour avoir un retour sur l'état du système.
-> Je n'ai pas ajouté de prise en compte de capteur de pluie ou d'humidité du sol car je n'en dispose pas mais il est possible d'en tenir compte. J'aborde rapidement ce point dans la documentation.
+- Pouvoir tenir compte des conditions climatiques pour la durée d'arrosage.
 
 Ça c'était la partie simple puisque ça tourne chez moi comme ça depuis 2 ans.
 
-<br><br>
-**L'objectif que je me suis fixé :**
 
-- Laisser la possibilité à tout le monde de tester le dashboard avec un mode simulation.
-- Avoir la possibilité d'interagir avec tout matériel susceptible de piloter un arrosage depuis home assistant.
-- Avoir une façon relativement simple de passer du mode simulation au mode production.
+<p align="center"><img src="Medias/Icons/divider.png"></p>
+
+### 🚀 L'objectif que je me suis fixé
+
+- Laisser la possibilité à tout le monde de tester le dashboard avec un **mode démo**.
+- Avoir la possibilité d'interagir avec **tout matériel** susceptible de pouvoir piloter un arrosage depuis home assistant.
+- Avoir une façon relativement simple de passer du **mode démo** au **mode production**.
 - Essayer de nouvelles choses que je ne connaissais pas ou maîtrisais pas sur Home Assistant.
+- Avoir **zéro yaml** pour que vous l'adaptiez à votre configuration.
 
-J'ai du reprendre pas mal de choses que j'avais faites sur mon installation pour que ce soit au final plus simple à deployer et modifier.
 
-<br><br>
-**Installation :**
+<p align="center"><img src="Medias/Icons/divider.png"></p>
 
-C'est par là que ça se passe avec les explications détaillées, étape par étape. *[Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/INSTALLATION.md#installation)*
-
-<br>
-
-**Le dashboard :**
-
-Une vue d'ensemble du Dashboard arrosage avec le code de chaque carte le composant et une description de toutes les interactions possibles avec celui-ci. *[Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/DASHBOARD.md)*
+### 📖 Laisser vous guider pour la mise en place
 
 <br>
 
-**Documentation :**
+🛠️ [`L'installation`](INSTALLATION.md). Toutes les étapes pour une installation pas à pas du **Dashboard arrosage**.
 
-*[Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/DOCUMENTATION.md)*
+⚙️ [`Personnalisation de votre système d'arrosage`](PERSONNALISATION.md). Comment passer du système de base, à un système correspondant à votre jardin.
 
-<br>
+✅ [`Le passage en production`](PRODUCTION.md). Une fois le dashboard testé en **mode démo**, comment **piloter réellement** votre arrosage du jardin.
 
-**Passage en production :**
+🖼️ [`Le dashboard et ses cartes`](DASHBOARD.md). Toutes les **cartes** utiles du dashboard avec leurs **fonctions et codes**.
 
-Adopter le Dashboard arrosage à son sytème d'arrosage. Laisser vous guider pas à pas avec un exemple. *[Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/PRODUCTION.md)*
+📚 [`La documentation`](DOCUMENTATION.md).
 
-<br>
 
-**Comment le supprimer :**
-
-Vous vouliez juste tester, faire le curieux et souhaitez maintenant supprimer le Dashboard arrosage, c'est par là que cela se passe : *[Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/DOCUMENTATION.md#--supprimer-lint%C3%A9gration)*
-
-<br><br><br>
+<br><br><br><br><br>
