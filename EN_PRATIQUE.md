@@ -72,9 +72,12 @@ A partir de maintenant le **`Dashboard Arrosage`** est complètement fonctionnel
 
 <div align="center">
 
-  [![Lancer la vidéo](Medias\En_pratique\add_voies.mp4)](Medias\En_pratique\add_voies.mp4 "Lancer la vidéo")
+  [![Lancer la vidéo](Medias/En_pratique/add_voies.mp4)](Medias/En_pratique/add_voies.mp4 "Lancer la vidéo")
 
 </div>
 
 
 <br><br><br><br><br>
+<video width="320" height="240" controls>
+  <source src="Medias/En_pratique/add_voies.mp4" type="video/mp4">
+</video>
