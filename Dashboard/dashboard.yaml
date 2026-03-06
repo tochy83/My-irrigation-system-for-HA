@@ -931,7 +931,7 @@ views:
               - type: template
                 icon: mdi:calendar-clock
                 icon_color: >-
-                  {{ 'deep-orange' if is_state('calendar.arrosage', 'unknown')
+                  {{ 'deep-orange' if not is_state('calendar.arrosage', ['on', 'off'])
                   else 'light-green' }}
                 tap_action:
                   action: navigate
