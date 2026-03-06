@@ -70,7 +70,8 @@ homeassistant:
 
 ```
 
-Si elle n'existe pas, ajoutez-la.
+1. Si elle n'existe pas, ajoutez-la.
+2. Créez un dossier `packages` dans `/config/`.
 
 <p align="center"><img src="Medias/Installation/enable_packages.gif" width="75%"></p>
 
@@ -96,8 +97,7 @@ Téléchargez le fichier ZIP contenant l'intégration depuis la [`page d'accueil
 
 #### **4️⃣ Transfert des fichiers**
 
-1. À l'aide de **Studio Code Server**, créez un dossier `packages` dans `/config/`.
-2. Copiez le dossier `misha_arrosage` du ZIP dans le dossier `packages` que vous venez de créer.
+Copiez le dossier `misha_arrosage` du ZIP dans le dossier `packages` que vous avez créé à l'étape 2️⃣.
 
 <p align="center"><img src="Medias/Installation/install_package.gif" width="75%"></p>
 
