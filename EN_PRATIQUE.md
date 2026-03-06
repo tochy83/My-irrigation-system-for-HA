@@ -78,6 +78,7 @@ A partir de maintenant le **`Dashboard Arrosage`** est complètement fonctionnel
 
 
 <br><br><br><br><br>
-<video width="320" height="240" controls>
-  <source src="Medias/En_pratique/add_voies.mp4" type="video/mp4">
-</video>
+
+https://github.com/user-attachments/assets/5fb9f054-4c7e-4d86-91f7-311a34911445
+
+
