@@ -11,8 +11,8 @@ Vous trouverez ici toutes les explications nécessaires pour mettre en place le 
 Avant de commencer, assurez-vous d'avoir les outils et intégrations suivants installés sur votre instance Home Assistant.
 
 #### **Apps (anciennement Modules complémentaires)**
-* **Recommandé :** `Studio Code Server` ou `Samba share` (indispensable pour copier tous les fichiers rapidement).
-* **Alternative :** `File Editor` (possible, mais laborieux au vu du nombre de fichiers).
+* **Recommandé :** **`Studio Code Server`** ou **`Samba share`** (indispensable pour copier tous les fichiers rapidement).
+* **Alternative :** **`File Editor`** (possible, mais laborieux au vu du nombre de fichiers).
 
 #### **Intégrations nécessaires au fonctionnement**
 | Type | Nom & Lien |
@@ -37,7 +37,7 @@ Avant de commencer, assurez-vous d'avoir les outils et intégrations suivants in
 
 #### **1️⃣ Vérification préalable**
 Pour éviter tout conflit, vérifiez qu'aucune entité existante n'utilise déjà les ID du projet.
-Allez dans **Paramètres > Outils de développement > Modèle** et collez le code suivant :
+Allez dans **`Paramètres > Outils de développement > Modèle`** et collez le code suivant :
 
 ```yml
 {%- set entites = states 
@@ -62,7 +62,7 @@ Installation déconseillée en l'état. Vous avez ces entités en commun avec l'
 
 #### **2️⃣ Activation des Packages**
 
-Vérifiez si les packages sont actifs dans votre `configuration.yaml`. Ouvrez le fichier et recherchez la ligne suivante sous la clé `homeassistant:` :
+Vérifiez si les packages sont actifs dans votre **`configuration.yaml`**. Ouvrez le fichier et recherchez la ligne suivante sous la clé **`homeassistant:`**.
 
 ```yaml
 homeassistant:
@@ -71,7 +71,7 @@ homeassistant:
 ```
 
 1. Si elle n'existe pas, ajoutez-la.
-2. Créez un dossier `packages` dans `/config/`.
+2. Créez un dossier **`packages`** dans le dossier **`config`** du serveur.
 
 <p align="center"><img src="Medias/Installation/enable_packages.gif" width="75%"></p>
 
@@ -97,7 +97,7 @@ Téléchargez le fichier ZIP contenant l'intégration depuis la [`page d'accueil
 
 #### **4️⃣ Transfert des fichiers**
 
-Décompressez le ZIP et copiez le dossier `misha_arrosage` présent dans le dossier `Package` de celui-ci, dans le dossier `packages` que vous avez créé à l'étape 2️⃣.
+Décompressez le ZIP et copiez le dossier **`misha_arrosage`** présent dans le dossier **`Package`** de celui-ci, dans le dossier **`packages`** que vous avez créé à l'étape 2️⃣.
 
 <p align="center"><img src="Medias/Installation/install_package.gif" width="75%"></p>
 
@@ -105,20 +105,20 @@ Décompressez le ZIP et copiez le dossier `misha_arrosage` présent dans le doss
 
 #### **5️⃣ Redémarrage du serveur**
 
-Pour finaliser l'installation, il faut maintenant redémarrer Home Assistant. Allez dans **Paramètres > Outils de développement > YAML** et cliquez sur `Vérifier la configuration`. Si le message `La configuration n'empêchera pas Home Assistant de démarrer !` apparait, vous pouvez cliquer sur `Redémarrer` puis `Redémarrer Home Assistant`.
+Pour finaliser l'installation, il faut maintenant redémarrer Home Assistant. Allez dans **Paramètres > Outils de développement > YAML** et cliquez sur **`Vérifier la configuration`**. Si le message **`La configuration n'empêchera pas Home Assistant de démarrer !`** apparaît, vous pouvez cliquer sur **`Redémarrer`** puis **`Redémarrer Home Assistant`**.
 
 <p align="center"><img src="Medias/Installation/restart_ha.gif" width="75%"></p>
 
 > [!IMPORTANT]
-> Si le message `La configuration n'empêchera pas Home Assistant de démarrer !` n'apparaissait pas il est probable que vous ayez fait une erreur à l'étape 2️⃣ ou 4️⃣.
+> Si le message **`La configuration n'empêchera pas Home Assistant de démarrer !`** n'apparaissait pas il est probable que vous ayez fait une erreur à l'étape 2️⃣ ou 4️⃣.
 > Vérifiez donc ces 2 étapes.
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
 #### **6️⃣ Mise en place du Dashboard**
 
-1. Créez un nouveau Dashboard nommé **Arrosage** (respectez la casse, des liens internes l'utilisent).
-2. Ouvrez le fichier `Dashboard/dashboard.yaml` (présent dans le ZIP), copiez tout son contenu et collez-le dans l'éditeur de configuration de votre nouveau dashboard.
+1. Créez un nouveau Dashboard nommé **`Arrosage`** (respectez la casse, des liens internes l'utilisent).
+2. Ouvrez le fichier **`Dashboard/dashboard.yaml`** (présent dans le ZIP), copiez tout son contenu et collez-le dans l'éditeur de configuration de votre nouveau dashboard.
 
 <p align="center"><img src="Medias/Installation/copy_dashboard.gif" width="75%"></p>
 
@@ -126,25 +126,25 @@ Pour finaliser l'installation, il faut maintenant redémarrer Home Assistant. Al
 
 #### **7️⃣ Configuration du Calendrier**
 
-Ajoutez l'intégration **Calendrier local** (si vous ne l'utilisez pas déja) et créez un calendrier nommé exactement `Arrosage`.
+Ajoutez l'intégration **`Calendrier local`** (si vous ne l'utilisez pas déja) et créez un calendrier nommé exactement **`Arrosage`**.
 
 <p align="center"><img src="Medias/Installation/add_calendar.gif" width="75%"></p>
 
 > [!NOTE] 
-> Si vous avez déjà un calendrier nommé `Arrosage`, c'est celui-ci qui sera utilisé.
+> Si vous avez déjà un calendrier nommé **`Arrosage`**, c'est celui-ci qui sera utilisé.
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
 #### **8️⃣ Configuration de Calendar Merge**
 
-Configurez une entrée pour l'intégration **Calendar Merge**.
-**C'est cette étape qui permet l'affichage des arrosages à venir.**
+Configurez une entrée pour l'intégration **`Calendar Merge`**.
+C'est cette étape qui permet l'affichage des arrosages à venir.
 
-* **Nom du capteur :** `misha arrosage a venir` (Strictement !)
+* **Nom du capteur :** **`misha arrosage a venir`** (Strictement !)
 * **Période :** 7 jours
 * **Nombre max d'événements :** Votre nombre de zone
-* **Calendrier :** Arrosage
-* **Option :** Désactiver "Utiliser le résumé comme nom d’entité"
+* **Calendrier :** **`Arrosage`**
+* **Option :** Désactiver **`Utiliser le résumé comme nom d’entité`**
 * **Format de date :** Selon votre préférence
 
 <p align="center"><img src="Medias/Installation/configure_calendar_merge.gif" width="75%"></p>
@@ -157,15 +157,5 @@ Configurez une entrée pour l'intégration **Calendar Merge**.
 
 Il ne vous reste plus qu'à tester toutes les fonctionnalités. Pour la partie programmation, ajoutez simplement des événements au calendrier comme montré dans la vidéo ci-dessous.
 
-> [!NOTE]
-> L'intégration tourne actuellement en **mode démo** pour vous permettre de découvrir le fonctionnement sans activer vos vannes réelles.
-
-<div align="center">
-
-  [![Lancer la vidéo](https://img.youtube.com/vi/Ewms74Tb5es/0.jpg)](https://www.youtube.com/watch?v=Ewms74Tb5es "Lancer la vidéo")
-
-</div>
-
-*<p align="center">Une vidéo complète de l'installation pas à pas en partant d'un Home Assistant vierge ou j'ai juste installé tous les modules complémentaires et intégrations nécessaires à l'installation et au fonctionnement du Dashboard. La seule différence avec les étapes décrites ci-dessus est que je passerai par l'explorateur de fichiers windows pour créer les différents dossiers nécessaires au packages et copier les fichiers car c'est plus rapide pour la vidéo.</p>*
 
 <br><br><br><br><br>

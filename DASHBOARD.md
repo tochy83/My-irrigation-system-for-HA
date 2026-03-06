@@ -27,7 +27,7 @@ Cette carte permet de naviguer entre les différentes pages du **dashboard**
 
 <img src="Medias/Icons/arrow-left.svg" width="20" align="absmiddle"> : Permet de revenir à la page précédemment affichée.
 
-<img src="Medias/Icons/calendar-clock-outline.svg" width="20" align="absmiddle"> : Permet de naviguer vers la page **Programmation d'arrosage**. Elle sera <img src="Medias/Icons/calendar-clock-outline_green.svg" width="20" align="absmiddle"> si un calendrier nommé `Arrosage` existe sinon elle sera <img src="Medias/Icons/calendar-clock-outline_orange.svg" width="20" align="absmiddle">.
+<img src="Medias/Icons/calendar-clock-outline.svg" width="20" align="absmiddle"> : Permet de naviguer vers la page **Programmation d'arrosage**. Elle sera <img src="Medias/Icons/calendar-clock-outline_green.svg" width="20" align="absmiddle"> si un calendrier nommé **`Arrosage`** existe sinon elle sera <img src="Medias/Icons/calendar-clock-outline_orange.svg" width="20" align="absmiddle">.
 
 <img src="Medias/Icons/tune.svg" width="20" align="absmiddle"> : Permet de naviguer vers la page **Paramètres**.
 
@@ -146,7 +146,7 @@ Sur cette page vous pouvez définir la programmation de chaque zone en cliquant 
 
 On retrouve en haut de la page une carte de navigation comme sur la page principale. Cette carte est utile si vous souhaitez faire de cette page une `sous-vue` sur votre dashboard.
 
-La section `informations complémentaires` comprend des informations utiles pour l'ajout d'évènements au calendrier d'arrosage.
+- La section **`informations complémentaires`** comprend des informations utiles pour l'ajout d'évènements au calendrier d'arrosage.
 
 >📄 **Code de la page :** [`Dashboard/calendar_page.yaml`](Dashboard/calendar_page.yaml)
 
@@ -161,13 +161,13 @@ La section `informations complémentaires` comprend des informations utiles pour
 
 On retrouve en haut de la page une carte de navigation comme sur la page principale. Cette carte est utile si vous souhaitez faire de cette page une `sous-vue` sur votre dashboard.
 
-La section `Paramètres` permet de choisir où vous voulez envoyer les notifications.
+- La section **`Paramètres`** permet de choisir où vous voulez envoyer les notifications.
 
-La section `Mode de fonctionnement` indique si vous êtes en mode **démo** ou **production**. En mode production elle listera la correspondance entre les voies du dashboard et votre matériel.
+- La section **`Mode de fonctionnement`** indique si vous êtes en mode **démo** ou **production**. En mode production elle listera la correspondance entre les voies du dashboard et votre matériel.
 
-La section `Mode de fonctionnement` Permet l'ajout ou la suppression de voies ou de zones en cliquant sur les boutons correspondants.
+- La section **`Outils`** Permet l'ajout ou la suppression de voies ou de zones en cliquant sur les boutons correspondants.
 
-En cas d'ajout/suppression une carte apparaitra, indiquant qu'il est nécessaire de redémarrer le srveur pour prendre en compte les modifications.
+En cas d'ajout/suppression une carte apparaitra, indiquant qu'il est nécessaire de redémarrer le serveur pour prendre en compte les modifications.
 
 <p align="center"><img src="Medias/Dashboard/restart_needed_card.jpg"></p>
 
