@@ -17,7 +17,7 @@ Avant de commencer, assurez-vous d'avoir les outils et intégrations suivants in
 #### **Intégrations nécessaires au fonctionnement**
 | Type | Nom & Lien |
 | :--- | :--- |
-| **UI / Cartes** | [Mushroom card](https://github.com/piitaya/lovelace-mushroom) • [Card mod](https://github.com/thomasloven/lovelace-card-mod) • [Vertical stack in card](https://github.com/ofekashery/vertical-stack-in-card) • [Timer bar card](https://github.com/rianadon/timer-bar-card) • [Streamline card](https://github.com/brunosabot/streamline-card) |
+| **UI / Cartes** | [Mushroom card](https://github.com/piitaya/lovelace-mushroom) • [Uix](https://github.com/Lint-Free-Technology/uix) • [Vertical stack in card](https://github.com/ofekashery/vertical-stack-in-card) • [Timer bar card](https://github.com/rianadon/timer-bar-card) • [Streamline card](https://github.com/brunosabot/streamline-card) |
 | **Système** | [Calendar merge](https://github.com/kgn3400/calendar_merge) • [Spook](https://github.com/frenck/spook) • `Calendrier local` (natif HA) |
 
 > [!IMPORTANT]
