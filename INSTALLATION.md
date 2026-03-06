@@ -62,7 +62,7 @@ Installation déconseillée en l'état. Vous avez ces entités en commun avec l'
 
 #### **2️⃣ Activation des Packages**
 
-Vérifiez si les packages sont actifs dans votre **`configuration.yaml`**. Ouvrez le fichier et recherchez la ligne suivante sous la clé **`homeassistant:`**.
+Vérifiez si les packages sont actifs dans votre fichier **`configuration.yaml`**. Ouvrez le fichier et recherchez la ligne suivante sous la clé **`homeassistant:`**.
 
 ```yaml
 homeassistant:
@@ -153,9 +153,9 @@ C'est cette étape qui permet l'affichage des arrosages à venir.
 
 ##
 
-### 🎉 C'est fini !
+### 🎉 C'est fini pour l'installation!
 
-Il ne vous reste plus qu'à tester toutes les fonctionnalités. Pour la partie programmation, ajoutez simplement des événements au calendrier comme montré dans la vidéo ci-dessous.
-
+Le **Dashboard Arrosage** est installé, il va maintenant falloir l'adapter à votre usage. 
+[`Personnalisation de votre système d'arrosage`](PERSONNALISATION.md)
 
 <br><br><br><br><br>
