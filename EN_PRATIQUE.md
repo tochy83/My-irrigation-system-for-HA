@@ -1,6 +1,6 @@
 # En pratique
 
-Maintenant que le **Dashboard Arrosage** est installé, vous pouvez l'ajuster à votre jardin. Pour l'exemple je vais partir sur mon propre usage.
+Maintenant que le **Dashboard Arrosage** est installé, vous pouvez "l'ajuster" à votre jardin. Pour l'exemple je vais partir sur mon propre usage.
 
 <br>
 
