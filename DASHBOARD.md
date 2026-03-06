@@ -1,216 +1,214 @@
-# Le dashboard arrosage
+# Les pages et cartes du dashboard
 
-#### Integrations nécessaires à la mise en place du dashboard arrosage :
+Retrouvez sur cette page toutes les cartes du **Dashboard Arrosage**, ainsi que leurs fonctions et code.
 
-* Calendrier local disponible dans les intégrations de base de HA
-* Les [mushrooms card](https://github.com/piitaya/lovelace-mushroom?tab=readme-ov-file#-mushroom) disponibles sur HACS
-* [Card mod 3](https://github.com/thomasloven/lovelace-card-mod?tab=readme-ov-file#card-mod-3) disponible sur HACS
-* [Vertical stack in card](https://github.com/ofekashery/vertical-stack-in-card?tab=readme-ov-file#vertical-stack-in-card) disponible sur HACS
-* [Timer bar card](https://github.com/rianadon/timer-bar-card?tab=readme-ov-file#timer-bar-card) disponible sur HACS
-* [Calendar merge](https://github.com/kgn3400/calendar_merge?tab=readme-ov-file#calendar-merge-helper) disponible sur HACS
-* [Streamline card](https://github.com/brunosabot/streamline-card) disponible sur HACS
+> [!NOTE]
+> Certains screenshots ou vidéos peuvent présenter de légères différences suite aux mises à jour de l'intégration. Dans ce cas une note est ajoutée à la partie concernée.
 
-
-<br><br>
-*Comment installer ce dashboard sur Home assistant : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Medias/Installation/add_dashboard.gif)*
-<br>
-*Le code du dashboard complet : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/dashboard.yaml)*
-<br><br>
-
-> Certains screenshots présents ci-dessous peuvent ne pas être à jour car j'ai ajouté de nouvelles fonctionnalités depuis que j'ai rédigé cette page.
 <br>
 
-### La page arrosage<br><br>
-<p align="center"><img src="Medias/arrosage_page.jpg" width=75%></p>
-<p align="center">Une vue d'ensemble de la page arrosage.</p>
+##
+
+
+### La page principale
+
+<p align="center"><img src="Medias/Dashboard/arrosage_page.jpg"></p>
+
+>📄 **Code de la page :** [`Dashboard/arrosage_page.yaml`](Dashboard/arrosage_page.yaml)
+
+<p align="center"><img src="Medias/Icons/divider.png"></p>
+
+
+#### **- La carte navigation**
+
+<p align="center"><img src="Medias/Dashboard/navigation_card.jpg"></p>
+
+Cette carte permet de naviguer entre les différentes pages du **dashboard**
+
+<img src="Medias/Icons/arrow-left.svg" width="20" align="absmiddle"> : Permet de revenir à la page précédemment affichée.
+
+<img src="Medias/Icons/calendar-clock-outline.svg" width="20" align="absmiddle"> : Permet de naviguer vers la page **Programmation d'arrosage**. Elle sera <img src="Medias/Icons/calendar-clock-outline_green.svg" width="20" align="absmiddle"> si un calendrier nommé `Arrosage` existe sinon elle sera <img src="Medias/Icons/calendar-clock-outline_orange.svg" width="20" align="absmiddle">.
+
+<img src="Medias/Icons/tune.svg" width="20" align="absmiddle"> : Permet de naviguer vers la page **Paramètres**.
+
+>📄 **Code de la carte :** [`Dashboard/navigation_card.yaml`](Dashboard/navigation_card.yaml)
+
+<p align="center"><img src="Medias/Icons/divider.png"></p>
+
+
+#### **- La carte arrosage en cours**
+
+<p align="center"><img src="Medias/Dashboard/arrosage_en_cours_card.jpg"></p>
+
+Cette carte s'affichera quand un arrosage de zone est en cours.
+
+<img src="Medias/Icons/stop.svg" width="20" align="absmiddle"> : Permet de couper l'arrosage de la zone avant son terme.
+
+>📄 **Code de la carte :** [`Dashboard/arrosage_en_cours_card.yaml`](Dashboard/arrosage_en_cours_card.yaml)
+
+<p align="center"><img src="Medias/Icons/divider.png"></p>
+
+
+#### **- La carte zone**
+
+<p align="center"><img src="Medias/Dashboard/zone_card.jpg"></p>
+
+Carte indiquant le nom de la zone ainsi que son id. Elle permet entre autre de déclencher un arrosage de zone manuellement.
+
+<img src="Medias/Icons/form-textbox.svg" width="13" align="absmiddle"> : Permet de modifier le nom de la zone.
+
+<img src="Medias/Icons/numeric-5.svg" width="20" align="absmiddle">: Indique le nombre de voies liées à la zone (ici 5). Elle sera<img src="Medias/Icons/numeric-5_grey.svg" width="20" align="absmiddle">quand tout est bien configuré,<img src="Medias/Icons/numeric-5_red.svg" width="20" align="absmiddle">si aucune voie n'est liée à la zone et<img src="Medias/Icons/numeric-5_orange.svg" width="20" align="absmiddle">si vous avez des voies réelles et virtuelles liées à la zone.
+
+<img src="Medias/Icons/check-network-outline.svg" width="14" align="absmiddle"> : Indique si les voies de la zone sont connectées. Elle sera <img src="Medias/Icons/check-network-outline_grey.svg" width="14" align="absmiddle"> en mode démo, <img src="Medias/Icons/check-network-outline_green.svg" width="14" align="absmiddle"> si toutes les voies de la zone sont connectées, <img src="Medias/Icons/check-network-outline_orange.svg" width="14" align="absmiddle"> si des voies de la zone sont déconnectées et <img src="Medias/Icons/check-network-outline_red.svg" width="14" align="absmiddle"> si toutes les voies de la zone sont déconnectées. Elle permet du coup de savoir si on est en mode démo ou production (icone grise ou colorée).
+
+<img src="Medias/Icons/calendar-clock-outline.svg" width="20" align="absmiddle"> : Permet d'activer/désactiver la programmation. Elle passera <img src="Medias/Icons/calendar-clock-outline_green.svg" width="20" align="absmiddle"> si la programmation est activée et <img src="Medias/Icons/calendar-clock-outline_orange.svg" width="20" align="absmiddle"> si la programmation est activée mais qu'aucun évènement n'est prévu dans le calendrier dans les 30 jours à venir.
+
+<img src="Medias/Icons/sprinkler-variant.svg" width="20" align="absmiddle"> : Permet de déclencher un arrosage de zone. Elle passera en <img src="Medias/Icons/sprinkler-variant_green.svg" width="20" align="absmiddle"> quand une zone est en cours d'arrosage.
+<br><br>
+
+Cette carte dispose également de ces propres notifications.
+<p align="center"><img src="Medias/Dashboard/zone_card_notifs.jpg"></p>
+
+>📄 **Code de la carte :** [`Dashboard/zone_card.yaml`](Dashboard/zone_card.yaml)
+
+<p align="center"><img src="Medias/Icons/divider.png"></p>
+
+
+#### **- La carte voie**
+
+<p align="center"><img src="Medias/Dashboard/voie_card.jpg"></p>
+
+*<p align="center">La carte sans arrosage en cours</p>*
+
+<p align="center"><img src="Medias/Dashboard/voie_card_en_cours.jpg"></p>
+
+*<p align="center">La carte avec arrosage en cours</p>*
+
+Carte indiquant le nom de la voie et son id ainsi que la date et l'heure du dernier arrosage. Elle permet de déclencher la voie et également de la liée à une zone.
+
+<img src="Medias/Icons/sprinkler-variant.svg" width="20" align="absmiddle"> : Permet de déclencher/arrêter la voie. Elle passe en <img src="Medias/Icons/sprinkler-variant_cyan.svg" width="20" align="absmiddle"> lorsque un arrosage est en cours.
+
+<img src="Medias/Icons/dots-horizontal.svg" width="12" align="absmiddle"> : Permet de lier la voie à une zone. Elle sera <img src="Medias/Icons/dots-horizontal_orange.svg" width="12" align="absmiddle"> si la voie est n'est pas liée à une zone, sinon elle sera <img src="Medias/Icons/dots-horizontal_green.svg" width="12" align="absmiddle">.
+
+> MAJ : Lorsque la voie est liée à une zone, un numéro indiquant la zone liée a été ajouté après l'icone <img src="Medias/Icons/voie_liee_zone_id.jpg">
+
+<img src="Medias/Icons/check-network-outline.svg" width="14" align="absmiddle"> : Indique si la voie est connectée. Elle sera <img src="Medias/Icons/check-network-outline_grey.svg" width="14" align="absmiddle"> en mode démo, sinon <img src="Medias/Icons/check-network-outline_green.svg" width="14" align="absmiddle"> si la voie est connectée, et <img src="Medias/Icons/check-network-outline_red.svg" width="14" align="absmiddle"> si la voie est déconnectée. Elle permet du coup de savoir si on est en mode démo ou production (icone grise ou colorée) toute comme la même icone sur la carte zone.
+
+<img src="Medias/Icons/timer.jpg"> : Permet de régler la durée de déclenchement de la voie.
+
+<img src="Medias/Icons/check-circle-outline.svg" width="20" align="absmiddle"> : Permet de sélectionner/déselectionner la voie pour un cycle d'arrosage de zone. Elle passe en <img src="Medias/Icons/check-circle-outline_green.svg" width="20" align="absmiddle"> lorsque la voie est sélectionnée ou <img src="Medias/Icons/close-circle-outline_grey.svg" width="20" align="absmiddle"> si cela n'est pas le cas.
+<br><br>
+
+Comme la carte zone, cette carte dispose de ces propres notifications.
+<p align="center"><img src="Medias/Dashboard/voie_card_notifs.jpg"></p>
+
+>📄 **Code de la carte :** [`Dashboard/voie_card.yaml`](Dashboard/voie_card.yaml)
+
+<p align="center"><img src="Medias/Icons/divider.png"></p>
+
+
+#### **- La carte informations programmation**
+
+<p align="center"><img src="Medias/Dashboard/informations_card.jpg"></p>
+
+La première carte indiquent les arrosages à venir par zone et la seconde renvoi la page de programmation d'arrosage.
+
+Cette carte dispose aussi de ces propres notifications.
+<p align="center"><img src="Medias/informations_card_notifs.jpg"></p>
+
+<img src="Medias/Icons/help-circle-outline.svg" width="20" align="absmiddle"> : Renvoi vers la page documentation du **dashboard arrosage**. Les autres icones renvoient vers les pages adéquates de **Home Assistant**.
+
+>📄 **Code de la carte :** [`Dashboard/informations_programmation_card.yaml`](Dashboard/informations_programmation_card.yaml)
+
+<p align="center"><img src="Medias/Icons/divider.png"></p>
+
+
+#### **- La carte connectivité**
+
+<p align="center"><img src="Medias/Dashboard/connectivity_card.jpg"></p>
+
+Une carte grid, regroupant les cartes de connectivité de chaque zone.
+
+<img src="Medias/Icons/check-network-outline.svg" width="20" align="absmiddle"> : Indique si les voies de la zone sont connectées. Elle sera <img src="Medias/Icons/check-network-outline_grey.svg" width="20" align="absmiddle"> en mode démo, <img src="Medias/Icons/check-network-outline_green.svg" width="20" align="absmiddle"> si toutes les voies de la zone sont connectées, <img src="Medias/Icons/check-network-outline_orange.svg" width="20" align="absmiddle"> si des voies de la zone sont déconnectées et <img src="Medias/Icons/check-network-outline_red.svg" width="20" align="absmiddle"> si toutes les voies de la zone sont déconnectées. Elle permet du coup de savoir si on est en mode démo ou production (icone grise ou colorée).
+
+>📄 **Code de la carte :** [`Dashboard/connectivity_card.yaml`](Dashboard/connectivity_card.yaml)
+
 <br>
 
+##
 
-<p align="center"><img src="Medias/arrosage_page_arrosage_en_cours.jpg" width=75%></p>
-<p align="center">Une vue d'ensemble de la page arrosage lorsqu'un arrosage de zone est en cours.</p>
+
+### La page programmation arrosage
+
+<p align="center"><img src="Medias/Dashboard/programmation_page.jpg"></p>
+
+Sur cette page vous pouvez définir la programmation de chaque zone en cliquant sur le bouton <img src="Medias/Icons/ajout_event.png" width="100" align="absmiddle">
+
+On retrouve en haut de la page une carte de navigation comme sur la page principale. Cette carte est utile si vous souhaitez faire de cette page une `sous-vue` sur votre dashboard.
+
+La section `informations complémentaires` comprend des informations utiles pour l'ajout d'évènements au calendrier d'arrosage.
+
+>📄 **Code de la page :** [`Dashboard/calendar_page.yaml`](Dashboard/calendar_page.yaml)
+
 <br>
 
-*Le code de la page : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/arrosage_page.yaml)*
-<br><br>
+##
 
 
-### Les cartes qui la composent :
+### La page paramètres
 
+<p align="center"><img src="Medias/Dashboard/parameters_page.jpg"></p>
 
-#### - ***La carte navigation*** :
-<p align="center"><img src="Medias/navigation_card.jpg"></p>
-Une carte qui affiche simplement le nom de la page et 2 boutons de navigation.<br>
-<br>
-<span><img src="Medias/Icons/arrow-left.svg" width="18"></span> Permet de revenir à la page précedente.
-<br>
-<span><img src="Medias/Icons/tune.svg" width="18"></span> Permet d'accéder à la page Paramètres/Documentation de "l'intégration".
-<br><br>
+On retrouve en haut de la page une carte de navigation comme sur la page principale. Cette carte est utile si vous souhaitez faire de cette page une `sous-vue` sur votre dashboard.
 
-*Le code de la carte : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/navigation_card.yaml)*
-<br><br>
+La section `Paramètres` permet de choisir où vous voulez envoyer les notifications.
 
-#### - ***La carte notification*** :
-<p align="center"><img src="Medias/notification_card.jpg"></p>
-Cette carte affiche si un arrosage de zone est en cours. On retrouve l'heure de fin du cycle prévue ainsi qu'un bouton permettant d'arrêter l'arrosage de zone en cours.
-<br><br>
-L'ensemble des cartes notifications
-<p align="center"><img src="Medias/notifications_card.jpg"></p>
-Les boutons situés sur la droite des cartes permettent certaines actions :
-<br><br>
-<span><img src="Medias/Icons/stop.svg" width="18"></span> Permet de couper le cycle d'arrosage de la zone en cours.
-<br>
-<span><img src="Medias/Icons/calendar-edit-outline.svg" width="18"></span> Renvoit sur la page calendrier de Home Asistant.
-<br>
-<span><img src="Medias/Icons/information.svg" width="18"></span> Renvoit vers des pages de ce repository.
-<br><br>
+La section `Mode de fonctionnement` indique si vous êtes en mode **démo** ou **production**. En mode production elle listera la correspondance entre les voies du dashboard et votre matériel.
 
-*Le code de la section notifications contenant toutes les cartes : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/notifications_cards_section.yaml)*
-<br><br>
+La section `Mode de fonctionnement` Permet l'ajout ou la suppression de voies ou de zones en cliquant sur les boutons correspondants.
 
-#### - ***La carte zone*** :
-<p align="center"><img src="Medias/zone_card.jpg"></p>
-Cette carte affiche le nom de la zone d'arrosage. Elle permet de choisir si la planification doit être activée pour cette zone d'arrosage également de déclencher un arrosage manuel de la zone.
-<br><br>
-<span><img src="Medias/Icons/calendar-clock-outline.svg" width="18"></span> Permet de choisir si la planification doit être activée pour cette zone d'arrosage. Il est en vert lorsque la planification est active, en noir lorsqu'elle est inactive.
-<br>
-<span><img src="Medias/Icons/sprinkler-variant.svg" width="18"></span> En cliquant dessus on lance un cycle d'arrosage de la zone. Il passe alors en vert jusqu'a la fin du cycle pour indiquer qu'un cycle d'arrosage est en cours. Il ne permet pas d'arrêter le cycle d'arrosage en cours, pour cela il faut cliquer sur le bouton <span><img src="Medias/Icons/stop.svg" width="18"></span> dans la zone de notifications ou sur le bouton <span><img src="Medias/Icons/sprinkler-variant.svg" width="18"></span> de chaque carte électrovanne de la zone.
-<br><br>
+En cas d'ajout/suppression une carte apparaitra, indiquant qu'il est nécessaire de redémarrer le srveur pour prendre en compte les modifications.
 
-*Le code de la carte : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/zone_card.yaml)*
-<br><br>
+<p align="center"><img src="Medias/Dashboard/restart_needed_card.jpg"></p>
 
-#### - ***La carte électrovanne*** :
-<p align="center"><img src="Medias/electrovanne_card.jpg"></p>
-Cette carte permet de Déclencher/Arrêter une électrovanne manuellement.<br>
-Elle permet aussi de régler la durée du cycle d'arrosage de cette électrovanne et d'inclure ou non cette électrovanne au cycle d'arrosage de la zone dans laquelle elle se trouve.<br>
-Elle affiche également la date et l'heure du dernier cycle de fonctionnement l'électrovanne et volume d'arrosage du dernier cycle de fonctionnement si un dispositif de comptage d'eau est rattaché à "l'intégration".
-<br><br>
-<span><img src="Medias/Icons/sprinkler-variant.svg" width="18"></span> Permet de Déclencher/Arrêter l'arrosage de la voie.
-<br>
-<span><img src="Medias/Icons/timer.jpg"></span> Permet de régler la durée de déclenchement de l'électrovanne.
-<br>
-<span><img src="Medias/Icons/close-circle-outline.svg" width="18"></span> / <span><img src="Medias/Icons/check-circle.svg" width="18"></span> Permettent d'inclure ou d'exclure l'électrovanne au cycle d'arrosage de sa zone. Lorsque le bouton <span><img src="Medias/Icons/close-circle-outline.svg" width="18"></span> est affiché en gris, l'électrovanne n'est pas incluse dans le cycle d'arrosage de sa zone. Quand le bouton <span><img src="Medias/Icons/check-circle.svg" width="18"></span> est affiché en vert, l'électrovanne est incluse dans le cycle d'arrosage de sa zone. Cliquer dessus bascule d'un état à l'autre.
-<br><br>
+En cas de suppression et après redémarrage du serveur, une carte listant les entités orphelines apparaitra, pour vous rappeler de les supprimer.
 
-*Le code de la carte : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/electrovanne_card.yaml)*
-<br><br>
+<p align="center"><img src="Medias/Dashboard/entites_orphelines_card.jpg"></p>
 
-#### - ***La carte électrovanne*** (Avec arrosage en cours) :
-<p align="center"><img src="Medias/electrovanne_card_arrosage_en_cours.jpg"></p>
-Quand une électrovanne est en fonctionnement l'affichage de la carte change pour afficher le temps restant.
-<br><br><br>
+Cette carte se masquera une fois les entités orphelines supprimées.
 
-#### - ***La carte électrovanne*** (Avec compteur d'eau) :
-<p align="center"><img src="Medias/electrovanne_card_avec_volume.jpg"></p>
-Si vouz avez un sensor qui comptabilise votre consommation d'eau, la consommation du dernier cycle de l'électrovanne peut être affiché.
-<br><br><br>
+>📄 **Code de la page :** [`Dashboard/parameters_page.yaml`](Dashboard/parameters_page.yaml)
 
-#### - ***La carte titre*** :
-<p align="center"><img src="Medias/titre_card.jpg"></p>
-Une carte qui affiche simplement un titre stylisé.
-<br><br>
-
-*Le code de la carte : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/titre_card.yaml)*
-<br><br>
-
-#### - ***La carte prochains arrosages*** :
-<p align="center"><img src="Medias/prochains_arrosages_card_2.jpg" witdh="492"></p>
-
-Cette carte récupère automatiquement les infos du calendrier d'arrosage pour les afficher. Par contre il est impératif pour qu'elle affiche quelque chose, d'avoir au préalable installer et configurer le helper [Calendar merge](https://github.com/kgn3400/calendar_merge) disponible sur HACS.
-<br><br>
-L'ensemble des cartes prochains arrosages
-<p align="center"><img src="Medias/prochains_arrosages_cards.jpg"></p>
-<br><br>
-
-*Le code de la carte : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/prochains_arrosages_card.yaml)*
-<br><br>
-
-#### - ***La carte programmation d'arrosage*** :
-<p align="center"><img src="Medias/programmation_card.jpg"></p>
-Carte qui permet d'afficher la page calendrier d'arrosage.
-<br><br>
-
-*Le code de la carte : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/programmation_card.yaml)*
-<br><br>
-
-#### - ***La carte connectivité*** :
-<p align="center"><img src="Medias/connectivity_card.jpg"></p>
-Si vous avez un sensor qui permet de savoir si vos électrovannes sont connectées à votre serveur Home Assistant, cette carte affiche l'état de la connectivité.
-<br><br>
-
-*Le code de la carte : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/connectivity_card)*
-<br><br>
-
-#### - ***La carte compteur d'eau*** :
-<p align="center"><img src="Medias/compteur_card.jpg"></p>
-Si vous avez un sensor qui comptabilise votre consommation d'eau, cette carte affiche celle ci.
-<br><br>
-
-*Le code de la carte : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/compteur_card.yaml)*
-<br><br><br>
-
-
-
-### La page calendrier d'arrosage<br><br>
-<p align="center"><img src="Medias/calendar_page.jpg" width=75%></p>
-<p align="center">Une vue d'ensemble de la page arrosage.</p>
 <br>
 
-*Le code de la page : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/parameters_page.yaml)*
-<br><br>
-Il n'y a pas grand chose à ajouter sur cette page, elle se contente d'afficher les infos du calendrier d'arrosage ainsi que comment ajouter une programmation de zone dans le calendrier.
-<br><br><br>
+##
 
 
+Je n'ai repris ci-dessus que les cartes essentielles du dashboard, mais il y'a également 2 cartes qui ne servent qu'à la mise en page.
 
-### La page paramètres<br><br>
-<p align="center"><img src="Medias/parameters_page.jpg" width=75%></p>
-<p align="center">Une vue d'ensemble de la page paramètres.</p>
+#### **- La carte titre**
+
+<p align="center"><img src="Medias/Dashboard/titre_card.jpg"></p>
+
+>📄 **Code de la carte :** [`Dashboard/titre_card.yaml`](Dashboard/titre_card.yaml)
+
+<p align="center"><img src="Medias/Icons/divider.png"></p>
+
+
+#### **- La carte espacement**
+
+Une carte permettant d'ajouter un espace entre 2 cartes/sections pour une mise en page plus aérée.
+
+>📄 **Code de la carte :** [`Dashboard/espacement_card.yaml`](Dashboard/espacement_card.yaml)
+
 <br>
 
-*Le code de la page : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/parameters_page.yaml)*
-<br><br>
+##
 
+#### **- Les cartes streamline**
 
-#### - ***Les cartes autorisation d'envoi de notifications*** :
-<p align="center"><img src="Medias/enable_mobile_notifications.jpg"></p>
-Ces cartes ont pour but d'autoriser ou non l'envoi des notifications vers l'application mobile de Home Assistant ou vers Télégram.<br>
-Avant d'autoriser l'envoi de notifications, assurez vous d'avoir l'application mobile d'installée et/ou l'intégration Télégram.
-<br><br>
-<span><img src="Medias/Icons/close-circle-outline.svg" width="18"></span> / <span><img src="Medias/Icons/check-circle-outline.svg" width="18"></span> Permettent d'autoriser ou non l'envoi des notifications vers l'application mobile/Télégram. Lorsque le bouton <span><img src="Medias/Icons/close-circle-outline.svg" width="18"></span> est affiché en gris, les notifications ne seront pas envoyées vers l'application mobile/Télégram. Quand le bouton <span><img src="Medias/Icons/check-circle-outline.svg" width="18"></span> est affiché en vert, les notifications seront envoyées vers l'application mobile/Télégram. Cliquer dessus bascule d'un état à l'autre.
-<br><br>
+Les codes des cartes voie_card, zone_card, arrosage_en_cours_card et connectivity_card sont présentés ici pour une carte unique afin que vous puissiez voir la façon dont elles sont construites, mais pour le dashboard et pour pouvoir les intégrer de manière simple elles sont converties en streamline_card.
 
-*Le code de la section autorisation d'envoi de notifications : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/enable_notifications_cards_section.yaml)*
-<br><br>
+>📄 **Code des cartes streamline :** [`Dashboard/streamline_card.yaml`](Dashboard/streamline_card.yaml)
 
-
-#### - ***La carte informations*** :
-<p align="center"><img src="Medias/entités_orphelines_card.jpg"></p>
-Une carte qui affiche les entités orphelines liées à "l'intégration", si il y'en a, sinon elle ne s'affiche simplement pas.
-<br><br>
-
-*Le code de la section informations : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/entites_orphelines_card.yaml)*
-<br><br>
-
-
-#### - ***Les cartes outils*** :
-<p align="center"><img src="Medias/outils_card.jpg"></p>
-Les 4 cartes pemettant de génerer ou supprimer les fichiers d'entités pour les voies et les zones d'arrosage.
-<br><br>
-<span><img src="Medias/Icons/information-outline.svg" width="18"></span> Renvoi vers les explications détaillées de leur fonctionnement dans la documentation.
-<br><br>
-
-*Le code de la section outils : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/outils_card.yaml)*
-<br><br>
-
-
-#### - ***La carte mode fonctionnement*** :
-<p align="center"><img src="Medias/mode_card.jpg"></p>
-Une carte qui affiche le mode de fonctionnement de l'intégration. En mode production elle affiche en plus la correspondance entre les entités logicielles de "l'intégration" et le matériel de commande des voies d'arrosage.
-<br><br>
-
-*Le code de la section mode de fonctionnement : [Voir](https://github.com/tochy83/My-irrigation-system-for-HA/blob/main/Dashboard/mode_card.yaml)*
-<br><br><br><br>
-
-
-
+<br><br><br><br><br>
