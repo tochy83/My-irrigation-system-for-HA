@@ -14,7 +14,7 @@ Passer de :
 <p align="center"><img src="Medias/En_pratique/arrosage_page_fresh_install.jpg" width="40%" align="absmiddle">&nbsp;&nbsp;&nbsp;>>>&nbsp;&nbsp;&nbsp;<img src="Medias/En_pratique/arrosage_page.jpg" width="40%" align="absmiddle">
 </p>
 
-Dans mon cas j'ai besoin de 3 zones nommées `Potager`, `Fruitiers` et `Agrumes` ainsi que 9 voies.
+Dans mon cas j'ai besoin de 3 zones nommées **`Potager`**, **`Fruitiers`** et **`Agrumes`** ainsi que 9 voies.
 
 <p align="center">
 
@@ -53,6 +53,14 @@ On va maintenant ajouter les cartes pour les voies, nommer celles-ci et disposer
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
+
+#### **4️⃣ Lier les voies aux zones**
+
+Maintenant que les cartes sont à leur place on va s'occuper de la partie "technique" et faire la liaison entre les voies et les zones. Pour cela il va falloir ajouter un **`label`** (une étiquette) à chaque voie. Tout ceci est réalisable sans quitter la page **`Arrosage`**.
+
+<p align="center"><img src="Medias/En_pratique/add_voies_card.gif" width="75%"></p>
+
+<p align="center"><img src="Medias/Icons/divider.png"></p>
 
 
 
