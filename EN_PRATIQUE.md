@@ -70,18 +70,11 @@ Un **`Double-clic`** ou un **`appui long`** sur la partie blanche de la carte pe
 
 A partir de maintenant le **`Dashboard Arrosage`** est complètement fonctionnel en mode démo. Vous pouvez tester toutes les fonctionnalités, commander les voies individuellement, commander des arrosages de zone, ajouter des programmations sur le calendrier, choisir de recevoir ou non des notifications sur **`l'app_mobile`** ou sur **`télégram`**.
 
-<div align="center">
-
-  [![Lancer la vidéo](Medias/En_pratique/add_voies.mp4)](Medias/En_pratique/add_voies.mp4 "Lancer la vidéo")
-
-</div>
-
+<p align="center">https://github.com/user-attachments/assets/b7dd835a-126c-4883-9b59-86b6e7caa818</p>
 
 <br><br><br><br><br>
 
 
-
-https://github.com/user-attachments/assets/b7dd835a-126c-4883-9b59-86b6e7caa818
 
 
 
