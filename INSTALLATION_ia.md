@@ -33,7 +33,7 @@ Avant de commencer, assurez-vous d'avoir les outils et intégrations suivants in
 ### 🚀 Étapes de l'installation
 
 > [!NOTE]
-> Certains screenshots ou vidéos peuvent présenter de légères différences suite aux mises à jour de l'intégration, mais la procédure reste strictement identique.
+> Certains screenshots ou vidéos peuvent présenter de légères différences suite aux mises à jour de l'intégration ou des mises à jour de Home Assistant, mais la procédure reste strictement identique.
 
 #### **1️⃣ Vérification préalable**
 Pour éviter tout conflit, vérifiez qu'aucune entité existante n'utilise déjà les ID du projet.
@@ -72,6 +72,8 @@ homeassistant:
 
 Si elle n'existe pas, ajoutez-la.
 
+<p align="center"><img src="Medias/Installation/enable_packages.gif" width="75%"></p>
+
 > [!NOTE] 
 > Il est possible, si vous utilisez déjà les packages mais de manière différente et que vous ayez la ligne :
 > ```
@@ -88,7 +90,7 @@ Si elle n'existe pas, ajoutez-la.
 
 Téléchargez le fichier ZIP contenant l'intégration depuis la [`page d'accueil du repository`](https://github.com/tochy83/My-irrigation-system-for-HA).
 
-<p align="center"><img src="Medias/Installation/download_from_github.gif" alt="Download GitHub"></p>
+<p align="center"><img src="Medias/Installation/download_repository.gif" width="75%"></p>
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
@@ -97,20 +99,15 @@ Téléchargez le fichier ZIP contenant l'intégration depuis la [`page d'accueil
 1. À l'aide de **Studio Code Server**, créez un dossier `packages` dans `/config/`.
 2. Copiez le dossier `misha_arrosage` du ZIP dans le dossier `packages` que vous venez de créer.
 
-<p align="center">
-<img src="Medias/Installation/studio_code_server_add_folder.gif" width="45%">
-<img src="Medias/Installation/studio_code_server.gif" width="45%">
-</p>
-
-**Structure finale attendue :**
-
-<p align="center"><img src="Medias/Installation/structure_dossier_packages.jpg" alt="Structure dossiers"></p>
+<p align="center"><img src="Medias/Installation/install_package.gif" width="75%"></p>
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
 #### **5️⃣ Redémarrage du serveur**
 
 Pour finaliser l'installation, il faut maintenant redémarrer Home Assistant. Allez dans **Paramètres > Outils de développement > YAML** et cliquez sur `Vérifier la configuration`. Si le message `La configuration n'empêchera pas Home Assistant de démarrer !` apparait, vous pouvez cliquer sur `Redémarrer` puis `Redémarrer Home Assistant`.
+
+<p align="center"><img src="Medias/Installation/restart_ha.gif" width="75%"></p>
 
 > [!IMPORTANT]
 > Si le message `La configuration n'empêchera pas Home Assistant de démarrer !` n'apparaissait pas il est probable que vous ayez fait une erreur à l'étape 2️⃣ ou 4️⃣.
@@ -121,9 +118,9 @@ Pour finaliser l'installation, il faut maintenant redémarrer Home Assistant. Al
 #### **6️⃣ Mise en place du Dashboard**
 
 1. Créez un nouveau Dashboard nommé **Arrosage** (respectez la casse, des liens internes l'utilisent).
-2. Ouvrez le fichier `dashboard.yaml` (présent dans le ZIP), copiez tout son contenu et collez-le dans l'éditeur de configuration de votre nouveau dashboard.
+2. Ouvrez le fichier `Dashboard/dashboard.yaml` (présent dans le ZIP), copiez tout son contenu et collez-le dans l'éditeur de configuration de votre nouveau dashboard.
 
-<p align="center"><img src="Medias/Installation/add_dashboard.gif" alt="Ajout Dashboard"></p>
+<p align="center"><img src="Medias/Installation/copy_dashboard.gif" width="75%"></p>
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
@@ -131,17 +128,14 @@ Pour finaliser l'installation, il faut maintenant redémarrer Home Assistant. Al
 
 Ajoutez l'intégration **Calendrier local** (si vous ne l'utilisez pas déja) et créez un calendrier nommé exactement `Arrosage`.
 
-<p align="center">
-<img src="Medias/Installation/add_local_calendar_int.gif" width="45%">
-<img src="Medias/Installation/add_calendar.gif" width="45%">
-</p>
+<p align="center"><img src="Medias/Installation/add_calendar.gif" width="75%"></p>
 
 > [!NOTE] 
 > Si vous avez déjà un calendrier nommé `Arrosage`, c'est celui-ci qui sera utilisé.
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
-#### **8️⃣ Liaison avec Calendar Merge**
+#### **8️⃣ Configurer Calendar Merge**
 
 Configurez une entrée pour l'intégration **Calendar Merge**.
 **C'est cette étape qui permet l'affichage des arrosages à venir.**
@@ -153,10 +147,7 @@ Configurez une entrée pour l'intégration **Calendar Merge**.
 * **Option :** Désactiver "Utiliser le résumé comme nom d’entité"
 * **Format de date :** Selon votre préférence
 
-<p align="center">
-<img src="Medias/Installation/add_calendar_merge_int.gif" width="45%">
-<img src="Medias/Installation/config_calendar_merge.gif" width="45%">
-</p>
+<p align="center"><img src="Medias/Installation/configure_calendar_merge.gif" width="75%"></p>
 
 <br>
 
