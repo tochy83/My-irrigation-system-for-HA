@@ -72,7 +72,7 @@ A partir de maintenant le **`Dashboard Arrosage`** est complètement fonctionnel
 
 <div align="center" width="75%">
 
-https://github.com/user-attachments/assets/b7dd835a-126c-4883-9b59-86b6e7caa818
+https://github.com/user-attachments/assets/822f29f2-dac0-4b0e-ab61-ec05829cee5e
 
 </div>
 
