@@ -19,7 +19,7 @@ Retrouvez sur cette page toutes les cartes du **Dashboard Arrosage**, ainsi que 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
 
-#### **- La carte navigation**
+#### - La carte navigation
 
 <p align="center"><img src="Medias/Dashboard/navigation_card.jpg"></p>
 
@@ -36,7 +36,7 @@ Cette carte permet de naviguer entre les différentes pages du **dashboard**
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
 
-#### **- La carte arrosage en cours**
+#### - La carte arrosage en cours
 
 <p align="center"><img src="Medias/Dashboard/arrosage_en_cours_card.jpg"></p>
 
@@ -49,7 +49,7 @@ Cette carte s'affichera quand un arrosage de zone est en cours.
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
 
-#### **- La carte zone**
+#### - La carte zone
 
 <p align="center"><img src="Medias/Dashboard/zone_card.jpg"></p>
 
@@ -74,7 +74,7 @@ Cette carte dispose également de ces propres notifications.
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
 
-#### **- La carte voie**
+#### - La carte voie
 
 <p align="center"><img src="Medias/Dashboard/voie_card.jpg"></p>
 
@@ -107,7 +107,7 @@ Comme la carte zone, cette carte dispose de ces propres notifications.
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
 
-#### **- La carte informations programmation**
+#### - La carte informations programmation
 
 <p align="center"><img src="Medias/Dashboard/informations_card.jpg"></p>
 
@@ -123,7 +123,7 @@ Cette carte dispose aussi de ces propres notifications.
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
 
-#### **- La carte connectivité**
+#### - La carte connectivité
 
 <p align="center"><img src="Medias/Dashboard/connectivity_card.jpg"></p>
 
@@ -186,7 +186,7 @@ Cette carte se masquera une fois les entités orphelines supprimées.
 
 Je n'ai repris ci-dessus que les cartes essentielles du dashboard, mais il y'a également 2 cartes qui ne servent qu'à la mise en page.
 
-#### **- La carte titre**
+#### - La carte titre
 
 <p align="center"><img src="Medias/Dashboard/titre_card.jpg"></p>
 
@@ -205,7 +205,7 @@ Une carte permettant d'ajouter un espace entre 2 cartes/sections pour une mise e
 
 ##
 
-#### **- Les cartes streamline**
+#### - Les cartes streamline
 
 Les codes des cartes voie_card, zone_card, arrosage_en_cours_card et connectivity_card sont présentés ici pour une carte unique afin que vous puissiez voir la façon dont elles sont construites, mais pour le dashboard et pour pouvoir les intégrer de manière simple elles sont converties en streamline_card.
 

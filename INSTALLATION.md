@@ -35,7 +35,7 @@ Avant de commencer, assurez-vous d'avoir les outils et intégrations suivants in
 > [!NOTE]
 > Certains screenshots ou vidéos peuvent présenter de légères différences suite aux mises à jour de l'intégration ou des mises à jour de Home Assistant, mais la procédure reste strictement identique.
 
-#### **1️⃣ Vérification préalable**
+#### 1️⃣ Vérification préalable
 Pour éviter tout conflit, vérifiez qu'aucune entité existante n'utilise déjà les ID du projet.
 Allez dans **`Paramètres > Outils de développement > Modèle`** et collez le code suivant :
 
@@ -60,7 +60,7 @@ Installation déconseillée en l'état. Vous avez ces entités en commun avec l'
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
-#### **2️⃣ Activation des Packages**
+#### 2️⃣ Activation des packages
 
 Vérifiez si les packages sont actifs dans votre fichier **`configuration.yaml`**. Ouvrez le fichier et recherchez la ligne suivante sous la clé **`homeassistant:`**.
 
@@ -87,7 +87,7 @@ homeassistant:
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
-#### **3️⃣ Téléchargement**
+#### 3️⃣ Téléchargement
 
 Téléchargez le fichier ZIP contenant l'intégration depuis la [`page d'accueil du repository`](https://github.com/tochy83/My-irrigation-system-for-HA).
 
@@ -95,7 +95,7 @@ Téléchargez le fichier ZIP contenant l'intégration depuis la [`page d'accueil
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
-#### **4️⃣ Transfert des fichiers**
+#### 4️⃣ Transfert des fichiers
 
 Décompressez le ZIP et copiez le dossier **`misha_arrosage`** présent dans le dossier **`Package`** de celui-ci, dans le dossier **`packages`** que vous avez créé à l'étape 2️⃣.
 
@@ -103,7 +103,7 @@ Décompressez le ZIP et copiez le dossier **`misha_arrosage`** présent dans le 
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
-#### **5️⃣ Redémarrage du serveur**
+#### 5️⃣ Redémarrage du serveur
 
 Pour finaliser l'installation, il faut maintenant redémarrer Home Assistant. Allez dans **Paramètres > Outils de développement > YAML** et cliquez sur **`Vérifier la configuration`**. Si le message **`La configuration n'empêchera pas Home Assistant de démarrer !`** apparaît, vous pouvez cliquer sur **`Redémarrer`** puis **`Redémarrer Home Assistant`**.
 
@@ -115,7 +115,7 @@ Pour finaliser l'installation, il faut maintenant redémarrer Home Assistant. Al
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
-#### **6️⃣ Mise en place du Dashboard**
+#### 6️⃣ Mise en place du Dashboard
 
 1. Créez un nouveau Dashboard nommé **`Arrosage`** (respectez la casse, des liens internes l'utilisent).
 2. Ouvrez le fichier **`Dashboard/dashboard.yaml`** (présent dans le ZIP), copiez tout son contenu et collez-le dans l'éditeur de configuration de votre nouveau dashboard.
@@ -124,7 +124,7 @@ Pour finaliser l'installation, il faut maintenant redémarrer Home Assistant. Al
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
-#### **7️⃣ Configuration du Calendrier**
+#### 7️⃣ Configuration du Calendrier
 
 Ajoutez l'intégration **`Calendrier local`** (si vous ne l'utilisez pas déja) et créez un calendrier nommé exactement **`Arrosage`**.
 
@@ -135,7 +135,7 @@ Ajoutez l'intégration **`Calendrier local`** (si vous ne l'utilisez pas déja) 
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
-#### **8️⃣ Configuration de Calendar Merge**
+#### 8️⃣ Configuration de Calendar Merge
 
 Configurez une entrée pour l'intégration **`Calendar Merge`**.
 C'est cette étape qui permet l'affichage des arrosages à venir.

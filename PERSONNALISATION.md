@@ -27,7 +27,7 @@ Dans mon cas j'ai besoin de 3 zones nommées **`Potager`**, **`Fruitiers`** et *
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
 
-#### **1️⃣ Ajouter le nombre de zones et voies nécessaires**
+#### 1️⃣ Ajouter le nombre de zones et voies nécessaires
 
 Rendez vous sur la page **`Paramètres`** et cliquez sur les cartes d'ajout de zones et de voies. Redémarrer ensuite votre serveur pour la prise en compte des modifications.
 
@@ -36,7 +36,7 @@ Rendez vous sur la page **`Paramètres`** et cliquez sur les cartes d'ajout de z
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
 
-#### **2️⃣ Ajouter les cartes zones et les nommer**
+#### 2️⃣ Ajouter les cartes zones et les nommer
 
 Sur la page **`Arrosage`** on va ajouter les cartes pour les zones ainsi que les cartes de notifications ou d'informations pour celles-ci. On en profitera également pour nommer les zones et disposer les cartes à l'emplacement voulu sur la page.
 
@@ -45,7 +45,7 @@ Sur la page **`Arrosage`** on va ajouter les cartes pour les zones ainsi que les
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
 
-#### **3️⃣ Ajouter les cartes voies et les nommer**
+#### 3️⃣ Ajouter les cartes voies et les nommer
 
 On va maintenant ajouter les cartes pour les voies, nommer celles-ci et disposer les cartes à l'emplacement voulu sur la page.
 
@@ -54,11 +54,11 @@ On va maintenant ajouter les cartes pour les voies, nommer celles-ci et disposer
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
 
-#### **4️⃣ Lier les voies aux zones**
+#### 4️⃣ Lier les voies aux zones
 
 Maintenant que les cartes sont à leur place on va s'occuper de la partie "technique" et faire la liaison entre les voies et les zones. Pour cela il va falloir ajouter un **`label`** (une étiquette) à chaque voie. Tout ceci est réalisable sans quitter la page **`Arrosage`**.
 
-Un **`Double-clic`** ou un **`appui long`** sur la partie blanche de la carte permet d'ajouter un **`label`**. Un **`simple-clic`** fait la mise à jour des infos. Vous pouvez alternativement faire un **`simple-clic`** sur <img src="Medias/Icons/dots-horizontal_orange.svg" width="12" align="absmiddle"> pour ajouter le **`label`**.
+Un **`double-clic`** ou un **`appui long`** sur la partie blanche de la carte permet d'ajouter un **`label`**. Un **`simple-clic`** fait la mise à jour des infos. Vous pouvez alternativement faire un **`simple-clic`** sur <img src="Medias/Icons/dots-horizontal_orange.svg" width="12" align="absmiddle"> pour ajouter le **`label`**.
 
 <p align="center"><img src="Medias/Personnalisation/link_voies.gif" width="75%"></p>
 
