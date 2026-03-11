@@ -75,6 +75,8 @@ Une foie un appareil lié à une voie, l’icône <img src="Medias/Icons/check-n
 
 #### - Ajouter/Supprimer une voie/zone
 
+<p align="center"><img src="Medias/Documentation/ajout_suppression.gif" width="75%"></p>
+
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
 
@@ -89,6 +91,8 @@ Une foie un appareil lié à une voie, l’icône <img src="Medias/Icons/check-n
 
 
 #### - Redémarrage du serveur
+
+<p align="center"><img src="Medias/Documentation/redemarrage.gif" width="75%"></p>
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
