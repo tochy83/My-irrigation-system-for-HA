@@ -135,11 +135,37 @@ Une foie un appareil lié à une voie, l’icône <img src="Medias/Icons/check-n
 
 #### - Modifier la durée d'une voie
 
+Pour modifier la durée d'une voie, cliquez sur <img src="Medias/Icons/timer.jpg"> et faites varier la durée à l'aide du curseur.
+
+<p align="center"><img src="Medias/Documentation/modifier_duree.gif" width="75%"></p>
+
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
 
 #### - Inclure/Exclure une voie d'un cycle d'arrosage
 
+Pour inclure une voie à un cycle d'arrosage, cliquez sur <img src="Medias/Icons/close-circle-outline_grey.svg" width="20" align="absmiddle">/<img src="Medias/Icons/check-circle-outline_green.svg" width="20" align="absmiddle"> de la voie voulue.
+
+<p align="center"><img src="Medias/Documentation/inclure_voie.gif" width="75%"></p>
+
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
+
+#### - Durée d'un cycle d'arrosage
+
+<p align="center"><img src="Medias/Icons/divider.png"></p>
+
+
+#### - Modifier le nom d'une zone
+
+<p align="center"><img src="Medias/Documentation/modifier_nom_zone.gif" width="75%"></p>
+
+<p align="center"><img src="Medias/Icons/divider.png"></p>
+
+
+#### - Modifier le nom d'une voie
+
+<p align="center"><img src="Medias/Documentation/modifier_nom_voie.gif" width="75%"></p>
+
+<p align="center"><img src="Medias/Icons/divider.png"></p>
 <br><br><br><br><br>
