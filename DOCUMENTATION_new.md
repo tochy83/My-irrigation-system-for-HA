@@ -167,7 +167,7 @@ Pour modifier le nom d'une zone, cliquez sur <img src="Medias/Icons/form-textbox
 
 #### - Modifier le nom d'une voie
 
-La modification du nom d'une voie se fait en éditant la carte de la voie.
+La modification du nom d'une voie, se fait en éditant la carte de la voie.
 
 <p align="center"><img src="Medias/Documentation/modifier_nom_voie.gif" width="75%"></p>
 
