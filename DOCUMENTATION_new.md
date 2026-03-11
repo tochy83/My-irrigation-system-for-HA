@@ -59,9 +59,9 @@ C'est par cette action que l'on renseigne les voies faisant partie d'une zone.
 
 Un **`double-clic`** ou un **`appui long`** sur la partie blanche de la carte permet d'ajouter un **`label`**. Il faut ensuite effectuer un **`simple-clic`** pour mettre à jour les infos de la voie. Vous pouvez alternativement faire un **`simple-clic`** sur <img src="Medias/Icons/dots-horizontal_orange.svg" width="12" align="absmiddle"> pour ajouter le **`label`**.
 
-Une fois liée à une zone, l’icône <img src="Medias/Icons/dots-horizontal_orange.svg" width="12" align="absmiddle"> deviendra <img src="Medias/Icons/dots-horizontal_green.svg" width="12" align="absmiddle"> avec le numéro de la zone juste à coté.
+Une fois liée à une zone, l’icône <img src="Medias/Icons/dots-horizontal_orange.svg" width="12" align="absmiddle"> deviendra <img src="Medias/Icons/dots-horizontal_green.svg" width="12" align="absmiddle"> avec le numéro de la zone juste à coté. Le nombre de voie liées sur la carte zone sera également incrémenter/décrémenter.
 
-<p align="center"><img src="Medias/Personnalisation/link_voies.gif" width="75%"></p>
+<p align="center"><img src="Medias/Documentation/link_voie.gif" width="75%"></p>
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
@@ -124,6 +124,21 @@ Une foie un appareil lié à une voie, l’icône <img src="Medias/Icons/check-n
 
 
 #### - Ajouter un évènement au calendrier
+
+<p align="center"><img src="Medias/Icons/divider.png"></p>
+
+
+#### - Activer la programmation
+
+<p align="center"><img src="Medias/Icons/divider.png"></p>
+
+
+#### - Modifier la durée d'une voie
+
+<p align="center"><img src="Medias/Icons/divider.png"></p>
+
+
+#### - Inclure/Exclure une voie d'un cycle d'arrosage
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
