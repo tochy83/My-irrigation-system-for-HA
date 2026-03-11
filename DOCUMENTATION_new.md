@@ -122,4 +122,9 @@ Une foie un appareil lié à une voie, l’icône <img src="Medias/Icons/check-n
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
+
+#### - Ajouter un évènement au calendrier
+
+<p align="center"><img src="Medias/Icons/divider.png"></p>
+
 <br><br><br><br><br>
