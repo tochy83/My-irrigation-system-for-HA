@@ -75,17 +75,27 @@ Une foie un appareil lié à une voie, l’icône <img src="Medias/Icons/check-n
 
 #### - Ajouter/Supprimer une voie/zone
 
+Pour ajouter/supprimer une voie/zone du **`Dashboard arrosage`**, cliquez sur les icones correspondantes dans la page **`Paramètres`**.
+
 <p align="center"><img src="Medias/Documentation/ajout_suppression.gif" width="75%"></p>
 
+> [!IMPORTANT]
+> Après ajout/suppression, il sera nécessaire de redémarrer le serveur pour prendre en compte les changements. 
+
+> [!NOTE]
+>Après ajout/suppression d'une voie, pensez à ajouter/supprimer une carte pour celle-ci.
+>
+>De même, après ajout/suppression d'une zone,  pensez à ajouter/supprimer une carte ainsi que les cartes liées, pour celle-ci.
+
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
 
-#### - Ajouter une carte voie
+#### - Ajouter/supprimer une carte voie
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
 
-#### - Ajouter une carte zone et les cartes liées
+#### - Ajouter/supprimer une carte zone et les cartes liées
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
@@ -99,10 +109,13 @@ Une foie un appareil lié à une voie, l’icône <img src="Medias/Icons/check-n
 
 #### - Les entités orphelines
 
-<p align="center"><img src="Medias/Icons/divider.png"></p>
+Après une suppression de voie/zone des entités orphelines se retrouveront présentes. Vous pouvez en voir la liste sur la page **`Paramètres`**.
 
+<p align="center"><img src="Medias/Documentation/entites_orphelines.jpg" width="75%"></p>
 
-#### - Supprimer les entités orphelines
+Pour supprimer les entités orphelines, suivez le guide.
+
+<p align="center"><img src="Medias/Documentation/delete_orphaned.gif" width="75%"></p>
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
