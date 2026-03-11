@@ -90,19 +90,23 @@ Pour ajouter/supprimer une voie/zone du **`Dashboard arrosage`**, cliquez sur le
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
 
+#### - Redémarrage du serveur
+
+<p align="center"><img src="Medias/Documentation/redemarrage.gif" width="75%"></p>
+
+<p align="center"><img src="Medias/Icons/divider.png"></p>
+
+
 #### - Ajouter/supprimer une carte voie
+
+La carte de voie est une carte "streamlinée" **`misha_arrosage_voie`**, il vous suffira d'ajouter la carte et de renseigner le numéro de la voie ainsi que son nom.
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
 
 #### - Ajouter/supprimer une carte zone et les cartes liées
 
-<p align="center"><img src="Medias/Icons/divider.png"></p>
-
-
-#### - Redémarrage du serveur
-
-<p align="center"><img src="Medias/Documentation/redemarrage.gif" width="75%"></p>
+La carte de zone ainsi que les cartes liées à une zone sont des cartes "streamlinées" **`misha_arrosage_zone`**, **`misha_arrosage_notification_arrosage_en_cours`** et **`misha_arrosage_zone_connectivity`**. Pour ces 3 cartes il faudra juste renseigner le numéro de la zone quand vous les ajoutez.
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
@@ -199,6 +203,23 @@ La modification du nom d'une voie, se fait en éditant la carte de la voie.
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
+
+#### - Les notifications
+
+Les notifications liées au fonctionnement du **`Dashboard arrosage`** s'afficheront sur celui-ci. Il est possible de recevoir en plus des notifications sur **`l'application mobile`** ou/et **`télégram`** en fonction des choix que vous aurez effectuées sur la page **`Paramètres`**.
+
+Les notifications ne concernent que les actions sur les cycles d'arrosage de zone et non les actions sur une seule voie.
+
+<p align="center"><img src="Medias/Icons/divider.png"></p>
+
+
+#### - Choisir où recevoir les notifications
+
+Tous les appareils mobiles et compte télégram liés à votre serveur **`Home Assistant`**, seront normalement reconnus automatiquement. Il faudra juste choisir dans la liste ou recevoir les notifications.
+
+<p align="center"><img src="Medias/Documentation/choix_notifications.gif" width="75%"></p>
+
+<p align="center"><img src="Medias/Icons/divider.png"></p>
 
 
 
