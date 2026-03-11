@@ -78,7 +78,7 @@ Une foie un appareil lié à une voie, l’icône <img src="Medias/Icons/check-n
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
 
-#### - Ajouter une carte voie voie
+#### - Ajouter une carte voie
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
@@ -158,12 +158,16 @@ Pour inclure une voie à un cycle d'arrosage, cliquez sur <img src="Medias/Icons
 
 #### - Modifier le nom d'une zone
 
+Pour modifier le nom d'une zone, cliquez sur <img src="Medias/Icons/form-textbox.svg" width="13" align="absmiddle"> dans la carte zone.
+
 <p align="center"><img src="Medias/Documentation/modifier_nom_zone.gif" width="75%"></p>
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
 
 #### - Modifier le nom d'une voie
+
+La modification du nom d'une voie se fait en éditant la carte de la voie.
 
 <p align="center"><img src="Medias/Documentation/modifier_nom_voie.gif" width="75%"></p>
 
