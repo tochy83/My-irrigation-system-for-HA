@@ -130,6 +130,10 @@ Une foie un appareil lié à une voie, l’icône <img src="Medias/Icons/check-n
 
 #### - Activer la programmation
 
+Pour activer la programmation d'une zone, cliquez sur <img src="Medias/Icons/calendar-clock-outline.svg" width="20" align="absmiddle">. Elle deviendra <img src="Medias/Icons/calendar-clock-outline_green.svg" width="20" align="absmiddle"> si des évènements à venir sont présents dans le calendrier pour la zone concernée, sinon elle deviendra <img src="Medias/Icons/calendar-clock-outline_orange.svg" width="20" align="absmiddle">.
+
+<p align="center"><img src="Medias/Documentation/activer_programmation.gif" width="75%"></p>
+
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
 
@@ -172,4 +176,13 @@ La modification du nom d'une voie, se fait en éditant la carte de la voie.
 <p align="center"><img src="Medias/Documentation/modifier_nom_voie.gif" width="75%"></p>
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
+
+
+#### - Configurer Calendar Merge
+
+<p align="center"><img src="Medias/Icons/divider.png"></p>
+
+
+
+
 <br><br><br><br><br>
