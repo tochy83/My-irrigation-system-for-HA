@@ -235,7 +235,7 @@ Pour accéder rapidement à la configuration de la carte, faites un **`double-cl
 
 Les notifications liées au fonctionnement du **`Dashboard arrosage`** s'afficheront sur celui-ci. Il est possible de recevoir en plus des notifications sur **`l'application mobile`** ou/et **`télégram`** en fonction des choix que vous aurez effectuées sur la page **`Paramètres`**.
 
-Les notifications ne concernent que les actions sur les cycles d'arrosage de zone et non les actions sur une seule voie.
+Les notifications ne concernent que les actions sur les cycles d'arrosage de zone et non les actions sur les voies.
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
