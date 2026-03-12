@@ -101,6 +101,8 @@ Pour ajouter/supprimer une voie/zone du **`Dashboard arrosage`**, cliquez sur le
 
 La carte de voie est une carte "streamlinée" **`misha_arrosage_voie`**, il vous suffira d'ajouter la carte et de renseigner le numéro de la voie ainsi que son nom.
 
+<p align="center"><img src="Medias/Documentation/add_voie_card.gif" width="75%"></p>
+
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
 
@@ -108,8 +110,12 @@ La carte de voie est une carte "streamlinée" **`misha_arrosage_voie`**, il vous
 
 La carte de zone ainsi que les cartes liées à une zone sont des cartes "streamlinées" **`misha_arrosage_zone`**, **`misha_arrosage_notification_arrosage_en_cours`** et **`misha_arrosage_zone_connectivity`**. Pour ces 3 cartes il faudra juste renseigner le numéro de la zone quand vous les ajoutez.
 
+<p align="center"><img src="Medias/Documentation/add_zone_card.gif" width="75%"></p>
+
 > [!NOTE]
 >Il vous faudra également reconfigurer le helper **`Calendar Merge`** pour qu'il corresponde à votre nombre de zone.
+>
+>Pensez également à nommer vos zones.
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
