@@ -223,7 +223,9 @@ La modification du nom d'une voie, se fait en éditant la carte de la voie.
 
 #### - Configurer Calendar Merge
 
-Normalement vous avez déjà fait cette configuration lors de l'installation du **`Dashboard arrosage`**. Toutefois si vous modifiez votre nombre de zone, il faudra reconfigurer le nombre d'évènements de cette intégration.
+Normalement vous avez déjà fait cette configuration lors de l'installation du **`Dashboard arrosage`**.&nbsp;&nbsp;&nbsp;[<img src="Medias/Icons/help-circle-outline_link.svg" width="18" align="absmiddle">](INSTALLATION.md#8%EF%B8%8F%E2%83%A3-configuration-de-calendar-merge)
+
+Toutefois si vous modifiez votre nombre de zone, il faudra reconfigurer le nombre d'évènements de cette intégration.
 
 Pour accéder rapidement à la configuration de la carte, faites un **`double-clic`** sur celle-ci.
 
