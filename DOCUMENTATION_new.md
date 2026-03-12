@@ -182,7 +182,7 @@ Pour activer la programmation d'une zone, cliquez sur <img src="Medias/Icons/cal
 
 #### - Modifier la durée d'une voie
 
-Pour modifier la durée d'une voie, cliquez sur <img src="Medias/Icons/timer.jpg"> et faites varier la durée à l'aide du curseur.
+Pour modifier la durée d'une voie, cliquez sur <img src="Medias/Icons/timer.jpg" align="absmiddle"> et faites varier la durée à l'aide du curseur.
 
 <p align="center"><img src="Medias/Documentation/modifier_duree.gif" width="75%"></p>
 
