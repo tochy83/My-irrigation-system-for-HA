@@ -10,7 +10,7 @@ Retrouvez sur cette page toutes les cartes du **Dashboard Arrosage**, ainsi que 
 ##
 
 
-#### Lexique
+### Préambule
 
 Parce que chaque culture/plantation a son propre besoin en eau, il faut bien comprendre le rôle du calendrier,  des voies d'arrosage, des zones d'arrosage et des cycles d'arrosage pour appréhender le fonctionnement de l'ensemble.
 - Calendrier : Le calendrier contient les jours et heures de départ d'arrosage ainsi que le nom de la zone concernée (les événements). C'est lui qui définit **`la fréquence d'arrosage`** d'une zone.
@@ -34,6 +34,10 @@ On garde bien sûr la possibilité de déclencher un cycle ou une voie de façon
 <br>
 
 ##
+
+### Documentation
+
+<br>
 
 #### - Les labels (étiquettes) de zone
 
