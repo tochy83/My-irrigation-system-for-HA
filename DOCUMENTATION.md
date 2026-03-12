@@ -80,12 +80,12 @@ Pour ajouter/supprimer une voie/zone du **`Dashboard arrosage`**, cliquez sur le
 <p align="center"><img src="Medias/Documentation/ajout_suppression.gif" width="75%"></p>
 
 > [!IMPORTANT]
-> Après ajout/suppression, il sera nécessaire de redémarrer le serveur pour prendre en compte les changements. 
+> Après ajout/suppression, il sera nécessaire de redémarrer le serveur pour prendre en compte les changements.&nbsp;&nbsp;&nbsp;[<img src="Medias/Icons/help-circle-outline_link.svg" width="18" align="absmiddle">](#--red%C3%A9marrage-du-serveur)
 
 > [!NOTE]
->Après ajout/suppression d'une voie, pensez à ajouter/supprimer une carte pour celle-ci.
+>Après ajout/suppression d'une voie, pensez à ajouter/supprimer une carte pour celle-ci.&nbsp;&nbsp;&nbsp;[<img src="Medias/Icons/help-circle-outline_link.svg" width="18" align="absmiddle">](#--ajoutersupprimer-une-carte-voie)
 >
->De même, après ajout/suppression d'une zone,  pensez à ajouter/supprimer une carte ainsi que les cartes liées, pour celle-ci.
+>De même, après ajout/suppression d'une zone,  pensez à ajouter/supprimer une carte ainsi que les cartes liées, pour celle-ci.&nbsp;&nbsp;&nbsp;[<img src="Medias/Icons/help-circle-outline_link.svg" width="18" align="absmiddle">](#--ajoutersupprimer-une-carte-zone)
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
@@ -115,7 +115,7 @@ La carte de zone ainsi que les cartes liées à une zone sont des cartes "stream
 > [!NOTE]
 >Il vous faudra également reconfigurer le helper **`Calendar Merge`** pour qu'il corresponde à votre nombre de zone.&nbsp;&nbsp;&nbsp;[<img src="Medias/Icons/help-circle-outline_link.svg" width="18" align="absmiddle">](#--Configurer-Calendar-Merge)
 >
->Pensez également à nommer vos zones.
+>Pensez également à nommer vos zones.&nbsp;&nbsp;&nbsp;[<img src="Medias/Icons/help-circle-outline_link.svg" width="18" align="absmiddle">](#--modifier-le-nom-dune-zone)
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
