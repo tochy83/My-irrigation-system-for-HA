@@ -113,7 +113,7 @@ La carte de zone ainsi que les cartes liées à une zone sont des cartes "stream
 <p align="center"><img src="Medias/Documentation/add_zone_card.gif" width="75%"></p>
 
 > [!NOTE]
->Il vous faudra également reconfigurer le helper **`Calendar Merge`** pour qu'il corresponde à votre nombre de zone.&nbsp;&nbsp;&nbsp;[<img src="Medias/Icons/help-circle-outline_link.svg" width="18" align="absmiddle">](#--les-entit%C3%A9s-orphelines)
+>Il vous faudra également reconfigurer le helper **`Calendar Merge`** pour qu'il corresponde à votre nombre de zone.&nbsp;&nbsp;&nbsp;[<img src="Medias/Icons/help-circle-outline_link.svg" width="18" align="absmiddle">](#--Configurer-Calendar-Merge)
 >
 >Pensez également à nommer vos zones.
 
