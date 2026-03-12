@@ -146,6 +146,16 @@ Pour supprimer les entités orphelines, suivez le guide.
 
 #### - Ajouter un évènement au calendrier
 
+Pour ajouter des évènements à la programmation, rendez vous sur la page **`Calendrier`** du serveur.
+
+Vous pouvez simplement configurer la fréquence des évènements ainsi que définir une date de fin, après laquelle il n'y aura donc plus de programmation active.
+
+<p align="center"><img src="Medias/Documentation/add_event.gif" width="75%"></p>
+
+Une fois les évènements ajoutés, il deviendront visible (après un certain délai) sur la carte **`Prochains arrosages`**.
+
+<p align="center"><img src="Medias/Documentation/new_event.jpg"</p>
+
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
 
@@ -154,6 +164,9 @@ Pour supprimer les entités orphelines, suivez le guide.
 Pour activer la programmation d'une zone, cliquez sur <img src="Medias/Icons/calendar-clock-outline.svg" width="20" align="absmiddle">. Elle deviendra <img src="Medias/Icons/calendar-clock-outline_green.svg" width="20" align="absmiddle"> si des évènements à venir sont présents dans le calendrier pour la zone concernée, sinon elle deviendra <img src="Medias/Icons/calendar-clock-outline_orange.svg" width="20" align="absmiddle">.
 
 <p align="center"><img src="Medias/Documentation/activer_programmation.gif" width="75%"></p>
+
+> [!NOTE]
+>L'icône de programmation est mise à jour toutes les 12 heures ou au clic sur celle-ci. Ne vous inquiétez donc pas si elle reste orange même après que vous ayez ajouté des évènements au calendrier.
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
