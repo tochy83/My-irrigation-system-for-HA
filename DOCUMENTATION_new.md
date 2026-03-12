@@ -108,6 +108,9 @@ La carte de voie est une carte "streamlinée" **`misha_arrosage_voie`**, il vous
 
 La carte de zone ainsi que les cartes liées à une zone sont des cartes "streamlinées" **`misha_arrosage_zone`**, **`misha_arrosage_notification_arrosage_en_cours`** et **`misha_arrosage_zone_connectivity`**. Pour ces 3 cartes il faudra juste renseigner le numéro de la zone quand vous les ajoutez.
 
+> [!NOTE]
+>Il vous faudra également reconfigurer le helper **`Calendar Merge`** pour qu'il corresponde à votre nombre de zone.
+
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
 
@@ -213,6 +216,17 @@ La modification du nom d'une voie, se fait en éditant la carte de la voie.
 
 
 #### - Configurer Calendar Merge
+
+Normalement vous avez déjà fait cette configuration lors de l'installation du **`Dashboard arrosage`**. Toutefois si vous modifiez votre nombre de zone, il faudra reconfigurer le nombre d'évènements de cette intégration.
+
+Pour accéder rapidement à la configuration de la carte, faites un **`double-clic`** sur celle-ci.
+
+* **Nombre max d'événements :** Votre nombre de zone
+
+<p align="center"><img src="Medias/Documentation/reconfigure_calendar_merge.gif" width="75%"></p>
+
+> [!NOTE]
+>Une fois mise à jour la carte affichera les évènéments à venir pour les x zones, il peut cependant y avoir un délai dans la mise à jour de celle-ci.
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
