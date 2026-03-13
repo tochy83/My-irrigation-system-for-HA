@@ -234,7 +234,7 @@ Le **`coefficient météo`** peut prendre une valeur entre 0 et 5 au pas de 0.1,
 
 Son calcul est lancé à chaque démarrage d'un cycle d'arrosage programmé. Il est remis à 100% tous les jours à minuit.
 
-**`Le fichier de base :`**
+**📄 `Le fichier de base :`**
 ```yml
 # Name : script_coeff_meteo.yaml
 # Dans ce fichier, se trouve le script permettant le calcul du coefficient météo
@@ -258,7 +258,7 @@ script:
             1
 ```
 
-**`Un exemple de calcul donné par IA :`**
+**📄 `Un exemple de calcul donné par IA :`**
 ```yml
 # Name : script_coeff_meteo.yaml
 # Dans ce fichier, se trouve le script permettant le calcul du coefficient météo
@@ -327,12 +327,111 @@ Tous les appareils mobiles et compte télégram liés à votre serveur **`Home A
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
 
+#### - Modifier les messages de notifications
+
+Les messages de notifications sont définis dans le fichier **`packages/misha_arrosage/settings/arrosage_data_messages_notifications.json`**.
+
+Vous pouvez les modifier dans une certaine mesure en modifiant le contenu de **`titre`**, **`message`** et **`message_telegram`**.
+
+Il y'a dans ces messages des variables **`{zone_nom}`**, **`{heure}`**, **`{zone_id}`**, **`{message_erreur}`** ou commande Android **`clear_notification`** qu'il faudra respecter scrupuleusement si vous voulez qu'elles soient interprétées correctement.
+
+**📄 `Le fichier de base :`**
+```json
+{
+    "cycle_started": {
+        "titre": "{zone_nom}",
+        "message": "Arrosage démarré {heure}.",
+        "message_telegram": "Arrosage démarré {heure}.",
+        "color": "cyan",
+        "icon": "mdi:sprinkler-variant",
+        "tag": "arrosage zone {zone_id}",
+        "persistent": true
+    },
+    "cycle_ended": {
+        "titre": "{zone_nom}",
+        "message": "clear_notification",
+        "message_telegram": "Arrosage terminé {heure}.",
+        "color": "cyan",
+        "icon": "mdi:sprinkler-variant",
+        "tag": "arrosage zone {zone_id}",
+        "persistent": false
+    },
+    "cycle_ended_error": {
+      "titre": "{zone_nom}",
+      "message": "Arrosage terminé {heure}.\n{message_erreur}",
+      "message_telegram": "Arrosage terminé {heure}.\n{message_erreur}",
+      "color": "cyan",
+      "icon": "mdi:sprinkler-variant",
+      "tag": "arrosage zone {zone_id}",
+      "persistent": true
+  },
+    "cycle_stopped_manually": {
+        "titre": "{zone_nom}",
+        "message": "Arrêt manuel de l'arrosage {heure}.\n{message_erreur}",
+        "message_telegram": "Arrêt manuel de l'arrosage {heure}.\n{message_erreur}",
+        "color": "cyan",
+        "icon": "mdi:sprinkler-variant",
+        "tag": "arrosage zone {zone_id}",
+        "persistent": true
+    },
+    "zone_disconnected": {
+        "titre": "Arrosage - Problème",
+        "message": "Le cycle d'arrosage de la zone {zone_nom} ne peut pas démarrer. Toutes les voies d'arrosage de la zone sont déconnectées.",
+        "message_telegram": "Le cycle d'arrosage de la zone {zone_nom} ne peut pas démarrer. Toutes les voies d'arrosage de la zone sont déconnectées.",
+        "color": "red",
+        "icon": "mdi:sprinkler-variant",
+        "tag": "arrosage",
+        "persistent": true
+      },
+      "zone_no_time": {
+        "titre": "Arrosage - Problème",
+        "message": "Aucune durée d'arrosage n'est définie, pour les voies incluses à la zone {zone_nom}.",
+        "message_telegram": "Aucune durée d'arrosage n'est définie, pour les voies incluses à la zone {zone_nom}.",
+        "color": "red",
+        "icon": "mdi:sprinkler-variant",
+        "tag": "arrosage",
+        "persistent": false
+      },
+      "coef_meteo": {
+        "titre": "{zone_nom}",
+        "message": "Pas d'arrosage nécessaire.",
+        "message_telegram": "Pas d'arrosage nécessaire.",
+        "color": "cyan",
+        "icon": "mdi:sprinkler-variant",
+        "tag": "arrosage zone {zone_id}",
+        "persistent": false
+      },
+      "server_restarted": {
+        "titre": "Arrosage interrompu",
+        "message": "Le serveur a redémarré alors que {zones_count} {pluriel_zones} en cours d'arrosage. Les voies actives au moment du redémarrage termineront leur cycle, les suivantes ne seront déclenchées.",
+        "message_telegram": "Le serveur a redémarré alors que {zones_count} {pluriel_zones} en cours d'arrosage. Les voies actives au moment du redémarrage termineront leur cycle, les suivantes ne seront déclenchées.",
+        "color": "red",
+        "icon": "mdi:sprinkler-variant",
+        "tag": "arrosage",
+        "persistent": true
+      },
+      "arrosage_alert": {
+        "titre": "Arrosage - Attention",
+        "message": "L'arrosage de la zone {zone_nom} semble être toujours en cours ! Un arrêt manuel de la zone a été declenché. Pensez à vérifier.",
+        "message_telegram": "L'arrosage de la zone {zone_nom} semble être toujours en cours ! Un arrêt manuel de la zone a été declenché. Pensez à vérifier.",
+        "color": "red",
+        "icon": "mdi:sprinkler-variant",
+        "tag": "arrosage",
+        "persistent": true
+      }
+}
+```
+
+<p align="center"><img src="Medias/Icons/divider.png"></p>
+
+
 #### - Ajouter son compteur d'eau
 
 Si vous disposez d'un dispositif de comptage pour l'eau, vous pouvez l'ajouter au **`Dashboard arrosage`**.
 
 Pour cela il vous faudra éditer le fichier **`packages/misha_arrosage/settings/sensor_compteur_eau.yaml`** et modifier la ligne **`my_entity: sensor.d1mini_verger_compteur_eau_jour`** pour mettre votre propre sensor à la place.
 
+**📄 `Le fichier de base :`**
 ```yml
 # Name : sensor_compteur_eau.yaml
 
