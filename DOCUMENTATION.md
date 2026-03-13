@@ -331,9 +331,11 @@ Tous les appareils mobiles et compte télégram liés à votre serveur **`Home A
 
 Les messages de notifications sont définis dans le fichier **`packages/misha_arrosage/settings/arrosage_data_messages_notifications.json`**.
 
-Vous pouvez les modifier dans une certaine mesure en modifiant le contenu de **`titre`**, **`message`** et **`message_telegram`**.
+Vous pouvez les personnaliser dans une certaine mesure, en modifiant le contenu de **`titre`**, **`message`** et **`message_telegram`**.
 
-Il y'a dans ces messages des variables **`{zone_nom}`**, **`{heure}`**, **`{zone_id}`**, **`{message_erreur}`** ou commande Android **`clear_notification`** qu'il faudra respecter scrupuleusement si vous voulez qu'elles soient interprétées correctement.
+Il y'a dans ces messages, des variables **`{zone_nom}`**, **`{heure}`**, **`{zone_id}`**, **`{message_erreur}`** ou commande Android **`clear_notification`** qu'il faudra respecter scrupuleusement si vous voulez qu'elles soient interprétées correctement.
+
+Vous pouvez également jouez sur les paramètres **`color`**, **`icon`**, **`tag`** et **`persistent`** pour les ajuster à votre envie.
 
 **📄 `Le fichier de base :`**
 ```json
@@ -421,6 +423,9 @@ Il y'a dans ces messages des variables **`{zone_nom}`**, **`{heure}`**, **`{zone
       }
 }
 ```
+
+>[!NOTE]
+>Comme toujours une modification dans un fichier, nécessite un redémarrage du serveur ensuite pour être prise ne compte.
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
