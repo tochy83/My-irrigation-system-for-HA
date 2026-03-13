@@ -219,7 +219,7 @@ La durée d'un cycle d'arrrosage de zone, est calculée en ajoutant la durée de
 Cette somme est ensuite multipliée par le **`coefficient météo`**, pour donner la durée totale du cycle. C'est ce chiffre que vous verrez apparaître sur les notifications d'arrosage en cours.
 
 >[!IMPORTANT]
->Le **`coefficient météo`** n'est pris en compte dans la durée du cycle, que pour les cycles lancés automatiquement par le **`calendrier d'arrosage`**. Tout lancement d'un cycle de manière manuelle, ne tiendra pas compte de celui-ci.
+>Le **`coefficient météo`** n'est pris en compte dans la durée du cycle, que pour les cycles lancés automatiquement par le **`calendrier d'arrosage`**. Tout lancement d'un cycle ou d'une voie de manière manuelle, ne tiendra pas compte de celui-ci.
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
