@@ -226,6 +226,86 @@ Cette somme est ensuite multipliée par le **`coefficient météo`**, pour donne
 
 #### - Le calcul du coefficient météo
 
+Le calcul du **`coefficient météo`** est effectué dans le script **`script.misha_arrosage_calcul_coefficient_meteo`**.
+
+Pour le modifier, il vous faudra éditer le fichier **`packages/misha_arrosage/settings/script_coeff_meteo.yaml`** et ajouter un template qui calculera celui-ci, àa la place de la valeur 1 sur la dernière ligne du fichier.
+
+Le **`coefficient météo`** peut prendre une valeur entre 0 et 5 au pas de 0.1, la valeur 1 représentant 100%. Pour réduire la durée on mettra donc une valeur inférieure à 1 et pour l'augmenter une valeur supérieure.
+
+Son calcul est lancé à chaque démarrage d'un cycle d'arrosage programmé. Il est remis à 100% tous les jours à minuit.
+
+**`Le fichier de base :`**
+```yml
+# Name : script_coeff_meteo.yaml
+# Dans ce fichier, se trouve le script permettant le calcul du coefficient météo
+# pour allonger ou réduire la durée des cycles d'arrosage.
+
+
+script:
+
+  misha_arrosage_calcul_coefficient_meteo:
+    alias: Misha Arrosage - Calcul coefficient météo
+    icon: mdi:stop-circle-outline
+    description: >-
+      Script permettant le calcul du coefficient météo. Il est appelé à chaque évènements déclenchés par le calendrier d'arrosage.
+ 
+    sequence:
+      - action: input_number.set_value
+        target:
+          entity_id: input_number.misha_arrosage_coefficient_meteo
+        data:
+          value: >
+            1
+```
+
+**`Un exemple de calcul donné par IA :`**
+```yml
+# Name : script_coeff_meteo.yaml
+# Dans ce fichier, se trouve le script permettant le calcul du coefficient météo
+# pour allonger ou réduire la durée des cycles d'arrosage.
+
+
+script:
+
+  misha_arrosage_calcul_coefficient_meteo:
+    alias: Misha Arrosage - Calcul coefficient météo
+    icon: mdi:sprinkler-variant
+    description: >-
+      Calcule le coefficient d'arrosage basé sur la pluie des dernières 24h 
+      et la température maximale prévue.
+
+    sequence:
+      - action: input_number.set_value
+        target:
+          entity_id: input_number.misha_arrosage_coefficient_meteo
+        data:
+          value: >
+            {% set pluie_24h = states('sensor.votre_ville_precipitation_24h') | float(0) %}
+            {% set temp_max = states('sensor.votre_ville_temp_max') | float(20) %}
+            
+            {# 1. Base du coefficient #}
+            {% set coeff = 1.0 %}
+
+            {# 2. Logique de Pluie : Si > 5mm, on n'arrose pas (coeff 0). Entre 1 et 5mm, on réduit de moitié #}
+            {% if pluie_24h > 5 %}
+              {% set coeff = 0.0 %}
+            {% elif pluie_24h >= 1 %}
+              {% set coeff = 0.5 %}
+            {% endif %}
+
+            {# 3. Logique de Température : Si > 30°C et qu'il n'a pas plu, on booste de 20% #}
+            {% if temp_max > 30 and coeff > 0 %}
+              {% set coeff = coeff * 1.2 %}
+            {% endif %}
+
+            {{ coeff | round(2) }}
+```
+
+>[!NOTE]
+>Comme toujours une modification dans un fichier **`.yaml`** nécessite un redémarrage du serveur ensuite pour être prise ne compte.
+>
+>Je n'ai pas testé ce template, je l'ai juste mis à titre d'exemple.
+
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
 
