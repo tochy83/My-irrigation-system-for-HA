@@ -508,10 +508,10 @@ Pour supprimer les entités orphelines, suivez le guide.
 │   ├── 📂 data/
 │   │   └── 📄 arrosage_data_preferences_notifications.json
 │   ├── 📂 modeles/
-│   │   ├── 📄 automatisation_voie_1.yaml
-│   │   ├── 📄 automatisation_zone_1.yaml
-│   │   ├── 📄 voie_1.yaml
-│   │   └── 📄 zone_1.yaml
+│   │   ├── 📄 automatisation_voie_x.yaml
+│   │   ├── 📄 automatisation_zone_x.yaml
+│   │   ├── 📄 voie_x.yaml
+│   │   └── 📄 zone_x.yaml
 │   └── 📂 python/
 │       ├── 📄 arrosage_data_preferences_notifications.py
 │       ├── 📄 arrosage_generer_fichiers_voie.py
@@ -524,7 +524,7 @@ Pour supprimer les entités orphelines, suivez le guide.
 │   ├── 📄 arrosage_data_messages_notifications.json
 │   ├── 📄 script_coeff_meteo.yaml
 │   └── 📄 sensor_compteur_eau.yaml
-├── 📂 Voies_and_zones/
+├── 📂 voies_and_zones/
 │   ├── 📄 automatisation_voie_1.yaml
 │   ├── 📄 automatisation_zone_1.yaml
 │   ├── 📄 voie_1.yaml
@@ -533,6 +533,17 @@ Pour supprimer les entités orphelines, suivez le guide.
 ├── 📄 sensor_data_voies.yaml
 └── 📄 sensor_data_zones.yaml
 ```
+
+Le 📂 voies_and_zones contient les fichiers qui sont générés automatiquement par les scripts python lors de l'ajout de voies ou de zones.
+
+Le 📂 core contient tous les fichiers nécessaires à la génération de ceux-ci.
+
+Le 📂 dashboard comme son nom l'indique contient le code des pages et cartes du dashboard.
+
+Le 📂 settings contient les fichiers que vous pouvez modifier.
+
+
+
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
