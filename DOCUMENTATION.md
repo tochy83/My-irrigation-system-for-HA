@@ -2,7 +2,7 @@
 
 Retrouvez sur cette page toutes les cartes du **Dashboard Arrosage**, ainsi que leurs fonctions et code.
 
-> [!NOTE]
+>[!NOTE]
 > Certains screenshots ou vidéos peuvent présenter de légères différences suite aux mises à jour de l'intégration. Dans ce cas une note est ajoutée à la partie concernée.
 
 <br>
@@ -38,6 +38,73 @@ On garde bien sûr la possibilité de déclencher un cycle ou une voie de façon
 ### Documentation
 
 <br>
+
+#### - Ajouter/Supprimer une voie/zone
+
+Pour ajouter/supprimer une voie/zone du **`Dashboard arrosage`**, cliquez sur les icones correspondantes dans la page **`Paramètres`**.
+
+<p align="center"><img src="Medias/Documentation/ajout_suppression.gif" width="75%"></p>
+
+>[!IMPORTANT]
+>Après ajout/suppression, il sera nécessaire de redémarrer le serveur pour prendre en compte les changements.&nbsp;&nbsp;&nbsp;[<img src="Medias/Icons/help-circle-outline_link.svg" width="18" align="absmiddle">](#--red%C3%A9marrage-du-serveur)
+
+>[!NOTE]
+>Après ajout/suppression d'une voie, pensez à ajouter/supprimer une carte pour celle-ci.&nbsp;&nbsp;&nbsp;[<img src="Medias/Icons/help-circle-outline_link.svg" width="18" align="absmiddle">](#--ajoutersupprimer-une-carte-voie)
+>
+>De même, après ajout/suppression d'une zone,  pensez à ajouter/supprimer une carte ainsi que les cartes liées, pour celle-ci.&nbsp;&nbsp;&nbsp;[<img src="Medias/Icons/help-circle-outline_link.svg" width="18" align="absmiddle">](#--ajoutersupprimer-une-carte-zone)
+
+<p align="center"><img src="Medias/Icons/divider.png"></p>
+
+
+#### - Redémarrage du serveur
+
+Pour prendre ne compte les changements lors de l'ajout/suppression de voies/zones, il est nécessaire de redémarrer le serveur. Cliquez simplement sur la carte prévue à cet effet qui apparaîtra automatiquement quand ce sera nécessaire.
+
+<p align="center"><img src="Medias/Documentation/redemarrage.gif" width="75%"></p>
+
+<p align="center"><img src="Medias/Icons/divider.png"></p>
+
+
+#### - Ajouter/supprimer une carte zone et les cartes liées
+
+La carte de zone ainsi que les cartes liées à une zone sont des cartes "streamlinées" **`misha_arrosage_zone`**, **`misha_arrosage_notification_arrosage_en_cours`** et **`misha_arrosage_zone_connectivity`**. Pour ces 3 cartes il faudra juste renseigner le numéro de la zone quand vous les ajoutez.
+
+<p align="center"><img src="Medias/Documentation/add_zone_card.gif" width="75%"></p>
+
+>[!NOTE]
+>Il vous faudra également reconfigurer le helper **`Calendar Merge`** pour qu'il corresponde à votre nombre de zone.&nbsp;&nbsp;&nbsp;[<img src="Medias/Icons/help-circle-outline_link.svg" width="18" align="absmiddle">](#--Configurer-Calendar-Merge)
+>
+>Pensez également à nommer vos zones.&nbsp;&nbsp;&nbsp;[<img src="Medias/Icons/help-circle-outline_link.svg" width="18" align="absmiddle">](#--modifier-le-nom-dune-zone)
+
+<p align="center"><img src="Medias/Icons/divider.png"></p>
+
+
+#### - Ajouter/supprimer une carte voie
+
+La carte de voie est une carte "streamlinée" **`misha_arrosage_voie`**, il vous suffira d'ajouter la carte et de renseigner le numéro de la voie ainsi que son nom.
+
+<p align="center"><img src="Medias/Documentation/add_voie_card.gif" width="75%"></p>
+
+<p align="center"><img src="Medias/Icons/divider.png"></p>
+
+
+#### - Modifier le nom d'une zone
+
+Pour modifier le nom d'une zone, cliquez sur <img src="Medias/Icons/form-textbox.svg" width="13" align="absmiddle"> dans la carte zone.
+
+<p align="center"><img src="Medias/Documentation/modifier_nom_zone.gif" width="75%"></p>
+
+<p align="center"><img src="Medias/Icons/divider.png"></p>
+
+
+#### - Modifier le nom d'une voie
+
+La modification du nom d'une voie, se fait en éditant la carte de la voie.
+
+<p align="center"><img src="Medias/Documentation/modifier_nom_voie.gif" width="75%"></p>
+
+<p align="center"><img src="Medias/Icons/divider.png"></p>
+
 
 #### - Les labels (étiquettes) de zone
 
@@ -76,83 +143,26 @@ C'est par cette action que l'on indique au **`Dashboard arrosage`** quels appare
 
 Une foie un appareil lié à une voie, l’icône <img src="Medias/Icons/check-network-outline_grey.svg" width="14" align="absmiddle"> deviendra <img src="Medias/Icons/check-network-outline_green.svg" width="14" align="absmiddle">ou <img src="Medias/Icons/check-network-outline_red.svg" width="14" align="absmiddle"> suivant la connectivité de l'appareil. Le changement de couleur  de l’icône permet de savoir si on est en mode démo ou production (icone grise ou colorée).
 
-
-#### - Ajouter/Supprimer une voie/zone
-
-Pour ajouter/supprimer une voie/zone du **`Dashboard arrosage`**, cliquez sur les icones correspondantes dans la page **`Paramètres`**.
-
-<p align="center"><img src="Medias/Documentation/ajout_suppression.gif" width="75%"></p>
-
-> [!IMPORTANT]
-> Après ajout/suppression, il sera nécessaire de redémarrer le serveur pour prendre en compte les changements.&nbsp;&nbsp;&nbsp;[<img src="Medias/Icons/help-circle-outline_link.svg" width="18" align="absmiddle">](#--red%C3%A9marrage-du-serveur)
-
-> [!NOTE]
->Après ajout/suppression d'une voie, pensez à ajouter/supprimer une carte pour celle-ci.&nbsp;&nbsp;&nbsp;[<img src="Medias/Icons/help-circle-outline_link.svg" width="18" align="absmiddle">](#--ajoutersupprimer-une-carte-voie)
->
->De même, après ajout/suppression d'une zone,  pensez à ajouter/supprimer une carte ainsi que les cartes liées, pour celle-ci.&nbsp;&nbsp;&nbsp;[<img src="Medias/Icons/help-circle-outline_link.svg" width="18" align="absmiddle">](#--ajoutersupprimer-une-carte-zone)
+>[!IMPORTANT]
+>Lier un appareil de votre configuration passera automatiquement le **`Dashboard arrosage`** en mode production.
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
 
-#### - Redémarrage du serveur
+#### - Modifier la durée d'une voie
 
-<p align="center"><img src="Medias/Documentation/redemarrage.gif" width="75%"></p>
+Pour modifier la durée d'une voie, cliquez sur <img src="Medias/Icons/timer.jpg" align="absmiddle"> et faites varier la durée à l'aide du curseur.
 
-<p align="center"><img src="Medias/Icons/divider.png"></p>
-
-
-#### - Ajouter/supprimer une carte voie
-
-La carte de voie est une carte "streamlinée" **`misha_arrosage_voie`**, il vous suffira d'ajouter la carte et de renseigner le numéro de la voie ainsi que son nom.
-
-<p align="center"><img src="Medias/Documentation/add_voie_card.gif" width="75%"></p>
+<p align="center"><img src="Medias/Documentation/modifier_duree.gif" width="75%"></p>
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
 
-#### - Ajouter/supprimer une carte zone et les cartes liées
+#### - Inclure/Exclure une voie d'un cycle d'arrosage
 
-La carte de zone ainsi que les cartes liées à une zone sont des cartes "streamlinées" **`misha_arrosage_zone`**, **`misha_arrosage_notification_arrosage_en_cours`** et **`misha_arrosage_zone_connectivity`**. Pour ces 3 cartes il faudra juste renseigner le numéro de la zone quand vous les ajoutez.
+Pour inclure une voie à un cycle d'arrosage, cliquez sur <img src="Medias/Icons/close-circle-outline_grey.svg" width="20" align="absmiddle">/<img src="Medias/Icons/check-circle-outline_green.svg" width="20" align="absmiddle"> de la voie voulue.
 
-<p align="center"><img src="Medias/Documentation/add_zone_card.gif" width="75%"></p>
-
-> [!NOTE]
->Il vous faudra également reconfigurer le helper **`Calendar Merge`** pour qu'il corresponde à votre nombre de zone.&nbsp;&nbsp;&nbsp;[<img src="Medias/Icons/help-circle-outline_link.svg" width="18" align="absmiddle">](#--Configurer-Calendar-Merge)
->
->Pensez également à nommer vos zones.&nbsp;&nbsp;&nbsp;[<img src="Medias/Icons/help-circle-outline_link.svg" width="18" align="absmiddle">](#--modifier-le-nom-dune-zone)
-
-<p align="center"><img src="Medias/Icons/divider.png"></p>
-
-
-#### - Les entités orphelines
-
-Après une suppression de voie/zone des entités orphelines se retrouveront présentes. Vous pouvez en voir la liste sur la page **`Paramètres`**.
-
-<p align="center"><img src="Medias/Documentation/entites_orphelines.jpg" width="75%"></p>
-
-Pour supprimer les entités orphelines, suivez le guide.
-
-<p align="center"><img src="Medias/Documentation/delete_orphaned.gif" width="75%"></p>
-
-<p align="center"><img src="Medias/Icons/divider.png"></p>
-
-
-#### - Ajouter son compteur d'eau
-
-<p align="center"><img src="Medias/Icons/divider.png"></p>
-
-
-#### - Le calcul du coefficient météo
-
-<p align="center"><img src="Medias/Icons/divider.png"></p>
-
-
-#### - La structure des dossiers/fichiers du dashboard
-
-<p align="center"><img src="Medias/Icons/divider.png"></p>
-
-
-#### - Passer en mode production
+<p align="center"><img src="Medias/Documentation/inclure_voie.gif" width="75%"></p>
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
@@ -178,49 +188,8 @@ Pour activer la programmation d'une zone, cliquez sur <img src="Medias/Icons/cal
 
 <p align="center"><img src="Medias/Documentation/activer_programmation.gif" width="75%"></p>
 
-> [!NOTE]
+>[!NOTE]
 >L'icône de programmation est mise à jour toutes les 12 heures ou au clic sur celle-ci. Ne vous inquiétez donc pas si elle reste orange même après que vous ayez ajouté des évènements au calendrier.
-
-<p align="center"><img src="Medias/Icons/divider.png"></p>
-
-
-#### - Modifier la durée d'une voie
-
-Pour modifier la durée d'une voie, cliquez sur <img src="Medias/Icons/timer.jpg" align="absmiddle"> et faites varier la durée à l'aide du curseur.
-
-<p align="center"><img src="Medias/Documentation/modifier_duree.gif" width="75%"></p>
-
-<p align="center"><img src="Medias/Icons/divider.png"></p>
-
-
-#### - Inclure/Exclure une voie d'un cycle d'arrosage
-
-Pour inclure une voie à un cycle d'arrosage, cliquez sur <img src="Medias/Icons/close-circle-outline_grey.svg" width="20" align="absmiddle">/<img src="Medias/Icons/check-circle-outline_green.svg" width="20" align="absmiddle"> de la voie voulue.
-
-<p align="center"><img src="Medias/Documentation/inclure_voie.gif" width="75%"></p>
-
-<p align="center"><img src="Medias/Icons/divider.png"></p>
-
-
-#### - Durée d'un cycle d'arrosage
-
-<p align="center"><img src="Medias/Icons/divider.png"></p>
-
-
-#### - Modifier le nom d'une zone
-
-Pour modifier le nom d'une zone, cliquez sur <img src="Medias/Icons/form-textbox.svg" width="13" align="absmiddle"> dans la carte zone.
-
-<p align="center"><img src="Medias/Documentation/modifier_nom_zone.gif" width="75%"></p>
-
-<p align="center"><img src="Medias/Icons/divider.png"></p>
-
-
-#### - Modifier le nom d'une voie
-
-La modification du nom d'une voie, se fait en éditant la carte de la voie.
-
-<p align="center"><img src="Medias/Documentation/modifier_nom_voie.gif" width="75%"></p>
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
@@ -237,8 +206,46 @@ Pour accéder rapidement à la configuration de la carte, faites un **`double-cl
 
 <p align="center"><img src="Medias/Documentation/reconfigure_calendar_merge.gif" width="75%"></p>
 
-> [!NOTE]
+>[!NOTE]
 >Une fois mise à jour la carte affichera les évènéments à venir pour les x zones, il peut cependant y avoir un délai dans la mise à jour de celle-ci.
+
+<p align="center"><img src="Medias/Icons/divider.png"></p>
+
+
+#### - Les entités orphelines
+
+Après une suppression de voie/zone des entités orphelines se retrouveront présentes. Vous pouvez en voir la liste sur la page **`Paramètres`**.
+
+<p align="center"><img src="Medias/Documentation/entites_orphelines.jpg" width="75%"></p>
+
+Pour supprimer les entités orphelines, suivez le guide.
+
+<p align="center"><img src="Medias/Documentation/delete_orphaned.gif" width="75%"></p>
+
+<p align="center"><img src="Medias/Icons/divider.png"></p>
+
+
+#### - Ajouter son compteur d'eau
+
+<p align="center"><img src="Medias/Icons/divider.png"></p>
+
+
+#### - Durée d'un cycle d'arrosage
+
+<p align="center"><img src="Medias/Icons/divider.png"></p>
+
+
+#### - Le calcul du coefficient météo
+
+<p align="center"><img src="Medias/Icons/divider.png"></p>
+
+
+#### - La structure des dossiers/fichiers du dashboard
+
+<p align="center"><img src="Medias/Icons/divider.png"></p>
+
+
+#### - Passer en mode production
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
