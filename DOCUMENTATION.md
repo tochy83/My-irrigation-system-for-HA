@@ -212,40 +212,12 @@ Pour accéder rapidement à la configuration de la carte, faites un **`double-cl
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
 
-#### - Les entités orphelines
-
-Après une suppression de voie/zone des entités orphelines se retrouveront présentes. Vous pouvez en voir la liste sur la page **`Paramètres`**.
-
-<p align="center"><img src="Medias/Documentation/entites_orphelines.jpg" width="75%"></p>
-
-Pour supprimer les entités orphelines, suivez le guide.
-
-<p align="center"><img src="Medias/Documentation/delete_orphaned.gif" width="75%"></p>
-
-<p align="center"><img src="Medias/Icons/divider.png"></p>
-
-
-#### - Ajouter son compteur d'eau
-
-<p align="center"><img src="Medias/Icons/divider.png"></p>
-
-
 #### - Durée d'un cycle d'arrosage
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
 
 #### - Le calcul du coefficient météo
-
-<p align="center"><img src="Medias/Icons/divider.png"></p>
-
-
-#### - La structure des dossiers/fichiers du dashboard
-
-<p align="center"><img src="Medias/Icons/divider.png"></p>
-
-
-#### - Passer en mode production
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
@@ -266,6 +238,36 @@ Tous les appareils mobiles et compte télégram liés à votre serveur **`Home A
 <p align="center"><img src="Medias/Documentation/choix_notifications.gif" width="75%"></p>
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
+
+
+#### - Ajouter son compteur d'eau
+
+<p align="center"><img src="Medias/Icons/divider.png"></p>
+
+
+#### - Passer en mode production
+
+<p align="center"><img src="Medias/Icons/divider.png"></p>
+
+
+#### - Les entités orphelines
+
+Après une suppression de voie/zone des entités orphelines se retrouveront présentes. Vous pouvez en voir la liste sur la page **`Paramètres`**.
+
+<p align="center"><img src="Medias/Documentation/entites_orphelines.jpg" width="75%"></p>
+
+Pour supprimer les entités orphelines, suivez le guide.
+
+<p align="center"><img src="Medias/Documentation/delete_orphaned.gif" width="75%"></p>
+
+<p align="center"><img src="Medias/Icons/divider.png"></p>
+
+
+#### - La structure des dossiers/fichiers du dashboard
+
+<p align="center"><img src="Medias/Icons/divider.png"></p>
+
+
 
 
 
