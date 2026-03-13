@@ -144,7 +144,7 @@ C'est par cette action que l'on indique au **`Dashboard arrosage`** quels appare
 Une foie un appareil lié à une voie, l’icône <img src="Medias/Icons/check-network-outline_grey.svg" width="14" align="absmiddle"> deviendra <img src="Medias/Icons/check-network-outline_green.svg" width="14" align="absmiddle">ou <img src="Medias/Icons/check-network-outline_red.svg" width="14" align="absmiddle"> suivant la connectivité de l'appareil. Le changement de couleur  de l’icône permet de savoir si on est en mode démo ou production (icone grise ou colorée).
 
 >[!IMPORTANT]
->Lier un appareil de votre configuration passera automatiquement le **`Dashboard arrosage`** en mode production.
+>Lier un appareil de votre configuration passera automatiquement le **`Dashboard arrosage`** en mode production.&nbsp;&nbsp;&nbsp;[<img src="Medias/Icons/help-circle-outline_link.svg" width="18" align="absmiddle">](#--passer-en-mode-production)
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
@@ -242,10 +242,42 @@ Tous les appareils mobiles et compte télégram liés à votre serveur **`Home A
 
 #### - Ajouter son compteur d'eau
 
+Si vous disposez d'un dispositif de comptage pour l'eau, vous pouvez l'ajouter au **`Dashboard arrosage`**.
+
+Pour cela il vous faudra éditer le fichier **`packages/misha_arrosage/settings/sensor_compteur_eau.yaml`** et modifier la ligne **`my_entity: sensor.d1mini_verger_compteur_eau_jour`** pour mettre votre propre sensor à la place.
+
+```yml
+# Name : sensor_compteur_eau.yaml
+
+
+template:
+  - sensor:
+      - name: "Misha arrosage - Compteur eau" # Sensor faisant le lien vers un compteur d'eau
+        unique_id: misha_arrosage_compteur_eau
+        state: "{{ states(my_entity) | int(0) }}"
+        icon: mdi:water
+        unit_of_measurement: L
+        variables:
+          my_entity: sensor.d1mini_verger_compteur_eau_jour
+
+        # Si vous n'avez pas de moyen de comptabliser votre consommation d'eau, laissez le sensor ci-dessus tel quel il affichera juste 0.
+        # Si vous en avez un, remplacer 'sensor.d1mini_verger_compteur_eau_jour' dans la ligne 'my_entity:'
+        # par votre entité qui comptabilise votre consommation d'eau.
+```
+
+>[!NOTE]
+>Comme toujours une modification dans un fichier **`.yaml`** nécessite un redémarrage du serveur ensuite pour être prise ne compte.
+>
+>Si vous n'avez pas de dispositif de comptage, vous pouvez bien sur supprimer la carte **`Compteur d'eau`** du **`Dashboard arrosage`**.
+
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
 
 #### - Passer en mode production
+
+Pour basculer le **`Dashboard arrosage`** en mode production, il suffit de lier au minimum une voie à un appareil de votre configuration.&nbsp;&nbsp;&nbsp;[<img src="Medias/Icons/help-circle-outline_link.svg" width="18" align="absmiddle">](#--lierenlever-un-appareil-%C3%A0-une-voie)
+
+Lors de la bascule, toutes les voies virtuelles (mode démo) seront automatiquement désélectionnées des cycles de zone.
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
