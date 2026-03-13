@@ -22,7 +22,7 @@ C'est sur la voie d'arrosage qu'on définit **`la durée`** d'ouverture de l'él
 
 - Cycle d'arrosage de zone : Un cycle d'arrosage de zone pilote le déclenchement successif de chaque voie comprise dans la zone.
 
-Pour résumé :
+Pour résumer :
 - On définit dans le calendrier les jours et heures de départ d'arrosage ainsi que le nom de la zone concernée (les événements).
 - Lorsque la date présente correspond à un événement du calendrier, un ordre est envoyé pour déclencher un arrosage de la zone renseignée dans l'événement du calendrier.
 - Cet ordre déclenchera un cycle d'arrosage de la zone concernée.
@@ -58,7 +58,7 @@ Pour ajouter/supprimer une voie/zone du **`Dashboard arrosage`**, cliquez sur le
 
 #### - Redémarrage du serveur
 
-Pour prendre ne compte les changements lors de l'ajout/suppression de voies/zones, il est nécessaire de redémarrer le serveur. Cliquez simplement sur la carte prévue à cet effet qui apparaîtra automatiquement quand ce sera nécessaire.
+Pour prendre en compte les changements lors de l'ajout/suppression de voies/zones, il est nécessaire de redémarrer le serveur. Cliquez simplement sur la carte prévue à cet effet qui apparaîtra automatiquement quand ce sera nécessaire.
 
 <p align="center"><img src="Medias/Documentation/redemarrage.gif" width="75%"></p>
 
@@ -141,7 +141,7 @@ Une fois liée à une zone, l’icône <img src="Medias/Icons/dots-horizontal_or
 
 C'est par cette action que l'on indique au **`Dashboard arrosage`** quels appareils il doit piloter.
 
-Une foie un appareil lié à une voie, l’icône <img src="Medias/Icons/check-network-outline_grey.svg" width="14" align="absmiddle"> deviendra <img src="Medias/Icons/check-network-outline_green.svg" width="14" align="absmiddle">ou <img src="Medias/Icons/check-network-outline_red.svg" width="14" align="absmiddle"> suivant la connectivité de l'appareil. Le changement de couleur  de l’icône permet de savoir si on est en mode démo ou production (icone grise ou colorée).
+Une fois un appareil lié à une voie, l’icône <img src="Medias/Icons/check-network-outline_grey.svg" width="14" align="absmiddle"> deviendra <img src="Medias/Icons/check-network-outline_green.svg" width="14" align="absmiddle">ou <img src="Medias/Icons/check-network-outline_red.svg" width="14" align="absmiddle"> suivant la connectivité de l'appareil. Le changement de couleur  de l’icône permet de savoir si on est en mode démo ou production (icone grise ou colorée).
 
 >[!IMPORTANT]
 >Lier un appareil de votre configuration passera automatiquement le **`Dashboard arrosage`** en mode production.&nbsp;&nbsp;&nbsp;[<img src="Medias/Icons/help-circle-outline_link.svg" width="18" align="absmiddle">](#--passer-en-mode-production)
@@ -234,7 +234,7 @@ Le **`coefficient météo`** peut prendre une valeur entre 0 et 5 au pas de 0.1,
 
 Son calcul est lancé à chaque démarrage d'un cycle d'arrosage programmé. Il est remis à 100% tous les jours à minuit.
 
-**📄 `Le fichier de base :`**
+**📄 Fichier: `packages/misha_arrosage/settings/script_coeff_meteo.yaml`**
 ```yml
 # Name : script_coeff_meteo.yaml
 # Dans ce fichier, se trouve le script permettant le calcul du coefficient météo
@@ -302,7 +302,7 @@ script:
 ```
 
 >[!NOTE]
->Comme toujours une modification dans un fichier **`.yaml`** nécessite un redémarrage du serveur ensuite pour être prise ne compte.
+>Comme toujours une modification dans un fichier **`.yaml`** nécessite un redémarrage du serveur ensuite pour être prise en compte.
 >
 >Je n'ai pas testé ce template, je l'ai juste mis à titre d'exemple.
 
@@ -337,7 +337,7 @@ Il y'a dans ces messages, des variables **`{zone_nom}`**, **`{heure}`**, **`{zon
 
 Vous pouvez également jouez sur les paramètres **`color`**, **`icon`**, **`tag`** et **`persistent`** pour les ajuster à votre envie.
 
-**📄 `Le fichier de base :`**
+**📄 Fichier: `packages/misha_arrosage/settings/arrosage_data_messages_notifications.json`**
 ```json
 {
     "cycle_started": {
@@ -436,7 +436,7 @@ Si vous disposez d'un dispositif de comptage pour l'eau, vous pouvez l'ajouter a
 
 Pour cela il vous faudra éditer le fichier **`packages/misha_arrosage/settings/sensor_compteur_eau.yaml`** et modifier la ligne **`my_entity: sensor.d1mini_verger_compteur_eau_jour`** pour mettre votre propre sensor à la place.
 
-**📄 `Le fichier de base :`**
+**📄 Fichier: `packages/misha_arrosage/settings/sensor_compteur_eau.yaml`**
 ```yml
 # Name : sensor_compteur_eau.yaml
 
@@ -486,7 +486,53 @@ Pour supprimer les entités orphelines, suivez le guide.
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
 
-#### - La structure des dossiers/fichiers du dashboard
+#### - La structure des dossiers/fichiers du package
+
+```plaintext
+📂 misha_arrosage/
+├── 📂 automation_and_scripts/
+│   ├── 📄 automatisation_alerte.yaml
+│   ├── 📄 automatisation_calendrier.yaml
+│   ├── 📄 automatisation_init_at_restart.yaml
+│   ├── 📄 automatisation_reinitialise_coefficient_meteo.yaml
+│   ├── 📄 automatisation_reset_nb_entites_orphelines.yaml
+│   ├── 📄 automatisation_sauvegarde_choix_notifications.yaml
+│   ├── 📄 script_arret.yaml
+│   ├── 📄 script_declenchement_auto_voies.yaml
+│   ├── 📄 script_envoi_notifications.yaml
+│   ├── 📄 script_listes_appareils_pour_notifications.yaml
+│   ├── 📄 script_maj_data_voies_and_zones.yaml
+│   ├── 📄 script_notifications_temporaires.yaml
+│   └── 📄 script_programmation_zone_permuter.yaml
+├── 📂 core/
+│   ├── 📂 data/
+│   │   └── 📄 arrosage_data_preferences_notifications.json
+│   ├── 📂 modeles/
+│   │   ├── 📄 automatisation_voie_1.yaml
+│   │   ├── 📄 automatisation_zone_1.yaml
+│   │   ├── 📄 voie_1.yaml
+│   │   └── 📄 zone_1.yaml
+│   └── 📂 python/
+│       ├── 📄 arrosage_data_preferences_notifications.py
+│       ├── 📄 arrosage_generer_fichiers_voie.py
+│       ├── 📄 arrosage_generer_fichiers_zone.py
+│       ├── 📄 arrosage_supprimer_fichiers_voie.py
+│       └── 📄 arrosage_supprimer_fichiers_zone.py
+├── 📂 dashboard/
+│   └── 📄 dashboard_arrosage.txt
+├── 📂 settings/
+│   ├── 📄 arrosage_data_messages_notifications.json
+│   ├── 📄 script_coeff_meteo.yaml
+│   └── 📄 sensor_compteur_eau.yaml
+├── 📂 Voies_and_zones/
+│   ├── 📄 automatisation_voie_1.yaml
+│   ├── 📄 automatisation_zone_1.yaml
+│   ├── 📄 voie_1.yaml
+│   └── 📄 zone_1.yaml
+├── 📄 generic_sensors.yaml
+├── 📄 sensor_data_voies.yaml
+└── 📄 sensor_data_zones.yaml
+```
 
 <p align="center"><img src="Medias/Icons/divider.png"></p>
 
@@ -495,3 +541,4 @@ Pour supprimer les entités orphelines, suivez le guide.
 
 
 <br><br><br><br><br>
+
